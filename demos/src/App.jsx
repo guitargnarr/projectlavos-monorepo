@@ -85,7 +85,7 @@ function StatsSection() {
       const progress = step / steps
 
       setCounts({
-        demos: Math.round(4 * progress),
+        demos: Math.round(5 * progress),
         response: Math.round(100 * progress),
         projects: Math.round(8 * progress)
       })
@@ -134,6 +134,7 @@ function Demos() {
 
         <div className="space-y-8">
           <RestaurantAnalyzer />
+          <EmailScorer />
           <SentimentDemo />
           <LeadScoringDemo />
           <PhishingDemo />
@@ -698,6 +699,290 @@ function RestaurantAnalyzer() {
               className="inline-block bg-white text-lavos-orange font-bold py-3 px-6 border-2 border-lavos-black hover:translate-y-[-2px] transition-all"
             >
               Get Your Free Analysis
+            </a>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function EmailScorer() {
+  const [subject, setSubject] = useState('')
+  const [body, setBody] = useState('')
+  const [recipientType, setRecipientType] = useState('business')
+  const [analysis, setAnalysis] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+
+  const sampleEmails = {
+    good: {
+      subject: "Cut Your Restaurant's Review Analysis Time by 10 Hours/Week",
+      body: `Hi Sarah,
+
+I noticed Proof on Main has over 500 Google reviews - that's fantastic! But I imagine analyzing all that feedback to find actionable insights takes your team hours each week.
+
+I've built an AI tool specifically for Louisville restaurants that analyzes all your reviews in seconds and gives you:
+• Key themes customers mention most
+• Actionable recommendations to improve satisfaction
+• Real-time sentiment tracking
+
+Would you be interested in a free 15-minute demo next Tuesday or Thursday? I'll analyze Proof on Main's reviews live and show you exactly what customers are saying.
+
+No sales pressure - just showing a local tool that could save you 10+ hours per week.
+
+Best,
+Matthew Scott
+Louisville AI Consultant`,
+      type: "business"
+    },
+    bad: {
+      subject: "Revolutionary AI Solution for Your Business!!!",
+      body: `Dear Sir/Madam,
+
+Greetings!
+
+We are excited to introduce our cutting-edge, revolutionary, game-changing AI platform that will transform your business overnight! Our solution uses advanced machine learning algorithms and neural networks to optimize your workflows and increase productivity by 500%!!!
+
+Our comprehensive suite of tools includes artificial intelligence, machine learning, deep learning, natural language processing, computer vision, blockchain integration, quantum computing, and much more!
+
+We guarantee results or your money back! Act now and receive 50% off! This offer expires soon!
+
+Click here to schedule a demo: [suspicious link]
+
+Best Regards,
+John Smith`,
+      type: "business"
+    }
+  }
+
+  const loadSampleEmail = (type) => {
+    const email = sampleEmails[type]
+    setSubject(email.subject)
+    setBody(email.body)
+    setRecipientType(email.type)
+  }
+
+  const handleScore = async () => {
+    if (!subject || !body) {
+      setError('Please enter both subject and body')
+      return
+    }
+
+    setLoading(true)
+    setError(null)
+    setAnalysis(null)
+
+    try {
+      const response = await fetch(`${API_URL}/api/score-email`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          subject,
+          body,
+          recipient_type: recipientType
+        })
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to score email')
+      }
+
+      const data = await response.json()
+      setAnalysis(data)
+    } catch (err) {
+      setError(err.message || 'Something went wrong')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const getScoreColor = (score) => {
+    if (score >= 8) return 'bg-lavos-green'
+    if (score >= 6) return 'bg-lavos-orange'
+    return 'bg-red-500'
+  }
+
+  const getMetricColor = (value) => {
+    if (value >= 8) return 'text-lavos-green'
+    if (value >= 6) return 'text-lavos-orange'
+    return 'text-red-500'
+  }
+
+  return (
+    <div className="bg-white border-3 border-lavos-black shadow-brutal p-6">
+      <h3 className="text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2">
+        <span className="text-3xl">📧</span> Sales Email Scorer
+      </h3>
+      <p className="text-gray-600 mb-6">
+        Score your sales emails for effectiveness and get AI-powered improvement suggestions
+      </p>
+
+      {/* Sample Data Buttons */}
+      <div className="mb-6 flex flex-wrap gap-2">
+        <button
+          onClick={() => loadSampleEmail('good')}
+          className="px-4 py-2 bg-lavos-green text-white font-bold border-2 border-lavos-black shadow-brutal-sm hover:translate-y-[-2px] transition-all"
+        >
+          Load Good Example
+        </button>
+        <button
+          onClick={() => loadSampleEmail('bad')}
+          className="px-4 py-2 bg-red-500 text-white font-bold border-2 border-lavos-black shadow-brutal-sm hover:translate-y-[-2px] transition-all"
+        >
+          Load Bad Example
+        </button>
+      </div>
+
+      {/* Input Form */}
+      <div className="space-y-4">
+        <div>
+          <label className="block text-sm font-bold text-gray-700 mb-1">
+            Recipient Type
+          </label>
+          <select
+            value={recipientType}
+            onChange={(e) => setRecipientType(e.target.value)}
+            className="w-full p-3 border-3 border-gray-800 font-bold focus:border-lavos-blue focus:outline-none"
+          >
+            <option value="business">Business (B2B)</option>
+            <option value="consumer">Consumer (B2C)</option>
+            <option value="executive">Executive Level</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-sm font-bold text-gray-700 mb-1">
+            Email Subject Line
+          </label>
+          <input
+            type="text"
+            value={subject}
+            onChange={(e) => setSubject(e.target.value)}
+            placeholder="Enter your email subject..."
+            className="w-full p-3 border-3 border-gray-800 font-medium focus:border-lavos-blue focus:outline-none"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-bold text-gray-700 mb-1">
+            Email Body
+          </label>
+          <textarea
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
+            placeholder="Enter your email body..."
+            rows="8"
+            className="w-full p-3 border-3 border-gray-800 font-medium focus:border-lavos-blue focus:outline-none resize-y"
+          />
+          <p className="text-sm text-gray-500 mt-1">
+            {body.length}/5000 characters
+          </p>
+        </div>
+
+        <button
+          onClick={handleScore}
+          disabled={loading || !subject || !body}
+          className="w-full py-4 bg-lavos-blue text-white font-bold text-lg border-3 border-lavos-black shadow-brutal hover:translate-y-[-2px] hover:shadow-brutal-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+        >
+          {loading ? 'Analyzing...' : 'Score This Email'}
+        </button>
+      </div>
+
+      {/* Error Display */}
+      {error && (
+        <div className="mt-6 p-4 bg-red-100 border-3 border-red-500 text-red-700">
+          <p className="font-bold">Error: {error}</p>
+        </div>
+      )}
+
+      {/* Analysis Results */}
+      {analysis && (
+        <div className="mt-8 space-y-6">
+          {/* Overall Score */}
+          <div className={`${getScoreColor(analysis.score)} text-white border-3 border-lavos-black shadow-brutal p-6 text-center`}>
+            <h4 className="text-3xl font-black mb-2">
+              Score: {analysis.score}/10
+            </h4>
+            <p className="text-lg">
+              {analysis.score >= 8 ? 'Excellent email! Ready to send.' :
+               analysis.score >= 6 ? 'Good foundation, needs some improvements.' :
+               'Needs significant work before sending.'}
+            </p>
+          </div>
+
+          {/* Key Metrics */}
+          {analysis.key_metrics && (
+            <div className="bg-white border-3 border-lavos-black shadow-brutal-sm p-6">
+              <h4 className="text-xl font-bold mb-4">Performance Metrics</h4>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {Object.entries(analysis.key_metrics).map(([metric, value]) => (
+                  <div key={metric} className="text-center">
+                    <div className={`text-3xl font-black ${getMetricColor(value)}`}>
+                      {value}/10
+                    </div>
+                    <div className="text-sm font-bold text-gray-600 capitalize mt-1">
+                      {metric.replace('_', ' ')}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Strengths */}
+          {analysis.strengths && analysis.strengths.length > 0 && (
+            <div className="bg-lavos-green text-white border-3 border-lavos-black shadow-brutal-sm p-6">
+              <h4 className="text-xl font-bold mb-3 flex items-center gap-2">
+                <span>✅</span> Strengths
+              </h4>
+              <ul className="space-y-2">
+                {analysis.strengths.map((strength, index) => (
+                  <li key={index} className="flex items-start gap-2">
+                    <span className="font-bold">•</span>
+                    <span>{strength}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Improvements */}
+          {analysis.improvements && analysis.improvements.length > 0 && (
+            <div className="bg-lavos-orange text-white border-3 border-lavos-black shadow-brutal-sm p-6">
+              <h4 className="text-xl font-bold mb-3 flex items-center gap-2">
+                <span>🔧</span> Improvements Needed
+              </h4>
+              <ul className="space-y-2">
+                {analysis.improvements.map((improvement, index) => (
+                  <li key={index} className="flex items-start gap-2">
+                    <span className="font-bold">{index + 1}.</span>
+                    <span>{improvement}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Revised Subject Line */}
+          {analysis.revised_subject && (
+            <div className="bg-lavos-blue text-white border-3 border-lavos-black shadow-brutal-sm p-6">
+              <h4 className="text-xl font-bold mb-3">Improved Subject Line</h4>
+              <p className="text-lg italic">"{analysis.revised_subject}"</p>
+            </div>
+          )}
+
+          {/* Call to Action */}
+          <div className="bg-gray-100 border-3 border-lavos-black shadow-brutal-sm p-6 text-center">
+            <p className="text-lg font-bold mb-2">Want to improve your team's email effectiveness?</p>
+            <p className="mb-4 text-gray-700">I can help your sales team craft emails that convert.</p>
+            <a
+              href="mailto:matthewdscott7@gmail.com?subject=Sales%20Email%20Training"
+              className="inline-block bg-lavos-blue text-white font-bold py-3 px-6 border-2 border-lavos-black hover:translate-y-[-2px] transition-all"
+            >
+              Schedule Email Training
             </a>
           </div>
         </div>
