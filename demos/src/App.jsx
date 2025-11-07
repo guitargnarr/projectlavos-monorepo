@@ -573,9 +573,26 @@ function RestaurantAnalyzer() {
       const data = await response.json()
       setAnalysis(data)
     } catch (err) {
+      let errorMessage = 'Something went wrong. Please try again.'
+      let canRetry = true
+
+      if (err.message.includes('Failed to fetch') || err.name === 'NetworkError') {
+        errorMessage = 'Cannot connect to the analysis server. Please check your connection and try again.'
+      } else if (err.message.includes('429')) {
+        errorMessage = 'Too many requests. Please wait a moment before trying again.'
+        canRetry = false
+        setTimeout(() => setError(null), 5000) // Clear error after 5 seconds
+      } else if (err.message.includes('500') || err.message.includes('502')) {
+        errorMessage = 'Server error. Our team has been notified. Please try again later.'
+      } else if (err.message.includes('API error')) {
+        errorMessage = `Analysis failed: ${err.message}. Please try again.`
+      } else {
+        errorMessage = 'Demo server is waking up (first use takes ~30 seconds). Please try again in a moment.'
+      }
+
       setError({
-        message: 'Demo server is waking up (first use takes ~30 seconds). Please try again in a moment.',
-        canRetry: true
+        message: errorMessage,
+        canRetry: canRetry
       })
     } finally {
       setLoading(false)
@@ -840,13 +857,27 @@ John Smith`,
       })
 
       if (!response.ok) {
-        throw new Error('Failed to score email')
+        throw new Error(`API error: ${response.status}`)
       }
 
       const data = await response.json()
       setAnalysis(data)
     } catch (err) {
-      setError(err.message || 'Something went wrong')
+      let errorMessage = 'Something went wrong. Please try again.'
+
+      if (err.message.includes('Failed to fetch') || err.name === 'NetworkError') {
+        errorMessage = 'Cannot connect to the scoring server. Please check your connection.'
+      } else if (err.message.includes('429')) {
+        errorMessage = 'Too many requests. Please wait a moment before trying again.'
+      } else if (err.message.includes('500') || err.message.includes('502')) {
+        errorMessage = 'Server error. Our team has been notified. Please try again later.'
+      } else if (err.message.includes('API error')) {
+        errorMessage = `Scoring failed: ${err.message}. Please try again.`
+      } else {
+        errorMessage = 'Scoring server is waking up (first use takes ~20 seconds). Please try again.'
+      }
+
+      setError(errorMessage)
     } finally {
       setLoading(false)
     }
