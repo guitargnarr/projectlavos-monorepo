@@ -20,47 +20,100 @@ function App() {
 
 function Hero() {
   return (
-    <header className="bg-lavos-blue text-white py-20 px-6 relative overflow-hidden">
-      {/* Subtle decorative elements */}
-      <div className="absolute top-8 left-8 w-24 h-24 bg-lavos-orange rounded-full opacity-10"></div>
-      <div className="absolute bottom-8 right-8 w-40 h-40 bg-lavos-green rounded-full opacity-10"></div>
-
-      {/* Main content - flex column for proper stacking */}
-      <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center gap-6">
-
-        {/* PRIMARY FOCAL POINT: Name with full brutal treatment */}
-        <div className="transform -rotate-2">
-          <h1 className="text-5xl md:text-7xl font-black px-12 py-6 bg-white text-lavos-blue border-4 border-lavos-black shadow-brutal-lg">
-            Matthew Scott
+    <header className="bg-white py-16 px-6">
+      <div className="max-w-4xl mx-auto">
+        {/* The 10-Hour Question Hero */}
+        <div className="bg-white border-3 border-lavos-black shadow-brutal-lg p-8 mb-8">
+          <h1 className="text-4xl md:text-5xl font-black mb-6 text-gray-900">
+            Stop Asking "Should We Use AI?"
           </h1>
+
+          <div className="space-y-4 text-lg text-gray-700">
+            <p>Everyone asks me: <span className="font-bold">"Should my business use AI?"</span></p>
+
+            <p>I always answer with the same question:</p>
+          </div>
+
+          <blockquote className="my-8 pl-6 border-l-4 border-lavos-orange">
+            <p className="text-3xl md:text-4xl font-black text-lavos-blue leading-tight">
+              "What's taking your team 10+ hours per week that you wish was automatic?"
+            </p>
+          </blockquote>
+
+          <div className="space-y-4 text-lg text-gray-700 mb-8">
+            <p>If you can answer that question in 10 seconds, <span className="font-bold">we should talk</span>.</p>
+            <p>If you can't, <span className="font-bold">try the free demos</span> and see if AI actually solves YOUR problem.</p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4">
+            <a
+              href="https://demos.projectlavos.com"
+              className="bg-lavos-orange text-white font-bold py-4 px-8 border-3 border-lavos-black shadow-brutal hover:-translate-y-1 hover:shadow-brutal-lg transition-all text-center no-underline"
+            >
+              Try Free Demos
+            </a>
+            <a
+              href="mailto:matthewdscott7@gmail.com?subject=10-Hour%20Question"
+              className="bg-white text-lavos-blue font-bold py-4 px-8 border-3 border-lavos-black shadow-brutal hover:-translate-y-1 hover:shadow-brutal-lg transition-all text-center no-underline"
+            >
+              Let's Talk
+            </a>
+          </div>
         </div>
 
-        {/* SECONDARY: Clean tagline - let H1 shine */}
-        <p className="text-2xl md:text-3xl font-bold mt-4 text-white border-b-4 border-lavos-orange pb-2">
-          AI Consultant • Louisville, KY
-        </p>
+        {/* The Framework Section */}
+        <div className="bg-white border-3 border-lavos-black shadow-brutal p-8 mb-8">
+          <h2 className="text-3xl font-black mb-6 text-gray-900">The 10-Hour Question Framework</h2>
+          <div className="space-y-6">
+            <div className="border-l-4 border-lavos-blue pl-6">
+              <h3 className="text-xl font-bold mb-2 text-gray-900">1. Identify the 10-hour task</h3>
+              <p className="text-gray-700">What's eating your team's time?</p>
+            </div>
+            <div className="border-l-4 border-lavos-orange pl-6">
+              <h3 className="text-xl font-bold mb-2 text-gray-900">2. See if AI can do it</h3>
+              <p className="text-gray-700">Try the demos with your actual data</p>
+            </div>
+            <div className="border-l-4 border-lavos-green pl-6">
+              <h3 className="text-xl font-bold mb-2 text-gray-900">3. Calculate the ROI</h3>
+              <p className="text-gray-700">10 hours/week × $50/hour = $26K/year saved</p>
+            </div>
+            <div className="border-l-4 border-lavos-blue pl-6">
+              <h3 className="text-xl font-bold mb-2 text-gray-900">4. Implement or move on</h3>
+              <p className="text-gray-700">Simple. No fluff.</p>
+            </div>
+          </div>
+        </div>
 
-        {/* TERTIARY: Pain-focused value proposition */}
-        <p className="text-lg md:text-xl text-white/90 font-medium max-w-2xl text-center">
-          Louisville SMBs: Stop Wasting 10+ Hours/Week on Manual Work
-        </p>
-        <p className="text-base md:text-lg text-white/80 max-w-2xl text-center">
-          I help restaurants, legal firms, and real estate agencies implement practical AI tools that save time and increase revenue — without the tech jargon.
-        </p>
+        {/* About Matthew Section */}
+        <div className="bg-white border-3 border-lavos-black shadow-brutal p-8">
+          <div className="transform -rotate-1 inline-block mb-4">
+            <h2 className="text-3xl font-black px-6 py-3 bg-lavos-blue text-white border-3 border-lavos-black">
+              Matthew Scott
+            </h2>
+          </div>
 
-        {/* PRIMARY CTA: Book free assessment */}
-        <div className="mt-8 flex flex-col gap-4 items-center">
-          <a
-            href="https://calendly.com/matthewdscott7/ai-assessment"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-lavos-orange text-white px-8 py-4 border-3 border-lavos-black shadow-brutal font-black text-lg hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200 no-underline"
-          >
-            Book Your Free 1-Hour AI Assessment →
-          </a>
-          <p className="text-sm text-white/60">
-            Louisville-based • HIPAA-compliant AI • Zero pressure consultation
-          </p>
+          <p className="text-xl font-bold mb-4 text-gray-900">AI Consultant • Louisville, KY</p>
+
+          <div className="space-y-4 text-lg text-gray-700">
+            <p>10 years in AI/ML. Teaching individuals, consulting for Louisville businesses.</p>
+
+            <p>
+              If you have a 10-hour problem, let's talk:{' '}
+              <a href="mailto:matthewdscott7@gmail.com" className="text-lavos-blue font-bold hover:underline">
+                matthewdscott7@gmail.com
+              </a>
+            </p>
+
+            <p className="text-gray-600">Otherwise, enjoy the free demos.</p>
+          </div>
+
+          <div className="mt-6 pt-6 border-t-2 border-gray-200">
+            <p className="text-sm text-gray-600">
+              <span className="font-bold">Louisville-based</span> •
+              <span className="font-bold"> HIPAA-compliant AI</span> •
+              <span className="font-bold"> Zero pressure consultation</span>
+            </p>
+          </div>
         </div>
       </div>
     </header>
