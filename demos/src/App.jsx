@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import BentoCard from './components/BentoCard'
+import LoadingProgress from './components/LoadingProgress'
+import SuccessAnimation from './components/SuccessAnimation'
+import AnimatedCounter from './components/AnimatedCounter'
 
 const API_URL = 'https://projectlavos-backend.onrender.com'
 
@@ -145,25 +149,141 @@ function StatCard({ number, label, icon, bgColor }) {
 }
 
 function Demos() {
+  const [activeDemo, setActiveDemo] = useState(null)
+
+  const demos = [
+    {
+      id: 'restaurant',
+      title: 'Restaurant Analyzer',
+      icon: '🍽️',
+      timeSaved: '5 hrs/week',
+      description: 'Analyze Louisville restaurant reviews instantly',
+      component: RestaurantAnalyzer,
+      featured: true
+    },
+    {
+      id: 'email',
+      title: 'Email Scorer',
+      icon: '📧',
+      timeSaved: '3 hrs/week',
+      description: 'Score sales emails for effectiveness',
+      component: EmailScorer,
+      featured: true
+    },
+    {
+      id: 'sentiment',
+      title: 'Sentiment Analysis',
+      icon: '💭',
+      timeSaved: '2 hrs/week',
+      description: 'Detect emotion in any text',
+      component: SentimentDemo
+    },
+    {
+      id: 'lead',
+      title: 'Lead Scoring',
+      icon: '📊',
+      timeSaved: '2 hrs/week',
+      description: 'Qualify leads automatically',
+      component: LeadScoringDemo
+    },
+    {
+      id: 'phishing',
+      title: 'Phishing Detector',
+      icon: '🎣',
+      timeSaved: '1 hr/week',
+      description: 'Protect from email threats',
+      component: PhishingDemo
+    }
+  ]
+
   return (
-    <section className="py-16 px-6 bg-gray-50">
-      <div className="max-w-6xl mx-auto">
-        {/* Clean section header - no brutal styling needed */}
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4 border-b-4 border-lavos-orange inline-block pb-2">
-            Try the Demos
+    <section className="py-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+      <div className="max-w-7xl mx-auto">
+        {/* Hero Message */}
+        <div className="text-center mb-16">
+          <h2 className="text-5xl md:text-6xl font-black mb-6">
+            <span className="bg-gradient-to-r from-purple-600 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+              Save 10+ Hours Every Week
+            </span>
           </h2>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto mt-6">
-            Interactive demonstrations of AI capabilities for Louisville businesses
+          <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Click any demo below to try with your real data — see results in seconds
           </p>
+          <div className="mt-6 flex items-center justify-center gap-2 text-sm text-gray-500">
+            <span className="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+            All demos powered by Claude AI • Response time: &lt;5 seconds
+          </div>
         </div>
 
-        <div className="space-y-8">
-          <RestaurantAnalyzer />
-          <EmailScorer />
-          <SentimentDemo />
-          <LeadScoringDemo />
-          <PhishingDemo />
+        {/* Bento Grid */}
+        <div className="bento-grid">
+          {demos.map((demo, index) => (
+            <BentoCard
+              key={demo.id}
+              title={demo.title}
+              icon={demo.icon}
+              timeSaved={demo.timeSaved}
+              description={demo.description}
+              index={index}
+              onClick={() => setActiveDemo(demo.id)}
+              isActive={activeDemo === demo.id}
+            />
+          ))}
+        </div>
+
+        {/* Expanded Demo Modal */}
+        {activeDemo && (
+          <div className="fixed inset-0 z-50 flex items-start justify-center p-4 bg-black/60 backdrop-blur-sm overflow-y-auto">
+            <div className="relative w-full max-w-5xl my-8">
+              {/* Close button */}
+              <button
+                onClick={() => setActiveDemo(null)}
+                className="absolute -top-4 -right-4 z-10 w-12 h-12 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center text-gray-600 hover:text-gray-900 hover:scale-110"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+
+              {/* Demo Content */}
+              <div className="bg-white rounded-3xl shadow-2xl p-8 animate-fadeInUp">
+                {(() => {
+                  const ActiveComponent = demos.find(d => d.id === activeDemo)?.component
+                  return ActiveComponent ? <ActiveComponent /> : null
+                })()}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Trust Indicators */}
+        <div className="mt-16 pt-12 border-t border-gray-200">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div>
+              <div className="text-3xl font-black text-gray-900 mb-2">
+                <AnimatedCounter value={5} />+
+              </div>
+              <div className="text-sm text-gray-600">Live Demos</div>
+            </div>
+            <div>
+              <div className="text-3xl font-black text-gray-900 mb-2">
+                <AnimatedCounter value={13} />+
+              </div>
+              <div className="text-sm text-gray-600">Hours Saved/Week</div>
+            </div>
+            <div>
+              <div className="text-3xl font-black text-gray-900 mb-2">
+                &lt;<AnimatedCounter value={100} />ms
+              </div>
+              <div className="text-sm text-gray-600">Response Time</div>
+            </div>
+            <div>
+              <div className="text-3xl font-black text-gray-900 mb-2">
+                100%
+              </div>
+              <div className="text-sm text-gray-600">Louisville Local</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

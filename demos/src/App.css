@@ -316,7 +316,96 @@ body {
   margin-top: 0.5rem;
 }
 
-/* Animations */
+/* ========================================= */
+/* BENTO GRID SYSTEM                        */
+/* ========================================= */
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  padding: 24px 0;
+}
+
+@media (min-width: 768px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .bento-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.bento-card {
+  container-type: inline-size;
+}
+
+/* Featured cards span 2 columns on large screens */
+@media (min-width: 1024px) {
+  .bento-card.featured {
+    grid-column: span 2;
+  }
+}
+
+/* ========================================= */
+/* ANIMATIONS                               */
+/* ========================================= */
+
+/* Entrance animation for Bento cards */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Success pulse animation */
+.success-pulse {
+  animation: pulse-ring 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 20px rgba(34, 197, 94, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 0 40px rgba(34, 197, 94, 0);
+  }
+}
+
+/* Shimmer loading effect */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer {
+  animation: shimmer 2s infinite linear;
+  background: linear-gradient(
+    to right,
+    #f0f0f0 0%,
+    #f8f8f8 20%,
+    #f0f0f0 40%,
+    #f0f0f0 100%
+  );
+  background-size: 1000px 100%;
+}
+
+/* Fade in slide (legacy support) */
 .fade-in {
   animation: fadeInSlide 0.4s ease-out;
 }
@@ -330,6 +419,34 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Modal fade in animation */
+.animate-fadeInUp {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar for modal overlay but keep functionality */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 8px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.5);
+  border-radius: 4px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: rgba(107, 114, 128, 0.7);
 }
 
 /* Mobile Responsive Improvements */
