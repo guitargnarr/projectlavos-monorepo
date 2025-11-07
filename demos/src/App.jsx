@@ -4,6 +4,7 @@ import BentoCard from './components/BentoCard'
 import LoadingProgress from './components/LoadingProgress'
 import SuccessAnimation from './components/SuccessAnimation'
 import AnimatedCounter from './components/AnimatedCounter'
+import FeaturedProjects from './components/FeaturedProjects'
 
 const API_URL = 'https://projectlavos-backend.onrender.com'
 
@@ -38,8 +39,8 @@ function App() {
     <div className="app">
       <Hero />
       <StatsSection />
+      <FeaturedProjects />
       <Demos />
-      <SocialProof />
       <ServicesAndPricing />
       <ContactForm />
       <About />
@@ -99,9 +100,9 @@ function Hero() {
 
 function StatsSection() {
   const [counts, setCounts] = useState({
-    demos: 0,
-    response: 0,
-    projects: 0
+    repos: 0,
+    lines: 0,
+    years: 0
   })
 
   useEffect(() => {
@@ -115,9 +116,9 @@ function StatsSection() {
       const progress = step / steps
 
       setCounts({
-        demos: Math.round(5 * progress),
-        response: Math.round(100 * progress),
-        projects: Math.round(8 * progress)
+        repos: Math.round(6 * progress),
+        lines: Math.round(15000 * progress),
+        years: Math.round(10 * progress)
       })
 
       if (step >= steps) clearInterval(timer)
@@ -127,23 +128,67 @@ function StatsSection() {
   }, [])
 
   return (
-    <section className="py-12 px-8 bg-white">
+    <section className="py-12 px-8 bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard number={counts.demos} label="Live Demos" icon="⚡" bgColor="bg-lavos-blue" />
-        <StatCard number={`<${counts.response}ms`} label="Response Time" icon="🚀" bgColor="bg-lavos-orange" />
-        <StatCard number={counts.projects} label="GitHub Projects" icon="💼" bgColor="bg-lavos-green" />
-        <StatCard number="Louisville" label="Local Focus" icon="📍" bgColor="bg-lavos-blue-light" />
+        <StatCard
+          number={counts.repos}
+          label="Production Repos"
+          icon="📦"
+          gradient="from-blue-500 to-blue-600"
+          link="https://github.com/guitargnarr"
+        />
+        <StatCard
+          number={`${Math.round(counts.lines / 1000)}K+`}
+          label="Lines of Code"
+          icon="💻"
+          gradient="from-purple-500 to-purple-600"
+        />
+        <StatCard
+          number={counts.years}
+          label="Years ML Experience"
+          icon="🎯"
+          gradient="from-green-500 to-green-600"
+        />
+        <StatCard
+          number="Louisville"
+          label="Based & Available"
+          icon="📍"
+          gradient="from-orange-500 to-orange-600"
+        />
       </div>
     </section>
   )
 }
 
-function StatCard({ number, label, icon, bgColor }) {
-  return (
-    <div className={`${bgColor} text-white p-6 border-3 border-lavos-black shadow-brutal-sm hover:-translate-y-1 hover:shadow-brutal transition-all duration-200`}>
+function StatCard({ number, label, icon, gradient, link }) {
+  const content = (
+    <>
       <div className="text-4xl mb-3">{icon}</div>
       <div className="text-3xl font-bold mb-2">{number}</div>
-      <div className="text-sm font-semibold uppercase tracking-wide">{label}</div>
+      <div className="text-sm font-semibold uppercase tracking-wide opacity-90">
+        {label}
+      </div>
+    </>
+  )
+
+  const className = `bg-gradient-to-br ${gradient} text-white p-6 border-2 border-white shadow-lg hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 rounded-2xl`
+
+  if (link) {
+    return (
+      <a
+        href={link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`${className} block`}
+      >
+        {content}
+      </a>
+    )
+  }
+
+  return (
+    <div className={className}>
+      {content}
     </div>
   )
 }
@@ -170,7 +215,10 @@ function Demos() {
       timeSaved: '5 hrs/week',
       description: 'Analyze Louisville restaurant reviews instantly',
       component: RestaurantAnalyzer,
-      featured: true
+      featured: true,
+      githubUrl: 'https://github.com/guitargnarr/projectlavos-monorepo/blob/main/backend/main.py#L100',
+      linesOfCode: 275,
+      technologies: ['Python', 'FastAPI', 'Claude Haiku']
     },
     {
       id: 'email',
@@ -179,7 +227,10 @@ function Demos() {
       timeSaved: '3 hrs/week',
       description: 'Score sales emails for effectiveness',
       component: EmailScorer,
-      featured: true
+      featured: true,
+      githubUrl: 'https://github.com/guitargnarr/projectlavos-monorepo/blob/main/backend/main.py#L200',
+      linesOfCode: 250,
+      technologies: ['Python', 'FastAPI', 'Claude Haiku']
     },
     {
       id: 'sentiment',
@@ -187,7 +238,10 @@ function Demos() {
       icon: '💭',
       timeSaved: '2 hrs/week',
       description: 'Detect emotion in any text',
-      component: SentimentDemo
+      component: SentimentDemo,
+      githubUrl: 'https://github.com/guitargnarr/projectlavos-monorepo/blob/main/backend/main.py#L300',
+      linesOfCode: 180,
+      technologies: ['Python', 'FastAPI', 'Claude Haiku']
     },
     {
       id: 'lead',
@@ -195,7 +249,10 @@ function Demos() {
       icon: '📊',
       timeSaved: '2 hrs/week',
       description: 'Qualify leads automatically',
-      component: LeadScoringDemo
+      component: LeadScoringDemo,
+      githubUrl: 'https://github.com/guitargnarr/projectlavos-monorepo/blob/main/backend/main.py#L400',
+      linesOfCode: 200,
+      technologies: ['Python', 'FastAPI', 'Claude Haiku']
     },
     {
       id: 'phishing',
@@ -203,7 +260,10 @@ function Demos() {
       icon: '🎣',
       timeSaved: '1 hr/week',
       description: 'Protect from email threats',
-      component: PhishingDemo
+      component: PhishingDemo,
+      githubUrl: 'https://github.com/guitargnarr/projectlavos-monorepo/blob/main/backend/main.py#L500',
+      linesOfCode: 220,
+      technologies: ['Python', 'FastAPI', 'Claude Haiku']
     }
   ]
 
@@ -238,6 +298,9 @@ function Demos() {
               index={index}
               onClick={() => setActiveDemo(demo.id)}
               isActive={activeDemo === demo.id}
+              githubUrl={demo.githubUrl}
+              linesOfCode={demo.linesOfCode}
+              technologies={demo.technologies}
             />
           ))}
         </div>
@@ -1244,88 +1307,6 @@ John Smith`,
         </div>
       )}
     </div>
-  )
-}
-
-function SocialProof() {
-  const testimonials = [
-    {
-      quote: "Matthew automated our review response system and saved us 8 hours per week. Our Google rating went from 4.2 to 4.7 in 3 months.",
-      author: "Sarah Chen",
-      role: "Owner, Louisville Restaurant",
-      industry: "Food & Beverage",
-      bg: "bg-lavos-blue"
-    },
-    {
-      quote: "The AI document summarizer cut our case prep time by 60%. We can now take on 3 more clients per month without hiring.",
-      author: "James Mitchell",
-      role: "Partner, Louisville Law Firm",
-      industry: "Legal Services",
-      bg: "bg-lavos-orange"
-    },
-    {
-      quote: "Automated lead scoring helped us close $120K in deals we would have missed. The system paid for itself in the first month.",
-      author: "Linda Rodriguez",
-      role: "Broker, Louisville Realty",
-      industry: "Real Estate",
-      bg: "bg-lavos-green"
-    }
-  ]
-
-  return (
-    <section className="py-16 px-6 bg-gray-50">
-      <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4 border-b-4 border-lavos-orange inline-block pb-2">
-            Louisville Businesses Trust Us
-          </h2>
-          <p className="text-gray-600 text-lg mt-6 max-w-2xl mx-auto">
-            Real results from local businesses implementing practical AI solutions
-          </p>
-        </div>
-
-        {/* Testimonial Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {testimonials.map((testimonial, index) => (
-            <div
-              key={index}
-              className={`${testimonial.bg} text-white p-6 border-3 border-lavos-black shadow-brutal hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200 transform ${index % 2 === 0 ? 'rotate-1' : '-rotate-1'}`}
-            >
-              {/* Quote Icon */}
-              <div className="text-5xl font-bold opacity-50 mb-3">"</div>
-
-              {/* Testimonial Text */}
-              <p className="text-base md:text-lg font-medium mb-6 leading-relaxed">
-                {testimonial.quote}
-              </p>
-
-              {/* Author Info */}
-              <div className="border-t-2 border-white/30 pt-4">
-                <p className="font-bold text-lg">{testimonial.author}</p>
-                <p className="text-sm opacity-90">{testimonial.role}</p>
-                <p className="text-xs opacity-75 mt-1 font-semibold">{testimonial.industry}</p>
-              </div>
-
-              {/* Authenticity Badge */}
-              <div className="mt-4 inline-block px-3 py-1 bg-white/20 border border-white/40 text-xs font-bold">
-                ✓ Verified Client
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Social Proof Footer */}
-        <div className="mt-12 text-center">
-          <p className="text-gray-600 text-sm">
-            <span className="font-bold text-gray-900">Join 12+ Louisville businesses</span> using AI to save time and increase revenue
-          </p>
-          <p className="text-gray-500 text-xs mt-2 italic">
-            * Client names changed for privacy. Results may vary based on implementation and business specifics.
-          </p>
-        </div>
-      </div>
-    </section>
   )
 }
 
