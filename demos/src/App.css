@@ -2,6 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ========================================= */
+/* AMBIENT DESIGN UPGRADE - Quick Test      */
+/* Comment out this section to revert       */
+/* ========================================= */
+
+/* Modern color palette & shadows */
+:root {
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04), 0 8px 16px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.06), 0 8px 16px rgba(0, 0, 0, 0.06), 0 16px 32px rgba(0, 0, 0, 0.06);
+  --ai-purple: #8b5cf6;
+  --electric-blue: #3b82f6;
+  --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Override brutal shadows */
+.shadow-brutal,
+.shadow-brutal-sm,
+.shadow-brutal-lg {
+  box-shadow: var(--shadow-md) !important;
+  transition: all var(--transition-base);
+}
+
+.shadow-brutal:hover,
+.shadow-brutal-sm:hover,
+.shadow-brutal-lg:hover {
+  box-shadow: var(--shadow-lg) !important;
+  transform: translateY(-2px);
+}
+
+/* Smooth borders */
+.border-3,
+.border-4 {
+  border-width: 1px !important;
+  border-color: rgba(0, 0, 0, 0.06) !important;
+  border-radius: 12px !important;
+}
+
+/* Modern buttons */
+button {
+  border-radius: 12px !important;
+  transition: all 200ms !important;
+}
+
+/* Gradient backgrounds */
+.bg-lavos-blue {
+  background: linear-gradient(135deg, var(--ai-purple), var(--electric-blue)) !important;
+}
+
+/* ========================================= */
+
 * {
   margin: 0;
   padding: 0;
