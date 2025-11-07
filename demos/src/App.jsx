@@ -3,6 +3,32 @@ import './App.css'
 
 const API_URL = 'https://projectlavos-backend.onrender.com'
 
+// Reusable skeleton loader component
+function SkeletonLoader({ lines = 3 }) {
+  return (
+    <div className="animate-pulse space-y-3">
+      {[...Array(lines)].map((_, i) => (
+        <div key={i} className="flex space-x-2">
+          <div className={`h-4 bg-gray-300 rounded ${i === 0 ? 'w-3/4' : i === 1 ? 'w-1/2' : 'w-2/3'}`}></div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+// Loading spinner component
+function LoadingSpinner({ text = "Analyzing..." }) {
+  return (
+    <div className="flex items-center justify-center py-8">
+      <svg className="inline w-8 h-8 mr-3 animate-spin text-lavos-blue" viewBox="0 0 24 24">
+        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/>
+        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+      </svg>
+      <span className="text-lg font-bold text-gray-700">{text}</span>
+    </div>
+  )
+}
+
 function App() {
   return (
     <div className="app">
@@ -613,6 +639,33 @@ function RestaurantAnalyzer() {
         ) : 'Analyze Reviews'}
       </button>
 
+      {/* Loading State */}
+      {loading && (
+        <div className="mt-6 bg-blue-50 border-3 border-lavos-blue p-6 rounded-lg shadow-brutal-sm">
+          <div className="flex items-center justify-center mb-4">
+            <LoadingSpinner />
+          </div>
+          <p className="text-lavos-blue font-bold text-center mb-4">
+            🔍 Analyzing reviews for {selectedRestaurant}...
+          </p>
+          <div className="space-y-4">
+            <div className="bg-white p-4 border-2 border-lavos-blue rounded">
+              <p className="text-sm text-gray-600 mb-2">Analyzing sentiment...</p>
+              <SkeletonLoader lines={2} />
+            </div>
+            <div className="bg-white p-4 border-2 border-lavos-blue rounded">
+              <p className="text-sm text-gray-600 mb-2">Identifying key themes...</p>
+              <SkeletonLoader lines={3} />
+            </div>
+            <div className="bg-white p-4 border-2 border-lavos-blue rounded">
+              <p className="text-sm text-gray-600 mb-2">Generating recommendations...</p>
+              <SkeletonLoader lines={2} />
+            </div>
+          </div>
+          <p className="text-center text-sm text-gray-600 mt-4">This typically takes 3-5 seconds...</p>
+        </div>
+      )}
+
       {/* Error State */}
       {error && (
         <div className="mt-6 bg-red-50 border-l-4 border-red-500 p-4 rounded-sm">
@@ -890,6 +943,33 @@ John Smith`,
           {loading ? 'Analyzing...' : 'Score This Email'}
         </button>
       </div>
+
+      {/* Loading State */}
+      {loading && (
+        <div className="mt-6 bg-blue-50 border-3 border-lavos-blue p-6 rounded-lg shadow-brutal-sm">
+          <div className="flex items-center justify-center mb-4">
+            <LoadingSpinner />
+          </div>
+          <p className="text-lavos-blue font-bold text-center mb-4">
+            📧 Analyzing your sales email...
+          </p>
+          <div className="space-y-4">
+            <div className="bg-white p-4 border-2 border-lavos-blue rounded">
+              <p className="text-sm text-gray-600 mb-2">Evaluating subject line effectiveness...</p>
+              <SkeletonLoader lines={1} />
+            </div>
+            <div className="bg-white p-4 border-2 border-lavos-blue rounded">
+              <p className="text-sm text-gray-600 mb-2">Analyzing email structure and clarity...</p>
+              <SkeletonLoader lines={2} />
+            </div>
+            <div className="bg-white p-4 border-2 border-lavos-blue rounded">
+              <p className="text-sm text-gray-600 mb-2">Generating improvement suggestions...</p>
+              <SkeletonLoader lines={3} />
+            </div>
+          </div>
+          <p className="text-center text-sm text-gray-600 mt-4">Scoring typically takes 2-4 seconds...</p>
+        </div>
+      )}
 
       {/* Error Display */}
       {error && (
