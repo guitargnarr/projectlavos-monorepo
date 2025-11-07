@@ -449,6 +449,49 @@ html {
   background: rgba(107, 114, 128, 0.7);
 }
 
+/* ========================================= */
+/* GLASS MORPHISM EFFECTS                   */
+/* ========================================= */
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* ========================================= */
+/* ACCESSIBILITY: REDUCED MOTION            */
+/* ========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .bento-card,
+  .animate-fadeInUp,
+  .animate-bounce,
+  .animate-pulse {
+    animation: none !important;
+  }
+
+  .success-pulse {
+    animation: none !important;
+  }
+}
+
 /* Mobile Responsive Improvements */
 @media (max-width: 768px) {
   .about h2, .portfolio-preview h2 {

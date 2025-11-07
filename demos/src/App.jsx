@@ -151,6 +151,17 @@ function StatCard({ number, label, icon, bgColor }) {
 function Demos() {
   const [activeDemo, setActiveDemo] = useState(null)
 
+  // ESC key listener for modal
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape' && activeDemo) {
+        setActiveDemo(null)
+      }
+    }
+    window.addEventListener('keydown', handleEsc)
+    return () => window.removeEventListener('keydown', handleEsc)
+  }, [activeDemo])
+
   const demos = [
     {
       id: 'restaurant',
@@ -233,12 +244,28 @@ function Demos() {
 
         {/* Expanded Demo Modal */}
         {activeDemo && (
-          <div className="fixed inset-0 z-50 flex items-start justify-center p-4 bg-black/60 backdrop-blur-sm overflow-y-auto">
+          <div
+            className="fixed inset-0 z-50 flex items-start justify-center p-4 bg-black/60 backdrop-blur-sm overflow-y-auto"
+            onClick={(e) => {
+              // Click outside modal to close
+              if (e.target === e.currentTarget) {
+                setActiveDemo(null)
+              }
+            }}
+            onKeyDown={(e) => {
+              // ESC key to close
+              if (e.key === 'Escape') {
+                setActiveDemo(null)
+              }
+            }}
+            tabIndex={-1}
+          >
             <div className="relative w-full max-w-5xl my-8">
               {/* Close button */}
               <button
                 onClick={() => setActiveDemo(null)}
                 className="absolute -top-4 -right-4 z-10 w-12 h-12 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center text-gray-600 hover:text-gray-900 hover:scale-110"
+                aria-label="Close demo"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -778,28 +805,23 @@ function RestaurantAnalyzer() {
 
       {/* Loading State */}
       {loading && (
-        <div className="mt-6 bg-blue-50 border-3 border-lavos-blue p-6 rounded-lg shadow-brutal-sm">
-          <div className="flex items-center justify-center mb-4">
-            <LoadingSpinner />
-          </div>
-          <p className="text-lavos-blue font-bold text-center mb-4">
-            🔍 Analyzing reviews for {selectedRestaurant}...
-          </p>
-          <div className="space-y-4">
-            <div className="bg-white p-4 border-2 border-lavos-blue rounded">
-              <p className="text-sm text-gray-600 mb-2">Analyzing sentiment...</p>
-              <SkeletonLoader lines={2} />
+        <div className="mt-6 bg-gradient-to-br from-purple-50 to-blue-50 border-2 border-purple-200 p-8 rounded-2xl shadow-lg">
+          <LoadingProgress duration={4000} text={`Analyzing ${selectedRestaurant} reviews...`} />
+          <div className="mt-6 space-y-4">
+            <div className="bg-white/80 backdrop-blur-sm p-4 rounded-xl border border-purple-100">
+              <p className="text-sm text-purple-700 font-semibold mb-2">🔍 Analyzing sentiment...</p>
+              <div className="h-2 bg-purple-100 rounded-full animate-pulse"></div>
             </div>
-            <div className="bg-white p-4 border-2 border-lavos-blue rounded">
-              <p className="text-sm text-gray-600 mb-2">Identifying key themes...</p>
-              <SkeletonLoader lines={3} />
+            <div className="bg-white/80 backdrop-blur-sm p-4 rounded-xl border border-blue-100">
+              <p className="text-sm text-blue-700 font-semibold mb-2">📊 Identifying key themes...</p>
+              <div className="h-2 bg-blue-100 rounded-full animate-pulse"></div>
             </div>
-            <div className="bg-white p-4 border-2 border-lavos-blue rounded">
-              <p className="text-sm text-gray-600 mb-2">Generating recommendations...</p>
-              <SkeletonLoader lines={2} />
+            <div className="bg-white/80 backdrop-blur-sm p-4 rounded-xl border border-green-100">
+              <p className="text-sm text-green-700 font-semibold mb-2">💡 Generating recommendations...</p>
+              <div className="h-2 bg-green-100 rounded-full animate-pulse"></div>
             </div>
           </div>
-          <p className="text-center text-sm text-gray-600 mt-4">This typically takes 3-5 seconds...</p>
+          <p className="text-center text-sm text-gray-600 mt-6 italic">Typically takes 3-5 seconds...</p>
         </div>
       )}
 
@@ -821,16 +843,21 @@ function RestaurantAnalyzer() {
 
       {/* Results Section */}
       {analysis && (
-        <div className="mt-6 space-y-4">
+        <div className="mt-6 space-y-6">
+          {/* Success Animation */}
+          <SuccessAnimation message={`Analysis complete for ${selectedRestaurant}!`} />
+
           {/* Overall Sentiment Card */}
-          <div className="bg-lavos-green text-white border-3 border-lavos-black shadow-brutal-sm p-6">
-            <h4 className="text-xl font-bold mb-2">Overall Rating</h4>
-            <div className="flex items-baseline gap-2">
-              <span className="text-5xl font-black">{analysis.overall_sentiment}</span>
-              <span className="text-2xl">/5.0</span>
+          <div className="bg-gradient-to-br from-green-500 to-green-600 text-white border-2 border-green-400 shadow-xl p-8 rounded-2xl">
+            <h4 className="text-2xl font-bold mb-4">Overall Rating</h4>
+            <div className="flex items-baseline gap-3">
+              <span className="text-6xl font-black">
+                <AnimatedCounter value={analysis.overall_sentiment} duration={1500} />
+              </span>
+              <span className="text-3xl">/5.0</span>
             </div>
-            <p className="mt-2 text-white/90">Based on {analysis.total_reviews_analyzed} customer reviews</p>
-            <p className="text-sm text-white/80 mt-1">{analysis.location}</p>
+            <p className="mt-3 text-white/95 text-lg">Based on <AnimatedCounter value={analysis.total_reviews_analyzed} duration={1000} /> customer reviews</p>
+            <p className="text-sm text-white/80 mt-2">{analysis.location}</p>
           </div>
 
           {/* Key Themes */}
@@ -1097,28 +1124,23 @@ John Smith`,
 
       {/* Loading State */}
       {loading && (
-        <div className="mt-6 bg-blue-50 border-3 border-lavos-blue p-6 rounded-lg shadow-brutal-sm">
-          <div className="flex items-center justify-center mb-4">
-            <LoadingSpinner />
-          </div>
-          <p className="text-lavos-blue font-bold text-center mb-4">
-            📧 Analyzing your sales email...
-          </p>
-          <div className="space-y-4">
-            <div className="bg-white p-4 border-2 border-lavos-blue rounded">
-              <p className="text-sm text-gray-600 mb-2">Evaluating subject line effectiveness...</p>
-              <SkeletonLoader lines={1} />
+        <div className="mt-6 bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-200 p-8 rounded-2xl shadow-lg">
+          <LoadingProgress duration={3500} text="Scoring your sales email..." />
+          <div className="mt-6 space-y-4">
+            <div className="bg-white/80 backdrop-blur-sm p-4 rounded-xl border border-blue-100">
+              <p className="text-sm text-blue-700 font-semibold mb-2">📝 Evaluating subject line...</p>
+              <div className="h-2 bg-blue-100 rounded-full animate-pulse"></div>
             </div>
-            <div className="bg-white p-4 border-2 border-lavos-blue rounded">
-              <p className="text-sm text-gray-600 mb-2">Analyzing email structure and clarity...</p>
-              <SkeletonLoader lines={2} />
+            <div className="bg-white/80 backdrop-blur-sm p-4 rounded-xl border border-purple-100">
+              <p className="text-sm text-purple-700 font-semibold mb-2">🎯 Analyzing structure & clarity...</p>
+              <div className="h-2 bg-purple-100 rounded-full animate-pulse"></div>
             </div>
-            <div className="bg-white p-4 border-2 border-lavos-blue rounded">
-              <p className="text-sm text-gray-600 mb-2">Generating improvement suggestions...</p>
-              <SkeletonLoader lines={3} />
+            <div className="bg-white/80 backdrop-blur-sm p-4 rounded-xl border border-green-100">
+              <p className="text-sm text-green-700 font-semibold mb-2">✨ Generating suggestions...</p>
+              <div className="h-2 bg-green-100 rounded-full animate-pulse"></div>
             </div>
           </div>
-          <p className="text-center text-sm text-gray-600 mt-4">Scoring typically takes 2-4 seconds...</p>
+          <p className="text-center text-sm text-gray-600 mt-6 italic">Typically takes 2-4 seconds...</p>
         </div>
       )}
 
@@ -1132,10 +1154,13 @@ John Smith`,
       {/* Analysis Results */}
       {analysis && (
         <div className="mt-8 space-y-6">
+          {/* Success Animation */}
+          <SuccessAnimation message="Email scored successfully!" />
+
           {/* Overall Score */}
-          <div className={`${getScoreColor(analysis.score)} text-white border-3 border-lavos-black shadow-brutal p-6 text-center`}>
-            <h4 className="text-3xl font-black mb-2">
-              Score: {analysis.score}/10
+          <div className={`${getScoreColor(analysis.score)} text-white border-3 border-lavos-black shadow-brutal p-8 text-center rounded-2xl`}>
+            <h4 className="text-4xl font-black mb-4">
+              Score: <AnimatedCounter value={analysis.score} duration={1200} />/10
             </h4>
             <p className="text-lg">
               {analysis.score >= 8 ? 'Excellent email! Ready to send.' :
