@@ -85,7 +85,7 @@ function StatsSection() {
       const progress = step / steps
 
       setCounts({
-        demos: Math.round(3 * progress),
+        demos: Math.round(4 * progress),
         response: Math.round(100 * progress),
         projects: Math.round(8 * progress)
       })
@@ -133,6 +133,7 @@ function Demos() {
         </div>
 
         <div className="space-y-8">
+          <RestaurantAnalyzer />
           <SentimentDemo />
           <LeadScoringDemo />
           <PhishingDemo />
@@ -504,6 +505,201 @@ function PhishingDemo() {
             ))}
           </ul>
           <p className="text-gray-900 font-semibold"><strong>Recommendation:</strong> {result.recommendation}</p>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function RestaurantAnalyzer() {
+  const [selectedRestaurant, setSelectedRestaurant] = useState('')
+  const [analysis, setAnalysis] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+
+  const restaurants = [
+    { name: "Jack Fry's", type: "Upscale Southern", icon: "🍽️" },
+    { name: "Proof on Main", type: "Contemporary American", icon: "🥂" },
+    { name: "Hammerheads", type: "Gastropub", icon: "🍺" },
+    { name: "Bourbon Raw", type: "Seafood & Sushi", icon: "🍣" },
+    { name: "Milkwood", type: "Modern American", icon: "🍷" }
+  ]
+
+  const handleAnalyze = async () => {
+    if (!selectedRestaurant) return
+
+    setLoading(true)
+    setError(null)
+    setAnalysis(null)
+
+    try {
+      const response = await fetch(`${API_URL}/api/analyze-restaurant`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ restaurant_name: selectedRestaurant })
+      })
+
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`)
+      }
+
+      const data = await response.json()
+      setAnalysis(data)
+    } catch (err) {
+      setError({
+        message: 'Demo server is waking up (first use takes ~30 seconds). Please try again in a moment.',
+        canRetry: true
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const getSentimentColor = (sentiment) => {
+    if (sentiment === 'positive') return 'bg-lavos-green'
+    if (sentiment === 'negative') return 'bg-red-500'
+    return 'bg-yellow-500'
+  }
+
+  return (
+    <div className="bg-white border-3 border-lavos-black shadow-brutal hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200 p-8 rounded-sm">
+      <h3 className="text-2xl font-bold mb-2 text-gray-900">🍽️ Louisville Restaurant Analyzer</h3>
+      <p className="text-base font-medium text-gray-700 mb-1">See what customers really say about Louisville's best restaurants</p>
+      <p className="text-sm text-gray-500 mb-6">Use case: Understanding customer sentiment, identifying strengths & weaknesses</p>
+
+      {/* Restaurant Selection Grid */}
+      <div className="mb-6">
+        <label className="block text-lg font-bold mb-4 text-gray-900">Choose a Louisville Restaurant</label>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {restaurants.map((restaurant) => (
+            <button
+              key={restaurant.name}
+              onClick={() => setSelectedRestaurant(restaurant.name)}
+              className={`p-4 border-3 border-lavos-black transition-all duration-200 ${
+                selectedRestaurant === restaurant.name
+                  ? 'bg-lavos-blue text-white shadow-brutal'
+                  : 'bg-white hover:-translate-y-0.5 hover:shadow-brutal-sm'
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                <span className="text-2xl">{restaurant.icon}</span>
+                <div className="text-left">
+                  <div className="font-bold text-base">{restaurant.name}</div>
+                  <div className={`text-sm ${selectedRestaurant === restaurant.name ? 'text-white/80' : 'text-gray-600'}`}>
+                    {restaurant.type}
+                  </div>
+                </div>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Analyze Button */}
+      <button
+        onClick={handleAnalyze}
+        disabled={!selectedRestaurant || loading}
+        className="w-full bg-lavos-orange text-white font-bold py-4 px-6 border-3 border-lavos-black shadow-brutal-sm hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-brutal-sm"
+      >
+        {loading ? (
+          <>
+            <svg className="inline w-5 h-5 mr-2 animate-spin" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+            </svg>
+            Analyzing Reviews...
+          </>
+        ) : 'Analyze Reviews'}
+      </button>
+
+      {/* Error State */}
+      {error && (
+        <div className="mt-6 bg-red-50 border-l-4 border-red-500 p-4 rounded-sm">
+          <strong className="text-red-700 block mb-2">⚠️ {error.message}</strong>
+          {error.canRetry && (
+            <button
+              onClick={handleAnalyze}
+              className="mt-2 bg-red-600 text-white px-4 py-2 rounded-sm font-semibold hover:bg-red-700 transition-colors disabled:opacity-50"
+              disabled={loading}
+            >
+              Try Again
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* Results Section */}
+      {analysis && (
+        <div className="mt-6 space-y-4">
+          {/* Overall Sentiment Card */}
+          <div className="bg-lavos-green text-white border-3 border-lavos-black shadow-brutal-sm p-6">
+            <h4 className="text-xl font-bold mb-2">Overall Rating</h4>
+            <div className="flex items-baseline gap-2">
+              <span className="text-5xl font-black">{analysis.overall_sentiment}</span>
+              <span className="text-2xl">/5.0</span>
+            </div>
+            <p className="mt-2 text-white/90">Based on {analysis.total_reviews_analyzed} customer reviews</p>
+            <p className="text-sm text-white/80 mt-1">{analysis.location}</p>
+          </div>
+
+          {/* Key Themes */}
+          <div className="bg-white border-3 border-lavos-black shadow-brutal-sm p-6">
+            <h4 className="text-xl font-bold mb-4 text-gray-900">What Customers Talk About</h4>
+            <div className="space-y-3">
+              {analysis.themes.map((theme, index) => (
+                <div key={index} className="flex items-center justify-between p-3 border-2 border-gray-300">
+                  <div className="flex-1">
+                    <span className="font-bold text-gray-900">{theme.theme}</span>
+                    <span className="text-sm text-gray-600 ml-2">({theme.mentions} mentions)</span>
+                  </div>
+                  <span className={`px-3 py-1 font-bold text-white ${getSentimentColor(theme.sentiment)}`}>
+                    {theme.sentiment}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Sample Reviews Grid */}
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="bg-white border-3 border-lavos-black shadow-brutal-sm p-6">
+              <h4 className="font-bold text-lg mb-3 text-lavos-green flex items-center gap-2">
+                <span>✅</span> What They Love
+              </h4>
+              <p className="text-gray-700 italic leading-relaxed">"{analysis.sample_positive}"</p>
+            </div>
+            <div className="bg-white border-3 border-lavos-black shadow-brutal-sm p-6">
+              <h4 className="font-bold text-lg mb-3 text-red-500 flex items-center gap-2">
+                <span>⚠️</span> What Needs Work
+              </h4>
+              <p className="text-gray-700 italic leading-relaxed">"{analysis.sample_negative}"</p>
+            </div>
+          </div>
+
+          {/* AI Recommendations */}
+          <div className="bg-lavos-blue text-white border-3 border-lavos-black shadow-brutal-sm p-6">
+            <h4 className="text-xl font-bold mb-4">AI-Powered Recommendations</h4>
+            <ul className="space-y-3">
+              {analysis.recommendations.map((rec, index) => (
+                <li key={index} className="flex items-start gap-3">
+                  <span className="font-black text-lg flex-shrink-0">{index + 1}.</span>
+                  <span className="leading-relaxed">{rec}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Call to Action */}
+          <div className="bg-lavos-orange text-white border-3 border-lavos-black shadow-brutal-sm p-6 text-center">
+            <p className="text-lg font-bold mb-2">Want this analysis for YOUR restaurant?</p>
+            <p className="mb-4 text-white/90">I can analyze any Louisville restaurant's reviews and provide actionable insights.</p>
+            <a
+              href="mailto:matthewdscott7@gmail.com?subject=Restaurant%20Review%20Analysis"
+              className="inline-block bg-white text-lavos-orange font-bold py-3 px-6 border-2 border-lavos-black hover:translate-y-[-2px] transition-all"
+            >
+              Get Your Free Analysis
+            </a>
+          </div>
         </div>
       )}
     </div>
