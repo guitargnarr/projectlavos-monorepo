@@ -715,6 +715,93 @@ function ServicesAndPricing() {
           </div>
         </div>
 
+        {/* Healthcare Enterprise AI Section */}
+        <div className="mt-16 pt-16 border-t-4 border-gray-200">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">
+              Healthcare Enterprise AI
+            </h2>
+            <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+              Privacy-first AI for Louisville healthcare organizations. 100% local processing, HIPAA-compliant, enterprise-ready.
+            </p>
+          </div>
+
+          <div className="bg-gradient-to-br from-blue-50 to-purple-50 border-3 border-lavos-black shadow-brutal-lg p-10 max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* Mirador Systems Info */}
+              <div>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-14 h-14 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center text-2xl">🏥</div>
+                  <h3 className="text-3xl font-bold text-gray-900">Mirador Systems</h3>
+                </div>
+                <p className="text-gray-700 mb-6 leading-relaxed">
+                  Local AI orchestration delivering sub-second responses for 80% of healthcare queries. Zero cloud dependencies, complete data sovereignty.
+                </p>
+                <div className="grid grid-cols-2 gap-4 mb-6">
+                  <div className="bg-white/70 p-4 rounded-lg border-2 border-gray-200">
+                    <div className="text-3xl font-bold text-green-600">99ms</div>
+                    <div className="text-sm text-gray-600">Avg Response</div>
+                  </div>
+                  <div className="bg-white/70 p-4 rounded-lg border-2 border-gray-200">
+                    <div className="text-3xl font-bold text-blue-600">97</div>
+                    <div className="text-sm text-gray-600">Agents</div>
+                  </div>
+                  <div className="bg-white/70 p-4 rounded-lg border-2 border-gray-200">
+                    <div className="text-3xl font-bold text-purple-600">100%</div>
+                    <div className="text-sm text-gray-600">Local</div>
+                  </div>
+                  <div className="bg-white/70 p-4 rounded-lg border-2 border-gray-200">
+                    <div className="text-3xl font-bold text-orange-600">$146K</div>
+                    <div className="text-sm text-gray-600">Savings/Year</div>
+                  </div>
+                </div>
+                <a href="https://pypi.org/project/mirador-core/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-semibold text-sm">
+                  View on PyPI (v2.1.1) →
+                </a>
+              </div>
+
+              {/* Enterprise Pilot Pricing */}
+              <div className="bg-white border-2 border-gray-300 rounded-xl p-8">
+                <div className="text-center mb-6">
+                  <div className="text-5xl mb-4">⚡</div>
+                  <h3 className="text-2xl font-bold mb-2 text-gray-900">Enterprise Pilot</h3>
+                  <div className="text-4xl font-black text-blue-600 mb-2">$15,000</div>
+                  <p className="text-gray-600">8-week program</p>
+                </div>
+                <ul className="space-y-3 mb-8 text-sm">
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-600 font-bold">✓</span>
+                    <span>Docker deployment (&lt; 2 minutes)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-600 font-bold">✓</span>
+                    <span>97 healthcare agents (prior auth, eligibility, coding)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-600 font-bold">✓</span>
+                    <span>100% HIPAA-compliant architecture</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-600 font-bold">✓</span>
+                    <span>$146K+ annual cost savings (verified)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-600 font-bold">✓</span>
+                    <span>90 days support included</span>
+                  </li>
+                </ul>
+                <div className="text-center">
+                  <a href="mailto:matthewdscott7@gmail.com?subject=Healthcare%20AI%20Pilot%20Inquiry" className="block w-full text-center bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition-all no-underline">
+                    Schedule Discovery Call
+                  </a>
+                  <p className="text-xs text-gray-500 mt-3">Louisville healthcare organizations only</p>
+                  <p className="text-xs text-gray-500">First pilot: Norton Healthcare (Nov 2025)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <p className="text-center text-gray-600 mt-12 text-sm">
           All services include Louisville-based support • HIPAA-compliant AI available • No long-term contracts
         </p>
