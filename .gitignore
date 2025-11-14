@@ -1,5 +1,23 @@
+# Playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
+test-results.json
+
+# Node
 node_modules/
-dist/
-.env
+npm-debug.log*
+
+# OS
 .DS_Store
-.env.github-secrets
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
