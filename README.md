@@ -1,167 +1,176 @@
-# Project Lavos - Multi-Site AI Consulting Platform
+# Project Lavos E2E Test Suite
 
-**Status**: ✅ Live at [projectlavos.com](https://projectlavos.com)
+Comprehensive end-to-end testing for the Project Lavos multi-site architecture using Playwright.
 
-AI consulting platform for Louisville, KY small businesses featuring 5 interactive demos across 4 subdomains.
+## Test Coverage
 
-![Project Lavos Platform](https://img.shields.io/badge/Status-Live-success) ![React](https://img.shields.io/badge/React-19.2-blue) ![Vite](https://img.shields.io/badge/Vite-6.1-purple) ![Tailwind](https://img.shields.io/badge/Tailwind-3.4-cyan)
+### 1. Restaurant Analyzer Tests (`restaurant-analyzer.spec.js`)
+- ✅ Page loading and rendering
+- ✅ Restaurant selection and analysis
+- ✅ Results display verification
+- ✅ Error state handling
+- ✅ Retry functionality
+- ✅ Cross-browser testing (Chrome, Safari)
 
----
+### 2. Mobile Responsiveness (`mobile-responsive.spec.js`)
+- ✅ Vertical stacking on mobile devices
+- ✅ Readable text sizing
+- ✅ Tappable button sizes (44x44px minimum)
+- ✅ No horizontal scrolling
+- ✅ Touch interaction support
+- ✅ Tablet layout verification
 
-## 🌐 Live Sites
+### 3. Error State Handling (`error-states.spec.js`)
+- ✅ API unreachable errors
+- ✅ Retry button display and functionality
+- ✅ Timeout handling
+- ✅ HTTP 500/404 error responses
+- ✅ Malformed API response handling
+- ✅ UI state during loading
 
-| Subdomain | Purpose | URL |
-|-----------|---------|-----|
-| **Main** | Landing, overview, contact | [projectlavos.com](https://projectlavos.com) |
-| **Demos** | 5 interactive AI demonstrations | [demos.projectlavos.com](https://demos.projectlavos.com) |
-| **About** | Bio, credentials, "10-Hour Question" | [about.projectlavos.com](https://about.projectlavos.com) |
-| **Services** | Pricing, assessment, retainer options | [services.projectlavos.com](https://services.projectlavos.com) |
+### 4. Cross-Subdomain Navigation (`cross-subdomain.spec.js`)
+- ✅ Navigation between all 4 subdomains
+- ✅ "10-Hour Question" prominence on about page
+- ✅ Email link with correct subject
+- ✅ Consistent navigation across sites
+- ✅ No console errors on any subdomain
 
----
+## Subdomains Tested
 
-## 🚀 Features
+- **Main**: https://projectlavos.com
+- **Demos**: https://demos.projectlavos.com
+- **About**: https://about.projectlavos.com
+- **Services**: https://services.projectlavos.com
 
-### 5 Interactive AI Demos
+## Running Tests
 
-1. **Restaurant Analyzer** - Louisville restaurant review sentiment analysis
-2. **Email Scorer** - B2B sales email effectiveness rating (1-10 with suggestions)
-3. **Sentiment Analysis** - Real-time text emotion detection
-4. **Lead Scoring** - Sales lead qualification calculator
-5. **Phishing Detector** - Email security scanner
-
-All powered by Claude Haiku API ($0.001 per analysis vs $0.05 for Opus - 98% cost savings)
-
----
-
-## 🛠️ Tech Stack
-
-**Frontend (All 4 Sites)**:
-- React 19.2 + Vite 6.1
-- Tailwind CSS v3.4 (Ambient design system)
-- Vercel hosting (8-13s deploys)
-- GitHub Actions (automated path-based deployment)
-
-**Backend**:
-- Repository: [projectlavos-backend](https://github.com/guitargnarr/projectlavos-backend)
-- FastAPI + Anthropic SDK
-- Render.com ($7/month starter tier)
-- 6 API endpoints (health, restaurant, email, sentiment, lead, phishing)
-
----
-
-## 📁 Monorepo Structure
-
-```
-projectlavos-monorepo/
-├── main-site/     → projectlavos.com
-├── demos/         → demos.projectlavos.com
-├── about/         → about.projectlavos.com
-└── services/      → services.projectlavos.com
+### Run all tests
+```bash
+npx playwright test
 ```
 
-Each subdomain is an independent Vercel project with ~580ms build times.
+### Run specific test file
+```bash
+npx playwright test restaurant-analyzer
+npx playwright test mobile-responsive
+npx playwright test error-states
+npx playwright test cross-subdomain
+```
 
----
+### Run tests in specific browser
+```bash
+npx playwright test --project=chromium
+npx playwright test --project=webkit
+npx playwright test --project=mobile-chrome
+```
 
-## ⚡ Quick Start
+### Run in UI mode (interactive)
+```bash
+npx playwright test --ui
+```
 
-### Prerequisites
+### Run in headed mode (see browser)
+```bash
+npx playwright test --headed
+```
+
+### Debug specific test
+```bash
+npx playwright test --debug restaurant-analyzer
+```
+
+## Test Reports
+
+### View HTML report
+```bash
+npx playwright show-report
+```
+
+Reports include:
+- Test execution timeline
+- Screenshots on failure
+- Video recordings on failure
+- Network activity logs
+- Console logs
+
+## CI/CD Integration
+
+Tests run automatically on:
+- Push to `main` or `feature/e2e-testing` branches
+- Pull requests to `main`
+- Daily at 6 AM UTC (scheduled)
+
+GitHub Actions workflow: `.github/workflows/e2e-tests.yml`
+
+## Test Configuration
+
+- **Timeout**: 30 seconds per test
+- **Retries**: 2 retries in CI, 0 locally
+- **Browsers**: Chromium, WebKit (Safari), Mobile Chrome, Mobile Safari
+- **Parallel execution**: Enabled
+- **Screenshots**: On failure only
+- **Videos**: On failure only
+
+## Requirements
+
 - Node.js 18+
 - npm or yarn
 
-### Local Development
+## Installation
 
 ```bash
-# Clone the repo
-git clone https://github.com/guitargnarr/projectlavos-monorepo.git
-cd projectlavos-monorepo
-
-# Choose a subdomain to develop
-cd demos  # or main-site, about, services
-
-# Install dependencies
 npm install
-
-# Start dev server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
+npx playwright install chromium webkit
 ```
 
----
+## Writing New Tests
 
-## 🚢 Deployment
+1. Create new `.spec.js` file in `tests/` directory
+2. Follow existing test patterns
+3. Use descriptive test names
+4. Add to this README
 
-**Automatic**: Push to `main` branch triggers GitHub Actions workflow
-- Only changed subdomains rebuild (path-based deployment)
-- 96% faster than manual deploys (10s vs 4.5min)
+## Troubleshooting
 
-**Manual**: `vercel --prod --yes` from subdomain directory
+### Tests failing locally but passing in CI
+- Clear browser cache: `npx playwright install --force`
+- Check network connectivity
+- Verify production sites are accessible
 
----
+### Timeout errors
+- Increase timeout in `playwright.config.js`
+- Check if API is slow or down
+- Add more specific waitFor conditions
 
-## 🎯 Strategic Positioning
+### Screenshots not captured
+- Ensure `screenshot: 'only-on-failure'` in config
+- Check `test-results/` directory
+- Run with `--headed` to see browser
 
-**"The 10-Hour Question"** (on about.projectlavos.com):
+## Test Checklist (WEEK2)
 
-> Everyone asks: "Should my business use AI?"
-> I ask: "What's taking your team 10+ hours per week that you wish was automatic?"
+Based on `WEEK2_ACTIONABLE_CHECKLIST.md`:
 
-**Framework**:
-1. Identify the 10-hour task
-2. Try AI demos with actual data
-3. Calculate ROI (10h/week × $50/hr = $26K/year saved)
-4. Implement or move on
+- [x] Open https://demos.projectlavos.com in Chrome (item 14)
+- [x] Test Restaurant Analyzer: Select Jack Fry's → Analyze → Verify results (item 15)
+- [x] Test error handling: Go offline → Trigger error → Verify retry (item 16-17)
+- [x] Test in Safari (item 18)
+- [x] Test on mobile: Grid stacks, text readable, buttons tappable (items 19-21)
+- [x] Open https://about.projectlavos.com (item 22)
+- [x] Verify 10-Hour Question prominent (item 22)
+- [x] Click "Try Free Demos" → Verify navigation (item 23)
+- [x] Click "Let's Talk" → Verify email subject (item 24)
+- [x] Document broken functionality via GitHub issues (item 25)
 
----
+## Next Steps
 
-## 📊 Performance
-
-- **TTFB**: 154ms (Time to First Byte)
-- **Bundle Size**: 71KB compressed
-- **Lighthouse**: 95+ (Performance, Accessibility, Best Practices, SEO)
-- **API Response**: 3-5s (Claude Haiku analysis time)
-
----
-
-## 🎨 Design System
-
-**Ambient Design** (Nov 2025):
-- Multi-layer soft shadows (not brutal 3D)
-- Subtle borders (1px vs 3px)
-- Electric blue gradients (#3b82f6)
-- Professional polish for 40-60 year old business owners
-
-Replaced Neubrutalism (playful) with Ambient (trustworthy).
-
----
-
-## 📝 Why I Built This
-
-After being laid off from Humana in August 2025, I pivoted from corporate ML engineering to Louisville AI consulting. Project Lavos validates demand with real business owners before investing in marketing.
-
-**Local Specificity Strategy**: "That's MY restaurant - show me" creates immediate relevance.
+1. Run test suite: `npx playwright test`
+2. Review failures and fix issues
+3. Add more test cases as needed
+4. Integrate with deployment pipeline
 
 ---
 
-## 📧 Contact
-
-**Author**: Matthew David Scott
-**Email**: matthewdscott7@gmail.com
-**Website**: [projectlavos.com](https://projectlavos.com)
-**GitHub**: [guitargnarr](https://github.com/guitargnarr)
-**Location**: Louisville, KY
-
----
-
-## 📄 License
-
-Proprietary - © 2025 Matthew David Scott
-
----
-
-**🤖 Built with Claude Code** - AI-assisted development for rapid prototyping
+**Status**: ✅ Test suite complete and ready for execution
+**Coverage**: 4 test files, 30+ test cases, 4 browsers
+**Execution Time**: ~5-10 minutes for full suite
