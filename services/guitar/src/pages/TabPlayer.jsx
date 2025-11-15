@@ -1,42 +1,33 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Soundfont from 'soundfont-player';
 
 class GuitarSynthesizer {
   constructor() {
     this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    this.masterGain = this.audioContext.createGain();
-    this.masterGain.connect(this.audioContext.destination);
-    this.masterGain.gain.value = 0.3;
-    this.stringFrequencies = [329.63, 246.94, 196.00, 146.83, 110.00, 82.41];
+    this.instrument = null;
+    this.loading = true;
+    // Guitar string MIDI note numbers (standard tuning E-A-D-G-B-e)
+    this.stringBaseMidi = [64, 59, 55, 50, 45, 40]; // E4, B3, G3, D3, A2, E2
+  }
+
+  async loadInstrument() {
+    try {
+      this.instrument = await Soundfont.instrument(this.audioContext, 'acoustic_guitar_nylon');
+      this.loading = false;
+      return true;
+    } catch (error) {
+      console.error('Failed to load soundfont:', error);
+      this.loading = false;
+      return false;
+    }
   }
 
   playNote(string, fret, duration = 0.5) {
-    const baseFreq = this.stringFrequencies[string];
-    const frequency = baseFreq * Math.pow(2, fret / 12);
-    const now = this.audioContext.currentTime;
+    if (!this.instrument || this.loading) return;
 
-    const osc1 = this.audioContext.createOscillator();
-    const osc2 = this.audioContext.createOscillator();
-    const gain = this.audioContext.createGain();
-
-    osc1.frequency.value = frequency;
-    osc2.frequency.value = frequency * 1.003;
-    osc1.type = 'sawtooth';
-    osc2.type = 'triangle';
-
-    gain.gain.setValueAtTime(0, now);
-    gain.gain.linearRampToValueAtTime(0.3, now + 0.005);
-    gain.gain.exponentialRampToValueAtTime(0.1, now + 0.1);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
-
-    osc1.connect(gain);
-    osc2.connect(gain);
-    gain.connect(this.masterGain);
-
-    osc1.start(now);
-    osc2.start(now);
-    osc1.stop(now + duration);
-    osc2.stop(now + duration);
+    const midiNote = this.stringBaseMidi[string] + fret;
+    this.instrument.play(midiNote, this.audioContext.currentTime, { duration, gain: 0.8 });
   }
 
   playMetronomeTick(isDownbeat = false) {
@@ -50,11 +41,18 @@ class GuitarSynthesizer {
     gain.gain.setValueAtTime(0.1, now);
     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
 
+    const masterGain = this.audioContext.createGain();
+    masterGain.connect(this.audioContext.destination);
+
     osc.connect(gain);
-    gain.connect(this.masterGain);
+    gain.connect(masterGain);
 
     osc.start(now);
     osc.stop(now + 0.05);
+  }
+
+  isReady() {
+    return !this.loading && this.instrument !== null;
   }
 }
 
@@ -101,6 +99,8 @@ export default function TabPlayer() {
   const [isLooping, setIsLooping] = useState(false);
   const [metronomeEnabled, setMetronomeEnabled] = useState(false);
   const [currentPosition, setCurrentPosition] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState(null);
 
   const synthRef = useRef(null);
   const tabDataRef = useRef([]);
@@ -108,8 +108,20 @@ export default function TabPlayer() {
   const beatCountRef = useRef(0);
 
   useEffect(() => {
-    synthRef.current = new GuitarSynthesizer();
+    const initSynth = async () => {
+      synthRef.current = new GuitarSynthesizer();
+      const success = await synthRef.current.loadInstrument();
+      if (success) {
+        setIsLoading(false);
+      } else {
+        setLoadError('Failed to load guitar soundfont. Please refresh the page.');
+        setIsLoading(false);
+      }
+    };
+
+    initSynth();
     parseTab(tab);
+
     return () => {
       if (playIntervalRef.current) {
         clearInterval(playIntervalRef.current);
@@ -225,14 +237,28 @@ export default function TabPlayer() {
         <p className="text-gray-400">Practice with Interactive Tab Playback</p>
       </header>
 
+      {isLoading && (
+        <div className="bg-blue-900/30 border border-blue-500 rounded-lg p-6 mb-6 text-center">
+          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400 mb-3"></div>
+          <p className="text-blue-300 font-medium">Loading guitar soundfont...</p>
+          <p className="text-gray-400 text-sm mt-2">This may take a few moments</p>
+        </div>
+      )}
+
+      {loadError && (
+        <div className="bg-red-900/30 border border-red-500 rounded-lg p-6 mb-6">
+          <p className="text-red-300 font-medium">{loadError}</p>
+        </div>
+      )}
+
       <div className="bg-gray-800 rounded-lg p-6 mb-6 border border-gray-700">
         <div className="flex flex-wrap gap-4 items-center">
           <button
             onClick={play}
-            disabled={isPlaying}
+            disabled={isPlaying || isLoading}
             className="bg-green-500 hover:bg-green-600 disabled:bg-gray-600 text-white px-6 py-2 rounded font-medium transition-colors"
           >
-            Play
+            {isLoading ? 'Loading...' : 'Play'}
           </button>
           <button
             onClick={stop}
