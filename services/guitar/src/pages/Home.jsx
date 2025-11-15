@@ -12,7 +12,7 @@ export default function Home() {
         </p>
       </header>
 
-      <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
         <Link to="/fretvision" className="group">
           <div className="bg-gray-800 rounded-lg p-8 hover:bg-gray-700 transition-all duration-300 border border-gray-700 hover:border-green-500">
             <div className="mb-4">
@@ -53,6 +53,29 @@ export default function Home() {
             </p>
             <div className="flex items-center text-blue-500">
               <span className="mr-2">Start Practicing</span>
+              <svg className="w-4 h-4 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </div>
+        </Link>
+
+        <Link to="/catalog" className="group">
+          <div className="bg-gray-800 rounded-lg p-8 hover:bg-gray-700 transition-all duration-300 border border-gray-700 hover:border-purple-500">
+            <div className="mb-4">
+              <svg className="w-16 h-16 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+              </svg>
+            </div>
+            <h2 className="text-2xl font-bold mb-3 group-hover:text-purple-400 transition-colors">
+              GP Catalog
+            </h2>
+            <p className="text-gray-400 mb-4">
+              Browse 70 Guitar Pro files covering scales, arpeggios, sweeps, and more.
+              Filter by difficulty and tier to find the perfect practice material.
+            </p>
+            <div className="flex items-center text-purple-500">
+              <span className="mr-2">Browse Catalog</span>
               <svg className="w-4 h-4 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
