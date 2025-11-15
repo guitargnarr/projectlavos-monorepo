@@ -18,6 +18,7 @@ jobs:
       demos: ${{ steps.filter.outputs.demos }}
       about: ${{ steps.filter.outputs.about }}
       services: ${{ steps.filter.outputs.services }}
+      guitar: ${{ steps.filter.outputs.guitar }}
     steps:
       - uses: actions/checkout@v4
       - uses: dorny/paths-filter@v3
@@ -32,6 +33,9 @@ jobs:
               - 'about/**'
             services:
               - 'services/**'
+              - '!services/guitar/**'
+            guitar:
+              - 'services/guitar/**'
 
   # Deploy main-site if changed
   deploy-main-site:
@@ -136,3 +140,29 @@ jobs:
       - name: Deploy Project Artifacts to Vercel
         run: vercel deploy --prebuilt --prod
         working-directory: services
+
+  # Deploy guitar platform if changed
+  deploy-guitar:
+    needs: filter
+    if: needs.filter.outputs.guitar == 'true'
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_GUITAR }}
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Vercel CLI
+        run: npm install -g vercel@latest
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production
+        working-directory: services/guitar
+      - name: Build Project Artifacts
+        run: vercel build --prod
+        working-directory: services/guitar
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --prod
+        working-directory: services/guitar
