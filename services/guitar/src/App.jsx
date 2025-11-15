@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import FretVision from './pages/FretVision';
 import TabPlayer from './pages/TabPlayer';
+import Catalog from './pages/Catalog';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/fretvision" element={<FretVision />} />
           <Route path="/tabplayer" element={<TabPlayer />} />
+          <Route path="/catalog" element={<Catalog />} />
         </Routes>
       </div>
     </Router>
