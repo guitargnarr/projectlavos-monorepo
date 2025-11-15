@@ -301,13 +301,9 @@ export default function TabPlayer() {
       </div>
 
       <div className="bg-gray-800 rounded-lg p-6 mb-6 border border-gray-700 overflow-x-auto">
-        <div className="font-mono text-lg">
-          {tab.map((line, i) => (
-            <div key={i} className="text-green-400 whitespace-pre">
-              {line}
-            </div>
-          ))}
-        </div>
+        <pre className="font-mono text-lg text-green-400 m-0">
+          {tab.join('\n')}
+        </pre>
       </div>
 
       <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
