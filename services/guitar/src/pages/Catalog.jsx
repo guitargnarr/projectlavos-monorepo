@@ -18,6 +18,7 @@ export default function Catalog() {
   const [selectedTier, setSelectedTier] = useState('all');
   const [selectedDifficulty, setSelectedDifficulty] = useState('all');
   const [showFavorites, setShowFavorites] = useState(false);
+  const [progressFilter, setProgressFilter] = useState('all'); // 'all' | 'completed' | 'in-progress'
 
   // Load favorites from localStorage on mount
   const [favorites, setFavorites] = useState(() => {
@@ -26,6 +27,17 @@ export default function Catalog() {
       return stored ? JSON.parse(stored) : [];
     } catch (e) {
       console.error('Failed to load favorites:', e);
+      return [];
+    }
+  });
+
+  // Progress tracking state with localStorage persistence
+  const [completed, setCompleted] = useState(() => {
+    try {
+      const stored = localStorage.getItem('guitar-progress');
+      return stored ? JSON.parse(stored) : [];
+    } catch (e) {
+      console.error('Failed to load progress:', e);
       return [];
     }
   });
@@ -39,9 +51,27 @@ export default function Catalog() {
     }
   }, [favorites]);
 
+  // Persist completed lessons to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem('guitar-progress', JSON.stringify(completed));
+    } catch (e) {
+      console.error('Failed to save progress:', e);
+    }
+  }, [completed]);
+
   // Toggle favorite function
   const toggleFavorite = (filename) => {
     setFavorites(prev =>
+      prev.includes(filename)
+        ? prev.filter(f => f !== filename)
+        : [...prev, filename]
+    );
+  };
+
+  // Toggle lesson completion status
+  const toggleCompleted = (filename) => {
+    setCompleted(prev =>
       prev.includes(filename)
         ? prev.filter(f => f !== filename)
         : [...prev, filename]
@@ -54,9 +84,16 @@ export default function Catalog() {
       const matchesTier = selectedTier === 'all' || file.tier === selectedTier;
       const matchesDifficulty = selectedDifficulty === 'all' || file.difficulty === selectedDifficulty;
       const matchesFavorites = !showFavorites || favorites.includes(file.filename);
-      return matchesSearch && matchesTier && matchesDifficulty && matchesFavorites;
+
+      // Progress filter logic
+      const matchesProgress =
+        progressFilter === 'all' ||
+        (progressFilter === 'completed' && completed.includes(file.filename)) ||
+        (progressFilter === 'in-progress' && !completed.includes(file.filename));
+
+      return matchesSearch && matchesTier && matchesDifficulty && matchesFavorites && matchesProgress;
     });
-  }, [searchQuery, selectedTier, selectedDifficulty, showFavorites, favorites]);
+  }, [searchQuery, selectedTier, selectedDifficulty, showFavorites, favorites, progressFilter, completed]);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -68,6 +105,24 @@ export default function Catalog() {
         <p className="text-gray-400">
           Browse {catalogData.total_files} Guitar Pro files - {filteredFiles.length} matching your filters
         </p>
+      </div>
+
+      {/* Progress Bar */}
+      <div className="mb-6 bg-gray-800 rounded-lg p-4 border border-gray-700">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-sm text-gray-300 font-medium">
+            Overall Progress: {completed.length}/{catalogData.total_files} lessons completed
+          </span>
+          <span className="text-sm font-semibold text-green-400">
+            {Math.round((completed.length / catalogData.total_files) * 100)}%
+          </span>
+        </div>
+        <div className="w-full bg-gray-700 rounded-full h-2.5">
+          <div
+            className="bg-gradient-to-r from-green-500 to-emerald-400 h-2.5 rounded-full transition-all duration-300"
+            style={{ width: `${(completed.length / catalogData.total_files) * 100}%` }}
+          />
+        </div>
       </div>
 
       {/* Filters */}
@@ -133,6 +188,24 @@ export default function Catalog() {
             >
               Favorites {favorites.length > 0 && `(${favorites.length})`}
             </button>
+          </div>
+
+          {/* Progress filter */}
+          <div className="space-x-2">
+            <span className="text-sm text-gray-400">Progress:</span>
+            {['all', 'completed', 'in-progress'].map((filter) => (
+              <button
+                key={filter}
+                onClick={() => setProgressFilter(filter)}
+                className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${
+                  progressFilter === filter
+                    ? 'bg-green-500 text-gray-900'
+                    : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                }`}
+              >
+                {filter === 'in-progress' ? 'In Progress' : filter.charAt(0).toUpperCase() + filter.slice(1)}
+              </button>
+            ))}
           </div>
         </div>
       </div>
@@ -231,13 +304,43 @@ export default function Catalog() {
               </div>
             </div>
 
-            {/* Preview button */}
-            <button
-              className="w-full px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded transition-colors text-sm font-medium"
-              disabled
-            >
-              Preview (Coming Soon)
-            </button>
+            {/* Action buttons */}
+            <div className="flex items-center gap-2 mt-auto">
+              {/* Completion toggle button */}
+              <button
+                onClick={() => toggleCompleted(file.filename)}
+                className={`flex items-center gap-2 px-3 py-2 rounded text-sm font-medium transition-all flex-shrink-0 ${
+                  completed.includes(file.filename)
+                    ? 'bg-green-500/20 text-green-400 border border-green-500 hover:bg-green-500/30'
+                    : 'bg-gray-700 text-gray-400 border border-gray-600 hover:border-green-500 hover:text-green-400'
+                }`}
+                title={completed.includes(file.filename) ? 'Mark as incomplete' : 'Mark as complete'}
+              >
+                {completed.includes(file.filename) ? (
+                  <>
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="hidden sm:inline">Done</span>
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span className="hidden sm:inline">Mark Done</span>
+                  </>
+                )}
+              </button>
+
+              {/* Preview button */}
+              <button
+                className="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded transition-colors text-sm font-medium"
+                disabled
+              >
+                Preview (Coming Soon)
+              </button>
+            </div>
           </div>
         ))}
       </div>
@@ -251,7 +354,11 @@ export default function Catalog() {
               setSearchQuery('');
               setSelectedTier('all');
               setSelectedDifficulty('all');
+<<<<<<< HEAD
               setShowFavorites(false);
+=======
+              setProgressFilter('all');
+>>>>>>> a54c68d (feat(guitar): Add lesson progress tracking to catalog)
             }}
             className="mt-4 px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded transition-colors"
           >
