@@ -281,7 +281,6 @@ export default function Catalog() {
             key={index}
             className="bg-gray-800 rounded-lg p-5 border border-gray-700 hover:border-gray-600 transition-all hover:shadow-lg relative"
           >
-<<<<<<< HEAD
             {/* Heart Icon (top-right corner) */}
             <button
               onClick={(e) => {
@@ -302,21 +301,21 @@ export default function Catalog() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
               )}
-=======
-            {/* Share button (top-right corner) */}
+            </button>
+
+            {/* Share button (below heart icon) */}
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 openShareModal(file);
               }}
-              className="absolute top-3 right-3 p-1.5 hover:scale-110 transition-transform text-gray-400 hover:text-blue-400"
+              className="absolute top-12 right-3 p-1.5 hover:scale-110 transition-transform text-gray-400 hover:text-blue-400"
               aria-label="Share lesson"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                   d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
               </svg>
->>>>>>> 44a58a4 (feat(guitar): Add social sharing buttons to catalog)
             </button>
 
             {/* Title */}
@@ -434,11 +433,8 @@ export default function Catalog() {
               setSearchQuery('');
               setSelectedTier('all');
               setSelectedDifficulty('all');
-<<<<<<< HEAD
               setShowFavorites(false);
-=======
               setProgressFilter('all');
->>>>>>> a54c68d (feat(guitar): Add lesson progress tracking to catalog)
             }}
             className="mt-4 px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded transition-colors"
           >
