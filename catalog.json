@@ -1,0 +1,904 @@
+{
+  "exercises": [
+    {
+      "id": 1,
+      "category": "technique",
+      "filename": "alternate_picking_basic",
+      "title": "Alternate Picking - Basic",
+      "difficulty": "beginner",
+      "duration_minutes": 5,
+      "tags": ["picking", "fundamentals"]
+    },
+    {
+      "id": 2,
+      "category": "technique",
+      "filename": "alternate_picking_intermediate",
+      "title": "Alternate Picking - Intermediate",
+      "difficulty": "intermediate",
+      "duration_minutes": 7,
+      "tags": ["picking", "speed"]
+    },
+    {
+      "id": 3,
+      "category": "technique",
+      "filename": "alternate_picking_advanced",
+      "title": "Alternate Picking - Advanced",
+      "difficulty": "advanced",
+      "duration_minutes": 10,
+      "tags": ["picking", "speed", "precision"]
+    },
+    {
+      "id": 4,
+      "category": "scales",
+      "filename": "major_scale_position_1",
+      "title": "Major Scale - Position 1",
+      "difficulty": "beginner",
+      "duration_minutes": 5,
+      "tags": ["scales", "major", "CAGED"]
+    },
+    {
+      "id": 5,
+      "category": "scales",
+      "filename": "major_scale_position_2",
+      "title": "Major Scale - Position 2",
+      "difficulty": "beginner",
+      "duration_minutes": 5,
+      "tags": ["scales", "major", "CAGED"]
+    },
+    {
+      "id": 6,
+      "category": "scales",
+      "filename": "major_scale_position_3",
+      "title": "Major Scale - Position 3",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["scales", "major", "CAGED"]
+    },
+    {
+      "id": 7,
+      "category": "scales",
+      "filename": "major_scale_position_4",
+      "title": "Major Scale - Position 4",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["scales", "major", "CAGED"]
+    },
+    {
+      "id": 8,
+      "category": "scales",
+      "filename": "major_scale_position_5",
+      "title": "Major Scale - Position 5",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["scales", "major", "CAGED"]
+    },
+    {
+      "id": 9,
+      "category": "scales",
+      "filename": "minor_pentatonic_position_1",
+      "title": "Minor Pentatonic - Position 1",
+      "difficulty": "beginner",
+      "duration_minutes": 4,
+      "tags": ["scales", "pentatonic", "blues"]
+    },
+    {
+      "id": 10,
+      "category": "scales",
+      "filename": "minor_pentatonic_position_2",
+      "title": "Minor Pentatonic - Position 2",
+      "difficulty": "beginner",
+      "duration_minutes": 4,
+      "tags": ["scales", "pentatonic", "blues"]
+    },
+    {
+      "id": 11,
+      "category": "scales",
+      "filename": "minor_pentatonic_position_3",
+      "title": "Minor Pentatonic - Position 3",
+      "difficulty": "intermediate",
+      "duration_minutes": 5,
+      "tags": ["scales", "pentatonic", "blues"]
+    },
+    {
+      "id": 12,
+      "category": "scales",
+      "filename": "minor_pentatonic_position_4",
+      "title": "Minor Pentatonic - Position 4",
+      "difficulty": "intermediate",
+      "duration_minutes": 5,
+      "tags": ["scales", "pentatonic", "blues"]
+    },
+    {
+      "id": 13,
+      "category": "scales",
+      "filename": "minor_pentatonic_position_5",
+      "title": "Minor Pentatonic - Position 5",
+      "difficulty": "intermediate",
+      "duration_minutes": 5,
+      "tags": ["scales", "pentatonic", "blues"]
+    },
+    {
+      "id": 14,
+      "category": "arpeggios",
+      "filename": "major_triad_arpeggio_position_1",
+      "title": "Major Triad Arpeggio - Position 1",
+      "difficulty": "beginner",
+      "duration_minutes": 4,
+      "tags": ["arpeggios", "triads", "major"]
+    },
+    {
+      "id": 15,
+      "category": "arpeggios",
+      "filename": "major_triad_arpeggio_position_2",
+      "title": "Major Triad Arpeggio - Position 2",
+      "difficulty": "beginner",
+      "duration_minutes": 4,
+      "tags": ["arpeggios", "triads", "major"]
+    },
+    {
+      "id": 16,
+      "category": "arpeggios",
+      "filename": "minor_triad_arpeggio_position_1",
+      "title": "Minor Triad Arpeggio - Position 1",
+      "difficulty": "beginner",
+      "duration_minutes": 4,
+      "tags": ["arpeggios", "triads", "minor"]
+    },
+    {
+      "id": 17,
+      "category": "arpeggios",
+      "filename": "minor_triad_arpeggio_position_2",
+      "title": "Minor Triad Arpeggio - Position 2",
+      "difficulty": "beginner",
+      "duration_minutes": 4,
+      "tags": ["arpeggios", "triads", "minor"]
+    },
+    {
+      "id": 18,
+      "category": "arpeggios",
+      "filename": "dominant_7_arpeggio_position_1",
+      "title": "Dominant 7th Arpeggio - Position 1",
+      "difficulty": "intermediate",
+      "duration_minutes": 5,
+      "tags": ["arpeggios", "seventh", "dominant"]
+    },
+    {
+      "id": 19,
+      "category": "arpeggios",
+      "filename": "major_7_arpeggio_position_1",
+      "title": "Major 7th Arpeggio - Position 1",
+      "difficulty": "intermediate",
+      "duration_minutes": 5,
+      "tags": ["arpeggios", "seventh", "major"]
+    },
+    {
+      "id": 20,
+      "category": "arpeggios",
+      "filename": "minor_7_arpeggio_position_1",
+      "title": "Minor 7th Arpeggio - Position 1",
+      "difficulty": "intermediate",
+      "duration_minutes": 5,
+      "tags": ["arpeggios", "seventh", "minor"]
+    },
+    {
+      "id": 21,
+      "category": "technique",
+      "filename": "legato_hammer_on_basic",
+      "title": "Legato - Hammer-Ons Basic",
+      "difficulty": "beginner",
+      "duration_minutes": 5,
+      "tags": ["legato", "hammer-on", "technique"]
+    },
+    {
+      "id": 22,
+      "category": "technique",
+      "filename": "legato_pull_off_basic",
+      "title": "Legato - Pull-Offs Basic",
+      "difficulty": "beginner",
+      "duration_minutes": 5,
+      "tags": ["legato", "pull-off", "technique"]
+    },
+    {
+      "id": 23,
+      "category": "technique",
+      "filename": "legato_combinations",
+      "title": "Legato - Hammer/Pull Combinations",
+      "difficulty": "intermediate",
+      "duration_minutes": 7,
+      "tags": ["legato", "combinations", "fluidity"]
+    },
+    {
+      "id": 24,
+      "category": "technique",
+      "filename": "string_skipping_basic",
+      "title": "String Skipping - Basic Patterns",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["string-skipping", "patterns"]
+    },
+    {
+      "id": 25,
+      "category": "technique",
+      "filename": "string_skipping_advanced",
+      "title": "String Skipping - Advanced Patterns",
+      "difficulty": "advanced",
+      "duration_minutes": 8,
+      "tags": ["string-skipping", "complex"]
+    },
+    {
+      "id": 26,
+      "category": "rhythm",
+      "filename": "rhythm_8th_notes",
+      "title": "Rhythm - 8th Note Patterns",
+      "difficulty": "beginner",
+      "duration_minutes": 5,
+      "tags": ["rhythm", "strumming", "basics"]
+    },
+    {
+      "id": 27,
+      "category": "rhythm",
+      "filename": "rhythm_16th_notes",
+      "title": "Rhythm - 16th Note Patterns",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["rhythm", "strumming", "precision"]
+    },
+    {
+      "id": 28,
+      "category": "rhythm",
+      "filename": "rhythm_syncopation",
+      "title": "Rhythm - Syncopation Basics",
+      "difficulty": "intermediate",
+      "duration_minutes": 7,
+      "tags": ["rhythm", "syncopation", "groove"]
+    },
+    {
+      "id": 29,
+      "category": "rhythm",
+      "filename": "rhythm_polyrhythms",
+      "title": "Rhythm - Polyrhythms Introduction",
+      "difficulty": "advanced",
+      "duration_minutes": 9,
+      "tags": ["rhythm", "polyrhythms", "complex"]
+    },
+    {
+      "id": 30,
+      "category": "technique",
+      "filename": "bending_basic",
+      "title": "Bending - Basic Whole Step",
+      "difficulty": "beginner",
+      "duration_minutes": 5,
+      "tags": ["bending", "expression"]
+    },
+    {
+      "id": 31,
+      "category": "technique",
+      "filename": "bending_half_step",
+      "title": "Bending - Half Step Control",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["bending", "precision", "intonation"]
+    },
+    {
+      "id": 32,
+      "category": "technique",
+      "filename": "bending_advanced",
+      "title": "Bending - Advanced Techniques",
+      "difficulty": "advanced",
+      "duration_minutes": 8,
+      "tags": ["bending", "pre-bend", "release"]
+    },
+    {
+      "id": 33,
+      "category": "technique",
+      "filename": "vibrato_basic",
+      "title": "Vibrato - Basic Technique",
+      "difficulty": "beginner",
+      "duration_minutes": 4,
+      "tags": ["vibrato", "expression"]
+    },
+    {
+      "id": 34,
+      "category": "technique",
+      "filename": "vibrato_advanced",
+      "title": "Vibrato - Advanced Control",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["vibrato", "control", "expression"]
+    },
+    {
+      "id": 35,
+      "category": "technique",
+      "filename": "sweep_picking_basic",
+      "title": "Sweep Picking - 3-String Triads",
+      "difficulty": "intermediate",
+      "duration_minutes": 7,
+      "tags": ["sweep-picking", "arpeggios"]
+    },
+    {
+      "id": 36,
+      "category": "technique",
+      "filename": "sweep_picking_5_string",
+      "title": "Sweep Picking - 5-String Arpeggios",
+      "difficulty": "advanced",
+      "duration_minutes": 9,
+      "tags": ["sweep-picking", "arpeggios", "speed"]
+    },
+    {
+      "id": 37,
+      "category": "technique",
+      "filename": "tapping_basic",
+      "title": "Tapping - Two-Hand Basic",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["tapping", "two-hand"]
+    },
+    {
+      "id": 38,
+      "category": "technique",
+      "filename": "tapping_advanced",
+      "title": "Tapping - Advanced Patterns",
+      "difficulty": "advanced",
+      "duration_minutes": 8,
+      "tags": ["tapping", "complex", "two-hand"]
+    },
+    {
+      "id": 39,
+      "category": "scales",
+      "filename": "harmonic_minor_position_1",
+      "title": "Harmonic Minor - Position 1",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["scales", "harmonic-minor", "modes"]
+    },
+    {
+      "id": 40,
+      "category": "scales",
+      "filename": "melodic_minor_position_1",
+      "title": "Melodic Minor - Position 1",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["scales", "melodic-minor", "modes"]
+    },
+    {
+      "id": 41,
+      "category": "scales",
+      "filename": "dorian_mode",
+      "title": "Dorian Mode - Full Neck",
+      "difficulty": "intermediate",
+      "duration_minutes": 7,
+      "tags": ["modes", "dorian", "jazz"]
+    },
+    {
+      "id": 42,
+      "category": "scales",
+      "filename": "phrygian_mode",
+      "title": "Phrygian Mode - Full Neck",
+      "difficulty": "intermediate",
+      "duration_minutes": 7,
+      "tags": ["modes", "phrygian", "metal"]
+    },
+    {
+      "id": 43,
+      "category": "scales",
+      "filename": "lydian_mode",
+      "title": "Lydian Mode - Full Neck",
+      "difficulty": "intermediate",
+      "duration_minutes": 7,
+      "tags": ["modes", "lydian", "jazz"]
+    },
+    {
+      "id": 44,
+      "category": "scales",
+      "filename": "mixolydian_mode",
+      "title": "Mixolydian Mode - Full Neck",
+      "difficulty": "intermediate",
+      "duration_minutes": 7,
+      "tags": ["modes", "mixolydian", "blues"]
+    },
+    {
+      "id": 45,
+      "category": "scales",
+      "filename": "locrian_mode",
+      "title": "Locrian Mode - Full Neck",
+      "difficulty": "advanced",
+      "duration_minutes": 8,
+      "tags": ["modes", "locrian", "theory"]
+    },
+    {
+      "id": 46,
+      "category": "technique",
+      "filename": "palm_muting_basic",
+      "title": "Palm Muting - Basic Technique",
+      "difficulty": "beginner",
+      "duration_minutes": 5,
+      "tags": ["palm-muting", "rhythm", "metal"]
+    },
+    {
+      "id": 47,
+      "category": "technique",
+      "filename": "palm_muting_patterns",
+      "title": "Palm Muting - Rhythm Patterns",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["palm-muting", "rhythm", "riffs"]
+    },
+    {
+      "id": 48,
+      "category": "technique",
+      "filename": "hybrid_picking_basic",
+      "title": "Hybrid Picking - Introduction",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["hybrid-picking", "technique", "country"]
+    },
+    {
+      "id": 49,
+      "category": "technique",
+      "filename": "hybrid_picking_advanced",
+      "title": "Hybrid Picking - Advanced Patterns",
+      "difficulty": "advanced",
+      "duration_minutes": 8,
+      "tags": ["hybrid-picking", "complex", "chicken-picking"]
+    },
+    {
+      "id": 50,
+      "category": "exercises",
+      "filename": "chromatic_warmup",
+      "title": "Chromatic Warm-Up Exercise",
+      "difficulty": "beginner",
+      "duration_minutes": 5,
+      "tags": ["warm-up", "chromatic", "fundamentals"]
+    },
+    {
+      "id": 51,
+      "category": "exercises",
+      "filename": "spider_exercise",
+      "title": "Spider Exercise - Finger Independence",
+      "difficulty": "beginner",
+      "duration_minutes": 5,
+      "tags": ["finger-independence", "dexterity"]
+    },
+    {
+      "id": 52,
+      "category": "exercises",
+      "filename": "trills_basic",
+      "title": "Trills - Basic Speed Building",
+      "difficulty": "intermediate",
+      "duration_minutes": 5,
+      "tags": ["trills", "speed", "finger-strength"]
+    },
+    {
+      "id": 53,
+      "category": "exercises",
+      "filename": "finger_stretching",
+      "title": "Finger Stretching Exercises",
+      "difficulty": "beginner",
+      "duration_minutes": 4,
+      "tags": ["stretching", "flexibility", "warm-up"]
+    },
+    {
+      "id": 54,
+      "category": "exercises",
+      "filename": "speed_bursts",
+      "title": "Speed Bursts - Alternate Picking",
+      "difficulty": "advanced",
+      "duration_minutes": 7,
+      "tags": ["speed", "picking", "endurance"]
+    },
+    {
+      "id": 55,
+      "category": "chords",
+      "filename": "open_chords_basic",
+      "title": "Open Chords - Major & Minor",
+      "difficulty": "beginner",
+      "duration_minutes": 5,
+      "tags": ["chords", "open", "fundamentals"]
+    },
+    {
+      "id": 56,
+      "category": "chords",
+      "filename": "barre_chords_major",
+      "title": "Barre Chords - Major Forms",
+      "difficulty": "beginner",
+      "duration_minutes": 6,
+      "tags": ["barre-chords", "major", "moveable"]
+    },
+    {
+      "id": 57,
+      "category": "chords",
+      "filename": "barre_chords_minor",
+      "title": "Barre Chords - Minor Forms",
+      "difficulty": "beginner",
+      "duration_minutes": 6,
+      "tags": ["barre-chords", "minor", "moveable"]
+    },
+    {
+      "id": 58,
+      "category": "chords",
+      "filename": "jazz_chords_basic",
+      "title": "Jazz Chords - 7th Chord Voicings",
+      "difficulty": "intermediate",
+      "duration_minutes": 7,
+      "tags": ["jazz", "seventh-chords", "voicings"]
+    },
+    {
+      "id": 59,
+      "category": "chords",
+      "filename": "jazz_chords_extended",
+      "title": "Jazz Chords - Extended Voicings",
+      "difficulty": "advanced",
+      "duration_minutes": 8,
+      "tags": ["jazz", "extensions", "9th-11th-13th"]
+    },
+    {
+      "id": 60,
+      "category": "chords",
+      "filename": "chord_melody_basic",
+      "title": "Chord Melody - Basic Concepts",
+      "difficulty": "intermediate",
+      "duration_minutes": 7,
+      "tags": ["chord-melody", "fingerstyle", "jazz"]
+    },
+    {
+      "id": 61,
+      "category": "fingerstyle",
+      "filename": "fingerstyle_patterns_basic",
+      "title": "Fingerstyle - Basic Patterns",
+      "difficulty": "beginner",
+      "duration_minutes": 5,
+      "tags": ["fingerstyle", "patterns", "travis-picking"]
+    },
+    {
+      "id": 62,
+      "category": "fingerstyle",
+      "filename": "travis_picking",
+      "title": "Travis Picking - Classic Patterns",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["travis-picking", "fingerstyle", "country"]
+    },
+    {
+      "id": 63,
+      "category": "fingerstyle",
+      "filename": "fingerstyle_advanced",
+      "title": "Fingerstyle - Advanced Techniques",
+      "difficulty": "advanced",
+      "duration_minutes": 8,
+      "tags": ["fingerstyle", "percussive", "contemporary"]
+    },
+    {
+      "id": 64,
+      "category": "blues",
+      "filename": "blues_shuffle_basic",
+      "title": "Blues Shuffle - Basic 12-Bar",
+      "difficulty": "beginner",
+      "duration_minutes": 5,
+      "tags": ["blues", "shuffle", "rhythm"]
+    },
+    {
+      "id": 65,
+      "category": "blues",
+      "filename": "blues_licks_position_1",
+      "title": "Blues Licks - Position 1",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["blues", "licks", "phrasing"]
+    },
+    {
+      "id": 66,
+      "category": "blues",
+      "filename": "blues_licks_position_2",
+      "title": "Blues Licks - Position 2",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["blues", "licks", "phrasing"]
+    },
+    {
+      "id": 67,
+      "category": "blues",
+      "filename": "blues_turnarounds",
+      "title": "Blues Turnarounds - Essential Patterns",
+      "difficulty": "intermediate",
+      "duration_minutes": 5,
+      "tags": ["blues", "turnarounds", "endings"]
+    },
+    {
+      "id": 68,
+      "category": "jazz",
+      "filename": "jazz_comping_basic",
+      "title": "Jazz Comping - Basic Rhythms",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["jazz", "comping", "rhythm"]
+    },
+    {
+      "id": 69,
+      "category": "jazz",
+      "filename": "jazz_walking_bass",
+      "title": "Jazz Walking Bass Lines",
+      "difficulty": "advanced",
+      "duration_minutes": 7,
+      "tags": ["jazz", "walking-bass", "solo-guitar"]
+    },
+    {
+      "id": 70,
+      "category": "jazz",
+      "filename": "jazz_bebop_scales",
+      "title": "Bebop Scales - Major & Dominant",
+      "difficulty": "advanced",
+      "duration_minutes": 8,
+      "tags": ["bebop", "jazz", "scales"]
+    },
+    {
+      "id": 71,
+      "category": "technique",
+      "filename": "economy_picking",
+      "title": "Economy Picking - Basic Patterns",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["economy-picking", "efficiency"]
+    },
+    {
+      "id": 72,
+      "category": "technique",
+      "filename": "natural_harmonics",
+      "title": "Natural Harmonics - Locations & Applications",
+      "difficulty": "beginner",
+      "duration_minutes": 5,
+      "tags": ["harmonics", "natural", "technique"]
+    },
+    {
+      "id": 73,
+      "category": "technique",
+      "filename": "artificial_harmonics",
+      "title": "Artificial Harmonics - Pinch & Tap",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["harmonics", "artificial", "pinch"]
+    },
+    {
+      "id": 74,
+      "category": "technique",
+      "filename": "whammy_bar_basic",
+      "title": "Whammy Bar - Basic Techniques",
+      "difficulty": "intermediate",
+      "duration_minutes": 5,
+      "tags": ["whammy-bar", "vibrato", "divebomb"]
+    },
+    {
+      "id": 75,
+      "category": "technique",
+      "filename": "whammy_bar_advanced",
+      "title": "Whammy Bar - Advanced Techniques",
+      "difficulty": "advanced",
+      "duration_minutes": 7,
+      "tags": ["whammy-bar", "flutter", "pitch-bends"]
+    },
+    {
+      "id": 76,
+      "category": "metal",
+      "filename": "metal_riffs_classic",
+      "title": "Classic Metal Riffs - Essential Patterns",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["metal", "riffs", "power-chords"]
+    },
+    {
+      "id": 77,
+      "category": "metal",
+      "filename": "metal_gallop_rhythm",
+      "title": "Metal Gallop Rhythm - Iron Maiden Style",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["metal", "gallop", "rhythm"]
+    },
+    {
+      "id": 78,
+      "category": "metal",
+      "filename": "metal_tremolo_picking",
+      "title": "Tremolo Picking - Speed & Endurance",
+      "difficulty": "advanced",
+      "duration_minutes": 7,
+      "tags": ["tremolo", "picking", "speed"]
+    },
+    {
+      "id": 79,
+      "category": "metal",
+      "filename": "metal_pedal_tones",
+      "title": "Pedal Tones - Metal Riff Technique",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["pedal-tones", "metal", "riffs"]
+    },
+    {
+      "id": 80,
+      "category": "rock",
+      "filename": "rock_power_chords",
+      "title": "Power Chords - Essential Rock Foundation",
+      "difficulty": "beginner",
+      "duration_minutes": 5,
+      "tags": ["power-chords", "rock", "fundamentals"]
+    },
+    {
+      "id": 81,
+      "category": "rock",
+      "filename": "rock_riffs_classic",
+      "title": "Classic Rock Riffs - Essential Catalog",
+      "difficulty": "intermediate",
+      "duration_minutes": 7,
+      "tags": ["rock", "riffs", "classic"]
+    },
+    {
+      "id": 82,
+      "category": "rock",
+      "filename": "rock_lead_phrasing",
+      "title": "Rock Lead Phrasing - Expression & Dynamics",
+      "difficulty": "intermediate",
+      "duration_minutes": 7,
+      "tags": ["lead", "phrasing", "expression"]
+    },
+    {
+      "id": 83,
+      "category": "country",
+      "filename": "country_licks_basic",
+      "title": "Country Licks - Chicken Pickin' Basics",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["country", "chicken-picking", "licks"]
+    },
+    {
+      "id": 84,
+      "category": "country",
+      "filename": "country_double_stops",
+      "title": "Country Double Stops - Classic Sounds",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["country", "double-stops", "intervals"]
+    },
+    {
+      "id": 85,
+      "category": "country",
+      "filename": "country_pedal_steel_licks",
+      "title": "Pedal Steel Style Licks on Guitar",
+      "difficulty": "advanced",
+      "duration_minutes": 7,
+      "tags": ["country", "pedal-steel", "bending"]
+    },
+    {
+      "id": 86,
+      "category": "funk",
+      "filename": "funk_rhythm_basic",
+      "title": "Funk Rhythm - Basic Groove Patterns",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["funk", "rhythm", "groove"]
+    },
+    {
+      "id": 87,
+      "category": "funk",
+      "filename": "funk_chord_stabs",
+      "title": "Funk Chord Stabs - Percussive Rhythm",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["funk", "stabs", "percussive"]
+    },
+    {
+      "id": 88,
+      "category": "funk",
+      "filename": "funk_single_note_lines",
+      "title": "Funk Single-Note Lines - Syncopation",
+      "difficulty": "advanced",
+      "duration_minutes": 7,
+      "tags": ["funk", "single-note", "syncopation"]
+    },
+    {
+      "id": 89,
+      "category": "latin",
+      "filename": "latin_bossa_nova",
+      "title": "Bossa Nova - Basic Rhythm Pattern",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["latin", "bossa-nova", "fingerstyle"]
+    },
+    {
+      "id": 90,
+      "category": "latin",
+      "filename": "latin_rumba",
+      "title": "Rumba Rhythm - Flamenco Basics",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["latin", "rumba", "flamenco"]
+    },
+    {
+      "id": 91,
+      "category": "theory",
+      "filename": "theory_intervals",
+      "title": "Music Theory - Intervals on Guitar",
+      "difficulty": "beginner",
+      "duration_minutes": 6,
+      "tags": ["theory", "intervals", "fundamentals"]
+    },
+    {
+      "id": 92,
+      "category": "theory",
+      "filename": "theory_chord_construction",
+      "title": "Chord Construction - Building Triads",
+      "difficulty": "intermediate",
+      "duration_minutes": 7,
+      "tags": ["theory", "chords", "construction"]
+    },
+    {
+      "id": 93,
+      "category": "theory",
+      "filename": "theory_circle_of_fifths",
+      "title": "Circle of Fifths - Practical Application",
+      "difficulty": "intermediate",
+      "duration_minutes": 7,
+      "tags": ["theory", "circle-of-fifths", "keys"]
+    },
+    {
+      "id": 94,
+      "category": "theory",
+      "filename": "theory_diatonic_harmony",
+      "title": "Diatonic Harmony - Understanding Progressions",
+      "difficulty": "intermediate",
+      "duration_minutes": 8,
+      "tags": ["theory", "harmony", "progressions"]
+    },
+    {
+      "id": 95,
+      "category": "ear_training",
+      "filename": "ear_training_intervals",
+      "title": "Ear Training - Recognizing Intervals",
+      "difficulty": "beginner",
+      "duration_minutes": 5,
+      "tags": ["ear-training", "intervals", "listening"]
+    },
+    {
+      "id": 96,
+      "category": "ear_training",
+      "filename": "ear_training_chord_quality",
+      "title": "Ear Training - Chord Quality Recognition",
+      "difficulty": "intermediate",
+      "duration_minutes": 6,
+      "tags": ["ear-training", "chords", "listening"]
+    },
+    {
+      "id": 97,
+      "category": "ear_training",
+      "filename": "ear_training_progressions",
+      "title": "Ear Training - Common Progressions",
+      "difficulty": "intermediate",
+      "duration_minutes": 7,
+      "tags": ["ear-training", "progressions", "listening"]
+    },
+    {
+      "id": 98,
+      "category": "improvisation",
+      "filename": "improv_pentatonic_basic",
+      "title": "Improvisation - Pentatonic Foundation",
+      "difficulty": "intermediate",
+      "duration_minutes": 8,
+      "tags": ["improvisation", "pentatonic", "soloing"]
+    },
+    {
+      "id": 99,
+      "category": "improvisation",
+      "filename": "improv_chord_tones",
+      "title": "Improvisation - Using Chord Tones",
+      "difficulty": "intermediate",
+      "duration_minutes": 8,
+      "tags": ["improvisation", "chord-tones", "targeting"]
+    },
+    {
+      "id": 100,
+      "category": "improvisation",
+      "filename": "improv_modal",
+      "title": "Modal Improvisation - Beyond Major/Minor",
+      "difficulty": "advanced",
+      "duration_minutes": 9,
+      "tags": ["improvisation", "modes", "advanced"]
+    }
+  ]
+}

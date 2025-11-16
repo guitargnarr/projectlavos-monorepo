@@ -7,6 +7,7 @@ test-results.json
 # Node
 node_modules/
 npm-debug.log*
+dist/
 
 # OS
 .DS_Store
@@ -20,4 +21,5 @@ Thumbs.db
 
 # Environment
 .env
+.env.*
 .env.local
