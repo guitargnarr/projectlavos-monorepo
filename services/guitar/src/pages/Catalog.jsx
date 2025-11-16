@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import catalogData from '../../data/catalog.json';
 
 const tierColors = {
@@ -17,15 +17,46 @@ export default function Catalog() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTier, setSelectedTier] = useState('all');
   const [selectedDifficulty, setSelectedDifficulty] = useState('all');
+  const [showFavorites, setShowFavorites] = useState(false);
+
+  // Load favorites from localStorage on mount
+  const [favorites, setFavorites] = useState(() => {
+    try {
+      const stored = localStorage.getItem('guitar-favorites');
+      return stored ? JSON.parse(stored) : [];
+    } catch (e) {
+      console.error('Failed to load favorites:', e);
+      return [];
+    }
+  });
+
+  // Save favorites to localStorage whenever they change
+  useEffect(() => {
+    try {
+      localStorage.setItem('guitar-favorites', JSON.stringify(favorites));
+    } catch (e) {
+      console.error('Failed to save favorites:', e);
+    }
+  }, [favorites]);
+
+  // Toggle favorite function
+  const toggleFavorite = (filename) => {
+    setFavorites(prev =>
+      prev.includes(filename)
+        ? prev.filter(f => f !== filename)
+        : [...prev, filename]
+    );
+  };
 
   const filteredFiles = useMemo(() => {
     return catalogData.files.filter((file) => {
       const matchesSearch = file.title.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesTier = selectedTier === 'all' || file.tier === selectedTier;
       const matchesDifficulty = selectedDifficulty === 'all' || file.difficulty === selectedDifficulty;
-      return matchesSearch && matchesTier && matchesDifficulty;
+      const matchesFavorites = !showFavorites || favorites.includes(file.filename);
+      return matchesSearch && matchesTier && matchesDifficulty && matchesFavorites;
     });
-  }, [searchQuery, selectedTier, selectedDifficulty]);
+  }, [searchQuery, selectedTier, selectedDifficulty, showFavorites, favorites]);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -89,6 +120,20 @@ export default function Catalog() {
               </button>
             ))}
           </div>
+
+          {/* Favorites filter */}
+          <div className="space-x-2">
+            <button
+              onClick={() => setShowFavorites(!showFavorites)}
+              className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${
+                showFavorites
+                  ? 'bg-pink-500 text-gray-900'
+                  : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+              }`}
+            >
+              Favorites {favorites.length > 0 && `(${favorites.length})`}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -97,10 +142,32 @@ export default function Catalog() {
         {filteredFiles.map((file, index) => (
           <div
             key={index}
-            className="bg-gray-800 rounded-lg p-5 border border-gray-700 hover:border-gray-600 transition-all hover:shadow-lg"
+            className="bg-gray-800 rounded-lg p-5 border border-gray-700 hover:border-gray-600 transition-all hover:shadow-lg relative"
           >
+            {/* Heart Icon (top-right corner) */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleFavorite(file.filename);
+              }}
+              className="absolute top-3 right-3 p-1 hover:scale-110 transition-transform"
+              aria-label={favorites.includes(file.filename) ? 'Remove from favorites' : 'Add to favorites'}
+            >
+              {favorites.includes(file.filename) ? (
+                // Filled heart
+                <svg className="w-6 h-6 text-pink-500" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+                </svg>
+              ) : (
+                // Outline heart
+                <svg className="w-6 h-6 text-gray-400 hover:text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              )}
+            </button>
+
             {/* Title */}
-            <h3 className="text-lg font-semibold mb-3 text-gray-100 line-clamp-2">
+            <h3 className="text-lg font-semibold mb-3 text-gray-100 line-clamp-2 pr-8">
               {file.title}
             </h3>
 
@@ -184,6 +251,7 @@ export default function Catalog() {
               setSearchQuery('');
               setSelectedTier('all');
               setSelectedDifficulty('all');
+              setShowFavorites(false);
             }}
             className="mt-4 px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded transition-colors"
           >
