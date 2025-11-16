@@ -15,6 +15,7 @@ git push origin main  # Path-based CI deploys only changed subdomains
 ## Critical Rules
 - **ALWAYS** `git add public/` after generating assets
 - **YOU MUST** test builds locally before deploying
+- **YOU MUST** check for merge conflict markers before committing: `git diff --cached | grep -E "^(\+.*<<<<<<|^(\+.*======|^(\+.*>>>>>>)"`
 - NO vercel.json files (Vercel auto-detects Vite)
 
 ## Project Structure
@@ -46,7 +47,19 @@ Changes requiring human verification before claiming done:
 - **Content:** 100 Guitar Pro files (~/Library/Mobile Documents/.../Desktop/GP)
 - **Stack:** React + Vite + Tailwind v3 + Supabase auth
 - **Existing code:** FretVision (chord viz), guitar_consciousness (tab player)
+- **Catalog.jsx:** Central hub - favorites, progress, sharing, navigation all integrate here
+- **E2E Tests:** Run on push/PR (15 min), can cancel if not needed to stop email spam
+
+## Common Pitfalls
+- **Merge conflicts in worktrees:** Conflict markers can remain after resolution - always grep before commit
+- **E2E test emails:** Tests trigger on every push - cancel unnecessary runs via GitHub Actions UI
+- **Catalog.jsx changes:** Multiple features use this file - coordinate icon positioning (heart: top-3, share: top-12)
+
+## Parallel Development (Proven 2025-11-16)
+- **Success rate:** 4/4 PRs, <3 min execution, 100% deployed
+- **Use for:** 2-4 independent features (navigation, favorites, progress, sharing)
+- **Playbook:** @~/.claude/reference/parallel-development-playbook.md
+- **Key:** Test each PR's build before merging to catch conflict markers
 
 ## Documentation References
-- Parallel dev: @~/.claude/reference/parallel-development-playbook.md
 - Anthropic workflows: @~/.claude/archive/WORKFLOWS.md
