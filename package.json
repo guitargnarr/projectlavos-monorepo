@@ -1,0 +1,32 @@
+{
+  "name": "projectlavos-e2e-tests",
+  "version": "1.0.0",
+  "description": "E2E test suite for Project Lavos multi-site architecture",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "test:chrome": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "test:safari": "playwright test --project=webkit",
+    "test:mobile": "playwright test --project='Mobile Chrome' --project='Mobile Safari'",
+    "test:tablet": "playwright test --project=Tablet",
+    "test:restaurant": "playwright test tests/specs/restaurant-analyzer.spec.js",
+    "test:mobile-responsive": "playwright test tests/specs/mobile-responsiveness.spec.js",
+    "test:errors": "playwright test tests/specs/error-states.spec.js",
+    "test:navigation": "playwright test tests/specs/cross-subdomain-navigation.spec.js",
+    "test:debug": "playwright test --debug",
+    "report": "playwright show-report",
+    "install:browsers": "playwright install chromium firefox webkit"
+  },
+  "keywords": ["e2e", "playwright", "testing"],
+  "author": "Matthew David Scott",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "playwright": "^1.56.1"
+  },
+  "dependencies": {
+    "playwright-core": "^1.56.1"
+  }
+}
