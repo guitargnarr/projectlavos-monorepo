@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import Soundfont from 'soundfont-player';
 import * as alphaTab from '@coderline/alphatab';
 
@@ -94,6 +94,9 @@ const EXERCISES = {
 };
 
 export default function TabPlayer() {
+  const [searchParams] = useSearchParams();
+  const gpFileName = searchParams.get('file') || 'pentatonic-major.gp';
+
   const [tab, setTab] = useState(DEFAULT_TAB);
   const [tempo, setTempo] = useState(120);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -179,8 +182,8 @@ export default function TabPlayer() {
 
         alphaTabApiRef.current = api;
 
-        // Load GP file
-        const response = await fetch('/tabs/pentatonic-major.gp');
+        // Load GP file from URL param or default
+        const response = await fetch(`/tabs/${gpFileName}`);
         if (!response.ok) {
           throw new Error(`Failed to load GP file: ${response.statusText}`);
         }
@@ -202,7 +205,7 @@ export default function TabPlayer() {
         alphaTabApiRef.current.destroy();
       }
     };
-  }, []);
+  }, [gpFileName]);
 
   const stop = useCallback(() => {
     setIsPlaying(false);
@@ -362,7 +365,9 @@ export default function TabPlayer() {
 
       {/* alphaTab Guitar Pro File Rendering */}
       <div className="bg-gray-800 rounded-lg p-6 mb-6 border border-gray-700">
-        <h3 className="text-xl font-bold mb-4 text-blue-400">Guitar Pro File: Pentatonic Major</h3>
+        <h3 className="text-xl font-bold mb-4 text-blue-400">
+          Guitar Pro File: {gpFileName.replace('.gp', '').replace(/-/g, ' ')}
+        </h3>
 
         {gpFileLoading && (
           <div className="text-center py-8">
