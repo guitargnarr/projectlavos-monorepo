@@ -217,7 +217,7 @@ export default function Catalog() {
             placeholder="Search by title, tags, difficulty, tier..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-2 pr-10 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-green-500 transition-colors"
+            className="w-full px-4 py-3 pr-10 text-base bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-green-500 transition-colors"
           />
           {searchQuery && (
             <button
@@ -241,7 +241,7 @@ export default function Catalog() {
               <button
                 key={tier}
                 onClick={() => setSelectedTier(tier)}
-                className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${
+                className={`px-4 py-2.5 rounded-full text-sm font-medium transition-all min-h-[44px] ${
                   selectedTier === tier
                     ? 'bg-green-500 text-gray-900'
                     : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
@@ -259,7 +259,7 @@ export default function Catalog() {
               <button
                 key={difficulty}
                 onClick={() => setSelectedDifficulty(difficulty)}
-                className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${
+                className={`px-4 py-2.5 rounded-full text-sm font-medium transition-all min-h-[44px] ${
                   selectedDifficulty === difficulty
                     ? 'bg-green-500 text-gray-900'
                     : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
@@ -274,7 +274,7 @@ export default function Catalog() {
           <div className="space-x-2">
             <button
               onClick={() => setShowFavorites(!showFavorites)}
-              className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${
+              className={`px-4 py-2.5 rounded-full text-sm font-medium transition-all min-h-[44px] ${
                 showFavorites
                   ? 'bg-pink-500 text-gray-900'
                   : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
@@ -291,7 +291,7 @@ export default function Catalog() {
               <button
                 key={filter}
                 onClick={() => setProgressFilter(filter)}
-                className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${
+                className={`px-4 py-2.5 rounded-full text-sm font-medium transition-all min-h-[44px] ${
                   progressFilter === filter
                     ? 'bg-green-500 text-gray-900'
                     : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
@@ -317,7 +317,7 @@ export default function Catalog() {
                 e.stopPropagation();
                 toggleFavorite(file.filename);
               }}
-              className="absolute top-3 right-3 p-1 hover:scale-110 transition-transform"
+              className="absolute top-3 right-3 p-2 hover:scale-110 transition-transform min-w-[44px] min-h-[44px] flex items-center justify-center"
               aria-label={favorites.includes(file.filename) ? 'Remove from favorites' : 'Add to favorites'}
             >
               {favorites.includes(file.filename) ? (
@@ -339,7 +339,7 @@ export default function Catalog() {
                 e.stopPropagation();
                 openShareModal(file);
               }}
-              className="absolute top-12 right-3 p-1.5 hover:scale-110 transition-transform text-gray-400 hover:text-blue-400"
+              className="absolute top-14 right-3 p-2.5 hover:scale-110 transition-transform text-gray-400 hover:text-blue-400 min-w-[44px] min-h-[44px] flex items-center justify-center"
               aria-label="Share lesson"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -418,7 +418,7 @@ export default function Catalog() {
               {/* Completion toggle button */}
               <button
                 onClick={() => toggleCompleted(file.filename)}
-                className={`flex items-center gap-2 px-3 py-2 rounded text-sm font-medium transition-all flex-shrink-0 ${
+                className={`flex items-center gap-2 px-4 py-2.5 rounded text-sm font-medium transition-all flex-shrink-0 min-h-[44px] ${
                   completed.includes(file.filename)
                     ? 'bg-green-500/20 text-green-400 border border-green-500 hover:bg-green-500/30'
                     : 'bg-gray-700 text-gray-400 border border-gray-600 hover:border-green-500 hover:text-green-400'
@@ -427,14 +427,14 @@ export default function Catalog() {
               >
                 {completed.includes(file.filename) ? (
                   <>
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                     </svg>
                     <span className="hidden sm:inline">Done</span>
                   </>
                 ) : (
                   <>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <span className="hidden sm:inline">Mark Done</span>
@@ -444,7 +444,7 @@ export default function Catalog() {
 
               {/* Preview button */}
               <button
-                className="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded transition-colors text-sm font-medium"
+                className="flex-1 px-4 py-2.5 bg-gray-700 hover:bg-gray-600 rounded transition-colors text-sm font-medium min-h-[44px]"
                 disabled
               >
                 Preview (Coming Soon)
