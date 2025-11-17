@@ -15,6 +15,7 @@ const difficultyColors = {
 
 export default function Catalog() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [debouncedQuery, setDebouncedQuery] = useState('');
   const [selectedTier, setSelectedTier] = useState('all');
   const [selectedDifficulty, setSelectedDifficulty] = useState('all');
   const [showFavorites, setShowFavorites] = useState(false);
@@ -62,6 +63,15 @@ export default function Catalog() {
       console.error('Failed to save progress:', e);
     }
   }, [completed]);
+
+  // Debounce search query (300ms delay)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedQuery(searchQuery);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
 
   // Toggle favorite function
   const toggleFavorite = (filename) => {
@@ -144,7 +154,16 @@ export default function Catalog() {
 
   const filteredFiles = useMemo(() => {
     return catalogData.files.filter((file) => {
-      const matchesSearch = file.title.toLowerCase().includes(searchQuery.toLowerCase());
+      // Enhanced search across multiple fields
+      const query = debouncedQuery.toLowerCase();
+      const matchesSearch = !query || (
+        file.title.toLowerCase().includes(query) ||
+        file.difficulty.toLowerCase().includes(query) ||
+        file.tier.toLowerCase().includes(query) ||
+        file.category.toLowerCase().includes(query) ||
+        file.techniques.some(technique => technique.toLowerCase().includes(query))
+      );
+
       const matchesTier = selectedTier === 'all' || file.tier === selectedTier;
       const matchesDifficulty = selectedDifficulty === 'all' || file.difficulty === selectedDifficulty;
       const matchesFavorites = !showFavorites || favorites.includes(file.filename);
@@ -157,7 +176,7 @@ export default function Catalog() {
 
       return matchesSearch && matchesTier && matchesDifficulty && matchesFavorites && matchesProgress;
     });
-  }, [searchQuery, selectedTier, selectedDifficulty, showFavorites, favorites, progressFilter, completed]);
+  }, [debouncedQuery, selectedTier, selectedDifficulty, showFavorites, favorites, progressFilter, completed]);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -192,14 +211,25 @@ export default function Catalog() {
       {/* Filters */}
       <div className="mb-8 space-y-4">
         {/* Search */}
-        <div>
+        <div className="relative w-full md:w-96">
           <input
             type="text"
-            placeholder="Search by title..."
+            placeholder="Search by title, tags, difficulty, tier..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full md:w-96 px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-green-500 transition-colors"
+            className="w-full px-4 py-2 pr-10 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-green-500 transition-colors"
           />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery('')}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-200 transition-colors"
+              aria-label="Clear search"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          )}
         </div>
 
         {/* Filter buttons */}
