@@ -256,19 +256,19 @@ export default function TabPlayer() {
           <button
             onClick={play}
             disabled={isPlaying || isLoading}
-            className="bg-green-500 hover:bg-green-600 disabled:bg-gray-600 text-white px-6 py-2 rounded font-medium transition-colors"
+            className="bg-green-500 hover:bg-green-600 disabled:bg-gray-600 text-white px-6 py-3 rounded font-medium transition-colors min-h-[44px]"
           >
             {isLoading ? 'Loading...' : 'Play'}
           </button>
           <button
             onClick={stop}
-            className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded font-medium transition-colors"
+            className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded font-medium transition-colors min-h-[44px]"
           >
             Stop
           </button>
           <button
             onClick={() => setIsLooping(!isLooping)}
-            className={`px-6 py-2 rounded font-medium transition-colors ${
+            className={`px-6 py-3 rounded font-medium transition-colors min-h-[44px] ${
               isLooping ? 'bg-orange-500 hover:bg-orange-600' : 'bg-gray-600 hover:bg-gray-700'
             } text-white`}
           >
@@ -283,20 +283,20 @@ export default function TabPlayer() {
               max="200"
               value={tempo}
               onChange={(e) => setTempo(parseInt(e.target.value))}
-              className="w-32 accent-blue-500"
+              className="w-48 h-11 accent-blue-500"
             />
           </div>
 
-          <div className="flex items-center gap-2">
+          <label htmlFor="metronome" className="flex items-center gap-3 cursor-pointer min-h-[44px]">
             <input
               type="checkbox"
               id="metronome"
               checked={metronomeEnabled}
               onChange={(e) => setMetronomeEnabled(e.target.checked)}
-              className="w-4 h-4 accent-blue-500"
+              className="w-5 h-5 accent-blue-500 cursor-pointer"
             />
-            <label htmlFor="metronome" className="text-sm font-medium">Metronome</label>
-          </div>
+            <span className="text-sm font-medium">Metronome</span>
+          </label>
         </div>
       </div>
 
@@ -311,19 +311,19 @@ export default function TabPlayer() {
         <div className="flex flex-wrap gap-3">
           <button
             onClick={() => loadExercise('chromatic')}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded font-medium transition-colors"
+            className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-3 rounded font-medium transition-colors min-h-[44px]"
           >
             Chromatic Exercise
           </button>
           <button
             onClick={() => loadExercise('pentatonic')}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded font-medium transition-colors"
+            className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-3 rounded font-medium transition-colors min-h-[44px]"
           >
             Pentatonic Scale
           </button>
           <button
             onClick={() => loadExercise('chords')}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded font-medium transition-colors"
+            className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-3 rounded font-medium transition-colors min-h-[44px]"
           >
             Chord Progression
           </button>
