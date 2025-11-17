@@ -22,6 +22,7 @@ export default function LessonCard({
   onToggleFavorite,
   onToggleCompleted,
   onShare,
+  onPreview,
   iconPositions,
 }) {
   return (
@@ -117,10 +118,10 @@ export default function LessonCard({
 
         {/* Preview button */}
         <button
-          className="flex-1 px-4 py-2.5 bg-gray-700 hover:bg-gray-600 rounded transition-colors text-sm font-medium min-h-[44px]"
-          disabled
+          onClick={() => onPreview(file.filename)}
+          className="flex-1 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 rounded transition-colors text-sm font-medium min-h-[44px]"
         >
-          Preview (Coming Soon)
+          Preview Tab
         </button>
       </div>
     </div>
@@ -141,6 +142,7 @@ LessonCard.propTypes = {
   onToggleFavorite: PropTypes.func.isRequired,
   onToggleCompleted: PropTypes.func.isRequired,
   onShare: PropTypes.func.isRequired,
+  onPreview: PropTypes.func.isRequired,
   iconPositions: PropTypes.shape({
     favorite: PropTypes.string.isRequired,
     share: PropTypes.string.isRequired,

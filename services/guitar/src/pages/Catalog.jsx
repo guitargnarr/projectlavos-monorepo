@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import catalogData from '../../data/catalog.json';
 import ProgressBar from '../components/catalog/ProgressBar';
 import CatalogSearch from '../components/catalog/CatalogSearch';
@@ -13,6 +14,8 @@ const ICON_POSITIONS = {
 };
 
 export default function Catalog() {
+  const navigate = useNavigate();
+
   // Search state
   const [searchQuery, setSearchQuery] = useState('');
   const [debouncedQuery, setDebouncedQuery] = useState('');
@@ -91,6 +94,11 @@ export default function Catalog() {
         ? prev.filter(f => f !== filename)
         : [...prev, filename]
     );
+  };
+
+  // Navigate to TabPlayer with file
+  const handlePreview = (filename) => {
+    navigate(`/tabplayer?file=${encodeURIComponent(filename)}`);
   };
 
   // Share URL generation with UTM parameters
@@ -230,6 +238,7 @@ export default function Catalog() {
             onToggleFavorite={toggleFavorite}
             onToggleCompleted={toggleCompleted}
             onShare={openShareModal}
+            onPreview={handlePreview}
             iconPositions={ICON_POSITIONS}
           />
         ))}
