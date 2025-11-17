@@ -3,11 +3,25 @@ name: E2E Tests
 on:
   push:
     branches: [ main, feature/e2e-testing ]
+    paths:
+      - 'services/guitar/src/**'
+      - 'services/guitar/package.json'
+      - 'tests/specs/guitar-*.spec.js'
+      - 'playwright.config.js'
+      - '.github/workflows/e2e-tests.yml'
   pull_request:
     branches: [ main ]
+    paths:
+      - 'services/guitar/src/**'
+      - 'services/guitar/package.json'
+      - 'tests/specs/guitar-*.spec.js'
+      - 'playwright.config.js'
+      - '.github/workflows/e2e-tests.yml'
   schedule:
     # Run tests daily at 6 AM UTC
     - cron: '0 6 * * *'
+  workflow_dispatch:
+    # Allow manual trigger from GitHub Actions UI
 
 concurrency:
   group: e2e-tests-${{ github.ref }}

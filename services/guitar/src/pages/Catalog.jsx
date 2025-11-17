@@ -13,6 +13,14 @@ const difficultyColors = {
   advanced: 'bg-red-500/20 text-red-400',
 };
 
+// Icon positioning constants to prevent overlap
+// Reserve space: top-3, top-12, top-21 for future icons
+const ICON_POSITIONS = {
+  favorite: 'top-3 right-3',    // Heart icon
+  share: 'top-14 right-3',      // Share button (top-14 = 3.5rem = 56px, allowing 44px touch target + 12px spacing)
+  // Reserved for future: top-25 right-3 (if needed)
+};
+
 export default function Catalog() {
   const [searchQuery, setSearchQuery] = useState('');
   const [debouncedQuery, setDebouncedQuery] = useState('');
@@ -317,7 +325,7 @@ export default function Catalog() {
                 e.stopPropagation();
                 toggleFavorite(file.filename);
               }}
-              className="absolute top-3 right-3 p-2 hover:scale-110 transition-transform min-w-[44px] min-h-[44px] flex items-center justify-center"
+              className={`absolute ${ICON_POSITIONS.favorite} p-2 hover:scale-110 transition-transform min-w-[44px] min-h-[44px] flex items-center justify-center`}
               aria-label={favorites.includes(file.filename) ? 'Remove from favorites' : 'Add to favorites'}
             >
               {favorites.includes(file.filename) ? (
@@ -339,7 +347,7 @@ export default function Catalog() {
                 e.stopPropagation();
                 openShareModal(file);
               }}
-              className="absolute top-14 right-3 p-2.5 hover:scale-110 transition-transform text-gray-400 hover:text-blue-400 min-w-[44px] min-h-[44px] flex items-center justify-center"
+              className={`absolute ${ICON_POSITIONS.share} p-2.5 hover:scale-110 transition-transform text-gray-400 hover:text-blue-400 min-w-[44px] min-h-[44px] flex items-center justify-center`}
               aria-label="Share lesson"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
