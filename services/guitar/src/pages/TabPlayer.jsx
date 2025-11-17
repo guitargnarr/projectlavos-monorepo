@@ -116,6 +116,7 @@ export default function TabPlayer() {
   const alphaTabApiRef = useRef(null);
   const [gpFileLoading, setGpFileLoading] = useState(false);
   const [gpFileError, setGpFileError] = useState(null);
+  const [soundFontLoaded, setSoundFontLoaded] = useState(false);
 
   const parseTab = useCallback((lines) => {
     const cleanedLines = lines.map(line => line.substring(2));
@@ -169,7 +170,7 @@ export default function TabPlayer() {
         setGpFileLoading(true);
         setGpFileError(null);
 
-        // Initialize alphaTab with Canvas rendering and correct font path
+        // Initialize alphaTab with Canvas rendering and audio playback
         const api = new alphaTab.AlphaTabApi(alphaTabContainerRef.current, {
           core: {
             engine: 'html5', // Canvas rendering
@@ -178,9 +179,35 @@ export default function TabPlayer() {
           display: {
             layoutMode: 'horizontal',
           },
+          player: {
+            enablePlayer: true,
+            enableUserInteraction: true,
+            soundFont: 'https://cdn.jsdelivr.net/npm/@coderline/alphatab@latest/dist/soundfont/sonivox.sf2',
+          },
         });
 
         alphaTabApiRef.current = api;
+
+        // Add player state event listeners
+        api.playerStateChanged.on((e) => {
+          setIsPlaying(e.state === alphaTab.synth.PlayerState.Playing);
+        });
+
+        // Player ready event
+        api.playerReady.on(() => {
+          console.log('alphaTab player ready');
+        });
+
+        // SoundFont loaded event
+        api.soundFontLoaded.on(() => {
+          console.log('alphaTab soundfont loaded');
+          setSoundFontLoaded(true);
+        });
+
+        // Render finished event (handles large files)
+        api.renderFinished.on(() => {
+          console.log('alphaTab render finished');
+        });
 
         // Load GP file from URL param or default
         const response = await fetch(`/tabs/${gpFileName}`);
@@ -211,6 +238,13 @@ export default function TabPlayer() {
     setIsPlaying(false);
     setCurrentPosition(0);
     beatCountRef.current = 0;
+
+    // Stop alphaTab player if available
+    if (alphaTabApiRef.current) {
+      alphaTabApiRef.current.stop();
+    }
+
+    // Also stop custom MIDI player
     if (playIntervalRef.current) {
       clearInterval(playIntervalRef.current);
       playIntervalRef.current = null;
@@ -251,8 +285,35 @@ export default function TabPlayer() {
 
   const play = () => {
     if (isPlaying) return;
-    setIsPlaying(true);
-    playNextNote();
+
+    // Only use alphaTab player (deprecate custom MIDI player)
+    if (alphaTabApiRef.current) {
+      alphaTabApiRef.current.play();
+      setIsPlaying(true);
+    }
+    // Old custom MIDI player removed - alphaTab handles all playback
+  };
+
+  const handleTempoChange = (newTempo) => {
+    setTempo(newTempo);
+
+    // Update alphaTab playback speed if available
+    if (alphaTabApiRef.current) {
+      // alphaTab uses playbackSpeed as a multiplier
+      // Calculate speed relative to 120 BPM (default)
+      const speedMultiplier = newTempo / 120;
+      alphaTabApiRef.current.playbackSpeed = speedMultiplier;
+    }
+  };
+
+  const toggleLoop = () => {
+    const newLoopState = !isLooping;
+    setIsLooping(newLoopState);
+
+    // Update alphaTab isLooping if available
+    if (alphaTabApiRef.current) {
+      alphaTabApiRef.current.isLooping = newLoopState;
+    }
   };
 
   const loadExercise = (type) => {
@@ -262,21 +323,8 @@ export default function TabPlayer() {
     stop();
   };
 
-  useEffect(() => {
-    if (!isPlaying) return;
-
-    if (playIntervalRef.current) {
-      clearInterval(playIntervalRef.current);
-    }
-
-    playNextNote();
-
-    return () => {
-      if (playIntervalRef.current) {
-        clearInterval(playIntervalRef.current);
-      }
-    };
-  }, [isPlaying, currentPosition, tempo, isLooping, metronomeEnabled, playNextNote]);
+  // Old MIDI player useEffect removed - alphaTab handles all playback now
+  // Quick Exercises section remains as visual reference only
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
@@ -312,10 +360,10 @@ export default function TabPlayer() {
         <div className="flex flex-wrap gap-4 items-center">
           <button
             onClick={play}
-            disabled={isPlaying || isLoading}
+            disabled={isPlaying || isLoading || gpFileLoading || !soundFontLoaded}
             className="bg-green-500 hover:bg-green-600 disabled:bg-gray-600 text-white px-6 py-3 rounded font-medium transition-colors min-h-[44px]"
           >
-            {isLoading ? 'Loading...' : 'Play'}
+            {isLoading ? 'Loading...' : gpFileLoading ? 'Loading GP...' : !soundFontLoaded ? 'Loading Audio...' : 'Play'}
           </button>
           <button
             onClick={stop}
@@ -324,7 +372,7 @@ export default function TabPlayer() {
             Stop
           </button>
           <button
-            onClick={() => setIsLooping(!isLooping)}
+            onClick={toggleLoop}
             className={`px-6 py-3 rounded font-medium transition-colors min-h-[44px] ${
               isLooping ? 'bg-orange-500 hover:bg-orange-600' : 'bg-gray-600 hover:bg-gray-700'
             } text-white`}
@@ -339,7 +387,7 @@ export default function TabPlayer() {
               min="40"
               max="200"
               value={tempo}
-              onChange={(e) => setTempo(parseInt(e.target.value))}
+              onChange={(e) => handleTempoChange(parseInt(e.target.value))}
               className="w-48 h-11 accent-blue-500"
             />
           </div>
