@@ -328,12 +328,18 @@ export default function TabPlayer() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
-      <div className="mb-6">
+      <div className="mb-6 flex gap-4">
         <Link to="/" className="text-blue-500 hover:text-blue-400 flex items-center gap-2">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
           Back to Home
+        </Link>
+        <Link to="/catalog" className="text-blue-500 hover:text-blue-400 flex items-center gap-2">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          Back to Catalog
         </Link>
       </div>
 
@@ -405,12 +411,6 @@ export default function TabPlayer() {
         </div>
       </div>
 
-      <div className="bg-gray-800 rounded-lg p-6 mb-6 border border-gray-700 overflow-x-auto">
-        <pre className="font-mono text-lg text-green-400 m-0">
-          {tab.join('\n')}
-        </pre>
-      </div>
-
       {/* alphaTab Guitar Pro File Rendering */}
       <div className="bg-gray-800 rounded-lg p-6 mb-6 border border-gray-700">
         <h3 className="text-xl font-bold mb-4 text-blue-400">
@@ -435,30 +435,6 @@ export default function TabPlayer() {
           className="overflow-x-auto min-h-[200px]"
           style={{ minHeight: '300px' }}
         />
-      </div>
-
-      <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
-        <h3 className="text-xl font-bold mb-4 text-blue-400">Quick Exercises</h3>
-        <div className="flex flex-wrap gap-3">
-          <button
-            onClick={() => loadExercise('chromatic')}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-3 rounded font-medium transition-colors min-h-[44px]"
-          >
-            Chromatic Exercise
-          </button>
-          <button
-            onClick={() => loadExercise('pentatonic')}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-3 rounded font-medium transition-colors min-h-[44px]"
-          >
-            Pentatonic Scale
-          </button>
-          <button
-            onClick={() => loadExercise('chords')}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-3 rounded font-medium transition-colors min-h-[44px]"
-          >
-            Chord Progression
-          </button>
-        </div>
       </div>
     </div>
   );
