@@ -118,7 +118,7 @@ export default function FretVision() {
               <button
                 key={note}
                 onClick={() => setRootNote(note)}
-                className={`py-2 px-3 rounded font-medium transition-all ${
+                className={`py-3 px-3 rounded font-medium transition-all min-h-[44px] ${
                   rootNote === note
                     ? 'bg-green-500 text-white'
                     : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
