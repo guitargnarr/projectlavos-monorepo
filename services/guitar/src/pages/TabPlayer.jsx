@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import Soundfont from 'soundfont-player';
 
@@ -107,6 +107,27 @@ export default function TabPlayer() {
   const playIntervalRef = useRef(null);
   const beatCountRef = useRef(0);
 
+  const parseTab = useCallback((lines) => {
+    const cleanedLines = lines.map(line => line.substring(2));
+    const minLength = Math.min(...cleanedLines.map(line => line.length));
+    const data = [];
+
+    for (let pos = 0; pos < minLength; pos++) {
+      const column = { notes: [], duration: 1 };
+      for (let string = 0; string < 6; string++) {
+        const char = cleanedLines[string][pos];
+        if (char && char.match(/\d/)) {
+          column.notes.push({ string, fret: parseInt(char) });
+        }
+      }
+      if (column.notes.length > 0) {
+        data.push(column);
+      }
+    }
+
+    tabDataRef.current = data;
+  }, []);
+
   useEffect(() => {
     const initSynth = async () => {
       synthRef.current = new GuitarSynthesizer();
@@ -127,36 +148,19 @@ export default function TabPlayer() {
         clearInterval(playIntervalRef.current);
       }
     };
+  }, [tab, parseTab]);
+
+  const stop = useCallback(() => {
+    setIsPlaying(false);
+    setCurrentPosition(0);
+    beatCountRef.current = 0;
+    if (playIntervalRef.current) {
+      clearInterval(playIntervalRef.current);
+      playIntervalRef.current = null;
+    }
   }, []);
 
-  const parseTab = (lines) => {
-    const cleanedLines = lines.map(line => line.substring(2));
-    const minLength = Math.min(...cleanedLines.map(line => line.length));
-    const data = [];
-
-    for (let pos = 0; pos < minLength; pos++) {
-      const column = { notes: [], duration: 1 };
-      for (let string = 0; string < 6; string++) {
-        const char = cleanedLines[string][pos];
-        if (char && char.match(/\d/)) {
-          column.notes.push({ string, fret: parseInt(char) });
-        }
-      }
-      if (column.notes.length > 0) {
-        data.push(column);
-      }
-    }
-
-    tabDataRef.current = data;
-  };
-
-  const play = () => {
-    if (isPlaying) return;
-    setIsPlaying(true);
-    playNextNote();
-  };
-
-  const playNextNote = () => {
+  const playNextNote = useCallback(() => {
     const beatDuration = 60000 / (tempo * 2);
 
     playIntervalRef.current = setInterval(() => {
@@ -186,16 +190,12 @@ export default function TabPlayer() {
 
       setCurrentPosition(pos + 1);
     }, beatDuration);
-  };
+  }, [tempo, currentPosition, isLooping, metronomeEnabled, stop]);
 
-  const stop = () => {
-    setIsPlaying(false);
-    setCurrentPosition(0);
-    beatCountRef.current = 0;
-    if (playIntervalRef.current) {
-      clearInterval(playIntervalRef.current);
-      playIntervalRef.current = null;
-    }
+  const play = () => {
+    if (isPlaying) return;
+    setIsPlaying(true);
+    playNextNote();
   };
 
   const loadExercise = (type) => {
@@ -219,7 +219,7 @@ export default function TabPlayer() {
         clearInterval(playIntervalRef.current);
       }
     };
-  }, [isPlaying, currentPosition, tempo, isLooping, metronomeEnabled]);
+  }, [isPlaying, currentPosition, tempo, isLooping, metronomeEnabled, playNextNote]);
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
