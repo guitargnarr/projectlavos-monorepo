@@ -66,57 +66,125 @@ TabPlayer currently shows hardcoded exercises. This task makes it **actually fun
 
 ---
 
-## Research Needed (Start Here)
+## Research Complete: alphaTab Analysis
 
-### Library Options to Investigate
+### Library Decision: alphaTab (Confirmed)
 
-**Option 1: alphaTab** (Recommended)
-- **URL:** https://www.alphatab.net
-- **Features:** Full GP file parsing, tab rendering, audio synthesis
-- **License:** Open source (MPL-2.0)
-- **React Support:** Has React integration
-- **Pros:** Complete solution, well-documented, active development
-- **Cons:** Large bundle size (~400KB), learning curve
+**Package:** `@coderline/alphatab` v1.6.0 (MIT license)
+**npm:** 310 weekly downloads, 1,411 GitHub stars
+**Size:** 13.4 MB unpacked, est. ~1 MB gzipped
+**Support:** Guitar Pro 3-7 (.gp3, .gp4, .gp5, .gp7) - covers all your files
 
-**Option 2: guitar-pro (npm)**
-- **Package:** `guitar-pro` on npm
-- **Features:** GP file parsing only (no rendering/audio)
-- **Pros:** Lightweight, parse-only if you want custom rendering
-- **Cons:** Need separate rendering solution
+### Canvas Rendering Confirmed ✅
 
-**Option 3: Custom Parser**
-- **Approach:** Parse GP files manually, render with custom components
-- **Pros:** Full control, minimal bundle
-- **Cons:** 40+ hours development, reinventing wheel
+**alphaTab uses HTML5 Canvas** via `core.engine: 'html5'` setting.
 
-**Recommendation:** Start with alphaTab research - likely best ROI
+**What this means:**
+- Renders music notation to Canvas element (not SVG or DOM)
+- Near-constant performance as score complexity increases
+- Better mobile performance (less memory than SVG)
+- Opens door for custom Canvas overlays (animations, interactive features)
 
-### Technical Questions to Answer
+**Canvas vs SVG trade-off:**
+- Canvas: Better for complex scores, mobile devices, frequent redraws
+- SVG: Better for zooming/scaling, accessibility, small scores
+- **Recommendation:** Start with Canvas, add SVG zoom mode if needed
 
-1. **File Loading:**
-   - How to serve GP files from catalog? (Static in public/ vs dynamic loading)
-   - File size constraints? (some GP files are 50KB-1MB)
-   - Security considerations? (client-side only, safe)
+### Audio Synthesis Architecture
 
-2. **alphaTab Integration:**
-   - How to initialize in React component?
-   - How to handle file upload vs direct file path?
-   - How to connect to existing controls (play/stop/tempo)?
+**alphaTab includes full MIDI synthesizer:**
+- Uses SoundFont2/3 for realistic instrument sounds
+- Web Audio API under the hood (low latency)
+- Audio Worklets for background processing
+- Default soundfont: ~10 MB (full General MIDI)
 
-3. **Audio Rendering:**
-   - Does alphaTab handle audio synthesis? (Yes, SoundFont-based)
-   - Can we use existing MIDI controls? (May need adapter)
-   - What about soundfont loading time? (Lazy load, cache)
+**Soundfont optimization:**
+- **Option A:** Use alphaTab's default (10 MB, includes all instruments)
+- **Option B:** Custom guitar-only soundfont (2-3 MB, faster load)
+- **Option C:** CDN hosting (jsDelivr, no bundle impact)
+- **Recommended:** CDN + lazy load (fetch on first play, not page load)
 
-4. **Tab Rendering:**
-   - Does alphaTab render to Canvas or DOM?
-   - Can we style tabs with Tailwind? (Depends on render method)
-   - Mobile scrolling behavior? (Horizontal scroll likely)
+### React Integration Pattern (Researched)
 
-5. **Integration with Catalog:**
-   - How to pass selected GP file from Catalog to TabPlayer?
-   - URL structure: `/tabplayer?file=filename.gp`? (Good approach)
-   - How to fetch file data? (import or fetch from public/)
+**Vite plugin required:**
+```bash
+npm install @coderline/alphatab
+```
+
+**Vite config:**
+```javascript
+import { alphaTab } from '@coderline/alphatab/vite';
+
+export default defineConfig({
+  plugins: [react(), alphaTab()],
+});
+```
+
+**Component pattern:**
+```javascript
+import { useRef, useEffect, useState } from 'react';
+import * as alphaTab from '@coderline/alphatab';
+
+const apiRef = useRef(null);
+const containerRef = useRef(null);
+
+useEffect(() => {
+  apiRef.current = new alphaTab.AlphaTabApi(containerRef.current, {
+    core: { engine: 'html5' }, // Canvas rendering
+    player: {
+      enablePlayer: true,
+      soundFont: 'https://cdn.jsdelivr.net/.../sonivox.sf2',
+    },
+  });
+
+  // Load GP file
+  fetch('/tabs/song.gp5')
+    .then(res => res.arrayBuffer())
+    .then(buffer => apiRef.current.load(new Uint8Array(buffer)));
+
+  return () => apiRef.current?.destroy();
+}, []);
+
+return <div ref={containerRef} />;
+```
+
+### Canvas Customization Opportunities
+
+**Custom Canvas overlays** (layer on top of alphaTab Canvas):
+- Animated note hits (glow effect when note plays)
+- Fret position indicators (show where finger goes)
+- Practice mode markers (visual indicators for problem spots)
+- Loop region selection (draw selection box)
+- Difficulty highlighting (color-code fast passages)
+
+**FretVision sync potential:**
+- When TabPlayer plays note, highlight on FretVision fretboard
+- Shared Canvas utilities (drawing functions, colors, animations)
+- Unified interactive architecture
+
+### File Loading Strategy (Decided)
+
+**Recommendation:** Static public files + fetch
+
+```
+services/guitar/public/tabs/
+├── chromatic-exercise.gp5
+├── pentatonic-scale.gp5
+└── ... (100 files, ~50MB total)
+```
+
+**Why:**
+- Simple to implement (no server needed)
+- Fast loading (direct file access)
+- Cacheable (browser caches GP files)
+- Works offline after first load
+
+**Load with:**
+```javascript
+const response = await fetch(`/tabs/${filename}`);
+const arrayBuffer = await response.arrayBuffer();
+apiRef.current.load(new Uint8Array(arrayBuffer));
+```
 
 ---
 
