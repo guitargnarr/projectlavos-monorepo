@@ -42,13 +42,15 @@ Changes requiring human verification before claiming done:
 - API endpoint modifications
 - Environment variable changes
 
-## Guitar Platform (services.projectlavos.com)
-- **Goal:** Passive revenue (tabs, lessons, AI tools)
+## Guitar Platform (guitar.projectlavos.com)
+- **Goal:** Educational demonstration platform (showing what AI-enabled solo dev can build)
+- **Secondary:** Passive revenue potential (tabs, lessons, AI tools)
+- **Vision:** @services/guitar/CLAUDE.md (detailed philosophy and purpose)
 - **Content:** 100 Guitar Pro files (~/Library/Mobile Documents/.../Desktop/GP)
-- **Stack:** React + Vite + Tailwind v3 + Supabase auth
-- **Existing code:** FretVision (chord viz), guitar_consciousness (tab player)
-- **Catalog.jsx:** Central hub - favorites, progress, sharing, navigation all integrate here
-- **E2E Tests:** Run on push/PR (15 min), can cancel if not needed to stop email spam
+- **Stack:** React + Vite + Tailwind v3 + Supabase auth + PropTypes validation
+- **Components:** Modular catalog/* architecture (8 components + FretVision + TabPlayer + Navigation)
+- **Catalog.jsx:** Refactored orchestrator (543→263 lines) - delegates to modular components
+- **E2E Tests:** 328 guitar-specific tests, path-filtered CI/CD (runs only on guitar/** changes)
 
 ## Common Pitfalls
 - **Merge conflicts in worktrees:** Conflict markers can remain after resolution - always grep before commit
