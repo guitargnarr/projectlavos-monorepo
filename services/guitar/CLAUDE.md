@@ -75,3 +75,4 @@ Educational demonstration platform showing what's possible when AI enables a sol
 - **Avoid**: Multiple PRs modifying Catalog.jsx (high conflict risk)
 - **Success rate**: 8/8 PRs merged in last 2 days (4x faster than sequential)
 - **Playbook**: @~/.claude/reference/parallel-development-playbook.md (v4.0)
+- "Always remember the merry-go-round works. We have proof"
