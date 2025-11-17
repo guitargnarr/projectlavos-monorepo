@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import Soundfont from 'soundfont-player';
+import * as alphaTab from '@coderline/alphatab';
 
 class GuitarSynthesizer {
   constructor() {
@@ -107,6 +108,12 @@ export default function TabPlayer() {
   const playIntervalRef = useRef(null);
   const beatCountRef = useRef(0);
 
+  // alphaTab refs
+  const alphaTabContainerRef = useRef(null);
+  const alphaTabApiRef = useRef(null);
+  const [gpFileLoading, setGpFileLoading] = useState(false);
+  const [gpFileError, setGpFileError] = useState(null);
+
   const parseTab = useCallback((lines) => {
     const cleanedLines = lines.map(line => line.substring(2));
     const minLength = Math.min(...cleanedLines.map(line => line.length));
@@ -149,6 +156,53 @@ export default function TabPlayer() {
       }
     };
   }, [tab, parseTab]);
+
+  // Initialize alphaTab
+  useEffect(() => {
+    if (!alphaTabContainerRef.current) return;
+
+    const loadGPFile = async () => {
+      try {
+        setGpFileLoading(true);
+        setGpFileError(null);
+
+        // Initialize alphaTab with Canvas rendering and correct font path
+        const api = new alphaTab.AlphaTabApi(alphaTabContainerRef.current, {
+          core: {
+            engine: 'html5', // Canvas rendering
+            fontDirectory: '/font/', // Point to public/font/ directory
+          },
+          display: {
+            layoutMode: 'horizontal',
+          },
+        });
+
+        alphaTabApiRef.current = api;
+
+        // Load GP file
+        const response = await fetch('/tabs/pentatonic-major.gp');
+        if (!response.ok) {
+          throw new Error(`Failed to load GP file: ${response.statusText}`);
+        }
+        const arrayBuffer = await response.arrayBuffer();
+        api.load(new Uint8Array(arrayBuffer));
+
+        setGpFileLoading(false);
+      } catch (error) {
+        console.error('alphaTab initialization error:', error);
+        setGpFileError(`Failed to load Guitar Pro file: ${error.message}`);
+        setGpFileLoading(false);
+      }
+    };
+
+    loadGPFile();
+
+    return () => {
+      if (alphaTabApiRef.current) {
+        alphaTabApiRef.current.destroy();
+      }
+    };
+  }, []);
 
   const stop = useCallback(() => {
     setIsPlaying(false);
@@ -304,6 +358,30 @@ export default function TabPlayer() {
         <pre className="font-mono text-lg text-green-400 m-0">
           {tab.join('\n')}
         </pre>
+      </div>
+
+      {/* alphaTab Guitar Pro File Rendering */}
+      <div className="bg-gray-800 rounded-lg p-6 mb-6 border border-gray-700">
+        <h3 className="text-xl font-bold mb-4 text-blue-400">Guitar Pro File: Pentatonic Major</h3>
+
+        {gpFileLoading && (
+          <div className="text-center py-8">
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400 mb-3"></div>
+            <p className="text-blue-300 font-medium">Loading Guitar Pro file...</p>
+          </div>
+        )}
+
+        {gpFileError && (
+          <div className="bg-red-900/30 border border-red-500 rounded-lg p-4 mb-4">
+            <p className="text-red-300 font-medium">{gpFileError}</p>
+          </div>
+        )}
+
+        <div
+          ref={alphaTabContainerRef}
+          className="overflow-x-auto min-h-[200px]"
+          style={{ minHeight: '300px' }}
+        />
       </div>
 
       <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
