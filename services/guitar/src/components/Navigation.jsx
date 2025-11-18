@@ -16,6 +16,8 @@ export default function Navigation() {
     { path: '/', label: 'Home', color: 'green' },
     { path: '/fretvision', label: 'FretVision', color: 'green' },
     { path: '/tabplayer', label: 'Tab Player', color: 'blue' },
+    { path: '/practice-log', label: 'Practice Log', color: 'orange' },
+    { path: '/playlists', label: 'Playlists', color: 'purple' },
     { path: '/catalog', label: 'Catalog', color: 'purple' },
   ];
 
@@ -39,6 +41,7 @@ export default function Navigation() {
               const activeColors = {
                 green: 'bg-green-500 text-gray-900',
                 blue: 'bg-blue-500 text-gray-900',
+                orange: 'bg-orange-500 text-gray-900',
                 purple: 'bg-purple-500 text-gray-900',
               };
 
@@ -46,6 +49,7 @@ export default function Navigation() {
               const hoverColors = {
                 green: 'hover:bg-gray-700 hover:text-green-400',
                 blue: 'hover:bg-gray-700 hover:text-blue-400',
+                orange: 'hover:bg-gray-700 hover:text-orange-400',
                 purple: 'hover:bg-gray-700 hover:text-purple-400',
               };
 

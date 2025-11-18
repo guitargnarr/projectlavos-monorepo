@@ -1,0 +1,743 @@
+{
+  "version": "1.0",
+  "generated_at": "2025-11-14",
+  "total_files": 70,
+  "tier_distribution": {
+    "free": 10,
+    "premium": 30,
+    "pro": 30
+  },
+  "categories": [
+    "tapping",
+    "scale",
+    "sweep",
+    "economy",
+    "alternate",
+    "chord",
+    "legato",
+    "lick",
+    "arpeggio",
+    "pentatonic",
+    "exercise"
+  ],
+  "files": [
+    {
+      "filename": "Mini Course - What Makes Up A Chord_.gp",
+      "title": "Mini Course - What Makes Up A Chord_",
+      "category": "chord",
+      "techniques": [
+        "chord"
+      ],
+      "difficulty": "beginner",
+      "tier": "free"
+    },
+    {
+      "filename": "Exercise 4 Part 1 - BASIC SUBDIVISIONS AT 85BPM.gp",
+      "title": "Exercise 4 Part 1 - BASIC SUBDIVISIONS AT 85BPM",
+      "category": "exercise",
+      "techniques": [
+        "exercise"
+      ],
+      "difficulty": "beginner",
+      "tier": "free"
+    },
+    {
+      "filename": "Mini Course - Lick Building.gp",
+      "title": "Mini Course - Lick Building",
+      "category": "lick",
+      "techniques": [
+        "lick"
+      ],
+      "difficulty": "beginner",
+      "tier": "free"
+    },
+    {
+      "filename": "Pentatonic Major — All Keys.gp",
+      "title": "Pentatonic Major — All Keys",
+      "category": "pentatonic",
+      "techniques": [
+        "pentatonic"
+      ],
+      "difficulty": "beginner",
+      "tier": "free"
+    },
+    {
+      "filename": "Pentatonic Minor — All Keys.gp",
+      "title": "Pentatonic Minor — All Keys",
+      "category": "pentatonic",
+      "techniques": [
+        "pentatonic"
+      ],
+      "difficulty": "beginner",
+      "tier": "free"
+    },
+    {
+      "filename": "Seven Positions of the Major Scale.gp",
+      "title": "Seven Positions of the Major Scale",
+      "category": "scale",
+      "techniques": [
+        "scale"
+      ],
+      "difficulty": "beginner",
+      "tier": "free"
+    },
+    {
+      "filename": "Mini Course - Playing The Scale Over Each Chord.gp",
+      "title": "Mini Course - Playing The Scale Over Each Chord",
+      "category": "scale",
+      "techniques": [
+        "chord",
+        "scale"
+      ],
+      "difficulty": "beginner",
+      "tier": "free"
+    },
+    {
+      "filename": "Minor Scale — All Keys.gp",
+      "title": "Minor Scale — All Keys",
+      "category": "scale",
+      "techniques": [
+        "scale"
+      ],
+      "difficulty": "beginner",
+      "tier": "free"
+    },
+    {
+      "filename": "Major Scale — All Keys.gp",
+      "title": "Major Scale — All Keys",
+      "category": "scale",
+      "techniques": [
+        "scale"
+      ],
+      "difficulty": "beginner",
+      "tier": "free"
+    },
+    {
+      "filename": "Alternate Picking — 10 Moveable Sequences.gp",
+      "title": "Alternate Picking — 10 Moveable Sequences",
+      "category": "alternate",
+      "techniques": [
+        "alternate"
+      ],
+      "difficulty": "intermediate",
+      "tier": "free"
+    },
+    {
+      "filename": "Alternate Run 2.gp",
+      "title": "Alternate Run 2",
+      "category": "alternate",
+      "techniques": [
+        "alternate"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "m7b5 Arpeggios.gp",
+      "title": "m7b5 Arpeggios",
+      "category": "arpeggio",
+      "techniques": [
+        "arpeggio"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "Extended Arpeggio.gp",
+      "title": "Extended Arpeggio",
+      "category": "arpeggio",
+      "techniques": [
+        "arpeggio"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "Extended Arpeggio 2.gp",
+      "title": "Extended Arpeggio 2",
+      "category": "arpeggio",
+      "techniques": [
+        "arpeggio"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "theguitargym-Arpeggioworkout-TABS.gpx",
+      "title": "theguitargym-Arpeggioworkout-TABSx",
+      "category": "arpeggio",
+      "techniques": [
+        "arpeggio"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "Arpeggio Sequences — CMaj7.gp",
+      "title": "Arpeggio Sequences — CMaj7",
+      "category": "arpeggio",
+      "techniques": [
+        "arpeggio"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "Arpeggio Study 4.gpx",
+      "title": "Arpeggio Study 4x",
+      "category": "arpeggio",
+      "techniques": [
+        "arpeggio"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "Arpeggio Study 5.gpx",
+      "title": "Arpeggio Study 5x",
+      "category": "arpeggio",
+      "techniques": [
+        "arpeggio"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "Scales & Arpeggios (4nps).gp",
+      "title": "Scales & Arpeggios (4nps)",
+      "category": "arpeggio",
+      "techniques": [
+        "arpeggio",
+        "scale"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "Static Chord Soloing.gp",
+      "title": "Static Chord Soloing",
+      "category": "chord",
+      "techniques": [
+        "chord",
+        "solo"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "Pentatonic and Economy Sequences.gp",
+      "title": "Pentatonic and Economy Sequences",
+      "category": "economy",
+      "techniques": [
+        "economy",
+        "pentatonic"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "Economy Picking .gp",
+      "title": "Economy Picking ",
+      "category": "economy",
+      "techniques": [
+        "economy"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "Economy Picking - 5 Exercises (Drop G Tuning).gp",
+      "title": "Economy Picking - 5 Exercises (Drop G Tuning)",
+      "category": "economy",
+      "techniques": [
+        "economy",
+        "exercise"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "Economy Picking — 4 Examples.gp",
+      "title": "Economy Picking — 4 Examples",
+      "category": "economy",
+      "techniques": [
+        "economy"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "Economy Picking — 10 Moveable Sequences.gp",
+      "title": "Economy Picking — 10 Moveable Sequences",
+      "category": "economy",
+      "techniques": [
+        "economy"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "DL - Economy Picking L4.gp",
+      "title": "DL - Economy Picking L4",
+      "category": "economy",
+      "techniques": [
+        "economy"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "Economy Picking Sequence — G Minor.gp",
+      "title": "Economy Picking Sequence — G Minor",
+      "category": "economy",
+      "techniques": [
+        "economy"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "Economy Picking - 5 Exercises (Drop G Tuning.gp",
+      "title": "Economy Picking - 5 Exercises (Drop G Tuning",
+      "category": "economy",
+      "techniques": [
+        "economy",
+        "exercise"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "Exercise 1 Part 5 Picking Etiquette - Four Notes Per String, Skipping Strings.gp",
+      "title": "Exercise 1 Part 5 Picking Etiquette - Four Notes Per String, Skipping Strings",
+      "category": "exercise",
+      "techniques": [
+        "exercise"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "Exercise 3 Part 3 LAZY FIRST FINGER KILLER 1.gp",
+      "title": "Exercise 3 Part 3 LAZY FIRST FINGER KILLER 1",
+      "category": "exercise",
+      "techniques": [
+        "exercise"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "Exercise 1 Part 4 Picking Etiquette - Four Notes Per String, Adjacent Strings.gp",
+      "title": "Exercise 1 Part 4 Picking Etiquette - Four Notes Per String, Adjacent Strings",
+      "category": "exercise",
+      "techniques": [
+        "exercise"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "5 Legato Pentatonic Patterns.gp",
+      "title": "5 Legato Pentatonic Patterns",
+      "category": "legato",
+      "techniques": [
+        "legato",
+        "pattern",
+        "pentatonic"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "Legato (7 Examples.gp",
+      "title": "Legato (7 Examples",
+      "category": "legato",
+      "techniques": [
+        "legato"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "The Guitar Gym - Legato Workout.gpx",
+      "title": "The Guitar Gym - Legato Workoutx",
+      "category": "legato",
+      "techniques": [
+        "legato"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "Legato — 10 Moveable Sequences.gp",
+      "title": "Legato — 10 Moveable Sequences",
+      "category": "legato",
+      "techniques": [
+        "legato"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "Fun Lick.gp",
+      "title": "Fun Lick",
+      "category": "lick",
+      "techniques": [
+        "lick"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "12 SCALE SEQUENCING_EX. A - PENTATONIC ASCENDING 4S.gp",
+      "title": "12 SCALE SEQUENCING_EX. A - PENTATONIC ASCENDING 4S",
+      "category": "pentatonic",
+      "techniques": [
+        "pentatonic",
+        "scale"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "50 Essential Pentatonic Sequences part2.gpx",
+      "title": "50 Essential Pentatonic Sequences part2x",
+      "category": "pentatonic",
+      "techniques": [
+        "pentatonic"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "Pentatonic Etudes  — 15 Moveable Sequences.gp",
+      "title": "Pentatonic Etudes  — 15 Moveable Sequences",
+      "category": "pentatonic",
+      "techniques": [
+        "etude",
+        "pentatonic"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "Pentatonic II 3nps Vertical Pivots in E Minor.gp",
+      "title": "Pentatonic II 3nps Vertical Pivots in E Minor",
+      "category": "pentatonic",
+      "techniques": [
+        "pentatonic"
+      ],
+      "difficulty": "intermediate",
+      "tier": "premium"
+    },
+    {
+      "filename": "Pentatonic III 3-1-3 Groups.gp",
+      "title": "Pentatonic III 3-1-3 Groups",
+      "category": "pentatonic",
+      "techniques": [
+        "pentatonic"
+      ],
+      "difficulty": "intermediate",
+      "tier": "pro"
+    },
+    {
+      "filename": "Pentatonic Extended Sequence — Aminor.gp",
+      "title": "Pentatonic Extended Sequence — Aminor",
+      "category": "pentatonic",
+      "techniques": [
+        "pentatonic"
+      ],
+      "difficulty": "intermediate",
+      "tier": "pro"
+    },
+    {
+      "filename": "All Scale Types in Key of C.gp",
+      "title": "All Scale Types in Key of C",
+      "category": "scale",
+      "techniques": [
+        "scale"
+      ],
+      "difficulty": "intermediate",
+      "tier": "pro"
+    },
+    {
+      "filename": "All Scales in Key of D.gp",
+      "title": "All Scales in Key of D",
+      "category": "scale",
+      "techniques": [
+        "scale"
+      ],
+      "difficulty": "intermediate",
+      "tier": "pro"
+    },
+    {
+      "filename": "All Scales in the Key of Gb.gp",
+      "title": "All Scales in the Key of Gb",
+      "category": "scale",
+      "techniques": [
+        "scale"
+      ],
+      "difficulty": "intermediate",
+      "tier": "pro"
+    },
+    {
+      "filename": "All Scales in the Key of Eb.gp",
+      "title": "All Scales in the Key of Eb",
+      "category": "scale",
+      "techniques": [
+        "scale"
+      ],
+      "difficulty": "intermediate",
+      "tier": "pro"
+    },
+    {
+      "filename": "All Scales in the Key of Ab.gp",
+      "title": "All Scales in the Key of Ab",
+      "category": "scale",
+      "techniques": [
+        "scale"
+      ],
+      "difficulty": "intermediate",
+      "tier": "pro"
+    },
+    {
+      "filename": "All Scales in the Key of Bb.gp",
+      "title": "All Scales in the Key of Bb",
+      "category": "scale",
+      "techniques": [
+        "scale"
+      ],
+      "difficulty": "intermediate",
+      "tier": "pro"
+    },
+    {
+      "filename": "All Scales in the Key of D#.gp",
+      "title": "All Scales in the Key of D#",
+      "category": "scale",
+      "techniques": [
+        "scale"
+      ],
+      "difficulty": "intermediate",
+      "tier": "pro"
+    },
+    {
+      "filename": "All Scales in the Key of F#.gp",
+      "title": "All Scales in the Key of F#",
+      "category": "scale",
+      "techniques": [
+        "scale"
+      ],
+      "difficulty": "intermediate",
+      "tier": "pro"
+    },
+    {
+      "filename": "All Scales in the Key of G#.gp",
+      "title": "All Scales in the Key of G#",
+      "category": "scale",
+      "techniques": [
+        "scale"
+      ],
+      "difficulty": "intermediate",
+      "tier": "pro"
+    },
+    {
+      "filename": "All Scales in the Key of A.gp",
+      "title": "All Scales in the Key of A",
+      "category": "scale",
+      "techniques": [
+        "scale"
+      ],
+      "difficulty": "intermediate",
+      "tier": "pro"
+    },
+    {
+      "filename": "All Scales in the Key of E.gp",
+      "title": "All Scales in the Key of E",
+      "category": "scale",
+      "techniques": [
+        "scale"
+      ],
+      "difficulty": "intermediate",
+      "tier": "pro"
+    },
+    {
+      "filename": "Hexatonic Scale Sequences.gp",
+      "title": "Hexatonic Scale Sequences",
+      "category": "scale",
+      "techniques": [
+        "scale"
+      ],
+      "difficulty": "intermediate",
+      "tier": "pro"
+    },
+    {
+      "filename": "All Scales in the Key of A#.gp",
+      "title": "All Scales in the Key of A#",
+      "category": "scale",
+      "techniques": [
+        "scale"
+      ],
+      "difficulty": "intermediate",
+      "tier": "pro"
+    },
+    {
+      "filename": "All Scales in the Key of B.gp",
+      "title": "All Scales in the Key of B",
+      "category": "scale",
+      "techniques": [
+        "scale"
+      ],
+      "difficulty": "intermediate",
+      "tier": "pro"
+    },
+    {
+      "filename": "All Scales in the Key of F.gp",
+      "title": "All Scales in the Key of F",
+      "category": "scale",
+      "techniques": [
+        "scale"
+      ],
+      "difficulty": "intermediate",
+      "tier": "pro"
+    },
+    {
+      "filename": "All Scales in the Key of G.gp",
+      "title": "All Scales in the Key of G",
+      "category": "scale",
+      "techniques": [
+        "scale"
+      ],
+      "difficulty": "intermediate",
+      "tier": "pro"
+    },
+    {
+      "filename": "All Scales in Key of C#.gp",
+      "title": "All Scales in Key of C#",
+      "category": "scale",
+      "techniques": [
+        "scale"
+      ],
+      "difficulty": "intermediate",
+      "tier": "pro"
+    },
+    {
+      "filename": "All Scales in Key of Db.gp",
+      "title": "All Scales in Key of Db",
+      "category": "scale",
+      "techniques": [
+        "scale"
+      ],
+      "difficulty": "intermediate",
+      "tier": "pro"
+    },
+    {
+      "filename": "Scale Exercise.gp",
+      "title": "Scale Exercise",
+      "category": "scale",
+      "techniques": [
+        "exercise",
+        "scale"
+      ],
+      "difficulty": "intermediate",
+      "tier": "pro"
+    },
+    {
+      "filename": "Hexatonic Scale Sequences (G).gp",
+      "title": "Hexatonic Scale Sequences (G)",
+      "category": "scale",
+      "techniques": [
+        "scale"
+      ],
+      "difficulty": "intermediate",
+      "tier": "pro"
+    },
+    {
+      "filename": "7 Harmonic Minor Arpeggio Sequences.gp",
+      "title": "7 Harmonic Minor Arpeggio Sequences",
+      "category": "arpeggio",
+      "techniques": [
+        "arpeggio"
+      ],
+      "difficulty": "advanced",
+      "tier": "pro"
+    },
+    {
+      "filename": "Harmonic Minor Arpeggios (E Standard).gp",
+      "title": "Harmonic Minor Arpeggios (E Standard)",
+      "category": "arpeggio",
+      "techniques": [
+        "arpeggio"
+      ],
+      "difficulty": "advanced",
+      "tier": "pro"
+    },
+    {
+      "filename": "Insane Two Handed Lick.gp",
+      "title": "Insane Two Handed Lick",
+      "category": "lick",
+      "techniques": [
+        "lick"
+      ],
+      "difficulty": "advanced",
+      "tier": "pro"
+    },
+    {
+      "filename": "Sweep:Economy Picking Pentatonic Scale Sequence pt1.gp",
+      "title": "Sweep:Economy Picking Pentatonic Scale Sequence pt1",
+      "category": "sweep",
+      "techniques": [
+        "economy",
+        "pentatonic",
+        "scale",
+        "sweep"
+      ],
+      "difficulty": "advanced",
+      "tier": "pro"
+    },
+    {
+      "filename": "5 Sweep:Economy Pentatonic Scale Patterns.gp",
+      "title": "5 Sweep:Economy Pentatonic Scale Patterns",
+      "category": "sweep",
+      "techniques": [
+        "economy",
+        "pattern",
+        "pentatonic",
+        "scale",
+        "sweep"
+      ],
+      "difficulty": "advanced",
+      "tier": "pro"
+    },
+    {
+      "filename": "Sweep Picking — 10 Moveable Sequences.gp",
+      "title": "Sweep Picking — 10 Moveable Sequences",
+      "category": "sweep",
+      "techniques": [
+        "sweep"
+      ],
+      "difficulty": "advanced",
+      "tier": "pro"
+    },
+    {
+      "filename": "Short Tapping Sequence.gp",
+      "title": "Short Tapping Sequence",
+      "category": "tapping",
+      "techniques": [
+        "tapping"
+      ],
+      "difficulty": "advanced",
+      "tier": "pro"
+    },
+    {
+      "filename": "Tapping — 10 Moveable Sequences.gp",
+      "title": "Tapping — 10 Moveable Sequences",
+      "category": "tapping",
+      "techniques": [
+        "tapping"
+      ],
+      "difficulty": "advanced",
+      "tier": "pro"
+    }
+  ]
+}

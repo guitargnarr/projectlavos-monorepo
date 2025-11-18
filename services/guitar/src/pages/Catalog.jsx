@@ -1,16 +1,18 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import catalogData from '../../data/catalog.json';
+import catalogData from '../data/catalog.json';
 import ProgressBar from '../components/catalog/ProgressBar';
 import CatalogSearch from '../components/catalog/CatalogSearch';
 import CatalogFilters from '../components/catalog/CatalogFilters';
 import LessonCard from '../components/catalog/LessonCard';
 import ShareModal from '../components/catalog/ShareModal';
+import PlaylistModal from '../components/catalog/PlaylistModal';
 
 // Icon positioning constants to prevent overlap
 const ICON_POSITIONS = {
   favorite: 'top-3 right-3',
   share: 'top-14 right-3',
+  playlist: 'top-25 right-3',
 };
 
 export default function Catalog() {
@@ -30,6 +32,21 @@ export default function Catalog() {
   const [shareModalOpen, setShareModalOpen] = useState(false);
   const [shareLesson, setShareLesson] = useState(null);
   const [copiedMessage, setCopiedMessage] = useState(false);
+
+  // Playlist modal state
+  const [playlistModalOpen, setPlaylistModalOpen] = useState(false);
+  const [playlistLesson, setPlaylistLesson] = useState(null);
+
+  // Playlists state with localStorage persistence
+  const [playlists, setPlaylists] = useState(() => {
+    try {
+      const stored = localStorage.getItem('guitar-lesson-playlists');
+      return stored ? JSON.parse(stored) : [];
+    } catch (e) {
+      console.error('Failed to load playlists:', e);
+      return [];
+    }
+  });
 
   // Favorites state with localStorage persistence
   const [favorites, setFavorites] = useState(() => {
@@ -70,6 +87,15 @@ export default function Catalog() {
       console.error('Failed to save progress:', e);
     }
   }, [completed]);
+
+  // Save playlists to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem('guitar-lesson-playlists', JSON.stringify(playlists));
+    } catch (e) {
+      console.error('Failed to save playlists:', e);
+    }
+  }, [playlists]);
 
   // Debounce search query
   useEffect(() => {
@@ -162,6 +188,52 @@ export default function Catalog() {
     }
   };
 
+  // Playlist handling functions
+  const openPlaylistModal = (lesson) => {
+    setPlaylistLesson(lesson);
+    setPlaylistModalOpen(true);
+  };
+
+  const closePlaylistModal = () => {
+    setPlaylistModalOpen(false);
+    setPlaylistLesson(null);
+  };
+
+  const createPlaylist = (name) => {
+    const newPlaylist = {
+      id: Date.now().toString(),
+      name: name.trim(),
+      lessonIds: [],
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    setPlaylists([...playlists, newPlaylist]);
+  };
+
+  const addToPlaylist = (playlistId, lessonId) => {
+    setPlaylists(playlists.map(p =>
+      p.id === playlistId && !p.lessonIds.includes(lessonId)
+        ? {
+            ...p,
+            lessonIds: [...p.lessonIds, lessonId],
+            updatedAt: new Date().toISOString(),
+          }
+        : p
+    ));
+  };
+
+  const removeFromPlaylist = (playlistId, lessonId) => {
+    setPlaylists(playlists.map(p =>
+      p.id === playlistId
+        ? {
+            ...p,
+            lessonIds: p.lessonIds.filter(id => id !== lessonId),
+            updatedAt: new Date().toISOString(),
+          }
+        : p
+    ));
+  };
+
   // Filter lessons
   const filteredFiles = useMemo(() => {
     return catalogData.files.filter((file) => {
@@ -239,6 +311,7 @@ export default function Catalog() {
             onToggleCompleted={toggleCompleted}
             onShare={openShareModal}
             onPreview={handlePreview}
+            onOpenPlaylist={openPlaylistModal}
             iconPositions={ICON_POSITIONS}
           />
         ))}
@@ -266,6 +339,17 @@ export default function Catalog() {
         onTwitterShare={shareOnTwitter}
         onFacebookShare={shareOnFacebook}
         onCopyLink={copyLink}
+      />
+
+      {/* Playlist Modal */}
+      <PlaylistModal
+        lesson={playlistLesson}
+        isOpen={playlistModalOpen}
+        onClose={closePlaylistModal}
+        playlists={playlists}
+        onAddToPlaylist={addToPlaylist}
+        onRemoveFromPlaylist={removeFromPlaylist}
+        onCreatePlaylist={createPlaylist}
       />
     </div>
   );
