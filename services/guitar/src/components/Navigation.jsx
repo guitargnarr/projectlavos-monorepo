@@ -17,6 +17,8 @@ export default function Navigation() {
     { path: '/fretvision', label: 'FretVision', color: 'green' },
     { path: '/tabplayer', label: 'Tab Player', color: 'blue' },
     { path: '/chords', label: 'Chords', color: 'blue' },
+    { path: '/scales', label: 'Scales', color: 'orange' },
+    { path: '/ear-training', label: 'Ear Training', color: 'yellow' },
     { path: '/catalog', label: 'Catalog', color: 'purple' },
   ];
 
@@ -40,14 +42,18 @@ export default function Navigation() {
               const activeColors = {
                 green: 'bg-green-500 text-gray-900',
                 blue: 'bg-blue-500 text-gray-900',
+                orange: 'bg-orange-500 text-gray-900',
                 purple: 'bg-purple-500 text-gray-900',
+                yellow: 'bg-yellow-500 text-gray-900',
               };
 
               // Color classes for hover state
               const hoverColors = {
                 green: 'hover:bg-gray-700 hover:text-green-400',
                 blue: 'hover:bg-gray-700 hover:text-blue-400',
+                orange: 'hover:bg-gray-700 hover:text-orange-400',
                 purple: 'hover:bg-gray-700 hover:text-purple-400',
+                yellow: 'hover:bg-gray-700 hover:text-yellow-400',
               };
 
               return (
