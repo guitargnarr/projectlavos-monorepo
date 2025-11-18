@@ -7,12 +7,14 @@ import CatalogFilters from '../components/catalog/CatalogFilters';
 import LessonCard from '../components/catalog/LessonCard';
 import ShareModal from '../components/catalog/ShareModal';
 import NotesModal from '../components/catalog/NotesModal';
+import ReviewModal from '../components/catalog/ReviewModal';
 
 // Icon positioning constants to prevent overlap
 const ICON_POSITIONS = {
   favorite: 'top-3 right-3',
   share: 'top-14 right-3',
   notes: 'bottom-3 left-3',
+  rating: 'top-3 left-3',
 };
 
 export default function Catalog() {
@@ -37,6 +39,10 @@ export default function Catalog() {
   const [notesModalOpen, setNotesModalOpen] = useState(false);
   const [notesLesson, setNotesLesson] = useState(null);
 
+  // Rating modal state
+  const [ratingModalOpen, setRatingModalOpen] = useState(false);
+  const [ratingLesson, setRatingLesson] = useState(null);
+
   // Notes state with localStorage persistence
   const [lessonNotes, setLessonNotes] = useState(() => {
     try {
@@ -44,6 +50,17 @@ export default function Catalog() {
       return stored ? JSON.parse(stored) : {};
     } catch (e) {
       console.error('Failed to load lesson notes:', e);
+      return {};
+    }
+  });
+
+  // Ratings state with localStorage persistence
+  const [lessonRatings, setLessonRatings] = useState(() => {
+    try {
+      const stored = localStorage.getItem('guitar-lesson-ratings');
+      return stored ? JSON.parse(stored) : {};
+    } catch (e) {
+      console.error('Failed to load lesson ratings:', e);
       return {};
     }
   });
@@ -96,6 +113,15 @@ export default function Catalog() {
       console.error('Failed to save lesson notes:', e);
     }
   }, [lessonNotes]);
+
+  // Save lesson ratings to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem('guitar-lesson-ratings', JSON.stringify(lessonRatings));
+    } catch (e) {
+      console.error('Failed to save lesson ratings:', e);
+    }
+  }, [lessonRatings]);
 
   // Debounce search query
   useEffect(() => {
@@ -242,6 +268,41 @@ export default function Catalog() {
     }
   };
 
+  // Rating handling functions
+  const openRatingModal = (filename) => {
+    const lesson = catalogData.files.find(f => f.filename === filename);
+    if (lesson) {
+      setRatingLesson(lesson);
+      setRatingModalOpen(true);
+    }
+  };
+
+  const closeRatingModal = () => {
+    setRatingModalOpen(false);
+    setRatingLesson(null);
+  };
+
+  const saveRating = (filename, rating, reviewText) => {
+    setLessonRatings(prev => {
+      if (rating === 0) {
+        // Remove rating if set to 0
+        const updated = { ...prev };
+        delete updated[filename];
+        return updated;
+      } else {
+        // Save rating with review and timestamp
+        return {
+          ...prev,
+          [filename]: {
+            rating,
+            review: reviewText.trim(),
+            timestamp: new Date().toISOString(),
+          },
+        };
+      }
+    });
+  };
+
   // Filter lessons
   const filteredFiles = useMemo(() => {
     return catalogData.files.filter((file) => {
@@ -316,11 +377,13 @@ export default function Catalog() {
             isFavorite={favorites.includes(file.filename)}
             isCompleted={completed.includes(file.filename)}
             hasNotes={!!lessonNotes[file.filename]}
+            rating={lessonRatings[file.filename]?.rating}
             onToggleFavorite={toggleFavorite}
             onToggleCompleted={toggleCompleted}
             onShare={openShareModal}
             onPreview={handlePreview}
             onOpenNotes={openNotesModal}
+            onOpenRating={openRatingModal}
             iconPositions={ICON_POSITIONS}
           />
         ))}
@@ -359,6 +422,16 @@ export default function Catalog() {
         initialNotes={notesLesson ? lessonNotes[notesLesson.filename]?.text : ''}
         onExport={exportNotes}
         onImport={importNotes}
+      />
+
+      {/* Review Modal */}
+      <ReviewModal
+        lesson={ratingLesson}
+        isOpen={ratingModalOpen}
+        onClose={closeRatingModal}
+        onSave={saveRating}
+        initialRating={ratingLesson ? lessonRatings[ratingLesson.filename]?.rating : 0}
+        initialReview={ratingLesson ? lessonRatings[ratingLesson.filename]?.review : ''}
       />
     </div>
   );
