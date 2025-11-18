@@ -60,6 +60,29 @@ export default function Home() {
           </div>
         </Link>
 
+        <Link to="/ear-training" className="group">
+          <div className="bg-gray-800 rounded-lg p-8 hover:bg-gray-700 transition-all duration-300 border border-gray-700 hover:border-yellow-500">
+            <div className="mb-4">
+              <svg className="w-16 h-16 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+              </svg>
+            </div>
+            <h2 className="text-2xl font-bold mb-3 group-hover:text-yellow-400 transition-colors">
+              Ear Training
+            </h2>
+            <p className="text-gray-400 mb-4">
+              Develop your pitch recognition skills with interactive interval training.
+              Progressive difficulty levels from perfect intervals to advanced recognition.
+            </p>
+            <div className="flex items-center text-yellow-500">
+              <span className="mr-2">Train Your Ear</span>
+              <svg className="w-4 h-4 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </div>
+        </Link>
+
         <Link to="/catalog" className="group">
           <div className="bg-gray-800 rounded-lg p-8 hover:bg-gray-700 transition-all duration-300 border border-gray-700 hover:border-purple-500">
             <div className="mb-4">

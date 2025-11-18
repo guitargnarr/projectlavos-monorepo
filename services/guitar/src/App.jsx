@@ -5,6 +5,8 @@ import FretVision from './pages/FretVision';
 import TabPlayer from './pages/TabPlayer';
 import Catalog from './pages/Catalog';
 import ChordDictionary from './pages/ChordDictionary';
+import EarTraining from './pages/EarTraining';
+import ScaleLibrary from './pages/ScaleLibrary';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
           <Route path="/tabplayer" element={<TabPlayer />} />
           <Route path="/catalog" element={<Catalog />} />
           <Route path="/chords" element={<ChordDictionary />} />
+          <Route path="/ear-training" element={<EarTraining />} />
+          <Route path="/scales" element={<ScaleLibrary />} />
         </Routes>
       </div>
     </Router>
