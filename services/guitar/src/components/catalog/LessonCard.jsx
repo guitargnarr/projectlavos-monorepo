@@ -3,6 +3,7 @@ import FavoriteButton from './FavoriteButton';
 import ShareButton from './ShareButton';
 import CompletionButton from './CompletionButton';
 import NotesButton from './NotesButton';
+import RatingButton from './RatingButton';
 
 const tierColors = {
   free: 'bg-green-500/20 text-green-400 border-green-500',
@@ -21,11 +22,13 @@ export default function LessonCard({
   isFavorite,
   isCompleted,
   hasNotes,
+  rating,
   onToggleFavorite,
   onToggleCompleted,
   onShare,
   onPreview,
   onOpenNotes,
+  onOpenRating,
   iconPositions,
 }) {
   return (
@@ -51,6 +54,14 @@ export default function LessonCard({
         hasNotes={hasNotes}
         onOpen={onOpenNotes}
         position={iconPositions.notes}
+      />
+
+      {/* Rating Button */}
+      <RatingButton
+        filename={file.filename}
+        rating={rating}
+        onOpen={onOpenRating}
+        position={iconPositions.rating}
       />
 
       {/* Title */}
@@ -151,14 +162,17 @@ LessonCard.propTypes = {
   isFavorite: PropTypes.bool.isRequired,
   isCompleted: PropTypes.bool.isRequired,
   hasNotes: PropTypes.bool.isRequired,
+  rating: PropTypes.number,
   onToggleFavorite: PropTypes.func.isRequired,
   onToggleCompleted: PropTypes.func.isRequired,
   onShare: PropTypes.func.isRequired,
   onPreview: PropTypes.func.isRequired,
   onOpenNotes: PropTypes.func.isRequired,
+  onOpenRating: PropTypes.func.isRequired,
   iconPositions: PropTypes.shape({
     favorite: PropTypes.string.isRequired,
     share: PropTypes.string.isRequired,
     notes: PropTypes.string.isRequired,
+    rating: PropTypes.string.isRequired,
   }).isRequired,
 };
