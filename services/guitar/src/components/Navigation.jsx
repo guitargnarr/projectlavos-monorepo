@@ -16,7 +16,9 @@ export default function Navigation() {
     { path: '/', label: 'Home', color: 'green' },
     { path: '/fretvision', label: 'FretVision', color: 'green' },
     { path: '/tabplayer', label: 'Tab Player', color: 'blue' },
+    { path: '/chords', label: 'Chords', color: 'blue' },
     { path: '/catalog', label: 'Catalog', color: 'purple' },
+    { path: '/progress', label: 'Progress', color: 'purple' },
   ];
 
   return (
