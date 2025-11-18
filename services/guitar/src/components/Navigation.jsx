@@ -19,6 +19,7 @@ export default function Navigation() {
     { path: '/chords', label: 'Chords', color: 'blue' },
     { path: '/scales', label: 'Scales', color: 'orange' },
     { path: '/ear-training', label: 'Ear Training', color: 'yellow' },
+    { path: '/practice-log', label: 'Practice Log', color: 'pink' },
     { path: '/catalog', label: 'Catalog', color: 'purple' },
   ];
 
@@ -45,6 +46,7 @@ export default function Navigation() {
                 orange: 'bg-orange-500 text-gray-900',
                 purple: 'bg-purple-500 text-gray-900',
                 yellow: 'bg-yellow-500 text-gray-900',
+                pink: 'bg-pink-500 text-gray-900',
               };
 
               // Color classes for hover state
@@ -54,6 +56,7 @@ export default function Navigation() {
                 orange: 'hover:bg-gray-700 hover:text-orange-400',
                 purple: 'hover:bg-gray-700 hover:text-purple-400',
                 yellow: 'hover:bg-gray-700 hover:text-yellow-400',
+                pink: 'hover:bg-gray-700 hover:text-pink-400',
               };
 
               return (
