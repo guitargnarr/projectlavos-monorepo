@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import FavoriteButton from './FavoriteButton';
 import ShareButton from './ShareButton';
 import CompletionButton from './CompletionButton';
+import PlaylistButton from './PlaylistButton';
 
 const tierColors = {
   free: 'bg-green-500/20 text-green-400 border-green-500',
@@ -23,6 +24,7 @@ export default function LessonCard({
   onToggleCompleted,
   onShare,
   onPreview,
+  onOpenPlaylist,
   iconPositions,
 }) {
   return (
@@ -40,6 +42,13 @@ export default function LessonCard({
         lesson={file}
         onShare={onShare}
         position={iconPositions.share}
+      />
+
+      {/* Playlist Button */}
+      <PlaylistButton
+        lesson={file}
+        onOpen={onOpenPlaylist}
+        position={iconPositions.playlist}
       />
 
       {/* Title */}
@@ -143,8 +152,10 @@ LessonCard.propTypes = {
   onToggleCompleted: PropTypes.func.isRequired,
   onShare: PropTypes.func.isRequired,
   onPreview: PropTypes.func.isRequired,
+  onOpenPlaylist: PropTypes.func.isRequired,
   iconPositions: PropTypes.shape({
     favorite: PropTypes.string.isRequired,
     share: PropTypes.string.isRequired,
+    playlist: PropTypes.string.isRequired,
   }).isRequired,
 };
