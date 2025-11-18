@@ -6,11 +6,13 @@ import CatalogSearch from '../components/catalog/CatalogSearch';
 import CatalogFilters from '../components/catalog/CatalogFilters';
 import LessonCard from '../components/catalog/LessonCard';
 import ShareModal from '../components/catalog/ShareModal';
+import NotesModal from '../components/catalog/NotesModal';
 
 // Icon positioning constants to prevent overlap
 const ICON_POSITIONS = {
   favorite: 'top-3 right-3',
   share: 'top-14 right-3',
+  notes: 'bottom-3 left-3',
 };
 
 export default function Catalog() {
@@ -30,6 +32,21 @@ export default function Catalog() {
   const [shareModalOpen, setShareModalOpen] = useState(false);
   const [shareLesson, setShareLesson] = useState(null);
   const [copiedMessage, setCopiedMessage] = useState(false);
+
+  // Notes modal state
+  const [notesModalOpen, setNotesModalOpen] = useState(false);
+  const [notesLesson, setNotesLesson] = useState(null);
+
+  // Notes state with localStorage persistence
+  const [lessonNotes, setLessonNotes] = useState(() => {
+    try {
+      const stored = localStorage.getItem('guitar-lesson-notes');
+      return stored ? JSON.parse(stored) : {};
+    } catch (e) {
+      console.error('Failed to load lesson notes:', e);
+      return {};
+    }
+  });
 
   // Favorites state with localStorage persistence
   const [favorites, setFavorites] = useState(() => {
@@ -70,6 +87,15 @@ export default function Catalog() {
       console.error('Failed to save progress:', e);
     }
   }, [completed]);
+
+  // Save lesson notes to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem('guitar-lesson-notes', JSON.stringify(lessonNotes));
+    } catch (e) {
+      console.error('Failed to save lesson notes:', e);
+    }
+  }, [lessonNotes]);
 
   // Debounce search query
   useEffect(() => {
@@ -162,6 +188,60 @@ export default function Catalog() {
     }
   };
 
+  // Notes handling functions
+  const openNotesModal = (filename) => {
+    const lesson = catalogData.files.find(f => f.filename === filename);
+    if (lesson) {
+      setNotesLesson(lesson);
+      setNotesModalOpen(true);
+    }
+  };
+
+  const closeNotesModal = () => {
+    setNotesModalOpen(false);
+    setNotesLesson(null);
+  };
+
+  const saveNote = (filename, noteText) => {
+    setLessonNotes(prev => {
+      if (!noteText || noteText.trim() === '') {
+        // Remove note if empty
+        const updated = { ...prev };
+        delete updated[filename];
+        return updated;
+      } else {
+        // Save note with timestamp
+        return {
+          ...prev,
+          [filename]: {
+            text: noteText,
+            timestamp: Date.now(),
+            characterCount: noteText.length,
+          },
+        };
+      }
+    });
+  };
+
+  const exportNotes = () => {
+    const dataStr = JSON.stringify(lessonNotes, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `guitar-lesson-notes-${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  const importNotes = (imported) => {
+    if (window.confirm('This will replace all existing notes. Continue?')) {
+      setLessonNotes(imported);
+    }
+  };
+
   // Filter lessons
   const filteredFiles = useMemo(() => {
     return catalogData.files.filter((file) => {
@@ -235,10 +315,12 @@ export default function Catalog() {
             file={file}
             isFavorite={favorites.includes(file.filename)}
             isCompleted={completed.includes(file.filename)}
+            hasNotes={!!lessonNotes[file.filename]}
             onToggleFavorite={toggleFavorite}
             onToggleCompleted={toggleCompleted}
             onShare={openShareModal}
             onPreview={handlePreview}
+            onOpenNotes={openNotesModal}
             iconPositions={ICON_POSITIONS}
           />
         ))}
@@ -266,6 +348,17 @@ export default function Catalog() {
         onTwitterShare={shareOnTwitter}
         onFacebookShare={shareOnFacebook}
         onCopyLink={copyLink}
+      />
+
+      {/* Notes Modal */}
+      <NotesModal
+        lesson={notesLesson}
+        isOpen={notesModalOpen}
+        onClose={closeNotesModal}
+        onSave={saveNote}
+        initialNotes={notesLesson ? lessonNotes[notesLesson.filename]?.text : ''}
+        onExport={exportNotes}
+        onImport={importNotes}
       />
     </div>
   );
