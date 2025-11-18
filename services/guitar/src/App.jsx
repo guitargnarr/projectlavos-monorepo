@@ -7,6 +7,7 @@ import Catalog from './pages/Catalog';
 import ChordDictionary from './pages/ChordDictionary';
 import EarTraining from './pages/EarTraining';
 import ScaleLibrary from './pages/ScaleLibrary';
+import PracticeLogger from './pages/PracticeLogger';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/chords" element={<ChordDictionary />} />
           <Route path="/ear-training" element={<EarTraining />} />
           <Route path="/scales" element={<ScaleLibrary />} />
+          <Route path="/practice-log" element={<PracticeLogger />} />
         </Routes>
       </div>
     </Router>
