@@ -118,6 +118,13 @@ export default function TabPlayer() {
   const [gpFileError, setGpFileError] = useState(null);
   const [soundFontLoaded, setSoundFontLoaded] = useState(false);
 
+  // Section looping (A-B repeat) state
+  const [loopPointA, setLoopPointA] = useState(null);
+  const [loopPointB, setLoopPointB] = useState(null);
+  const [sectionLoopEnabled, setSectionLoopEnabled] = useState(false);
+  const [currentTickPosition, setCurrentTickPosition] = useState(0);
+  const loopCheckIntervalRef = useRef(null);
+
   const parseTab = useCallback((lines) => {
     const cleanedLines = lines.map(line => line.substring(2));
     const minLength = Math.min(...cleanedLines.map(line => line.length));
@@ -138,6 +145,51 @@ export default function TabPlayer() {
 
     tabDataRef.current = data;
   }, []);
+
+  // Load loop settings from localStorage
+  useEffect(() => {
+    const loadLoopSettings = () => {
+      try {
+        const stored = localStorage.getItem('guitar-loop-settings');
+        if (stored) {
+          const settings = JSON.parse(stored);
+          const lessonKey = gpFileName;
+          if (settings[lessonKey]) {
+            setLoopPointA(settings[lessonKey].pointA);
+            setLoopPointB(settings[lessonKey].pointB);
+            setSectionLoopEnabled(settings[lessonKey].enabled || false);
+          }
+        }
+      } catch (error) {
+        console.error('Failed to load loop settings:', error);
+      }
+    };
+
+    loadLoopSettings();
+  }, [gpFileName]);
+
+  // Save loop settings to localStorage
+  useEffect(() => {
+    const saveLoopSettings = () => {
+      try {
+        const stored = localStorage.getItem('guitar-loop-settings');
+        const settings = stored ? JSON.parse(stored) : {};
+        const lessonKey = gpFileName;
+
+        settings[lessonKey] = {
+          pointA: loopPointA,
+          pointB: loopPointB,
+          enabled: sectionLoopEnabled,
+        };
+
+        localStorage.setItem('guitar-loop-settings', JSON.stringify(settings));
+      } catch (error) {
+        console.error('Failed to save loop settings:', error);
+      }
+    };
+
+    saveLoopSettings();
+  }, [loopPointA, loopPointB, sectionLoopEnabled, gpFileName]);
 
   useEffect(() => {
     const initSynth = async () => {
@@ -193,6 +245,11 @@ export default function TabPlayer() {
           setIsPlaying(e.state === alphaTab.synth.PlayerState.Playing);
         });
 
+        // Player position tracking for A-B loop
+        api.playerPositionChanged.on((e) => {
+          setCurrentTickPosition(e.currentTick);
+        });
+
         // Player ready event
         api.playerReady.on(() => {
           console.log('alphaTab player ready');
@@ -233,6 +290,18 @@ export default function TabPlayer() {
       }
     };
   }, [gpFileName]);
+
+  // Handle A-B section looping during playback
+  useEffect(() => {
+    if (!sectionLoopEnabled || !isPlaying || loopPointA === null || loopPointB === null) {
+      return;
+    }
+
+    // Check if we've passed point B and need to loop back to A
+    if (currentTickPosition >= loopPointB && alphaTabApiRef.current) {
+      alphaTabApiRef.current.tickPosition = loopPointA;
+    }
+  }, [currentTickPosition, sectionLoopEnabled, isPlaying, loopPointA, loopPointB]);
 
   const stop = useCallback(() => {
     setIsPlaying(false);
@@ -323,6 +392,72 @@ export default function TabPlayer() {
     stop();
   };
 
+  // Section loop control functions
+  const setPointA = () => {
+    if (alphaTabApiRef.current) {
+      const currentTick = alphaTabApiRef.current.tickPosition;
+      setLoopPointA(currentTick);
+
+      // If point B is already set and is before point A, clear it
+      if (loopPointB !== null && currentTick >= loopPointB) {
+        setLoopPointB(null);
+      }
+    }
+  };
+
+  const setPointB = () => {
+    if (alphaTabApiRef.current) {
+      const currentTick = alphaTabApiRef.current.tickPosition;
+
+      // Point B must be after point A
+      if (loopPointA !== null && currentTick > loopPointA) {
+        setLoopPointB(currentTick);
+      } else if (loopPointA === null) {
+        // If A isn't set, set it to the beginning and B to current position
+        setLoopPointA(0);
+        setLoopPointB(currentTick);
+      }
+    }
+  };
+
+  const clearLoop = () => {
+    setLoopPointA(null);
+    setLoopPointB(null);
+    setSectionLoopEnabled(false);
+  };
+
+  const toggleSectionLoop = () => {
+    // Only enable if both points are set
+    if (loopPointA !== null && loopPointB !== null) {
+      setSectionLoopEnabled(!sectionLoopEnabled);
+    }
+  };
+
+  const formatTicksToTime = (ticks) => {
+    if (!alphaTabApiRef.current || !alphaTabApiRef.current.score) return '0:00';
+
+    // Approximate conversion (this is a rough estimate)
+    // alphaTab uses ticks where 960 = 1 quarter note typically
+    const seconds = (ticks / 960) * (60 / tempo);
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${minutes}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const getLoopRangeDisplay = () => {
+    if (loopPointA === null && loopPointB === null) return null;
+
+    if (loopPointA !== null && loopPointB !== null) {
+      return `${formatTicksToTime(loopPointA)} - ${formatTicksToTime(loopPointB)}`;
+    } else if (loopPointA !== null) {
+      return `Start: ${formatTicksToTime(loopPointA)}`;
+    } else if (loopPointB !== null) {
+      return `End: ${formatTicksToTime(loopPointB)}`;
+    }
+
+    return null;
+  };
+
   // Old MIDI player useEffect removed - alphaTab handles all playback now
   // Quick Exercises section remains as visual reference only
 
@@ -408,6 +543,89 @@ export default function TabPlayer() {
             />
             <span className="text-sm font-medium">Metronome</span>
           </label>
+        </div>
+      </div>
+
+      {/* Section Looping / A-B Repeat Controls */}
+      <div className="bg-purple-900/30 rounded-lg p-6 mb-6 border border-purple-500">
+        <h3 className="text-xl font-bold mb-4 text-purple-400">Practice Tools: Section Looping (A-B Repeat)</h3>
+
+        <div className="flex flex-wrap gap-4 items-center mb-4">
+          <button
+            onClick={setPointA}
+            disabled={!soundFontLoaded || gpFileLoading}
+            className="bg-purple-600 hover:bg-purple-700 disabled:bg-gray-600 text-white px-6 py-3 rounded font-medium transition-colors min-h-[44px]"
+          >
+            Set Point A
+          </button>
+          <button
+            onClick={setPointB}
+            disabled={!soundFontLoaded || gpFileLoading}
+            className="bg-purple-600 hover:bg-purple-700 disabled:bg-gray-600 text-white px-6 py-3 rounded font-medium transition-colors min-h-[44px]"
+          >
+            Set Point B
+          </button>
+          <button
+            onClick={toggleSectionLoop}
+            disabled={loopPointA === null || loopPointB === null}
+            className={`px-6 py-3 rounded font-medium transition-colors min-h-[44px] ${
+              sectionLoopEnabled
+                ? 'bg-purple-500 hover:bg-purple-600'
+                : 'bg-gray-600 hover:bg-gray-700'
+            } text-white disabled:bg-gray-700 disabled:text-gray-500`}
+          >
+            {sectionLoopEnabled ? 'Section Loop: ON' : 'Section Loop: OFF'}
+          </button>
+          <button
+            onClick={clearLoop}
+            disabled={loopPointA === null && loopPointB === null}
+            className="bg-red-600 hover:bg-red-700 disabled:bg-gray-600 disabled:text-gray-500 text-white px-6 py-3 rounded font-medium transition-colors min-h-[44px]"
+          >
+            Clear Loop
+          </button>
+        </div>
+
+        {/* Loop Range Display */}
+        {getLoopRangeDisplay() && (
+          <div className="bg-purple-800/50 rounded-lg p-4 border border-purple-600">
+            <div className="flex items-center gap-3">
+              <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <span className="text-sm font-medium text-purple-300">
+                  {sectionLoopEnabled ? 'Looping: ' : 'Loop Range: '}
+                </span>
+                <span className="text-lg font-bold text-purple-100">
+                  {getLoopRangeDisplay()}
+                </span>
+              </div>
+            </div>
+            {loopPointA !== null && loopPointB !== null && (
+              <p className="text-sm text-purple-300 mt-2">
+                {sectionLoopEnabled
+                  ? '🔁 Section will repeat continuously during playback'
+                  : 'Toggle "Section Loop" to activate repeat'}
+              </p>
+            )}
+            {loopPointA !== null && loopPointB === null && (
+              <p className="text-sm text-purple-300 mt-2">
+                Set Point B to complete the loop range
+              </p>
+            )}
+          </div>
+        )}
+
+        <div className="mt-4 text-sm text-gray-400">
+          <p className="mb-2">
+            <strong className="text-purple-400">How to use:</strong>
+          </p>
+          <ol className="list-decimal list-inside space-y-1 ml-2">
+            <li>Play the track and click "Set Point A" at the start of the section you want to practice</li>
+            <li>Continue playing and click "Set Point B" at the end of the section</li>
+            <li>Enable "Section Loop" to repeat the A-B section continuously</li>
+            <li>Combine with tempo control to practice at your own pace</li>
+          </ol>
         </div>
       </div>
 
