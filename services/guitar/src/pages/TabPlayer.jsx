@@ -105,6 +105,11 @@ export default function TabPlayer() {
   const [currentPosition, setCurrentPosition] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState(null);
+  const [practiceMode, setPracticeMode] = useState(false);
+  const [playbackSpeed, setPlaybackSpeed] = useState(() => {
+    const savedSpeed = localStorage.getItem('guitar-practice-speed');
+    return savedSpeed ? parseFloat(savedSpeed) : 1.0;
+  });
 
   const synthRef = useRef(null);
   const tabDataRef = useRef([]);
@@ -196,6 +201,10 @@ export default function TabPlayer() {
         // Player ready event
         api.playerReady.on(() => {
           console.log('alphaTab player ready');
+          // Apply initial playback speed
+          const tempoMultiplier = tempo / 120;
+          const finalSpeed = tempoMultiplier * playbackSpeed;
+          api.playbackSpeed = finalSpeed;
         });
 
         // SoundFont loaded event
@@ -300,9 +309,22 @@ export default function TabPlayer() {
     // Update alphaTab playback speed if available
     if (alphaTabApiRef.current) {
       // alphaTab uses playbackSpeed as a multiplier
-      // Calculate speed relative to 120 BPM (default)
-      const speedMultiplier = newTempo / 120;
-      alphaTabApiRef.current.playbackSpeed = speedMultiplier;
+      // Calculate speed relative to 120 BPM (default), then apply practice speed
+      const tempoMultiplier = newTempo / 120;
+      const finalSpeed = tempoMultiplier * playbackSpeed;
+      alphaTabApiRef.current.playbackSpeed = finalSpeed;
+    }
+  };
+
+  const handleSpeedChange = (newSpeed) => {
+    setPlaybackSpeed(newSpeed);
+    localStorage.setItem('guitar-practice-speed', newSpeed.toString());
+
+    // Update alphaTab playback speed if available
+    if (alphaTabApiRef.current) {
+      const tempoMultiplier = tempo / 120;
+      const finalSpeed = tempoMultiplier * newSpeed;
+      alphaTabApiRef.current.playbackSpeed = finalSpeed;
     }
   };
 
@@ -408,7 +430,57 @@ export default function TabPlayer() {
             />
             <span className="text-sm font-medium">Metronome</span>
           </label>
+
+          <button
+            onClick={() => setPracticeMode(!practiceMode)}
+            className={`px-6 py-3 rounded font-medium transition-colors min-h-[44px] ${
+              practiceMode ? 'bg-purple-500 hover:bg-purple-600' : 'bg-gray-600 hover:bg-gray-700'
+            } text-white`}
+          >
+            {practiceMode ? 'Practice Mode: ON' : 'Practice Mode: OFF'}
+          </button>
         </div>
+
+        {practiceMode && (
+          <div className="mt-6 pt-6 border-t border-gray-700">
+            <h4 className="text-lg font-semibold mb-4 text-purple-400">Practice Tools</h4>
+            <div className="flex flex-wrap gap-6 items-center">
+              <div className="flex items-center gap-4">
+                <label className="text-sm font-medium whitespace-nowrap">
+                  Playback Speed:
+                  <span className="ml-2 text-purple-400 font-bold text-lg">{playbackSpeed}x</span>
+                </label>
+                <input
+                  type="range"
+                  min="0.5"
+                  max="1.5"
+                  step="0.25"
+                  value={playbackSpeed}
+                  onChange={(e) => handleSpeedChange(parseFloat(e.target.value))}
+                  className="w-64 h-11 accent-purple-500"
+                />
+              </div>
+              <div className="flex gap-2">
+                {[0.5, 0.75, 1.0, 1.25, 1.5].map((speed) => (
+                  <button
+                    key={speed}
+                    onClick={() => handleSpeedChange(speed)}
+                    className={`px-4 py-2 rounded font-medium transition-colors ${
+                      playbackSpeed === speed
+                        ? 'bg-purple-500 text-white'
+                        : 'bg-gray-700 hover:bg-gray-600 text-gray-300'
+                    }`}
+                  >
+                    {speed}x
+                  </button>
+                ))}
+              </div>
+            </div>
+            <p className="mt-3 text-sm text-gray-400">
+              Slow down difficult passages to practice technique, then gradually increase speed as you improve.
+            </p>
+          </div>
+        )}
       </div>
 
       {/* alphaTab Guitar Pro File Rendering */}
