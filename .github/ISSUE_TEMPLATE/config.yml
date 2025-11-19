@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Deployment Issues
+    url: https://vercel.com/guitargnarr/projectlavos-guitar
+    about: Check Vercel dashboard for deployment-specific issues
+  - name: Guitar Platform
+    url: https://guitar.projectlavos.com
+    about: Visit the live guitar learning platform
+  - name: Discussion
+    url: https://github.com/guitargnarr/projectlavos-monorepo/discussions
+    about: Ask questions or discuss features (coming soon)

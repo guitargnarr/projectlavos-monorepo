@@ -1,0 +1,108 @@
+name: Test Failure
+description: Report a failing E2E or unit test
+title: "[TEST]: "
+labels: ["test", "bug"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Report a failing test to help us maintain quality.
+
+  - type: dropdown
+    id: test-type
+    attributes:
+      label: Test Type
+      description: What kind of test is failing?
+      options:
+        - E2E Test (Playwright)
+        - Unit Test
+        - Integration Test
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: test-file
+    attributes:
+      label: Test File
+      description: Which test file contains the failing test?
+      placeholder: tests/specs/guitar-navigation.spec.js
+    validations:
+      required: true
+
+  - type: input
+    id: test-name
+    attributes:
+      label: Test Name
+      description: What is the name of the failing test?
+      placeholder: should navigate from Home to FretVision
+    validations:
+      required: true
+
+  - type: textarea
+    id: error
+    attributes:
+      label: Error Message
+      description: Copy the full error message from the test output
+      placeholder: |
+        Error: Timeout 30000ms exceeded.
+        Call log:
+          - waiting for locator('nav a:has-text("FretVision")')
+      render: shell
+    validations:
+      required: true
+
+  - type: dropdown
+    id: consistency
+    attributes:
+      label: Failure Consistency
+      description: How often does this test fail?
+      options:
+        - Always fails (100%)
+        - Intermittent (flaky)
+        - Only in CI
+        - Only locally
+        - Only on specific browser
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser (if E2E)
+      description: Which browser is the test failing on?
+      options:
+        - All browsers
+        - Chromium only
+        - WebKit only
+        - Mobile Chrome only
+        - Mobile Safari only
+        - N/A (not E2E test)
+
+  - type: textarea
+    id: github-run
+    attributes:
+      label: GitHub Actions Run
+      description: Link to the failing GitHub Actions run
+      placeholder: https://github.com/guitargnarr/projectlavos-monorepo/actions/runs/...
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: How to Reproduce Locally
+      description: Steps to reproduce the failure on a local machine
+      placeholder: |
+        1. npm install
+        2. npx playwright test guitar-navigation
+        3. See error on line X
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Recent changes, possible causes, or other relevant info
+      placeholder: This started failing after PR #X was merged...

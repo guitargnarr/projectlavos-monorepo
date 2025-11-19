@@ -1,5 +1,8 @@
 # Project Lavos E2E Test Suite
 
+![E2E Tests](https://github.com/guitargnarr/projectlavos-monorepo/actions/workflows/e2e-tests.yml/badge.svg)
+![Deploy](https://github.com/guitargnarr/projectlavos-monorepo/actions/workflows/deploy-vercel.yml/badge.svg)
+
 Comprehensive end-to-end testing for the Project Lavos multi-site architecture using Playwright.
 
 ## Test Coverage
