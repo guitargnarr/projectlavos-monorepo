@@ -14,7 +14,7 @@ module.exports = defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? 2 : undefined, // Increased from 1 to 2 for faster CI
 
   // Reporter configuration
   reporter: [
@@ -42,7 +42,14 @@ module.exports = defineConfig({
   },
 
   // Configure projects for major browsers
-  projects: [
+  // In CI: Only test chromium for speed (scheduled runs)
+  // Locally: Test all browsers for comprehensive coverage
+  projects: process.env.CI ? [
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+    },
+  ] : [
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
