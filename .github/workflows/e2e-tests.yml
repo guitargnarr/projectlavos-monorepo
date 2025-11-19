@@ -70,8 +70,48 @@ jobs:
         path: test-results/
         retention-days: 7
 
+    - name: Upload JUnit results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: junit-results
+        path: test-results/junit.xml
+        retention-days: 30
+
+    - name: Publish Test Report
+      uses: dorny/test-reporter@v1
+      if: always()
+      with:
+        name: Playwright Tests
+        path: test-results/junit.xml
+        reporter: java-junit
+        fail-on-error: false
+
     - name: Comment PR with test results
       if: github.event_name == 'pull_request'
       uses: daun/playwright-report-comment@v3
       with:
         report-path: test-results.json
+
+    - name: Generate test summary
+      if: always()
+      run: |
+        echo "## Test Results Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        if [ -f test-results.json ]; then
+          TOTAL=$(jq '.suites[].specs | length' test-results.json | awk '{sum+=$1} END {print sum}')
+          PASSED=$(jq '[.suites[].specs[].tests[] | select(.status == "expected")] | length' test-results.json)
+          FAILED=$(jq '[.suites[].specs[].tests[] | select(.status == "unexpected")] | length' test-results.json)
+          PASS_RATE=$(awk "BEGIN {printf \"%.1f\", ($PASSED/$TOTAL)*100}")
+
+          echo "- **Total Tests**: $TOTAL" >> $GITHUB_STEP_SUMMARY
+          echo "- **Passed**: $PASSED ✅" >> $GITHUB_STEP_SUMMARY
+          echo "- **Failed**: $FAILED ❌" >> $GITHUB_STEP_SUMMARY
+          echo "- **Pass Rate**: $PASS_RATE%" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ $FAILED -gt 0 ]; then
+            echo "### Failed Tests" >> $GITHUB_STEP_SUMMARY
+            jq -r '.suites[].specs[] | select(.tests[].status == "unexpected") | "- \(.title)"' test-results.json >> $GITHUB_STEP_SUMMARY
+          fi
+        fi

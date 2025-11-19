@@ -20,8 +20,12 @@ module.exports = defineConfig({
   reporter: [
     ['html'],
     ['list'],
-    ['json', { outputFile: 'test-results.json' }]
-  ],
+    ['json', { outputFile: 'test-results.json' }],
+    // GitHub Actions integration
+    process.env.CI ? ['github'] : ['list'],
+    // JUnit XML for CI/CD integration
+    ['junit', { outputFile: 'test-results/junit.xml' }],
+  ].filter(Boolean),
 
   // Shared settings for all tests
   use: {
