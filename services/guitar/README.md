@@ -1,18 +1,117 @@
-# React + Vite
+# Guitar Learning Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Educational demonstration platform built with React + Vite + Supabase.
 
-Currently, two official plugins are available:
+**Live:** https://guitar.projectlavos.com
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 🎵 Interactive guitar tab player with MIDI playback (alphaTab)
+- 📊 Progress tracking with localStorage
+- ❤️ Favorites system
+- 🔐 Supabase authentication (Free/Pro/Premium tiers)
+- 📱 Mobile responsive design
+- 🎨 Dark theme UI
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-# Deployed Sat Nov 15 04:54:18 EST 2025
-# Guitar Platform Live - 2025-11-15
+## Quick Start
+
+```bash
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+---
+
+## Configuration
+
+Create `.env` file in this directory:
+
+```env
+VITE_SUPABASE_URL=your_project_url
+VITE_SUPABASE_ANON_KEY=your_anon_key
+```
+
+See `../SETUP-AUTH.md` for full Supabase configuration guide.
+
+---
+
+## Architecture
+
+### Key Components
+- `App.jsx` - Router and auth wrapper
+- `Navigation.jsx` - Sticky nav bar (73 lines)
+- `pages/Home.jsx` - Landing page with feature cards
+- `pages/Catalog.jsx` - Lesson browser (263 lines, refactored)
+- `pages/TabPlayer.jsx` - MIDI playback with alphaTab (328 lines)
+- `pages/FretVision.jsx` - Interactive fretboard visualization
+- `catalog/*` - 8 modular catalog components
+
+### State Management
+- `localStorage` for favorites and progress
+- Supabase Auth Context for user sessions
+- React Router for navigation
+
+---
+
+## Deployment
+
+```bash
+# Deploy to Vercel
+vercel --prod --yes
+```
+
+### Environment Variables
+Set in Vercel dashboard:
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_ANON_KEY`
+
+### Build Settings
+- Build command: `npm run build`
+- Output directory: `dist`
+- Install command: `npm install`
+
+---
+
+## Testing
+
+E2E tests located in `../../tests/specs/guitar-navigation.spec.js`
+
+```bash
+# Run from monorepo root
+npm test
+```
+
+---
+
+## Documentation
+
+- **[CLAUDE.md](CLAUDE.md)** - Project-specific configuration
+- **[Parent README](../../README.md)** - Full monorepo documentation
+- **[Setup Auth](../SETUP-AUTH.md)** - Authentication configuration
+- **[Implementation Summary](../IMPLEMENTATION-SUMMARY.md)** - Detailed architecture
+
+---
+
+## Known Issues
+
+See [GitHub Issues](https://github.com/guitargnarr/projectlavos-monorepo/issues):
+- Issue #17: Debug console.log statements
+- Issue #18: Bundle size optimization (1.29MB)
+- Issue #23: Guitar navigation test timeouts
+
+---
+
+**Last Updated:** 2025-11-21

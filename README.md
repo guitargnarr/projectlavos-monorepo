@@ -1,7 +1,20 @@
-# Project Lavos E2E Test Suite
+# Project Lavos
 
 ![E2E Tests](https://github.com/guitargnarr/projectlavos-monorepo/actions/workflows/e2e-tests.yml/badge.svg)
 ![Deploy](https://github.com/guitargnarr/projectlavos-monorepo/actions/workflows/deploy-vercel.yml/badge.svg)
+
+Multi-site platform demonstrating AI-native development capabilities with 4 deployed subdomains.
+
+## 🚀 Live Demos
+
+- **Main Site**: https://projectlavos.com - Landing page and project information
+- **Demos**: https://demos.projectlavos.com - Interactive demo applications (Restaurant Analyzer, etc.)
+- **About**: https://about.projectlavos.com - Project background and 10-Hour Question
+- **Guitar Platform**: https://guitar.projectlavos.com - Guitar learning platform with tabs and MIDI playback
+
+---
+
+## E2E Testing
 
 Comprehensive end-to-end testing for the Project Lavos multi-site architecture using Playwright.
 
@@ -164,6 +177,16 @@ Based on `WEEK2_ACTIONABLE_CHECKLIST.md`:
 - [x] Click "Try Free Demos" → Verify navigation (item 23)
 - [x] Click "Let's Talk" → Verify email subject (item 24)
 - [x] Document broken functionality via GitHub issues (item 25)
+
+## 📚 Documentation
+
+- **[QA Summary](QA_SUMMARY.md)** - Test results and quality assessment
+- **[Test Failures](TEST_FAILURES.md)** - Detailed test failure analysis (80% pass rate)
+- **[TODO Analysis](TODOS_COMPLETED.md)** - Feature roadmap and GitHub Issues
+- **[README Improvements](README_IMPROVEMENTS.md)** - Documentation enhancement plan
+- **[Auth Setup](services/SETUP-AUTH.md)** - Supabase authentication configuration
+- **[Implementation Summary](services/IMPLEMENTATION-SUMMARY.md)** - Guitar platform architecture
+- **[GitHub Issues](https://github.com/guitargnarr/projectlavos-monorepo/issues)** - Open tasks and improvements
 
 ## Next Steps
 
