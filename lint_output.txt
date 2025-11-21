@@ -1,0 +1,60 @@
+# Linting & Error Scan Results - Project Lavos Monorepo
+Date: 2025-11-21
+
+## Summary
+- **Total Issues Found:** 3
+- **Critical Issues Fixed:** 1
+- **Warnings/Improvements:** 2 (GitHub Issues created)
+
+## Critical Issues (FIXED) ✅
+
+### 1. Build-Breaking Error in main-site/src/App.jsx
+**Error:** Legacy HTML single-line comments are not allowed in ECMAScript modules
+**Location:** Line 987
+**Fix Applied:** Changed `<!-- GitHub Actions test -->` to `// GitHub Actions test`
+**Status:** ✅ FIXED - Build now passes
+
+## Warnings (GitHub Issues Created) ⚠️
+
+### 2. Debug Console Statements in TabPlayer
+**Issue #17:** https://github.com/guitargnarr/projectlavos-monorepo/issues/17
+**Location:** services/guitar/src/pages/TabPlayer.jsx
+**Details:** 3 debug console.log statements should be removed
+**Priority:** Low
+**Impact:** No functional impact, code cleanup needed
+
+### 3. Large Bundle Size in Guitar Service
+**Issue #18:** https://github.com/guitargnarr/projectlavos-monorepo/issues/18
+**Warning:** Main bundle is 1.29MB (327KB gzipped), exceeds 500KB threshold
+**Recommendations:**
+  - Use dynamic import() for code-splitting
+  - Lazy load TabPlayer and FretVision
+  - Separate alphaTab library into its own chunk
+**Priority:** Medium
+**Impact:** Affects initial load time, but doesn't break functionality
+
+### 4. Console Error Statements in Catalog
+**Issue #19:** https://github.com/guitargnarr/projectlavos-monorepo/issues/19
+**Location:** services/guitar/src/pages/Catalog.jsx
+**Details:** 5 console.error statements could be improved with proper error handling
+**Priority:** Low
+**Impact:** No functional impact, UX improvement opportunity
+
+## Build Status - All Passing ✅
+
+✅ main-site - builds successfully (228KB)
+✅ about - builds successfully (231KB)
+✅ demos - builds successfully (261KB)
+✅ services/guitar - builds successfully (1.29MB with warning)
+
+## Next Steps
+
+1. Review GitHub Issues #17-19
+2. Consider implementing code-splitting for guitar service (Issue #18)
+3. Optional: Clean up console statements when convenient
+
+## Notes
+- Only 10 console statements total across entire codebase
+- Most are legitimate error logging
+- No security issues or critical bugs found
+- All subdomains deploy successfully
