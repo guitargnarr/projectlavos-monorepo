@@ -16,7 +16,7 @@ git push origin main  # Path-based CI deploys only changed subdomains
 - **ALWAYS** `git add public/` after generating assets
 - **YOU MUST** test builds locally before deploying
 - **YOU MUST** check for merge conflict markers before committing: `git diff --cached | grep -E "^(\+.*<<<<<<|^(\+.*======|^(\+.*>>>>>>)"`
-- NO vercel.json files (Vercel auto-detects Vite)
+- Minimal vercel.json OK for SPA routing (simple rewrites required for React Router BrowserRouter)
 
 ## Project Structure
 - 4 subdomains: main-site/, demos/, about/, services/
