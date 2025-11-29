@@ -82,6 +82,16 @@ export const AuthProvider = ({ children }) => {
     return { error }
   }
 
+  const resendVerificationEmail = async () => {
+    if (!user?.email) return { error: new Error('No user email') }
+
+    const { error } = await supabase.auth.resend({
+      type: 'signup',
+      email: user.email
+    })
+    return { error }
+  }
+
   const updateTier = async (newTier) => {
     if (!user) return { error: new Error('No user logged in') }
 
@@ -119,7 +129,9 @@ export const AuthProvider = ({ children }) => {
     signOut,
     updateTier,
     hasTierAccess,
-    tier: profile?.tier || TIERS.FREE
+    resendVerificationEmail,
+    tier: profile?.tier || TIERS.FREE,
+    emailVerified: !!user?.email_confirmed_at
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

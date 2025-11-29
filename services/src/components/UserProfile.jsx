@@ -1,5 +1,6 @@
 import { useAuth } from '../contexts/AuthContext'
 import { TIER_FEATURES, TIERS } from '../lib/supabase'
+import VerifyEmail from './auth/VerifyEmail'
 
 export default function UserProfile() {
   const { user, profile, signOut, updateTier } = useAuth()
@@ -25,7 +26,8 @@ export default function UserProfile() {
         <div className="flex justify-between items-start mb-6">
           <div>
             <h2 className="text-3xl font-black mb-2 text-gray-900">Your Profile</h2>
-            <p className="text-gray-600">{user.email}</p>
+            <p className="text-gray-600 mb-3">{user.email}</p>
+            <VerifyEmail />
           </div>
           <button
             onClick={signOut}
