@@ -48,6 +48,49 @@ const subdomains = {
   services: 'https://services.projectlavos.com'
 };
 
+// Mock API responses for success scenarios
+const apiMocks = {
+  restaurantAnalysis: {
+    status: 200,
+    contentType: 'application/json',
+    body: {
+      overall_rating: 4.5,
+      total_reviews: 127,
+      sentiment_summary: {
+        positive: 65,
+        neutral: 25,
+        negative: 10
+      },
+      themes: [
+        { name: 'Service', sentiment: 'positive', count: 48, percentage: 38 },
+        { name: 'Food Quality', sentiment: 'positive', count: 42, percentage: 33 },
+        { name: 'Atmosphere', sentiment: 'positive', count: 35, percentage: 28 },
+        { name: 'Wait Time', sentiment: 'mixed', count: 15, percentage: 12 },
+        { name: 'Price', sentiment: 'neutral', count: 12, percentage: 9 }
+      ],
+      recommendations: [
+        'Great for date night',
+        'Reserve ahead for weekends',
+        'Try the signature bourbon cocktails'
+      ],
+      summary: 'Highly rated upscale dining with exceptional service and food quality. Minor concerns about wait times during peak hours.'
+    }
+  },
+  emailScore: {
+    status: 200,
+    contentType: 'application/json',
+    body: {
+      score: 85,
+      grade: 'A',
+      feedback: [
+        { category: 'Personalization', score: 90, comment: 'Good use of specific details' },
+        { category: 'Value Proposition', score: 85, comment: 'Clear benefit stated' },
+        { category: 'Call to Action', score: 80, comment: 'Specific time options provided' }
+      ]
+    }
+  }
+};
+
 const errorScenarios = [
   {
     name: 'Network Error',
@@ -76,5 +119,6 @@ module.exports = {
   sampleEmails,
   apiEndpoints,
   subdomains,
+  apiMocks,
   errorScenarios
 };
