@@ -36,8 +36,7 @@ export default function Catalog() {
     try {
       const stored = localStorage.getItem('guitar-favorites');
       return stored ? JSON.parse(stored) : [];
-    } catch (e) {
-      console.error('Failed to load favorites:', e);
+    } catch {
       return [];
     }
   });
@@ -47,8 +46,7 @@ export default function Catalog() {
     try {
       const stored = localStorage.getItem('guitar-progress');
       return stored ? JSON.parse(stored) : [];
-    } catch (e) {
-      console.error('Failed to load progress:', e);
+    } catch {
       return [];
     }
   });
@@ -57,8 +55,8 @@ export default function Catalog() {
   useEffect(() => {
     try {
       localStorage.setItem('guitar-favorites', JSON.stringify(favorites));
-    } catch (e) {
-      console.error('Failed to save favorites:', e);
+    } catch {
+      // Silent fail - localStorage may be blocked
     }
   }, [favorites]);
 
@@ -66,8 +64,8 @@ export default function Catalog() {
   useEffect(() => {
     try {
       localStorage.setItem('guitar-progress', JSON.stringify(completed));
-    } catch (e) {
-      console.error('Failed to save progress:', e);
+    } catch {
+      // Silent fail - localStorage may be blocked
     }
   }, [completed]);
 
@@ -148,8 +146,7 @@ export default function Catalog() {
       await navigator.clipboard.writeText(url);
       setCopiedMessage(true);
       setTimeout(() => setCopiedMessage(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy:', err);
+    } catch {
       // Fallback for older browsers
       const textarea = document.createElement('textarea');
       textarea.value = url;

@@ -195,18 +195,17 @@ export default function TabPlayer() {
 
         // Player ready event
         api.playerReady.on(() => {
-          console.log('alphaTab player ready');
+          // Player initialized
         });
 
         // SoundFont loaded event
         api.soundFontLoaded.on(() => {
-          console.log('alphaTab soundfont loaded');
           setSoundFontLoaded(true);
         });
 
         // Render finished event (handles large files)
         api.renderFinished.on(() => {
-          console.log('alphaTab render finished');
+          // Render complete
         });
 
         // Load GP file from URL param or default
