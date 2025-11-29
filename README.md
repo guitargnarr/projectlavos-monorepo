@@ -1,202 +1,118 @@
 # Project Lavos
 
 ![E2E Tests](https://github.com/guitargnarr/projectlavos-monorepo/actions/workflows/e2e-tests.yml/badge.svg)
-![Deploy](https://github.com/guitargnarr/projectlavos-monorepo/actions/workflows/deploy-vercel.yml/badge.svg)
+![Deploy](https://github.com/guitargnarr/projectlavos-monorepo/actions/workflows/deploy-all.yml/badge.svg)
 
-Multi-site platform demonstrating AI-native development capabilities with 4 deployed subdomains.
+Multi-site platform demonstrating AI-native development. Built by a solo developer orchestrating Claude Code to ship production-quality software at scale.
 
-## 🚀 Live Demos
+## Live Sites
 
-- **Main Site**: https://projectlavos.com - Landing page and project information
-- **Demos**: https://demos.projectlavos.com - Interactive demo applications (Restaurant Analyzer, etc.)
-- **About**: https://about.projectlavos.com - Project background and 10-Hour Question
-- **Guitar Platform**: https://guitar.projectlavos.com - Guitar learning platform with tabs and MIDI playback
+| Site | URL | Description |
+|------|-----|-------------|
+| Main | [projectlavos.com](https://projectlavos.com) | Landing page and portfolio |
+| Demos | [demos.projectlavos.com](https://demos.projectlavos.com) | Interactive AI demos (Restaurant Analyzer, Email Scorer) |
+| About | [about.projectlavos.com](https://about.projectlavos.com) | Background and the 10-Hour Question |
+| Guitar | [guitar.projectlavos.com](https://guitar.projectlavos.com) | Guitar learning platform with 7 tools |
 
----
+## Guitar Platform Features
 
-## E2E Testing
+The guitar learning platform includes:
 
-Comprehensive end-to-end testing for the Project Lavos multi-site architecture using Playwright.
+- **FretVision** - Interactive fretboard visualization
+- **Tab Player** - Guitar Pro file playback with MIDI
+- **Chord Dictionary** - 50+ chord shapes with audio
+- **Tuner** - Chromatic pitch detection using Web Audio API
+- **Metronome** - Tap tempo, time signatures, subdivisions
+- **Catalog** - 120+ lessons with progress tracking
 
-## Test Coverage
+## Quick Start
 
-### 1. Restaurant Analyzer Tests (`restaurant-analyzer.spec.js`)
-- ✅ Page loading and rendering
-- ✅ Restaurant selection and analysis
-- ✅ Results display verification
-- ✅ Error state handling
-- ✅ Retry functionality
-- ✅ Cross-browser testing (Chrome, Safari)
-
-### 2. Mobile Responsiveness (`mobile-responsive.spec.js`)
-- ✅ Vertical stacking on mobile devices
-- ✅ Readable text sizing
-- ✅ Tappable button sizes (44x44px minimum)
-- ✅ No horizontal scrolling
-- ✅ Touch interaction support
-- ✅ Tablet layout verification
-
-### 3. Error State Handling (`error-states.spec.js`)
-- ✅ API unreachable errors
-- ✅ Retry button display and functionality
-- ✅ Timeout handling
-- ✅ HTTP 500/404 error responses
-- ✅ Malformed API response handling
-- ✅ UI state during loading
-
-### 4. Cross-Subdomain Navigation (`cross-subdomain.spec.js`)
-- ✅ Navigation between all 4 subdomains
-- ✅ "10-Hour Question" prominence on about page
-- ✅ Email link with correct subject
-- ✅ Consistent navigation across sites
-- ✅ No console errors on any subdomain
-
-## Subdomains Tested
-
-- **Main**: https://projectlavos.com
-- **Demos**: https://demos.projectlavos.com
-- **About**: https://about.projectlavos.com
-- **Services**: https://services.projectlavos.com
-
-## Running Tests
-
-### Run all tests
 ```bash
+# Clone and install
+git clone https://github.com/guitargnarr/projectlavos-monorepo.git
+cd projectlavos-monorepo
+npm install
+
+# Run guitar platform locally
+cd services/guitar
+npm install
+npm run dev
+# Opens at http://localhost:5173
+
+# Run tests
+cd ../..
+npx playwright install chromium
 npx playwright test
 ```
 
-### Run specific test file
-```bash
-npx playwright test restaurant-analyzer
-npx playwright test mobile-responsive
-npx playwright test error-states
-npx playwright test cross-subdomain
+## Architecture
+
+```
+projectlavos-monorepo/
+├── main-site/          # Landing page (Vite + React)
+├── demos/              # AI demo applications
+├── about/              # About page
+├── services/
+│   └── guitar/         # Guitar learning platform
+│       ├── src/pages/  # 7 feature pages
+│       └── public/     # Soundfonts, tabs, assets
+├── tests/              # Playwright E2E tests
+└── .github/workflows/  # CI/CD (deploy + test)
 ```
 
-### Run tests in specific browser
+**Stack**: React, Vite, Tailwind CSS, Playwright, Vercel
+
+## Deployment
+
+All sites deploy automatically to Vercel on push to `main`:
+
 ```bash
-npx playwright test --project=chromium
-npx playwright test --project=webkit
-npx playwright test --project=mobile-chrome
+# Manual deploy (if needed)
+cd services/guitar
+vercel --prod
 ```
 
-### Run in UI mode (interactive)
+## Testing
+
 ```bash
+# Run all E2E tests
+npx playwright test
+
+# Run with UI
 npx playwright test --ui
+
+# Specific test file
+npx playwright test guitar-navigation
 ```
 
-### Run in headed mode (see browser)
-```bash
-npx playwright test --headed
-```
+**Coverage**: 76 tests across 4 browsers (Chrome, Safari, Mobile Chrome, Mobile Safari)
 
-### Debug specific test
-```bash
-npx playwright test --debug restaurant-analyzer
-```
+<details>
+<summary>Test Categories</summary>
 
-## Test Reports
+- **Guitar Navigation** - Route highlighting, page transitions, mobile responsive
+- **Restaurant Analyzer** - Selection, analysis, error handling, retry
+- **Mobile Responsiveness** - Touch targets, text sizing, layout stacking
+- **Cross-Subdomain** - Navigation between all 4 subdomains
+- **Error States** - API errors, timeouts, 500/404 handling
 
-### View HTML report
-```bash
-npx playwright show-report
-```
+</details>
 
-Reports include:
-- Test execution timeline
-- Screenshots on failure
-- Video recordings on failure
-- Network activity logs
-- Console logs
+## Contributing
 
-## CI/CD Integration
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/my-feature`
+3. Run tests: `npx playwright test`
+4. Commit with conventional commits: `git commit -m "feat: add new feature"`
+5. Push and open a PR
 
-Tests run automatically on:
-- Push to `main` or `feature/e2e-testing` branches
-- Pull requests to `main`
-- Daily at 6 AM UTC (scheduled)
+## Documentation
 
-GitHub Actions workflow: `.github/workflows/e2e-tests.yml`
+- [Guitar Platform README](services/guitar/README.md)
+- [Auth Setup](services/SETUP-AUTH.md)
+- [Test Failures](TEST_FAILURES.md)
+- [Open Issues](https://github.com/guitargnarr/projectlavos-monorepo/issues)
 
-## Test Configuration
+## License
 
-- **Timeout**: 30 seconds per test
-- **Retries**: 2 retries in CI, 0 locally
-- **Browsers**: Chromium, WebKit (Safari), Mobile Chrome, Mobile Safari
-- **Parallel execution**: Enabled
-- **Screenshots**: On failure only
-- **Videos**: On failure only
-
-## Requirements
-
-- Node.js 18+
-- npm or yarn
-
-## Installation
-
-```bash
-npm install
-npx playwright install chromium webkit
-```
-
-## Writing New Tests
-
-1. Create new `.spec.js` file in `tests/` directory
-2. Follow existing test patterns
-3. Use descriptive test names
-4. Add to this README
-
-## Troubleshooting
-
-### Tests failing locally but passing in CI
-- Clear browser cache: `npx playwright install --force`
-- Check network connectivity
-- Verify production sites are accessible
-
-### Timeout errors
-- Increase timeout in `playwright.config.js`
-- Check if API is slow or down
-- Add more specific waitFor conditions
-
-### Screenshots not captured
-- Ensure `screenshot: 'only-on-failure'` in config
-- Check `test-results/` directory
-- Run with `--headed` to see browser
-
-## Test Checklist (WEEK2)
-
-Based on `WEEK2_ACTIONABLE_CHECKLIST.md`:
-
-- [x] Open https://demos.projectlavos.com in Chrome (item 14)
-- [x] Test Restaurant Analyzer: Select Jack Fry's → Analyze → Verify results (item 15)
-- [x] Test error handling: Go offline → Trigger error → Verify retry (item 16-17)
-- [x] Test in Safari (item 18)
-- [x] Test on mobile: Grid stacks, text readable, buttons tappable (items 19-21)
-- [x] Open https://about.projectlavos.com (item 22)
-- [x] Verify 10-Hour Question prominent (item 22)
-- [x] Click "Try Free Demos" → Verify navigation (item 23)
-- [x] Click "Let's Talk" → Verify email subject (item 24)
-- [x] Document broken functionality via GitHub issues (item 25)
-
-## 📚 Documentation
-
-- **[QA Summary](QA_SUMMARY.md)** - Test results and quality assessment
-- **[Test Failures](TEST_FAILURES.md)** - Detailed test failure analysis (80% pass rate)
-- **[TODO Analysis](TODOS_COMPLETED.md)** - Feature roadmap and GitHub Issues
-- **[README Improvements](README_IMPROVEMENTS.md)** - Documentation enhancement plan
-- **[Auth Setup](services/SETUP-AUTH.md)** - Supabase authentication configuration
-- **[Implementation Summary](services/IMPLEMENTATION-SUMMARY.md)** - Guitar platform architecture
-- **[GitHub Issues](https://github.com/guitargnarr/projectlavos-monorepo/issues)** - Open tasks and improvements
-
-## Next Steps
-
-1. Run test suite: `npx playwright test`
-2. Review failures and fix issues
-3. Add more test cases as needed
-4. Integrate with deployment pipeline
-
----
-
-**Status**: ✅ Test suite complete and ready for execution
-**Coverage**: 4 test files, 30+ test cases, 4 browsers
-**Execution Time**: ~5-10 minutes for full suite
+MIT
