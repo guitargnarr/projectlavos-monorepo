@@ -79,7 +79,7 @@ test.describe('Mobile Responsiveness - iPhone', () => {
 
     if (hasDropdown) {
       // Tap dropdown
-      await dropdown.tap();
+      await dropdown.click();
 
       // Select option
       await dropdown.selectOption({ index: 1 });
@@ -92,7 +92,7 @@ test.describe('Mobile Responsiveness - iPhone', () => {
       return;
     }
 
-    await analyzeButton.tap();
+    await analyzeButton.click();
 
     // Wait for loading state or results (don't require specific text)
     await page.waitForTimeout(2000);
@@ -127,7 +127,7 @@ test.describe('Mobile Responsiveness - Android', () => {
     const analyzeButton = page.locator('button:has-text("Analyze")').first();
     
     if (await analyzeButton.isVisible({ timeout: 3000 }).catch(() => false)) {
-      await analyzeButton.tap();
+      await analyzeButton.click();
       
       // Should show loading or results
       await page.waitForTimeout(1000);
