@@ -18,6 +18,7 @@ export default function Navigation() {
     { path: '/tabplayer', label: 'Tab Player', color: 'blue' },
     { path: '/chords', label: 'Chords', color: 'purple' },
     { path: '/tuner', label: 'Tuner', color: 'blue' },
+    { path: '/metronome', label: 'Metronome', color: 'blue' },
     { path: '/catalog', label: 'Catalog', color: 'purple' },
   ];
 

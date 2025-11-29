@@ -6,6 +6,7 @@ import TabPlayer from './pages/TabPlayer';
 import Catalog from './pages/Catalog';
 import ChordDictionary from './pages/ChordDictionary';
 import Tuner from './pages/Tuner';
+import Metronome from './pages/Metronome';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/catalog" element={<Catalog />} />
           <Route path="/chords" element={<ChordDictionary />} />
           <Route path="/tuner" element={<Tuner />} />
+          <Route path="/metronome" element={<Metronome />} />
         </Routes>
       </div>
     </Router>
