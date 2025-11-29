@@ -32,7 +32,11 @@ jobs:
   test:
     timeout-minutes: 15
     runs-on: ubuntu-latest
-    
+    permissions:
+      contents: read
+      checks: write
+      pull-requests: write
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -99,19 +103,25 @@ jobs:
         echo "## Test Results Summary" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         if [ -f test-results.json ]; then
-          TOTAL=$(jq '.suites[].specs | length' test-results.json | awk '{sum+=$1} END {print sum}')
-          PASSED=$(jq '[.suites[].specs[].tests[] | select(.status == "expected")] | length' test-results.json)
-          FAILED=$(jq '[.suites[].specs[].tests[] | select(.status == "unexpected")] | length' test-results.json)
-          PASS_RATE=$(awk "BEGIN {printf \"%.1f\", ($PASSED/$TOTAL)*100}")
+          TOTAL=$(jq '.suites[].specs | length' test-results.json 2>/dev/null | awk '{sum+=$1} END {print sum+0}')
+          PASSED=$(jq '[.suites[].specs[].tests[] | select(.status == "expected")] | length' test-results.json 2>/dev/null || echo "0")
+          FAILED=$(jq '[.suites[].specs[].tests[] | select(.status == "unexpected")] | length' test-results.json 2>/dev/null || echo "0")
 
-          echo "- **Total Tests**: $TOTAL" >> $GITHUB_STEP_SUMMARY
-          echo "- **Passed**: $PASSED ✅" >> $GITHUB_STEP_SUMMARY
-          echo "- **Failed**: $FAILED ❌" >> $GITHUB_STEP_SUMMARY
-          echo "- **Pass Rate**: $PASS_RATE%" >> $GITHUB_STEP_SUMMARY
+          if [ "$TOTAL" -gt 0 ] 2>/dev/null; then
+            PASS_RATE=$(awk "BEGIN {printf \"%.1f\", ($PASSED/$TOTAL)*100}")
+            echo "- **Total Tests**: $TOTAL" >> $GITHUB_STEP_SUMMARY
+            echo "- **Passed**: $PASSED" >> $GITHUB_STEP_SUMMARY
+            echo "- **Failed**: $FAILED" >> $GITHUB_STEP_SUMMARY
+            echo "- **Pass Rate**: $PASS_RATE%" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "- Test results not available in expected format" >> $GITHUB_STEP_SUMMARY
+          fi
           echo "" >> $GITHUB_STEP_SUMMARY
 
-          if [ $FAILED -gt 0 ]; then
+          if [ "$FAILED" -gt 0 ] 2>/dev/null; then
             echo "### Failed Tests" >> $GITHUB_STEP_SUMMARY
-            jq -r '.suites[].specs[] | select(.tests[].status == "unexpected") | "- \(.title)"' test-results.json >> $GITHUB_STEP_SUMMARY
+            jq -r '.suites[].specs[] | select(.tests[].status == "unexpected") | "- \(.title)"' test-results.json >> $GITHUB_STEP_SUMMARY 2>/dev/null || true
           fi
+        else
+          echo "- No test results file found" >> $GITHUB_STEP_SUMMARY
         fi
