@@ -1,6 +1,6 @@
 {
-  "version": "1.0",
-  "generated_at": "2025-11-14",
+  "version": "1.1",
+  "generated_at": "2025-11-29",
   "total_files": 70,
   "tier_distribution": {
     "free": 10,
@@ -23,719 +23,631 @@
   "files": [
     {
       "filename": "Mini Course - What Makes Up A Chord_.gp",
-      "title": "Mini Course - What Makes Up A Chord_",
+      "title": "Mini Course - What Makes Up A Chord",
+      "description": "Learn the fundamental building blocks of chords - root notes, intervals, and triads. Perfect for understanding chord construction.",
       "category": "chord",
-      "techniques": [
-        "chord"
-      ],
+      "techniques": ["chord"],
       "difficulty": "beginner",
       "tier": "free"
     },
     {
       "filename": "Exercise 4 Part 1 - BASIC SUBDIVISIONS AT 85BPM.gp",
-      "title": "Exercise 4 Part 1 - BASIC SUBDIVISIONS AT 85BPM",
+      "title": "Basic Subdivisions at 85 BPM",
+      "description": "Master rhythmic subdivisions with this essential timing exercise. Practice quarter notes, eighth notes, and sixteenth notes.",
       "category": "exercise",
-      "techniques": [
-        "exercise"
-      ],
+      "techniques": ["exercise", "rhythm"],
       "difficulty": "beginner",
       "tier": "free"
     },
     {
       "filename": "Mini Course - Lick Building.gp",
       "title": "Mini Course - Lick Building",
+      "description": "Discover how to construct memorable guitar licks from scales and arpeggios. Build your vocabulary of phrases.",
       "category": "lick",
-      "techniques": [
-        "lick"
-      ],
+      "techniques": ["lick"],
       "difficulty": "beginner",
       "tier": "free"
     },
     {
       "filename": "Pentatonic Major — All Keys.gp",
-      "title": "Pentatonic Major — All Keys",
+      "title": "Pentatonic Major - All Keys",
+      "description": "Complete reference for major pentatonic scale in all 12 keys. The foundation of rock, blues, and country soloing.",
       "category": "pentatonic",
-      "techniques": [
-        "pentatonic"
-      ],
+      "techniques": ["pentatonic", "scale"],
       "difficulty": "beginner",
       "tier": "free"
     },
     {
       "filename": "Pentatonic Minor — All Keys.gp",
-      "title": "Pentatonic Minor — All Keys",
+      "title": "Pentatonic Minor - All Keys",
+      "description": "Master the minor pentatonic scale in every key. Essential for blues, rock, and metal guitar solos.",
       "category": "pentatonic",
-      "techniques": [
-        "pentatonic"
-      ],
+      "techniques": ["pentatonic", "scale"],
       "difficulty": "beginner",
       "tier": "free"
     },
     {
       "filename": "Seven Positions of the Major Scale.gp",
       "title": "Seven Positions of the Major Scale",
+      "description": "Learn all seven positions of the major scale across the fretboard. Essential for comprehensive fretboard knowledge.",
       "category": "scale",
-      "techniques": [
-        "scale"
-      ],
+      "techniques": ["scale"],
       "difficulty": "beginner",
       "tier": "free"
     },
     {
       "filename": "Mini Course - Playing The Scale Over Each Chord.gp",
       "title": "Mini Course - Playing The Scale Over Each Chord",
+      "description": "Learn how to match scales to chord changes. Develop your ear for targeting chord tones while soloing.",
       "category": "scale",
-      "techniques": [
-        "chord",
-        "scale"
-      ],
+      "techniques": ["chord", "scale"],
       "difficulty": "beginner",
       "tier": "free"
     },
     {
       "filename": "Minor Scale — All Keys.gp",
-      "title": "Minor Scale — All Keys",
+      "title": "Minor Scale - All Keys",
+      "description": "Natural minor scale patterns in all 12 keys. Build your foundation for modal playing and minor key improvisation.",
       "category": "scale",
-      "techniques": [
-        "scale"
-      ],
+      "techniques": ["scale"],
       "difficulty": "beginner",
       "tier": "free"
     },
     {
       "filename": "Major Scale — All Keys.gp",
-      "title": "Major Scale — All Keys",
+      "title": "Major Scale - All Keys",
+      "description": "The complete major scale in all keys. The foundation of Western music theory and improvisation.",
       "category": "scale",
-      "techniques": [
-        "scale"
-      ],
+      "techniques": ["scale"],
       "difficulty": "beginner",
       "tier": "free"
     },
     {
       "filename": "Alternate Picking — 10 Moveable Sequences.gp",
-      "title": "Alternate Picking — 10 Moveable Sequences",
+      "title": "Alternate Picking - 10 Moveable Sequences",
+      "description": "Ten essential alternate picking patterns that can be moved anywhere on the neck. Build speed and accuracy.",
       "category": "alternate",
-      "techniques": [
-        "alternate"
-      ],
+      "techniques": ["alternate"],
       "difficulty": "intermediate",
       "tier": "free"
     },
     {
       "filename": "Alternate Run 2.gp",
       "title": "Alternate Run 2",
+      "description": "Advanced alternate picking run for building speed and precision. Great for developing right-hand technique.",
       "category": "alternate",
-      "techniques": [
-        "alternate"
-      ],
+      "techniques": ["alternate"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "m7b5 Arpeggios.gp",
-      "title": "m7b5 Arpeggios",
+      "title": "Minor 7 Flat 5 Arpeggios",
+      "description": "Half-diminished arpeggios essential for jazz and fusion. Learn all positions and applications.",
       "category": "arpeggio",
-      "techniques": [
-        "arpeggio"
-      ],
+      "techniques": ["arpeggio"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "Extended Arpeggio.gp",
       "title": "Extended Arpeggio",
+      "description": "Arpeggios that span multiple octaves and positions. Develop your ability to navigate the fretboard melodically.",
       "category": "arpeggio",
-      "techniques": [
-        "arpeggio"
-      ],
+      "techniques": ["arpeggio"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "Extended Arpeggio 2.gp",
       "title": "Extended Arpeggio 2",
+      "description": "More extended arpeggio patterns for advanced melodic playing. Connect positions fluidly.",
       "category": "arpeggio",
-      "techniques": [
-        "arpeggio"
-      ],
+      "techniques": ["arpeggio"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "theguitargym-Arpeggioworkout-TABS.gpx",
-      "title": "theguitargym-Arpeggioworkout-TABSx",
+      "title": "Guitar Gym - Arpeggio Workout",
+      "description": "Comprehensive arpeggio workout covering major, minor, and diminished shapes. Build finger independence.",
       "category": "arpeggio",
-      "techniques": [
-        "arpeggio"
-      ],
+      "techniques": ["arpeggio"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "Arpeggio Sequences — CMaj7.gp",
-      "title": "Arpeggio Sequences — CMaj7",
+      "title": "Arpeggio Sequences - C Major 7",
+      "description": "CMaj7 arpeggio sequences for jazz vocabulary. Learn various ways to outline this essential chord.",
       "category": "arpeggio",
-      "techniques": [
-        "arpeggio"
-      ],
+      "techniques": ["arpeggio"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "Arpeggio Study 4.gpx",
-      "title": "Arpeggio Study 4x",
+      "title": "Arpeggio Study 4",
+      "description": "Technical study focusing on clean arpeggio execution and position shifts.",
       "category": "arpeggio",
-      "techniques": [
-        "arpeggio"
-      ],
+      "techniques": ["arpeggio"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "Arpeggio Study 5.gpx",
-      "title": "Arpeggio Study 5x",
+      "title": "Arpeggio Study 5",
+      "description": "Advanced arpeggio study with string skipping and wide interval jumps.",
       "category": "arpeggio",
-      "techniques": [
-        "arpeggio"
-      ],
+      "techniques": ["arpeggio"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "Scales & Arpeggios (4nps).gp",
-      "title": "Scales & Arpeggios (4nps)",
+      "title": "Scales & Arpeggios (4 Notes Per String)",
+      "description": "Four-note-per-string scale and arpeggio patterns for maximum speed and efficiency.",
       "category": "arpeggio",
-      "techniques": [
-        "arpeggio",
-        "scale"
-      ],
+      "techniques": ["arpeggio", "scale"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "Static Chord Soloing.gp",
       "title": "Static Chord Soloing",
+      "description": "Learn to solo over a single chord by targeting chord tones and using tension/release.",
       "category": "chord",
-      "techniques": [
-        "chord",
-        "solo"
-      ],
+      "techniques": ["chord", "solo"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "Pentatonic and Economy Sequences.gp",
       "title": "Pentatonic and Economy Sequences",
+      "description": "Combine pentatonic patterns with economy picking for fluid, fast runs.",
       "category": "economy",
-      "techniques": [
-        "economy",
-        "pentatonic"
-      ],
+      "techniques": ["economy", "pentatonic"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "Economy Picking .gp",
-      "title": "Economy Picking ",
+      "title": "Economy Picking Fundamentals",
+      "description": "Core economy picking concepts and exercises. Learn the most efficient way to pick across strings.",
       "category": "economy",
-      "techniques": [
-        "economy"
-      ],
+      "techniques": ["economy"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "Economy Picking - 5 Exercises (Drop G Tuning).gp",
-      "title": "Economy Picking - 5 Exercises (Drop G Tuning)",
+      "title": "Economy Picking - Drop G Tuning",
+      "description": "Economy picking exercises adapted for drop G tuning. Perfect for extended range guitars.",
       "category": "economy",
-      "techniques": [
-        "economy",
-        "exercise"
-      ],
+      "techniques": ["economy", "exercise"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "Economy Picking — 4 Examples.gp",
-      "title": "Economy Picking — 4 Examples",
+      "title": "Economy Picking - 4 Examples",
+      "description": "Four practical examples of economy picking in musical contexts. Apply technique to real licks.",
       "category": "economy",
-      "techniques": [
-        "economy"
-      ],
+      "techniques": ["economy"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "Economy Picking — 10 Moveable Sequences.gp",
-      "title": "Economy Picking — 10 Moveable Sequences",
+      "title": "Economy Picking - 10 Moveable Sequences",
+      "description": "Ten economy picking patterns that can be transposed to any key. Build your lick vocabulary.",
       "category": "economy",
-      "techniques": [
-        "economy"
-      ],
+      "techniques": ["economy"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "DL - Economy Picking L4.gp",
-      "title": "DL - Economy Picking L4",
+      "title": "Economy Picking - Lesson 4",
+      "description": "Progressive economy picking lesson building on previous concepts. Increase speed and fluidity.",
       "category": "economy",
-      "techniques": [
-        "economy"
-      ],
+      "techniques": ["economy"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "Economy Picking Sequence — G Minor.gp",
-      "title": "Economy Picking Sequence — G Minor",
+      "title": "Economy Picking Sequence - G Minor",
+      "description": "G minor economy picking sequence with scale patterns and arpeggios combined.",
       "category": "economy",
-      "techniques": [
-        "economy"
-      ],
+      "techniques": ["economy"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "Economy Picking - 5 Exercises (Drop G Tuning.gp",
-      "title": "Economy Picking - 5 Exercises (Drop G Tuning",
+      "title": "Economy Picking - Drop G Exercises",
+      "description": "Additional economy picking exercises for drop G tuning. Extended range technique development.",
       "category": "economy",
-      "techniques": [
-        "economy",
-        "exercise"
-      ],
+      "techniques": ["economy", "exercise"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "Exercise 1 Part 5 Picking Etiquette - Four Notes Per String, Skipping Strings.gp",
-      "title": "Exercise 1 Part 5 Picking Etiquette - Four Notes Per String, Skipping Strings",
+      "title": "Picking Etiquette - String Skipping",
+      "description": "Four-note-per-string patterns with string skipping. Develop accurate picking across non-adjacent strings.",
       "category": "exercise",
-      "techniques": [
-        "exercise"
-      ],
+      "techniques": ["exercise", "alternate"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "Exercise 3 Part 3 LAZY FIRST FINGER KILLER 1.gp",
-      "title": "Exercise 3 Part 3 LAZY FIRST FINGER KILLER 1",
+      "title": "Lazy First Finger Killer",
+      "description": "Exercises to strengthen your index finger independence. Eliminate weak finger habits.",
       "category": "exercise",
-      "techniques": [
-        "exercise"
-      ],
+      "techniques": ["exercise"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "Exercise 1 Part 4 Picking Etiquette - Four Notes Per String, Adjacent Strings.gp",
-      "title": "Exercise 1 Part 4 Picking Etiquette - Four Notes Per String, Adjacent Strings",
+      "title": "Picking Etiquette - Adjacent Strings",
+      "description": "Four-note-per-string patterns on adjacent strings. Build smooth string transitions.",
       "category": "exercise",
-      "techniques": [
-        "exercise"
-      ],
+      "techniques": ["exercise", "alternate"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "5 Legato Pentatonic Patterns.gp",
       "title": "5 Legato Pentatonic Patterns",
+      "description": "Five legato patterns using the pentatonic scale. Develop fluid hammer-ons and pull-offs.",
       "category": "legato",
-      "techniques": [
-        "legato",
-        "pattern",
-        "pentatonic"
-      ],
+      "techniques": ["legato", "pattern", "pentatonic"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "Legato (7 Examples.gp",
-      "title": "Legato (7 Examples",
+      "title": "Legato - 7 Examples",
+      "description": "Seven examples of legato technique in musical contexts. From simple to complex phrases.",
       "category": "legato",
-      "techniques": [
-        "legato"
-      ],
+      "techniques": ["legato"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "The Guitar Gym - Legato Workout.gpx",
-      "title": "The Guitar Gym - Legato Workoutx",
+      "title": "Guitar Gym - Legato Workout",
+      "description": "Comprehensive legato workout for building left-hand strength and independence.",
       "category": "legato",
-      "techniques": [
-        "legato"
-      ],
+      "techniques": ["legato"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "Legato — 10 Moveable Sequences.gp",
-      "title": "Legato — 10 Moveable Sequences",
+      "title": "Legato - 10 Moveable Sequences",
+      "description": "Ten legato sequences that can be moved to any position. Build your legato vocabulary.",
       "category": "legato",
-      "techniques": [
-        "legato"
-      ],
+      "techniques": ["legato"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "Fun Lick.gp",
       "title": "Fun Lick",
+      "description": "A fun, musical lick to add to your repertoire. Great for jam sessions and improvisation.",
       "category": "lick",
-      "techniques": [
-        "lick"
-      ],
+      "techniques": ["lick"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "12 SCALE SEQUENCING_EX. A - PENTATONIC ASCENDING 4S.gp",
-      "title": "12 SCALE SEQUENCING_EX. A - PENTATONIC ASCENDING 4S",
+      "title": "Scale Sequencing - Pentatonic Ascending 4s",
+      "description": "Ascending four-note sequences through the pentatonic scale. Build speed with patterns.",
       "category": "pentatonic",
-      "techniques": [
-        "pentatonic",
-        "scale"
-      ],
+      "techniques": ["pentatonic", "scale"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "50 Essential Pentatonic Sequences part2.gpx",
-      "title": "50 Essential Pentatonic Sequences part2x",
+      "title": "50 Essential Pentatonic Sequences Part 2",
+      "description": "Continuation of essential pentatonic sequences. Expand your improvisational options.",
       "category": "pentatonic",
-      "techniques": [
-        "pentatonic"
-      ],
+      "techniques": ["pentatonic"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "Pentatonic Etudes  — 15 Moveable Sequences.gp",
-      "title": "Pentatonic Etudes  — 15 Moveable Sequences",
+      "title": "Pentatonic Etudes - 15 Moveable Sequences",
+      "description": "Fifteen pentatonic etudes for developing musicality and technique simultaneously.",
       "category": "pentatonic",
-      "techniques": [
-        "etude",
-        "pentatonic"
-      ],
+      "techniques": ["etude", "pentatonic"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "Pentatonic II 3nps Vertical Pivots in E Minor.gp",
-      "title": "Pentatonic II 3nps Vertical Pivots in E Minor",
+      "title": "Pentatonic - 3NPS Vertical Pivots in E Minor",
+      "description": "Three-note-per-string pentatonic patterns with vertical position shifts in E minor.",
       "category": "pentatonic",
-      "techniques": [
-        "pentatonic"
-      ],
+      "techniques": ["pentatonic"],
       "difficulty": "intermediate",
       "tier": "premium"
     },
     {
       "filename": "Pentatonic III 3-1-3 Groups.gp",
-      "title": "Pentatonic III 3-1-3 Groups",
+      "title": "Pentatonic - 3-1-3 Groupings",
+      "description": "Pentatonic patterns using 3-1-3 note groupings for unique phrasing and rhythm.",
       "category": "pentatonic",
-      "techniques": [
-        "pentatonic"
-      ],
+      "techniques": ["pentatonic"],
       "difficulty": "intermediate",
       "tier": "pro"
     },
     {
       "filename": "Pentatonic Extended Sequence — Aminor.gp",
-      "title": "Pentatonic Extended Sequence — Aminor",
+      "title": "Pentatonic Extended Sequence - A Minor",
+      "description": "Extended pentatonic sequence spanning multiple positions in A minor.",
       "category": "pentatonic",
-      "techniques": [
-        "pentatonic"
-      ],
+      "techniques": ["pentatonic"],
       "difficulty": "intermediate",
       "tier": "pro"
     },
     {
       "filename": "All Scale Types in Key of C.gp",
       "title": "All Scale Types in Key of C",
+      "description": "Comprehensive reference of all common scale types in C. Major, minor, modes, and exotic scales.",
       "category": "scale",
-      "techniques": [
-        "scale"
-      ],
+      "techniques": ["scale"],
       "difficulty": "intermediate",
       "tier": "pro"
     },
     {
       "filename": "All Scales in Key of D.gp",
       "title": "All Scales in Key of D",
+      "description": "Complete scale reference in the key of D. Essential for understanding key relationships.",
       "category": "scale",
-      "techniques": [
-        "scale"
-      ],
+      "techniques": ["scale"],
       "difficulty": "intermediate",
       "tier": "pro"
     },
     {
       "filename": "All Scales in the Key of Gb.gp",
-      "title": "All Scales in the Key of Gb",
+      "title": "All Scales in Key of Gb",
+      "description": "All scale types in Gb/F#. Master this challenging but rewarding key.",
       "category": "scale",
-      "techniques": [
-        "scale"
-      ],
+      "techniques": ["scale"],
       "difficulty": "intermediate",
       "tier": "pro"
     },
     {
       "filename": "All Scales in the Key of Eb.gp",
-      "title": "All Scales in the Key of Eb",
+      "title": "All Scales in Key of Eb",
+      "description": "Complete scale reference in Eb. Common key for jazz and blues.",
       "category": "scale",
-      "techniques": [
-        "scale"
-      ],
+      "techniques": ["scale"],
       "difficulty": "intermediate",
       "tier": "pro"
     },
     {
       "filename": "All Scales in the Key of Ab.gp",
-      "title": "All Scales in the Key of Ab",
+      "title": "All Scales in Key of Ab",
+      "description": "All scales in Ab major/F minor. Popular key for ballads and R&B.",
       "category": "scale",
-      "techniques": [
-        "scale"
-      ],
+      "techniques": ["scale"],
       "difficulty": "intermediate",
       "tier": "pro"
     },
     {
       "filename": "All Scales in the Key of Bb.gp",
-      "title": "All Scales in the Key of Bb",
+      "title": "All Scales in Key of Bb",
+      "description": "Scale reference in Bb. Essential for playing with horn sections.",
       "category": "scale",
-      "techniques": [
-        "scale"
-      ],
+      "techniques": ["scale"],
       "difficulty": "intermediate",
       "tier": "pro"
     },
     {
       "filename": "All Scales in the Key of D#.gp",
-      "title": "All Scales in the Key of D#",
+      "title": "All Scales in Key of D#/Eb",
+      "description": "Complete D#/Eb scale reference. Enharmonic equivalent exercises.",
       "category": "scale",
-      "techniques": [
-        "scale"
-      ],
+      "techniques": ["scale"],
       "difficulty": "intermediate",
       "tier": "pro"
     },
     {
       "filename": "All Scales in the Key of F#.gp",
-      "title": "All Scales in the Key of F#",
+      "title": "All Scales in Key of F#",
+      "description": "All scale types in F#. Great for developing fretboard mastery.",
       "category": "scale",
-      "techniques": [
-        "scale"
-      ],
+      "techniques": ["scale"],
       "difficulty": "intermediate",
       "tier": "pro"
     },
     {
       "filename": "All Scales in the Key of G#.gp",
-      "title": "All Scales in the Key of G#",
+      "title": "All Scales in Key of G#/Ab",
+      "description": "G#/Ab scale reference covering all common scale types.",
       "category": "scale",
-      "techniques": [
-        "scale"
-      ],
+      "techniques": ["scale"],
       "difficulty": "intermediate",
       "tier": "pro"
     },
     {
       "filename": "All Scales in the Key of A.gp",
-      "title": "All Scales in the Key of A",
+      "title": "All Scales in Key of A",
+      "description": "Complete scale reference in A. One of the most guitar-friendly keys.",
       "category": "scale",
-      "techniques": [
-        "scale"
-      ],
+      "techniques": ["scale"],
       "difficulty": "intermediate",
       "tier": "pro"
     },
     {
       "filename": "All Scales in the Key of E.gp",
-      "title": "All Scales in the Key of E",
+      "title": "All Scales in Key of E",
+      "description": "All scales in E major/minor. The quintessential guitar key.",
       "category": "scale",
-      "techniques": [
-        "scale"
-      ],
+      "techniques": ["scale"],
       "difficulty": "intermediate",
       "tier": "pro"
     },
     {
       "filename": "Hexatonic Scale Sequences.gp",
       "title": "Hexatonic Scale Sequences",
+      "description": "Six-note scale sequences for modern fusion and progressive playing styles.",
       "category": "scale",
-      "techniques": [
-        "scale"
-      ],
+      "techniques": ["scale"],
       "difficulty": "intermediate",
       "tier": "pro"
     },
     {
       "filename": "All Scales in the Key of A#.gp",
-      "title": "All Scales in the Key of A#",
+      "title": "All Scales in Key of A#/Bb",
+      "description": "A#/Bb scale reference. Important for playing in flat keys.",
       "category": "scale",
-      "techniques": [
-        "scale"
-      ],
+      "techniques": ["scale"],
       "difficulty": "intermediate",
       "tier": "pro"
     },
     {
       "filename": "All Scales in the Key of B.gp",
-      "title": "All Scales in the Key of B",
+      "title": "All Scales in Key of B",
+      "description": "Complete B major/minor scale reference. Common rock and metal key.",
       "category": "scale",
-      "techniques": [
-        "scale"
-      ],
+      "techniques": ["scale"],
       "difficulty": "intermediate",
       "tier": "pro"
     },
     {
       "filename": "All Scales in the Key of F.gp",
-      "title": "All Scales in the Key of F",
+      "title": "All Scales in Key of F",
+      "description": "F major scale reference. Important key for understanding chord progressions.",
       "category": "scale",
-      "techniques": [
-        "scale"
-      ],
+      "techniques": ["scale"],
       "difficulty": "intermediate",
       "tier": "pro"
     },
     {
       "filename": "All Scales in the Key of G.gp",
-      "title": "All Scales in the Key of G",
+      "title": "All Scales in Key of G",
+      "description": "All scales in G. Popular key for acoustic and folk music.",
       "category": "scale",
-      "techniques": [
-        "scale"
-      ],
+      "techniques": ["scale"],
       "difficulty": "intermediate",
       "tier": "pro"
     },
     {
       "filename": "All Scales in Key of C#.gp",
       "title": "All Scales in Key of C#",
+      "description": "C# scale reference for complete fretboard knowledge.",
       "category": "scale",
-      "techniques": [
-        "scale"
-      ],
+      "techniques": ["scale"],
       "difficulty": "intermediate",
       "tier": "pro"
     },
     {
       "filename": "All Scales in Key of Db.gp",
       "title": "All Scales in Key of Db",
+      "description": "Db scale reference. Enharmonic to C#, essential for reading music.",
       "category": "scale",
-      "techniques": [
-        "scale"
-      ],
+      "techniques": ["scale"],
       "difficulty": "intermediate",
       "tier": "pro"
     },
     {
       "filename": "Scale Exercise.gp",
       "title": "Scale Exercise",
+      "description": "General scale exercise for building technique and muscle memory.",
       "category": "scale",
-      "techniques": [
-        "exercise",
-        "scale"
-      ],
+      "techniques": ["exercise", "scale"],
       "difficulty": "intermediate",
       "tier": "pro"
     },
     {
       "filename": "Hexatonic Scale Sequences (G).gp",
-      "title": "Hexatonic Scale Sequences (G)",
+      "title": "Hexatonic Scale Sequences in G",
+      "description": "Six-note scale patterns in G for modern melodic development.",
       "category": "scale",
-      "techniques": [
-        "scale"
-      ],
+      "techniques": ["scale"],
       "difficulty": "intermediate",
       "tier": "pro"
     },
     {
       "filename": "7 Harmonic Minor Arpeggio Sequences.gp",
       "title": "7 Harmonic Minor Arpeggio Sequences",
+      "description": "Seven arpeggio sequences derived from the harmonic minor scale. Essential for neoclassical playing.",
       "category": "arpeggio",
-      "techniques": [
-        "arpeggio"
-      ],
+      "techniques": ["arpeggio"],
       "difficulty": "advanced",
       "tier": "pro"
     },
     {
       "filename": "Harmonic Minor Arpeggios (E Standard).gp",
-      "title": "Harmonic Minor Arpeggios (E Standard)",
+      "title": "Harmonic Minor Arpeggios - E Standard",
+      "description": "Harmonic minor arpeggios in standard tuning. Develop your neoclassical vocabulary.",
       "category": "arpeggio",
-      "techniques": [
-        "arpeggio"
-      ],
+      "techniques": ["arpeggio"],
       "difficulty": "advanced",
       "tier": "pro"
     },
     {
       "filename": "Insane Two Handed Lick.gp",
-      "title": "Insane Two Handed Lick",
+      "title": "Insane Two-Handed Lick",
+      "description": "Advanced two-hand tapping lick for extreme speed and coordination. Impressive showpiece.",
       "category": "lick",
-      "techniques": [
-        "lick"
-      ],
+      "techniques": ["lick", "tapping"],
       "difficulty": "advanced",
       "tier": "pro"
     },
     {
       "filename": "Sweep:Economy Picking Pentatonic Scale Sequence pt1.gp",
-      "title": "Sweep:Economy Picking Pentatonic Scale Sequence pt1",
+      "title": "Sweep/Economy Pentatonic Sequence Part 1",
+      "description": "Combine sweep and economy picking through pentatonic patterns for maximum efficiency.",
       "category": "sweep",
-      "techniques": [
-        "economy",
-        "pentatonic",
-        "scale",
-        "sweep"
-      ],
+      "techniques": ["economy", "pentatonic", "scale", "sweep"],
       "difficulty": "advanced",
       "tier": "pro"
     },
     {
       "filename": "5 Sweep:Economy Pentatonic Scale Patterns.gp",
-      "title": "5 Sweep:Economy Pentatonic Scale Patterns",
+      "title": "5 Sweep/Economy Pentatonic Patterns",
+      "description": "Five sweep/economy picking patterns for pentatonic scales. Build speed and fluidity.",
       "category": "sweep",
-      "techniques": [
-        "economy",
-        "pattern",
-        "pentatonic",
-        "scale",
-        "sweep"
-      ],
+      "techniques": ["economy", "pattern", "pentatonic", "scale", "sweep"],
       "difficulty": "advanced",
       "tier": "pro"
     },
     {
       "filename": "Sweep Picking — 10 Moveable Sequences.gp",
-      "title": "Sweep Picking — 10 Moveable Sequences",
+      "title": "Sweep Picking - 10 Moveable Sequences",
+      "description": "Ten sweep picking arpeggios that can be transposed anywhere. Essential for shred technique.",
       "category": "sweep",
-      "techniques": [
-        "sweep"
-      ],
+      "techniques": ["sweep"],
       "difficulty": "advanced",
       "tier": "pro"
     },
     {
       "filename": "Short Tapping Sequence.gp",
       "title": "Short Tapping Sequence",
+      "description": "Concise tapping sequence for developing two-hand coordination and accuracy.",
       "category": "tapping",
-      "techniques": [
-        "tapping"
-      ],
+      "techniques": ["tapping"],
       "difficulty": "advanced",
       "tier": "pro"
     },
     {
       "filename": "Tapping — 10 Moveable Sequences.gp",
-      "title": "Tapping — 10 Moveable Sequences",
+      "title": "Tapping - 10 Moveable Sequences",
+      "description": "Ten essential tapping patterns that can be moved across the fretboard. Build your tapping vocabulary.",
       "category": "tapping",
-      "techniques": [
-        "tapping"
-      ],
+      "techniques": ["tapping"],
       "difficulty": "advanced",
       "tier": "pro"
     }
