@@ -43,9 +43,16 @@ export default function LessonCard({
       />
 
       {/* Title */}
-      <h3 className="text-lg font-semibold mb-3 text-gray-100 line-clamp-2 pr-8">
+      <h3 className="text-lg font-semibold mb-2 text-gray-100 line-clamp-2 pr-8">
         {file.title}
       </h3>
+
+      {/* Description */}
+      {file.description && (
+        <p className="text-sm text-gray-400 mb-3 line-clamp-2">
+          {file.description}
+        </p>
+      )}
 
       {/* Category */}
       <div className="mb-3">
@@ -132,6 +139,7 @@ LessonCard.propTypes = {
   file: PropTypes.shape({
     filename: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
+    description: PropTypes.string,
     category: PropTypes.string.isRequired,
     difficulty: PropTypes.string.isRequired,
     tier: PropTypes.string.isRequired,
