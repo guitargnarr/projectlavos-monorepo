@@ -20,6 +20,9 @@ export default function Navigation() {
     { path: '/tuner', label: 'Tuner', color: 'blue' },
     { path: '/metronome', label: 'Metronome', color: 'blue' },
     { path: '/catalog', label: 'Catalog', color: 'purple' },
+    { path: '/scales', label: 'Scales', color: 'teal' },
+    { path: '/backing', label: 'Backing', color: 'orange' },
+    { path: '/ear-training', label: 'Ear', color: 'pink' },
   ];
 
   return (
@@ -43,6 +46,9 @@ export default function Navigation() {
                 green: 'bg-green-500 text-gray-900',
                 blue: 'bg-blue-500 text-gray-900',
                 purple: 'bg-purple-500 text-gray-900',
+                teal: 'bg-teal-500 text-gray-900',
+                orange: 'bg-orange-500 text-gray-900',
+                pink: 'bg-pink-500 text-gray-900',
               };
 
               // Color classes for hover state
@@ -50,6 +56,9 @@ export default function Navigation() {
                 green: 'hover:bg-gray-700 hover:text-green-400',
                 blue: 'hover:bg-gray-700 hover:text-blue-400',
                 purple: 'hover:bg-gray-700 hover:text-purple-400',
+                teal: 'hover:bg-gray-700 hover:text-teal-400',
+                orange: 'hover:bg-gray-700 hover:text-orange-400',
+                pink: 'hover:bg-gray-700 hover:text-pink-400',
               };
 
               return (

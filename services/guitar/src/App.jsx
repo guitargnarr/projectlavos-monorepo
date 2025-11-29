@@ -7,6 +7,9 @@ import Catalog from './pages/Catalog';
 import ChordDictionary from './pages/ChordDictionary';
 import Tuner from './pages/Tuner';
 import Metronome from './pages/Metronome';
+import BackingTracks from './pages/BackingTracks';
+import ScaleTrainer from './pages/ScaleTrainer';
+import EarTraining from './pages/EarTraining';
 
 function App() {
   return (
@@ -21,6 +24,9 @@ function App() {
           <Route path="/chords" element={<ChordDictionary />} />
           <Route path="/tuner" element={<Tuner />} />
           <Route path="/metronome" element={<Metronome />} />
+          <Route path="/backing" element={<BackingTracks />} />
+          <Route path="/scales" element={<ScaleTrainer />} />
+          <Route path="/ear-training" element={<EarTraining />} />
         </Routes>
       </div>
     </Router>
