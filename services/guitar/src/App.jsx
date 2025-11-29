@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import FretVision from './pages/FretVision';
 import TabPlayer from './pages/TabPlayer';
 import Catalog from './pages/Catalog';
+import ChordDictionary from './pages/ChordDictionary';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/fretvision" element={<FretVision />} />
           <Route path="/tabplayer" element={<TabPlayer />} />
           <Route path="/catalog" element={<Catalog />} />
+          <Route path="/chords" element={<ChordDictionary />} />
         </Routes>
       </div>
     </Router>
