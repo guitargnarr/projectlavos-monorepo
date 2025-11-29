@@ -1,14 +1,28 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Login from './Login'
 import Signup from './Signup'
+import ForgotPassword from './ForgotPassword'
+import ResetPassword from './ResetPassword'
 
-export default function AuthModal({ onClose }) {
-  const [mode, setMode] = useState('login') // 'login' or 'signup'
+export default function AuthModal({ onClose, initialMode }) {
+  const [mode, setMode] = useState(initialMode || 'login') // 'login', 'signup', 'forgot', 'reset'
+
+  // Check for password reset token in URL on mount
+  useEffect(() => {
+    const hash = window.location.hash
+    if (hash.includes('type=recovery')) {
+      setMode('reset')
+    }
+  }, [])
 
   const handleSuccess = () => {
     if (onClose) {
       setTimeout(() => onClose(), 500)
     }
+  }
+
+  const handleResetSuccess = () => {
+    setMode('login')
   }
 
   return (
@@ -21,15 +35,30 @@ export default function AuthModal({ onClose }) {
           ×
         </button>
 
-        {mode === 'login' ? (
+        {mode === 'login' && (
           <Login
             onToggleMode={() => setMode('signup')}
+            onForgotPassword={() => setMode('forgot')}
             onSuccess={handleSuccess}
           />
-        ) : (
+        )}
+
+        {mode === 'signup' && (
           <Signup
             onToggleMode={() => setMode('login')}
             onSuccess={handleSuccess}
+          />
+        )}
+
+        {mode === 'forgot' && (
+          <ForgotPassword
+            onBack={() => setMode('login')}
+          />
+        )}
+
+        {mode === 'reset' && (
+          <ResetPassword
+            onSuccess={handleResetSuccess}
           />
         )}
       </div>
