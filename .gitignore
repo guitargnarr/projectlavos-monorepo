@@ -23,3 +23,9 @@ Thumbs.db
 .env
 .env.*
 .env.local
+
+# Session notes (private)
+*ULTRATHINK*.md
+*_ANALYSIS.md
+WEEK*.md
+.archive/
