@@ -10,6 +10,7 @@ import Metronome from './pages/Metronome';
 import BackingTracks from './pages/BackingTracks';
 import ScaleTrainer from './pages/ScaleTrainer';
 import EarTraining from './pages/EarTraining';
+import Pricing from './pages/Pricing';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/backing" element={<BackingTracks />} />
           <Route path="/scales" element={<ScaleTrainer />} />
           <Route path="/ear-training" element={<EarTraining />} />
+          <Route path="/pricing" element={<Pricing />} />
         </Routes>
       </div>
     </Router>

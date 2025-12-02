@@ -13,16 +13,17 @@ export default function Navigation() {
   const location = useLocation();
 
   const links = [
-    { path: '/', label: 'Home', color: 'green' },
-    { path: '/fretvision', label: 'FretVision', color: 'green' },
-    { path: '/tabplayer', label: 'Tab Player', color: 'blue' },
-    { path: '/chords', label: 'Chords', color: 'purple' },
-    { path: '/tuner', label: 'Tuner', color: 'blue' },
-    { path: '/metronome', label: 'Metronome', color: 'blue' },
-    { path: '/catalog', label: 'Catalog', color: 'purple' },
+    { path: '/', label: 'Home', color: 'teal' },
+    { path: '/fretvision', label: 'FretVision', color: 'teal' },
+    { path: '/tabplayer', label: 'Tab Player', color: 'orange' },
+    { path: '/chords', label: 'Chords', color: 'teal' },
+    { path: '/tuner', label: 'Tuner', color: 'orange' },
+    { path: '/metronome', label: 'Metronome', color: 'orange' },
+    { path: '/catalog', label: 'Catalog', color: 'teal' },
     { path: '/scales', label: 'Scales', color: 'teal' },
     { path: '/backing', label: 'Backing', color: 'orange' },
-    { path: '/ear-training', label: 'Ear', color: 'pink' },
+    { path: '/ear-training', label: 'Ear', color: 'orange' },
+    { path: '/pricing', label: 'Pricing', color: 'teal' },
   ];
 
   return (
@@ -31,7 +32,7 @@ export default function Navigation() {
         <div className="flex items-center justify-between h-16">
           {/* Logo/Brand */}
           <Link to="/" className="flex items-center">
-            <div className="text-xl font-bold bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
+            <div className="text-xl font-bold bg-gradient-to-r from-teal-400 to-orange-400 bg-clip-text text-transparent">
               Guitar Platform
             </div>
           </Link>
@@ -41,24 +42,16 @@ export default function Navigation() {
             {links.map((link) => {
               const isActive = location.pathname === link.path;
 
-              // Color classes for active state
+              // Color classes for active state (teal/orange brand)
               const activeColors = {
-                green: 'bg-green-500 text-gray-900',
-                blue: 'bg-blue-500 text-gray-900',
-                purple: 'bg-purple-500 text-gray-900',
                 teal: 'bg-teal-500 text-gray-900',
                 orange: 'bg-orange-500 text-gray-900',
-                pink: 'bg-pink-500 text-gray-900',
               };
 
               // Color classes for hover state
               const hoverColors = {
-                green: 'hover:bg-gray-700 hover:text-green-400',
-                blue: 'hover:bg-gray-700 hover:text-blue-400',
-                purple: 'hover:bg-gray-700 hover:text-purple-400',
                 teal: 'hover:bg-gray-700 hover:text-teal-400',
                 orange: 'hover:bg-gray-700 hover:text-orange-400',
-                pink: 'hover:bg-gray-700 hover:text-pink-400',
               };
 
               return (
