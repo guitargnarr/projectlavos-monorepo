@@ -7,26 +7,26 @@ export default {
   theme: {
     extend: {
       colors: {
-        // projectlavos neubrutalism palette
-        'lavos-blue': '#1e40af',      // Primary: Trust
-        'lavos-blue-light': '#3b82f6',
-        'lavos-blue-dark': '#1e3a8a',
-        'lavos-orange': '#f97316',    // Secondary: Warmth
-        'lavos-orange-light': '#fb923c',
-        'lavos-green': '#10b981',     // Accent: Growth
-        'lavos-black': '#0a0a0a',     // Borders
+        // Unified teal/orange brand palette
+        teal: {
+          400: '#2dd4bf',
+          500: '#14b8a6',
+          600: '#0d9488',
+        },
+        orange: {
+          400: '#fb923c',
+          500: '#f97316',
+          600: '#ea580c',
+        },
+        slate: {
+          300: '#cbd5e1',
+          700: '#334155',
+          800: '#1e293b',
+          900: '#0f172a',
+        },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-      },
-      boxShadow: {
-        'brutal': '8px 8px 0px 0px rgba(0, 0, 0, 1)',
-        'brutal-sm': '4px 4px 0px 0px rgba(0, 0, 0, 1)',
-        'brutal-lg': '12px 12px 0px 0px rgba(0, 0, 0, 1)',
-      },
-      borderWidth: {
-        '3': '3px',
-        '4': '4px',
       },
     },
   },
