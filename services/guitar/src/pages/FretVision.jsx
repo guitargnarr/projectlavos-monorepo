@@ -1,24 +1,19 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { NOTE_NAMES, SCALES } from '../lib/guitarTheory.js';
 
-const NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+// Extended tunings (includes 7 and 8 string)
 const TUNINGS = {
-  "standard": ['E', 'A', 'D', 'G', 'B', 'E'],
-  "drop-d": ['D', 'A', 'D', 'G', 'B', 'E'],
-  "drop-c": ['C', 'G', 'C', 'F', 'A', 'D'],
-  "7-string": ['B', 'E', 'A', 'D', 'G', 'B', 'E'],
-  "8-string": ['F#', 'B', 'E', 'A', 'D', 'G', 'B', 'E']
+  standard: ['E', 'A', 'D', 'G', 'B', 'E'],
+  drop_d: ['D', 'A', 'D', 'G', 'B', 'E'],
+  drop_c: ['C', 'G', 'C', 'F', 'A', 'D'],
+  '7-string': ['B', 'E', 'A', 'D', 'G', 'B', 'E'],
+  '8-string': ['F#', 'B', 'E', 'A', 'D', 'G', 'B', 'E']
 };
-const SCALES = {
-  "major": [0, 2, 4, 5, 7, 9, 11],
-  "minor": [0, 2, 3, 5, 7, 8, 10],
-  "pentatonic-major": [0, 2, 4, 7, 9],
-  "pentatonic-minor": [0, 3, 5, 7, 10],
-  "blues": [0, 3, 5, 6, 7, 10],
-  "phrygian": [0, 1, 3, 5, 7, 8, 10],
-  "lydian": [0, 2, 4, 6, 7, 9, 11],
-  "mixolydian": [0, 2, 4, 5, 7, 9, 10]
-};
+
+// Now uses 12 scales from guitarTheory.js:
+// major, minor, pentatonic_major, pentatonic_minor, blues, phrygian,
+// lydian, mixolydian, dorian, locrian, harmonic_minor, melodic_minor
 
 export default function FretVision() {
   const [rootNote, setRootNote] = useState('B');

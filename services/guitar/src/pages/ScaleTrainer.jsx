@@ -1,18 +1,10 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { NOTE_NAMES, SCALE_INFO } from '../lib/guitarTheory.js';
 
-const NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-
-const SCALES = {
-  major: { name: 'Major', intervals: [0, 2, 4, 5, 7, 9, 11] },
-  minor: { name: 'Minor', intervals: [0, 2, 3, 5, 7, 8, 10] },
-  dorian: { name: 'Dorian', intervals: [0, 2, 3, 5, 7, 9, 10] },
-  phrygian: { name: 'Phrygian', intervals: [0, 1, 3, 5, 7, 8, 10] },
-  lydian: { name: 'Lydian', intervals: [0, 2, 4, 6, 7, 9, 11] },
-  mixolydian: { name: 'Mixolydian', intervals: [0, 2, 4, 5, 7, 9, 10] },
-  'pentatonic-major': { name: 'Pentatonic Major', intervals: [0, 2, 4, 7, 9] },
-  'pentatonic-minor': { name: 'Pentatonic Minor', intervals: [0, 3, 5, 7, 10] },
-  blues: { name: 'Blues', intervals: [0, 3, 5, 6, 7, 10] },
-};
+// Use SCALE_INFO from guitarTheory.js - now has all 12 scales:
+// major, minor, pentatonic_major, pentatonic_minor, blues, phrygian,
+// lydian, mixolydian, dorian, locrian, harmonic_minor, melodic_minor
+const SCALES = SCALE_INFO;
 
 const PRACTICE_MODES = [
   { id: 'ascending', name: 'Ascending', description: 'Play scale from low to high' },
@@ -28,7 +20,7 @@ const A4_FREQUENCY = 440;
 
 export default function ScaleTrainer() {
   const [rootNote, setRootNote] = useState(0); // Index in NOTE_NAMES
-  const [scaleType, setScaleType] = useState('pentatonic-minor');
+  const [scaleType, setScaleType] = useState('pentatonic_minor');
   const [practiceMode, setPracticeMode] = useState('ascending');
   const [isListening, setIsListening] = useState(false);
   const [isPracticing, setIsPracticing] = useState(false);

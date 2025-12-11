@@ -22,6 +22,22 @@ export const SCALES = {
   melodic_minor: [0, 2, 3, 5, 7, 9, 11],
 };
 
+// Scale info with display names (for UI components)
+export const SCALE_INFO = {
+  major: { name: 'Major', intervals: SCALES.major },
+  minor: { name: 'Minor', intervals: SCALES.minor },
+  pentatonic_major: { name: 'Pentatonic Major', intervals: SCALES.pentatonic_major },
+  pentatonic_minor: { name: 'Pentatonic Minor', intervals: SCALES.pentatonic_minor },
+  blues: { name: 'Blues', intervals: SCALES.blues },
+  phrygian: { name: 'Phrygian', intervals: SCALES.phrygian },
+  lydian: { name: 'Lydian', intervals: SCALES.lydian },
+  mixolydian: { name: 'Mixolydian', intervals: SCALES.mixolydian },
+  dorian: { name: 'Dorian', intervals: SCALES.dorian },
+  locrian: { name: 'Locrian', intervals: SCALES.locrian },
+  harmonic_minor: { name: 'Harmonic Minor', intervals: SCALES.harmonic_minor },
+  melodic_minor: { name: 'Melodic Minor', intervals: SCALES.melodic_minor },
+};
+
 export const TUNINGS = {
   standard: ['E', 'A', 'D', 'G', 'B', 'E'],
   drop_d: ['D', 'A', 'D', 'G', 'B', 'E'],
