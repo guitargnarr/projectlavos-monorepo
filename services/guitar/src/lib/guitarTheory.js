@@ -37,6 +37,37 @@ export const MIDI_BASE = {
   half_step_down: [39, 44, 49, 54, 58, 63],
 };
 
+// Common chord progressions by style
+export const CHORD_PROGRESSIONS = {
+  blues_12bar: [1, 1, 1, 1, 4, 4, 1, 1, 5, 4, 1, 5],  // I-I-I-I-IV-IV-I-I-V-IV-I-V
+  pop_4chord: [1, 5, 6, 4],  // I-V-vi-IV (most popular progression)
+  rock_power: [1, 4, 5, 5],  // I-IV-V-V
+  jazz_251: [2, 5, 1],  // ii-V-I
+  metal_riff: [1, 'b7', 'b6', 5],  // i-bVII-bVI-V (Phrygian-based)
+  sad_progression: [6, 4, 1, 5],  // vi-IV-I-V (Axis progression from minor)
+  andalusian: ['b7', 'b6', 5, 1],  // bVII-bVI-V-i (Flamenco cadence)
+};
+
+// Chord qualities for scale degrees
+const MAJOR_CHORD_QUALITIES = {
+  1: 'maj', 2: 'min', 3: 'min', 4: 'maj', 5: 'maj', 6: 'min', 7: 'dim'
+};
+const MINOR_CHORD_QUALITIES = {
+  1: 'min', 2: 'dim', 3: 'maj', 4: 'min', 5: 'min', 6: 'maj', 7: 'maj'
+};
+
+// Chord intervals from root
+const CHORD_INTERVALS = {
+  maj: [0, 4, 7],
+  min: [0, 3, 7],
+  dim: [0, 3, 6],
+  aug: [0, 4, 8],
+  maj7: [0, 4, 7, 11],
+  min7: [0, 3, 7, 10],
+  dom7: [0, 4, 7, 10],
+  '5': [0, 7],  // Power chord
+};
+
 export class GuitarTheory {
   constructor(tuning = 'standard') {
     this.tuning = TUNINGS[tuning] || TUNINGS.standard;
@@ -178,6 +209,85 @@ export class GuitarTheory {
 
     return pattern;
   }
+
+  getChordNotes(root, quality = 'maj') {
+    const rootIndex = NOTE_NAMES.indexOf(root);
+    const intervals = CHORD_INTERVALS[quality] || CHORD_INTERVALS.maj;
+    return intervals.map(i => NOTE_NAMES[(rootIndex + i) % 12]);
+  }
+
+  getChordVoicing(root, quality = 'maj', position = 1) {
+    const chordNotes = this.getChordNotes(root, quality);
+
+    // Find root on low E string near position
+    let rootFret = 0;
+    for (let fret = 0; fret <= 22; fret++) {
+      if (this.getNoteAtFret(0, fret) === root) {
+        if (position === 1 || fret >= (position - 1) * 3) {
+          rootFret = fret;
+          break;
+        }
+      }
+    }
+
+    // Build voicing from bass up
+    const voicing = [];
+    for (let string = 0; string < 6; string++) {
+      let bestFret = null;
+      let bestNote = null;
+      for (let fret = Math.max(0, rootFret - 2); fret <= rootFret + 5; fret++) {
+        const note = this.getNoteAtFret(string, fret);
+        if (chordNotes.includes(note)) {
+          if (bestFret === null || Math.abs(fret - rootFret) < Math.abs(bestFret - rootFret)) {
+            bestFret = fret;
+            bestNote = note;
+          }
+        }
+      }
+      if (bestFret !== null) {
+        voicing.push({
+          string,
+          fret: bestFret,
+          note: bestNote,
+          midi: this.getMidiNote(string, bestFret),
+        });
+      }
+    }
+    return voicing;
+  }
+
+  getProgressionChords(root, scale, progressionName) {
+    if (!CHORD_PROGRESSIONS[progressionName]) {
+      throw new Error(`Unknown progression: ${progressionName}`);
+    }
+
+    const progression = CHORD_PROGRESSIONS[progressionName];
+    const scaleNotes = this.getScaleNotes(root, scale);
+    const rootIndex = NOTE_NAMES.indexOf(root);
+
+    const isMinor = ['minor', 'phrygian', 'dorian', 'locrian', 'harmonic_minor', 'melodic_minor'].includes(scale);
+    const qualities = isMinor ? MINOR_CHORD_QUALITIES : MAJOR_CHORD_QUALITIES;
+
+    const chords = [];
+    for (const degree of progression) {
+      let chordRootIdx, quality;
+      if (typeof degree === 'string' && degree.startsWith('b')) {
+        const degNum = parseInt(degree.substring(1));
+        chordRootIdx = (rootIndex + (degNum - 1) * 2 - 1) % 12;
+        quality = 'maj';
+      } else {
+        const degNum = parseInt(degree);
+        chordRootIdx = NOTE_NAMES.indexOf(scaleNotes[degNum - 1]);
+        quality = qualities[degNum] || 'maj';
+      }
+      chords.push({
+        root: NOTE_NAMES[chordRootIdx],
+        quality,
+        degree,
+      });
+    }
+    return chords;
+  }
 }
 
 export class TabGenerator {
@@ -300,6 +410,44 @@ export class TabGenerator {
     return this._limitToLength(columns, bars);
   }
 
+  generatePowerChords(root, scale, position = 1, bars = 4) {
+    const rootIndex = NOTE_NAMES.indexOf(root);
+    const columns = [];
+    const notesNeeded = bars * 4;
+
+    // Common power chord riff pattern: root, b7, root, 4th
+    const riffDegrees = [0, 10, 0, 5]; // Semitones from root
+
+    for (let i = 0; i < notesNeeded; i++) {
+      const degreeSemitones = riffDegrees[i % riffDegrees.length];
+      const chordRoot = NOTE_NAMES[(rootIndex + degreeSemitones) % 12];
+      const voicing = this.theory.getChordVoicing(chordRoot, '5', position);
+      // Keep only bottom strings for heavy sound
+      const powerVoicing = voicing.filter(n => n.string <= 2);
+      if (powerVoicing.length > 0) {
+        columns.push(powerVoicing);
+      }
+    }
+
+    return columns;
+  }
+
+  generateProgression(root, scale, progressionName = 'blues_12bar', position = 1) {
+    const chords = this.theory.getProgressionChords(root, scale, progressionName);
+    const columns = [];
+
+    for (const chord of chords) {
+      // Use power chords for cleaner sound
+      const voicing = this.theory.getChordVoicing(chord.root, '5', position);
+      const powerVoicing = voicing.filter(n => n.string <= 2);
+      if (powerVoicing.length > 0) {
+        columns.push(powerVoicing);
+      }
+    }
+
+    return columns;
+  }
+
   _limitToLength(columns, bars) {
     const maxNotes = bars * 4;
     if (columns.length > maxNotes) {
@@ -354,9 +502,16 @@ export class TabGenerator {
 
 /**
  * High-level function to generate a complete tab.
+ * @param {string} root - Root note
+ * @param {string} scale - Scale type
+ * @param {string} pattern - Pattern type
+ * @param {number} bars - Number of bars
+ * @param {number} position - Box position (1-5)
+ * @param {string} tuning - Guitar tuning
+ * @param {string} progression - Progression name (for 'progression' pattern)
  */
-export function generateTab(root = 'E', scale = 'phrygian', pattern = 'ascending', bars = 4, position = 1) {
-  const generator = new TabGenerator();
+export function generateTab(root = 'E', scale = 'phrygian', pattern = 'ascending', bars = 4, position = 1, tuning = 'standard', progression = null) {
+  const generator = new TabGenerator(tuning);
 
   let columns;
   switch (pattern) {
@@ -377,6 +532,12 @@ export function generateTab(root = 'E', scale = 'phrygian', pattern = 'ascending
       break;
     case '3nps':
       columns = generator.generate3nps(root, scale, position, bars, true);
+      break;
+    case 'power_chords':
+      columns = generator.generatePowerChords(root, scale, position, bars);
+      break;
+    case 'progression':
+      columns = generator.generateProgression(root, scale, progression || 'blues_12bar', position);
       break;
     default:
       columns = generator.generateAscending(root, scale, position, bars);

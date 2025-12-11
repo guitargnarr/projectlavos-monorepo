@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import Soundfont from 'soundfont-player';
-import { generateTab, getScaleInfo, SCALES, NOTE_NAMES, GuitarTheory } from '../lib/guitarTheory';
+import { generateTab, getScaleInfo, SCALES, NOTE_NAMES, GuitarTheory, TUNINGS, CHORD_PROGRESSIONS } from '../lib/guitarTheory';
 
 // MIDI file generation utilities
 const MIDI_HEADER = [0x4D, 0x54, 0x68, 0x64]; // 'MThd'
@@ -141,6 +141,25 @@ const PATTERNS = [
   { value: 'arpeggio', label: 'Arpeggio', desc: '1-3-5 sweep pattern' },
   { value: 'random', label: 'Random', desc: 'Weighted random notes' },
   { value: '3nps', label: '3 Notes/String', desc: 'Speed picking pattern (7-note scales only)' },
+  { value: 'power_chords', label: 'Power Chords', desc: 'Heavy riff with power chords' },
+  { value: 'progression', label: 'Progression', desc: 'Chord progression pattern' },
+];
+
+const TUNING_OPTIONS = [
+  { value: 'standard', label: 'Standard (EADGBE)' },
+  { value: 'drop_d', label: 'Drop D (DADGBE)' },
+  { value: 'drop_c', label: 'Drop C (CGCFAD)' },
+  { value: 'half_step_down', label: 'Half Step Down (Eb)' },
+];
+
+const PROGRESSION_OPTIONS = [
+  { value: 'blues_12bar', label: '12-Bar Blues', desc: 'I-IV-V classic progression' },
+  { value: 'pop_4chord', label: 'Pop 4-Chord', desc: 'I-V-vi-IV (most popular)' },
+  { value: 'rock_power', label: 'Rock Power', desc: 'I-IV-V-V rock progression' },
+  { value: 'jazz_251', label: 'Jazz ii-V-I', desc: 'Classic jazz turnaround' },
+  { value: 'metal_riff', label: 'Metal Riff', desc: 'Phrygian-based i-bVII-bVI-V' },
+  { value: 'sad_progression', label: 'Sad/Emotional', desc: 'vi-IV-I-V axis progression' },
+  { value: 'andalusian', label: 'Andalusian', desc: 'Flamenco bVII-bVI-V-i' },
 ];
 
 // Mini fretboard component - responsive with dynamic fret range
@@ -288,6 +307,8 @@ export default function RiffGenerator() {
   const [position, setPosition] = useState(parseInt(searchParams.get('position')) || 1);
   const [bars, setBars] = useState(parseInt(searchParams.get('bars')) || 2);
   const [tempo, setTempo] = useState(parseInt(searchParams.get('tempo')) || 120);
+  const [tuning, setTuning] = useState(searchParams.get('tuning') || 'standard');
+  const [progression, setProgression] = useState(searchParams.get('progression') || 'blues_12bar');
 
   const [tab, setTab] = useState('');
   const [scaleInfo, setScaleInfo] = useState(null);
@@ -338,8 +359,12 @@ export default function RiffGenerator() {
     params.set('position', position.toString());
     params.set('bars', bars.toString());
     params.set('tempo', tempo.toString());
+    params.set('tuning', tuning);
+    if (pattern === 'progression') {
+      params.set('progression', progression);
+    }
     setSearchParams(params, { replace: true });
-  }, [root, scale, pattern, position, bars, tempo, setSearchParams]);
+  }, [root, scale, pattern, position, bars, tempo, tuning, progression, setSearchParams]);
 
   // Generate tab when params change
   useEffect(() => {
@@ -354,7 +379,7 @@ export default function RiffGenerator() {
         return;
       }
 
-      const newTab = generateTab(root, scale, pattern, bars, position);
+      const newTab = generateTab(root, scale, pattern, bars, position, tuning, pattern === 'progression' ? progression : null);
       setTab(newTab);
       setScaleInfo(getScaleInfo(root, scale));
       parseTab(newTab);
@@ -362,7 +387,7 @@ export default function RiffGenerator() {
       setError(err.message);
       setTab('');
     }
-  }, [root, scale, pattern, position, bars]);
+  }, [root, scale, pattern, position, bars, tuning, progression]);
 
   const parseTab = useCallback((tabString) => {
     const lines = tabString.split('\n');
@@ -676,11 +701,29 @@ export default function RiffGenerator() {
                 </select>
               </div>
 
+              {/* Tuning */}
+              <div>
+                <label htmlFor="tuning-select" className="block text-sm text-slate-400 mb-2">Tuning</label>
+                <select
+                  id="tuning-select"
+                  value={tuning}
+                  onChange={(e) => setTuning(e.target.value)}
+                  className="w-full bg-slate-700 border border-slate-600 rounded px-3 py-2 text-white"
+                >
+                  {TUNING_OPTIONS.map(t => (
+                    <option key={t.value} value={t.value}>
+                      {t.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
               {/* Scale Info */}
               {scaleInfo && (
                 <div className="bg-slate-700/50 rounded p-3">
                   <div className="text-sm text-slate-400">Notes in scale:</div>
                   <div className="text-teal-300 font-mono">{scaleInfo.notes}</div>
+                  <div className="text-sm text-slate-500 mt-1">Tuning: {TUNING_OPTIONS.find(t => t.value === tuning)?.label}</div>
                 </div>
               )}
             </div>
@@ -717,6 +760,28 @@ export default function RiffGenerator() {
                   })}
                 </div>
               </div>
+
+              {/* Progression Selector (only when progression pattern selected) */}
+              {pattern === 'progression' && (
+                <div>
+                  <label htmlFor="progression-select" className="block text-sm text-slate-400 mb-2">Chord Progression</label>
+                  <select
+                    id="progression-select"
+                    value={progression}
+                    onChange={(e) => setProgression(e.target.value)}
+                    className="w-full bg-slate-700 border border-slate-600 rounded px-3 py-2 text-white mb-2"
+                  >
+                    {PROGRESSION_OPTIONS.map(p => (
+                      <option key={p.value} value={p.value}>
+                        {p.label}
+                      </option>
+                    ))}
+                  </select>
+                  <p className="text-xs text-slate-500">
+                    {PROGRESSION_OPTIONS.find(p => p.value === progression)?.desc}
+                  </p>
+                </div>
+              )}
 
               {/* Position & Bars */}
               <div className="grid grid-cols-2 gap-4">
