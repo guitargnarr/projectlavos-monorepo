@@ -6,9 +6,12 @@ const NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 
 const PROGRESSIONS = {
   rock: { name: 'Rock (I-IV-V-I)', chords: ['I', 'IV', 'V', 'I'], beatsPerChord: 4 },
   blues: { name: '12-Bar Blues', chords: ['I', 'I', 'I', 'I', 'IV', 'IV', 'I', 'I', 'V', 'IV', 'I', 'V'], beatsPerChord: 4 },
+  'minor-blues': { name: 'Minor Blues (i-iv-V)', chords: ['i', 'i', 'i', 'i', 'iv', 'iv', 'i', 'i', 'V', 'iv', 'i', 'V'], beatsPerChord: 4 },
   jazz: { name: 'Jazz ii-V-I', chords: ['ii', 'V', 'I', 'I'], beatsPerChord: 4 },
   pop: { name: 'Pop (I-V-vi-IV)', chords: ['I', 'V', 'vi', 'IV'], beatsPerChord: 4 },
   funk: { name: 'Funk (i-IV)', chords: ['i', 'IV', 'i', 'IV'], beatsPerChord: 4 },
+  country: { name: 'Country (I-IV-V-IV)', chords: ['I', 'IV', 'V', 'IV'], beatsPerChord: 4 },
+  motown: { name: 'Motown (I-vi-IV-V)', chords: ['I', 'vi', 'IV', 'V'], beatsPerChord: 4 },
 };
 
 // Map Roman numerals to semitone offsets and chord quality
@@ -334,7 +337,7 @@ export default function BackingTracks() {
         {/* Style Selection */}
         <div className="mb-6">
           <label className="block text-gray-300 font-semibold mb-2">Style</label>
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {Object.entries(PROGRESSIONS).map(([key, value]) => (
               <button
                 key={key}
@@ -346,7 +349,7 @@ export default function BackingTracks() {
                     : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
                 } disabled:opacity-50 disabled:cursor-not-allowed`}
               >
-                {key.charAt(0).toUpperCase() + key.slice(1)}
+                {key.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
               </button>
             ))}
           </div>

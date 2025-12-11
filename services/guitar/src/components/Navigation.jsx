@@ -1,19 +1,22 @@
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 /**
- * Navigation component - Persistent navigation bar for Guitar Learning Platform
+ * Navigation component - Responsive navigation bar for Guitar Learning Platform
  *
  * Features:
- * - Links to all 4 main pages (Home, FretVision, TabPlayer, Catalog)
- * - Highlights active route based on current location
- * - Mobile responsive with horizontal layout
- * - Dark theme matching existing design (bg-gray-800, green/blue accents)
+ * - Links to all pages
+ * - Highlights active route
+ * - Mobile hamburger menu
+ * - Dark theme with teal/orange accents
  */
 export default function Navigation() {
   const location = useLocation();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const links = [
     { path: '/', label: 'Home', color: 'teal' },
+    { path: '/riff-generator', label: 'Riff Gen', color: 'teal' },
     { path: '/fretvision', label: 'FretVision', color: 'teal' },
     { path: '/tabplayer', label: 'Tab Player', color: 'orange' },
     { path: '/chords', label: 'Chords', color: 'teal' },
@@ -26,6 +29,16 @@ export default function Navigation() {
     { path: '/pricing', label: 'Pricing', color: 'teal' },
   ];
 
+  const activeColors = {
+    teal: 'bg-teal-500 text-gray-900',
+    orange: 'bg-orange-500 text-gray-900',
+  };
+
+  const hoverColors = {
+    teal: 'hover:bg-gray-700 hover:text-teal-400',
+    orange: 'hover:bg-gray-700 hover:text-orange-400',
+  };
+
   return (
     <nav className="bg-gray-800 border-b border-gray-700 sticky top-0 z-50">
       <div className="container mx-auto px-4">
@@ -37,29 +50,16 @@ export default function Navigation() {
             </div>
           </Link>
 
-          {/* Navigation Links */}
-          <div className="flex space-x-1 md:space-x-2 overflow-x-auto">
+          {/* Desktop Navigation Links */}
+          <div className="hidden lg:flex space-x-1">
             {links.map((link) => {
               const isActive = location.pathname === link.path;
-
-              // Color classes for active state (teal/orange brand)
-              const activeColors = {
-                teal: 'bg-teal-500 text-gray-900',
-                orange: 'bg-orange-500 text-gray-900',
-              };
-
-              // Color classes for hover state
-              const hoverColors = {
-                teal: 'hover:bg-gray-700 hover:text-teal-400',
-                orange: 'hover:bg-gray-700 hover:text-orange-400',
-              };
-
               return (
                 <Link
                   key={link.path}
                   to={link.path}
                   className={`
-                    px-3 py-2 rounded-md transition-all duration-200 text-sm md:text-base font-medium whitespace-nowrap
+                    px-3 py-2 rounded-md transition-all duration-200 text-sm font-medium whitespace-nowrap
                     ${isActive
                       ? activeColors[link.color]
                       : `text-gray-300 ${hoverColors[link.color]}`
@@ -71,7 +71,51 @@ export default function Navigation() {
               );
             })}
           </div>
+
+          {/* Mobile menu button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none"
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? (
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            )}
+          </button>
         </div>
+
+        {/* Mobile Navigation Menu */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden pb-4">
+            <div className="grid grid-cols-3 gap-2">
+              {links.map((link) => {
+                const isActive = location.pathname === link.path;
+                return (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`
+                      px-3 py-3 rounded-md text-center text-sm font-medium transition-colors
+                      ${isActive
+                        ? activeColors[link.color]
+                        : `text-gray-300 bg-gray-700/50 ${hoverColors[link.color]}`
+                      }
+                    `}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );

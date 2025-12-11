@@ -5,6 +5,10 @@ const NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 
 const SCALES = {
   major: { name: 'Major', intervals: [0, 2, 4, 5, 7, 9, 11] },
   minor: { name: 'Minor', intervals: [0, 2, 3, 5, 7, 8, 10] },
+  dorian: { name: 'Dorian', intervals: [0, 2, 3, 5, 7, 9, 10] },
+  phrygian: { name: 'Phrygian', intervals: [0, 1, 3, 5, 7, 8, 10] },
+  lydian: { name: 'Lydian', intervals: [0, 2, 4, 6, 7, 9, 11] },
+  mixolydian: { name: 'Mixolydian', intervals: [0, 2, 4, 5, 7, 9, 10] },
   'pentatonic-major': { name: 'Pentatonic Major', intervals: [0, 2, 4, 7, 9] },
   'pentatonic-minor': { name: 'Pentatonic Minor', intervals: [0, 3, 5, 7, 10] },
   blues: { name: 'Blues', intervals: [0, 3, 5, 6, 7, 10] },
@@ -298,7 +302,7 @@ export default function ScaleTrainer() {
         {/* Scale Selection */}
         <div className="mb-6">
           <label className="block text-gray-300 font-semibold mb-2">Scale</label>
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+          <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-2">
             {Object.entries(SCALES).map(([key, value]) => (
               <button
                 key={key}

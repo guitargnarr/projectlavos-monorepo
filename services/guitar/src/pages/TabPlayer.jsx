@@ -96,8 +96,21 @@ const EXERCISES = {
 export default function TabPlayer() {
   const [searchParams] = useSearchParams();
   const gpFileName = searchParams.get('file') || 'pentatonic-major.gp';
+  const inlineTab = searchParams.get('tab'); // Support inline tab from /riff command
 
-  const [tab, setTab] = useState(DEFAULT_TAB);
+  // Parse inline tab if provided
+  const parseInlineTab = (tabString) => {
+    if (!tabString) return null;
+    const decoded = decodeURIComponent(tabString);
+    const lines = decoded.split('\n').filter(line =>
+      line.trim().match(/^[eEBGDA]\|/)
+    );
+    return lines.length === 6 ? lines : null;
+  };
+
+  const initialTab = parseInlineTab(inlineTab) || DEFAULT_TAB;
+  const [tab, setTab] = useState(initialTab);
+  const [useInlineMode, setUseInlineMode] = useState(!!inlineTab);
   const [tempo, setTempo] = useState(120);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLooping, setIsLooping] = useState(false);
@@ -119,16 +132,45 @@ export default function TabPlayer() {
   const [soundFontLoaded, setSoundFontLoaded] = useState(false);
 
   const parseTab = useCallback((lines) => {
-    const cleanedLines = lines.map(line => line.substring(2));
-    const minLength = Math.min(...cleanedLines.map(line => line.length));
+    const cleanedLines = lines.map(line => line.substring(2)); // Remove "e|" prefix
     const data = [];
 
-    for (let pos = 0; pos < minLength; pos++) {
+    // Parse each string separately to handle multi-digit frets
+    const stringNotes = cleanedLines.map(line => {
+      const notes = [];
+      let i = 0;
+      while (i < line.length) {
+        // Skip non-digit characters
+        if (!/\d/.test(line[i])) {
+          i++;
+          continue;
+        }
+        // Found a digit - collect all consecutive digits
+        let numStr = '';
+        const startPos = i;
+        while (i < line.length && /\d/.test(line[i])) {
+          numStr += line[i];
+          i++;
+        }
+        notes.push({ fret: parseInt(numStr), position: startPos });
+      }
+      return notes;
+    });
+
+    // Find all unique note positions across all strings
+    const allPositions = new Set();
+    stringNotes.forEach(notes => {
+      notes.forEach(n => allPositions.add(n.position));
+    });
+    const sortedPositions = Array.from(allPositions).sort((a, b) => a - b);
+
+    // Build columns at each position
+    for (const pos of sortedPositions) {
       const column = { notes: [], duration: 1 };
       for (let string = 0; string < 6; string++) {
-        const char = cleanedLines[string][pos];
-        if (char && char.match(/\d/)) {
-          column.notes.push({ string, fret: parseInt(char) });
+        const note = stringNotes[string].find(n => n.position === pos);
+        if (note) {
+          column.notes.push({ string, fret: note.fret });
         }
       }
       if (column.notes.length > 0) {
@@ -161,9 +203,9 @@ export default function TabPlayer() {
     };
   }, [tab, parseTab]);
 
-  // Initialize alphaTab
+  // Initialize alphaTab (skip if using inline tab mode)
   useEffect(() => {
-    if (!alphaTabContainerRef.current) return;
+    if (!alphaTabContainerRef.current || useInlineMode) return;
 
     const loadGPFile = async () => {
       try {
@@ -231,7 +273,7 @@ export default function TabPlayer() {
         alphaTabApiRef.current.destroy();
       }
     };
-  }, [gpFileName]);
+  }, [gpFileName, useInlineMode]);
 
   const stop = useCallback(() => {
     setIsPlaying(false);
@@ -250,14 +292,19 @@ export default function TabPlayer() {
     }
   }, []);
 
+  // Use ref to track position to avoid stale closure issues
+  const positionRef = useRef(0);
+
   const playNextNote = useCallback(() => {
     const beatDuration = 60000 / (tempo * 2);
+    positionRef.current = 0; // Reset position when starting
 
     playIntervalRef.current = setInterval(() => {
-      const pos = currentPosition;
+      const pos = positionRef.current;
 
       if (pos >= tabDataRef.current.length) {
         if (isLooping) {
+          positionRef.current = 0;
           setCurrentPosition(0);
           beatCountRef.current = 0;
         } else {
@@ -278,19 +325,22 @@ export default function TabPlayer() {
         beatCountRef.current++;
       }
 
+      positionRef.current = pos + 1;
       setCurrentPosition(pos + 1);
     }, beatDuration);
-  }, [tempo, currentPosition, isLooping, metronomeEnabled, stop]);
+  }, [tempo, isLooping, metronomeEnabled, stop]);
 
   const play = () => {
     if (isPlaying) return;
 
-    // Only use alphaTab player (deprecate custom MIDI player)
-    if (alphaTabApiRef.current) {
+    // Use inline MIDI player for tab param, alphaTab for GP files
+    if (useInlineMode && synthRef.current?.isReady()) {
+      setIsPlaying(true);
+      playNextNote();
+    } else if (alphaTabApiRef.current) {
       alphaTabApiRef.current.play();
       setIsPlaying(true);
     }
-    // Old custom MIDI player removed - alphaTab handles all playback
   };
 
   const handleTempoChange = (newTempo) => {
@@ -365,10 +415,10 @@ export default function TabPlayer() {
         <div className="flex flex-wrap gap-4 items-center">
           <button
             onClick={play}
-            disabled={isPlaying || isLoading || gpFileLoading || !soundFontLoaded}
+            disabled={isPlaying || isLoading || (useInlineMode ? false : (gpFileLoading || !soundFontLoaded))}
             className="bg-green-500 hover:bg-green-600 disabled:bg-gray-600 text-white px-6 py-3 rounded font-medium transition-colors min-h-[44px]"
           >
-            {isLoading ? 'Loading...' : gpFileLoading ? 'Loading GP...' : !soundFontLoaded ? 'Loading Audio...' : 'Play'}
+            {isLoading ? 'Loading...' : useInlineMode ? 'Play' : (gpFileLoading ? 'Loading GP...' : (!soundFontLoaded ? 'Loading Audio...' : 'Play'))}
           </button>
           <button
             onClick={stop}
@@ -410,31 +460,48 @@ export default function TabPlayer() {
         </div>
       </div>
 
-      {/* alphaTab Guitar Pro File Rendering */}
-      <div className="bg-gray-800 rounded-lg p-6 mb-6 border border-gray-700">
-        <h3 className="text-xl font-bold mb-4 text-blue-400">
-          Guitar Pro File: {gpFileName.replace('.gp', '').replace(/-/g, ' ')}
-        </h3>
+      {/* Inline Tab Display (from /riff command) */}
+      {useInlineMode && (
+        <div className="bg-gray-800 rounded-lg p-6 mb-6 border border-teal-500">
+          <h3 className="text-xl font-bold mb-4 text-teal-400">
+            AI-Generated Riff (E Phrygian)
+          </h3>
+          <pre className="font-mono text-sm sm:text-base bg-gray-900 p-4 rounded overflow-x-auto text-green-400">
+            {tab.join('\n')}
+          </pre>
+          <p className="text-gray-400 text-sm mt-3">
+            Generated by /riff command with auto-correction for scale accuracy
+          </p>
+        </div>
+      )}
 
-        {gpFileLoading && (
-          <div className="text-center py-8">
-            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400 mb-3"></div>
-            <p className="text-blue-300 font-medium">Loading Guitar Pro file...</p>
-          </div>
-        )}
+      {/* alphaTab Guitar Pro File Rendering (only if not inline mode) */}
+      {!useInlineMode && (
+        <div className="bg-gray-800 rounded-lg p-6 mb-6 border border-gray-700">
+          <h3 className="text-xl font-bold mb-4 text-blue-400">
+            Guitar Pro File: {gpFileName.replace('.gp', '').replace(/-/g, ' ')}
+          </h3>
 
-        {gpFileError && (
-          <div className="bg-red-900/30 border border-red-500 rounded-lg p-4 mb-4">
-            <p className="text-red-300 font-medium">{gpFileError}</p>
-          </div>
-        )}
+          {gpFileLoading && (
+            <div className="text-center py-8">
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400 mb-3"></div>
+              <p className="text-blue-300 font-medium">Loading Guitar Pro file...</p>
+            </div>
+          )}
 
-        <div
-          ref={alphaTabContainerRef}
-          className="overflow-x-auto min-h-[200px]"
-          style={{ minHeight: '300px' }}
-        />
-      </div>
+          {gpFileError && (
+            <div className="bg-red-900/30 border border-red-500 rounded-lg p-4 mb-4">
+              <p className="text-red-300 font-medium">{gpFileError}</p>
+            </div>
+          )}
+
+          <div
+            ref={alphaTabContainerRef}
+            className="overflow-x-auto min-h-[200px]"
+            style={{ minHeight: '300px' }}
+          />
+        </div>
+      )}
     </div>
   );
 }

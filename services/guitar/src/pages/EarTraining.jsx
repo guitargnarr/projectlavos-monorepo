@@ -39,6 +39,9 @@ const CHORD_TYPES = [
   { name: 'Minor', intervals: [0, 3, 7] },
   { name: 'Diminished', intervals: [0, 3, 6] },
   { name: 'Augmented', intervals: [0, 4, 8] },
+  { name: 'Major 7th', intervals: [0, 4, 7, 11] },
+  { name: 'Minor 7th', intervals: [0, 3, 7, 10] },
+  { name: 'Dominant 7th', intervals: [0, 4, 7, 10] },
 ];
 
 const GAME_MODES = [

@@ -30,6 +30,27 @@ const CHORD_DATA = [
   { name: 'G Minor', short: 'Gm', fingers: [3, 5, 5, 3, 3, 3], fingering: [1, 3, 4, 1, 1, 1], notes: ['G', 'Bb', 'D', 'G', 'Bb', 'G'] },
   { name: 'A Minor', short: 'Am', fingers: [-1, 0, 2, 2, 1, 0], fingering: [0, 0, 2, 3, 1, 0], notes: ['A', 'E', 'A', 'C', 'E'] },
   { name: 'B Minor', short: 'Bm', fingers: [-1, 2, 4, 4, 3, 2], fingering: [0, 1, 3, 4, 2, 1], notes: ['B', 'F#', 'B', 'D', 'F#'] },
+
+  // 7th Chords - Major 7th
+  { name: 'C Major 7', short: 'Cmaj7', fingers: [-1, 3, 2, 0, 0, 0], fingering: [0, 3, 2, 0, 0, 0], notes: ['C', 'E', 'G', 'B', 'E'] },
+  { name: 'D Major 7', short: 'Dmaj7', fingers: [-1, -1, 0, 2, 2, 2], fingering: [0, 0, 0, 1, 1, 1], notes: ['D', 'A', 'D', 'F#', 'A', 'C#'] },
+  { name: 'F Major 7', short: 'Fmaj7', fingers: [-1, -1, 3, 2, 1, 0], fingering: [0, 0, 3, 2, 1, 0], notes: ['F', 'A', 'C', 'E'] },
+  { name: 'G Major 7', short: 'Gmaj7', fingers: [3, 2, 0, 0, 0, 2], fingering: [3, 2, 0, 0, 0, 1], notes: ['G', 'B', 'D', 'G', 'B', 'F#'] },
+  { name: 'A Major 7', short: 'Amaj7', fingers: [-1, 0, 2, 1, 2, 0], fingering: [0, 0, 2, 1, 3, 0], notes: ['A', 'E', 'G#', 'C#', 'E'] },
+
+  // 7th Chords - Minor 7th
+  { name: 'A Minor 7', short: 'Am7', fingers: [-1, 0, 2, 0, 1, 0], fingering: [0, 0, 2, 0, 1, 0], notes: ['A', 'E', 'G', 'C', 'E'] },
+  { name: 'B Minor 7', short: 'Bm7', fingers: [-1, 2, 0, 2, 0, 2], fingering: [0, 1, 0, 2, 0, 3], notes: ['B', 'F#', 'A', 'D', 'F#'] },
+  { name: 'D Minor 7', short: 'Dm7', fingers: [-1, -1, 0, 2, 1, 1], fingering: [0, 0, 0, 2, 1, 1], notes: ['D', 'A', 'C', 'F'] },
+  { name: 'E Minor 7', short: 'Em7', fingers: [0, 2, 0, 0, 0, 0], fingering: [0, 2, 0, 0, 0, 0], notes: ['E', 'B', 'D', 'G', 'B', 'E'] },
+
+  // 7th Chords - Dominant 7th
+  { name: 'A Dominant 7', short: 'A7', fingers: [-1, 0, 2, 0, 2, 0], fingering: [0, 0, 1, 0, 2, 0], notes: ['A', 'E', 'G', 'C#', 'E'] },
+  { name: 'B Dominant 7', short: 'B7', fingers: [-1, 2, 1, 2, 0, 2], fingering: [0, 2, 1, 3, 0, 4], notes: ['B', 'D#', 'A', 'B', 'F#'] },
+  { name: 'C Dominant 7', short: 'C7', fingers: [-1, 3, 2, 3, 1, 0], fingering: [0, 3, 2, 4, 1, 0], notes: ['C', 'E', 'Bb', 'C', 'E'] },
+  { name: 'D Dominant 7', short: 'D7', fingers: [-1, -1, 0, 2, 1, 2], fingering: [0, 0, 0, 2, 1, 3], notes: ['D', 'A', 'C', 'F#'] },
+  { name: 'E Dominant 7', short: 'E7', fingers: [0, 2, 0, 1, 0, 0], fingering: [0, 2, 0, 1, 0, 0], notes: ['E', 'B', 'D', 'G#', 'B', 'E'] },
+  { name: 'G Dominant 7', short: 'G7', fingers: [3, 2, 0, 0, 0, 1], fingering: [3, 2, 0, 0, 0, 1], notes: ['G', 'B', 'D', 'G', 'B', 'F'] },
 ];
 
 /**
@@ -204,7 +225,7 @@ ChordCard.propTypes = {
  */
 export default function ChordDictionary() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [filter, setFilter] = useState('all'); // all, major, minor
+  const [filter, setFilter] = useState('all'); // all, major, minor, maj7, min7, dom7
   const audioContextRef = useRef(null);
 
   // Initialize Web Audio API
@@ -270,9 +291,15 @@ export default function ChordDictionary() {
                          chord.short.toLowerCase().includes(searchTerm.toLowerCase());
 
     if (filter === 'major') {
-      return matchesSearch && chord.name.includes('Major');
+      return matchesSearch && chord.name.includes('Major') && !chord.name.includes('7');
     } else if (filter === 'minor') {
-      return matchesSearch && chord.name.includes('Minor');
+      return matchesSearch && chord.name.includes('Minor') && !chord.name.includes('7');
+    } else if (filter === 'maj7') {
+      return matchesSearch && chord.name.includes('Major 7');
+    } else if (filter === 'min7') {
+      return matchesSearch && chord.name.includes('Minor 7');
+    } else if (filter === 'dom7') {
+      return matchesSearch && chord.name.includes('Dominant 7');
     }
 
     return matchesSearch;
@@ -314,10 +341,10 @@ export default function ChordDictionary() {
           {/* Filter */}
           <div>
             <label className="block text-sm font-medium mb-2">Filter by Type</label>
-            <div className="flex gap-2">
+            <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
               <button
                 onClick={() => setFilter('all')}
-                className={`flex-1 py-2 rounded font-medium transition-all ${
+                className={`py-2 px-2 rounded font-medium text-sm transition-all ${
                   filter === 'all'
                     ? 'bg-blue-500 text-white'
                     : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
@@ -327,23 +354,53 @@ export default function ChordDictionary() {
               </button>
               <button
                 onClick={() => setFilter('major')}
-                className={`flex-1 py-2 rounded font-medium transition-all ${
+                className={`py-2 px-2 rounded font-medium text-sm transition-all ${
                   filter === 'major'
                     ? 'bg-blue-500 text-white'
                     : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
                 }`}
               >
-                Major (7)
+                Major
               </button>
               <button
                 onClick={() => setFilter('minor')}
-                className={`flex-1 py-2 rounded font-medium transition-all ${
+                className={`py-2 px-2 rounded font-medium text-sm transition-all ${
                   filter === 'minor'
                     ? 'bg-blue-500 text-white'
                     : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
                 }`}
               >
-                Minor (7)
+                Minor
+              </button>
+              <button
+                onClick={() => setFilter('maj7')}
+                className={`py-2 px-2 rounded font-medium text-sm transition-all ${
+                  filter === 'maj7'
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                }`}
+              >
+                Maj7
+              </button>
+              <button
+                onClick={() => setFilter('min7')}
+                className={`py-2 px-2 rounded font-medium text-sm transition-all ${
+                  filter === 'min7'
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                }`}
+              >
+                Min7
+              </button>
+              <button
+                onClick={() => setFilter('dom7')}
+                className={`py-2 px-2 rounded font-medium text-sm transition-all ${
+                  filter === 'dom7'
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                }`}
+              >
+                Dom7
               </button>
             </div>
           </div>
