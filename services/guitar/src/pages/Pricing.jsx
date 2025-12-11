@@ -3,7 +3,19 @@ import { Check, X, Star } from 'lucide-react';
 /**
  * Pricing page for Guitar Learning Platform
  * Displays Free/Premium/Pro tier comparison
+ *
+ * To enable Stripe:
+ * 1. Create products in Stripe Dashboard
+ * 2. Create Payment Links for each product
+ * 3. Set VITE_STRIPE_PREMIUM_LINK and VITE_STRIPE_PRO_LINK in .env
  */
+
+// Stripe Payment Links (set in environment or replace with your URLs)
+const STRIPE_LINKS = {
+  premium: import.meta.env.VITE_STRIPE_PREMIUM_LINK || null,
+  pro: import.meta.env.VITE_STRIPE_PRO_LINK || null,
+};
+
 export default function Pricing() {
   const tiers = [
     {
@@ -23,6 +35,7 @@ export default function Pricing() {
         { name: 'AI Practice Tools', included: false },
       ],
       cta: 'Current Plan',
+      stripeLink: null,
       highlight: false,
     },
     {
@@ -41,7 +54,8 @@ export default function Pricing() {
         { name: 'Video Lessons', included: false },
         { name: 'AI Practice Tools', included: false },
       ],
-      cta: 'Coming Soon',
+      cta: STRIPE_LINKS.premium ? 'Subscribe' : 'Coming Soon',
+      stripeLink: STRIPE_LINKS.premium,
       highlight: true,
     },
     {
@@ -60,7 +74,8 @@ export default function Pricing() {
         { name: 'Video Lessons', included: true },
         { name: 'AI Practice Tools', included: true },
       ],
-      cta: 'Coming Soon',
+      cta: STRIPE_LINKS.pro ? 'Subscribe' : 'Coming Soon',
+      stripeLink: STRIPE_LINKS.pro,
       highlight: false,
     },
   ];
@@ -115,20 +130,35 @@ export default function Pricing() {
               <p className="text-gray-400 mb-6">{tier.description}</p>
 
               {/* CTA Button */}
-              <button
-                className={`
-                  w-full py-3 rounded-lg font-semibold transition-all mb-8
-                  ${tier.highlight
-                    ? 'bg-teal-500 hover:bg-teal-400 text-gray-900'
-                    : tier.name === 'Free'
+              {tier.stripeLink ? (
+                <a
+                  href={tier.stripeLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`
+                    block w-full py-3 rounded-lg font-semibold transition-all mb-8 text-center
+                    ${tier.highlight
+                      ? 'bg-teal-500 hover:bg-teal-400 text-gray-900'
+                      : 'bg-orange-500 hover:bg-orange-400 text-gray-900'
+                    }
+                  `}
+                >
+                  {tier.cta}
+                </a>
+              ) : (
+                <button
+                  className={`
+                    w-full py-3 rounded-lg font-semibold transition-all mb-8
+                    ${tier.name === 'Free'
                       ? 'bg-gray-700 text-gray-400 cursor-default'
-                      : 'bg-gray-700 hover:bg-gray-600 text-gray-300'
-                  }
-                `}
-                disabled={tier.name === 'Free'}
-              >
-                {tier.cta}
-              </button>
+                      : 'bg-gray-700 text-gray-500 cursor-not-allowed'
+                    }
+                  `}
+                  disabled
+                >
+                  {tier.cta}
+                </button>
+              )}
 
               {/* Features */}
               <ul className="space-y-3">

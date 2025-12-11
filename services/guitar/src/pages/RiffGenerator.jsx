@@ -571,6 +571,47 @@ export default function RiffGenerator() {
     URL.revokeObjectURL(url);
   };
 
+  // GP5 API URL (set via env var when API is deployed)
+  const GP5_API_URL = import.meta.env.VITE_GP5_API_URL || null;
+
+  const exportGP5 = async () => {
+    if (!tab) return;
+
+    if (!GP5_API_URL) {
+      alert('Guitar Pro export coming soon! Use Tab or MIDI export for now.');
+      return;
+    }
+
+    try {
+      const response = await fetch(`${GP5_API_URL}/generate-gp5`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          root,
+          scale,
+          pattern,
+          bars,
+          tuning: 'standard',
+          tempo,
+          position,
+        }),
+      });
+
+      if (!response.ok) throw new Error('API error');
+
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${root}_${scale}_${pattern}.gp5`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('GP5 export error:', error);
+      alert('GP5 export failed. Try Tab or MIDI export instead.');
+    }
+  };
+
   // Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -656,6 +697,15 @@ export default function RiffGenerator() {
               aria-label="Download MIDI file"
             >
               MIDI
+            </button>
+            <button
+              onClick={exportGP5}
+              disabled={!tab}
+              className="px-3 py-2 bg-purple-600 hover:bg-purple-500 rounded text-sm disabled:opacity-50"
+              title="Download Guitar Pro file"
+              aria-label="Download Guitar Pro file"
+            >
+              GP5
             </button>
             <button
               onClick={copyShareLink}
