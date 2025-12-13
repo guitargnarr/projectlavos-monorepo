@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-slate-900 text-white antialiased;
+}
+
+/* Code block styling */
+.code-block {
+  @apply bg-slate-800 rounded-lg p-4 overflow-x-auto font-mono text-sm;
+}
+
+.code-block code {
+  @apply text-teal-400;
+}
+
+/* Architecture diagram styling */
+.arch-box {
+  @apply border border-slate-700 rounded-lg p-4 bg-slate-800/50;
+}

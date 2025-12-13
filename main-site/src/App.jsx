@@ -1,5 +1,7 @@
 import { useState } from 'react'
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import './App.css'
+import Projects from './pages/Projects'
 
 const projects = [
   {
@@ -55,10 +57,21 @@ const skills = [
 
 function App() {
   return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/projects" element={<Projects />} />
+      </Routes>
+    </BrowserRouter>
+  )
+}
+
+function HomePage() {
+  return (
     <div className="min-h-screen bg-slate-900 text-white">
       <Header />
       <Hero />
-      <Projects />
+      <FeaturedProjects />
       <Skills />
       <Contact />
       <Footer />
@@ -70,11 +83,12 @@ function Header() {
   return (
     <header className="border-b border-slate-700/50 sticky top-0 bg-slate-900/95 backdrop-blur-sm z-50">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="/" className="text-xl font-bold bg-gradient-to-r from-teal-400 to-orange-400 bg-clip-text text-transparent">
+        <Link to="/" className="text-xl font-bold bg-gradient-to-r from-teal-400 to-orange-400 bg-clip-text text-transparent">
           MS
-        </a>
+        </Link>
         <nav className="flex gap-6 text-sm">
           <a href="#projects" className="text-slate-400 hover:text-white transition-colors">Projects</a>
+          <Link to="/projects" className="text-slate-400 hover:text-white transition-colors">Systems Map</Link>
           <a href="#skills" className="text-slate-400 hover:text-white transition-colors">Skills</a>
           <a href="#contact" className="text-slate-400 hover:text-white transition-colors">Contact</a>
           <a
@@ -117,6 +131,12 @@ function Hero() {
           >
             View Projects
           </a>
+          <Link
+            to="/projects"
+            className="border border-teal-500 hover:bg-teal-500/10 text-teal-400 px-8 py-3 rounded-lg font-semibold transition-colors"
+          >
+            Systems Map
+          </Link>
           <a
             href="#contact"
             className="border border-slate-600 hover:border-teal-500 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
@@ -129,7 +149,7 @@ function Hero() {
   )
 }
 
-function Projects() {
+function FeaturedProjects() {
   return (
     <section id="projects" className="py-20 px-6 bg-slate-800/50">
       <div className="max-w-6xl mx-auto">
@@ -147,6 +167,18 @@ function Projects() {
           {projects.map((project, index) => (
             <ProjectCard key={index} project={project} />
           ))}
+        </div>
+
+        <div className="text-center mt-8">
+          <Link
+            to="/projects"
+            className="inline-flex items-center gap-2 text-teal-400 hover:text-teal-300 transition-colors"
+          >
+            View complete Systems Map
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+            </svg>
+          </Link>
         </div>
       </div>
     </section>
@@ -286,6 +318,9 @@ function Footer() {
           &copy; 2025 Matthew Scott. Built with React + Vite.
         </p>
         <div className="flex gap-6 text-sm">
+          <Link to="/projects" className="text-slate-400 hover:text-teal-400 transition-colors">
+            Systems Map
+          </Link>
           <a href="https://guitar.projectlavos.com" className="text-slate-400 hover:text-teal-400 transition-colors">
             Guitar Platform
           </a>
