@@ -122,6 +122,69 @@ const CHORD_DATA = [
   { name: 'Am/G', short: 'Am/G', fingers: [3, 0, 2, 2, 1, 0], fingering: [3, 0, 2, 3, 1, 0], notes: ['G', 'E', 'A', 'C', 'E'], category: 'slash' },
   { name: 'Em/D', short: 'Em/D', fingers: [-1, -1, 0, 0, 0, 0], fingering: [0, 0, 0, 0, 0, 0], notes: ['D', 'G', 'B', 'E'], category: 'slash' },
   { name: 'F/C', short: 'F/C', fingers: [-1, 3, 3, 2, 1, 1], fingering: [0, 3, 4, 2, 1, 1], notes: ['C', 'F', 'A', 'C', 'F'], category: 'slash' },
+  { name: 'E/G#', short: 'E/G#', fingers: [4, 2, 2, 1, 0, 0], fingering: [4, 2, 3, 1, 0, 0], notes: ['G#', 'B', 'E', 'G#', 'B', 'E'], category: 'slash' },
+  { name: 'A/C#', short: 'A/C#', fingers: [-1, 4, 2, 2, 2, 0], fingering: [0, 4, 1, 2, 3, 0], notes: ['C#', 'E', 'A', 'C#', 'E'], category: 'slash' },
+  { name: 'C/E', short: 'C/E', fingers: [0, 3, 2, 0, 1, 0], fingering: [0, 3, 2, 0, 1, 0], notes: ['E', 'C', 'E', 'G', 'C', 'E'], category: 'slash' },
+  { name: 'G/D', short: 'G/D', fingers: [-1, -1, 0, 0, 0, 3], fingering: [0, 0, 0, 0, 0, 3], notes: ['D', 'G', 'B', 'G'], category: 'slash' },
+
+  // ===== 6TH CHORDS =====
+  { name: 'C6', short: 'C6', fingers: [-1, 3, 2, 2, 1, 0], fingering: [0, 4, 2, 3, 1, 0], notes: ['C', 'E', 'A', 'C', 'E'], category: '6th' },
+  { name: 'D6', short: 'D6', fingers: [-1, -1, 0, 2, 0, 2], fingering: [0, 0, 0, 2, 0, 3], notes: ['D', 'A', 'B', 'F#'], category: '6th' },
+  { name: 'E6', short: 'E6', fingers: [0, 2, 2, 1, 2, 0], fingering: [0, 2, 3, 1, 4, 0], notes: ['E', 'B', 'E', 'G#', 'C#', 'E'], category: '6th' },
+  { name: 'G6', short: 'G6', fingers: [3, 2, 0, 0, 0, 0], fingering: [2, 1, 0, 0, 0, 0], notes: ['G', 'B', 'D', 'G', 'B', 'E'], category: '6th' },
+  { name: 'A6', short: 'A6', fingers: [-1, 0, 2, 2, 2, 2], fingering: [0, 0, 1, 1, 1, 1], notes: ['A', 'E', 'A', 'C#', 'F#'], category: '6th' },
+
+  // ===== MINOR 6TH CHORDS =====
+  { name: 'Am6', short: 'Am6', fingers: [-1, 0, 2, 2, 1, 2], fingering: [0, 0, 2, 3, 1, 4], notes: ['A', 'E', 'A', 'C', 'F#'], category: 'm6' },
+  { name: 'Dm6', short: 'Dm6', fingers: [-1, -1, 0, 2, 0, 1], fingering: [0, 0, 0, 2, 0, 1], notes: ['D', 'A', 'B', 'F'], category: 'm6' },
+  { name: 'Em6', short: 'Em6', fingers: [0, 2, 2, 0, 2, 0], fingering: [0, 1, 2, 0, 3, 0], notes: ['E', 'B', 'E', 'G', 'C#', 'E'], category: 'm6' },
+  { name: 'Gm6', short: 'Gm6', fingers: [3, 5, 5, 3, 5, 3], fingering: [1, 2, 3, 1, 4, 1], notes: ['G', 'Bb', 'D', 'G', 'E', 'G'], category: 'm6' },
+
+  // ===== 7SUS4 CHORDS =====
+  { name: 'A7sus4', short: 'A7sus4', fingers: [-1, 0, 2, 0, 3, 0], fingering: [0, 0, 1, 0, 2, 0], notes: ['A', 'E', 'G', 'D', 'E'], category: '7sus4' },
+  { name: 'D7sus4', short: 'D7sus4', fingers: [-1, -1, 0, 2, 1, 3], fingering: [0, 0, 0, 2, 1, 3], notes: ['D', 'A', 'C', 'G'], category: '7sus4' },
+  { name: 'E7sus4', short: 'E7sus4', fingers: [0, 2, 0, 2, 0, 0], fingering: [0, 1, 0, 2, 0, 0], notes: ['E', 'B', 'D', 'A', 'B', 'E'], category: '7sus4' },
+  { name: 'G7sus4', short: 'G7sus4', fingers: [3, 3, 0, 0, 1, 1], fingering: [2, 3, 0, 0, 1, 1], notes: ['G', 'C', 'D', 'G', 'C', 'F'], category: '7sus4' },
+  { name: 'C7sus4', short: 'C7sus4', fingers: [-1, 3, 3, 3, 1, 1], fingering: [0, 2, 3, 4, 1, 1], notes: ['C', 'G', 'Bb', 'F', 'G'], category: '7sus4' },
+
+  // ===== MAJOR 9TH CHORDS =====
+  { name: 'Cmaj9', short: 'Cmaj9', fingers: [-1, 3, 2, 0, 0, 0], fingering: [0, 2, 1, 0, 0, 0], notes: ['C', 'E', 'G', 'B', 'D', 'E'], category: 'maj9' },
+  { name: 'Dmaj9', short: 'Dmaj9', fingers: [-1, -1, 0, 2, 2, 0], fingering: [0, 0, 0, 1, 2, 0], notes: ['D', 'A', 'D', 'E', 'C#'], category: 'maj9' },
+  { name: 'Fmaj9', short: 'Fmaj9', fingers: [1, 0, 2, 0, 1, 0], fingering: [1, 0, 2, 0, 1, 0], notes: ['F', 'A', 'E', 'G', 'C', 'E'], category: 'maj9' },
+  { name: 'Gmaj9', short: 'Gmaj9', fingers: [3, 0, 0, 0, 0, 2], fingering: [2, 0, 0, 0, 0, 1], notes: ['G', 'D', 'G', 'A', 'B', 'F#'], category: 'maj9' },
+  { name: 'Amaj9', short: 'Amaj9', fingers: [-1, 0, 2, 1, 0, 0], fingering: [0, 0, 2, 1, 0, 0], notes: ['A', 'E', 'G#', 'B', 'E'], category: 'maj9' },
+
+  // ===== 11TH CHORDS =====
+  { name: 'C11', short: 'C11', fingers: [-1, 3, 3, 3, 3, 3], fingering: [0, 1, 1, 1, 1, 1], notes: ['C', 'G', 'Bb', 'D', 'F', 'G'], category: '11th' },
+  { name: 'D11', short: 'D11', fingers: [-1, -1, 0, 0, 1, 0], fingering: [0, 0, 0, 0, 1, 0], notes: ['D', 'G', 'C', 'E'], category: '11th' },
+  { name: 'G11', short: 'G11', fingers: [3, 3, 0, 0, 1, 1], fingering: [2, 3, 0, 0, 1, 1], notes: ['G', 'C', 'D', 'G', 'C', 'F'], category: '11th' },
+  { name: 'A11', short: 'A11', fingers: [-1, 0, 0, 0, 0, 0], fingering: [0, 0, 0, 0, 0, 0], notes: ['A', 'D', 'G', 'B', 'E'], category: '11th' },
+  { name: 'E11', short: 'E11', fingers: [0, 0, 0, 1, 0, 0], fingering: [0, 0, 0, 1, 0, 0], notes: ['E', 'A', 'D', 'G#', 'B', 'E'], category: '11th' },
+
+  // ===== 13TH CHORDS =====
+  { name: 'C13', short: 'C13', fingers: [-1, 3, 2, 3, 3, 5], fingering: [0, 2, 1, 3, 3, 4], notes: ['C', 'E', 'Bb', 'D', 'A'], category: '13th' },
+  { name: 'D13', short: 'D13', fingers: [-1, -1, 0, 2, 1, 2], fingering: [0, 0, 0, 2, 1, 3], notes: ['D', 'A', 'C', 'B'], category: '13th' },
+  { name: 'E13', short: 'E13', fingers: [0, 2, 0, 1, 2, 0], fingering: [0, 2, 0, 1, 3, 0], notes: ['E', 'B', 'D', 'G#', 'C#', 'E'], category: '13th' },
+  { name: 'G13', short: 'G13', fingers: [3, 2, 0, 0, 0, 0], fingering: [2, 1, 0, 0, 0, 0], notes: ['G', 'B', 'D', 'G', 'B', 'E'], category: '13th' },
+  { name: 'A13', short: 'A13', fingers: [-1, 0, 2, 0, 2, 2], fingering: [0, 0, 1, 0, 2, 3], notes: ['A', 'E', 'G', 'F#', 'C#'], category: '13th' },
+
+  // ===== HALF-DIMINISHED (m7b5) CHORDS =====
+  { name: 'Am7b5', short: 'Am7b5', fingers: [-1, 0, 1, 2, 1, 3], fingering: [0, 0, 1, 2, 1, 4], notes: ['A', 'Eb', 'G', 'C', 'E'], category: 'm7b5' },
+  { name: 'Bm7b5', short: 'Bm7b5', fingers: [-1, 2, 3, 2, 3, -1], fingering: [0, 1, 3, 1, 4, 0], notes: ['B', 'F', 'A', 'D'], category: 'm7b5' },
+  { name: 'Cm7b5', short: 'Cm7b5', fingers: [-1, 3, 4, 3, 4, -1], fingering: [0, 1, 3, 1, 4, 0], notes: ['C', 'Gb', 'Bb', 'Eb'], category: 'm7b5' },
+  { name: 'Dm7b5', short: 'Dm7b5', fingers: [-1, -1, 0, 1, 1, 1], fingering: [0, 0, 0, 1, 1, 1], notes: ['D', 'Ab', 'C', 'F'], category: 'm7b5' },
+  { name: 'Em7b5', short: 'Em7b5', fingers: [0, 1, 2, 0, 3, 0], fingering: [0, 1, 2, 0, 3, 0], notes: ['E', 'Bb', 'E', 'G', 'D', 'E'], category: 'm7b5' },
+  { name: 'Fm7b5', short: 'Fm7b5', fingers: [1, 2, 3, 1, 4, 1], fingering: [1, 2, 3, 1, 4, 1], notes: ['F', 'B', 'Eb', 'Ab', 'C', 'F'], category: 'm7b5' },
+  { name: 'Gm7b5', short: 'Gm7b5', fingers: [3, 4, 3, 3, -1, -1], fingering: [2, 3, 1, 4, 0, 0], notes: ['G', 'Db', 'F', 'Bb'], category: 'm7b5' },
+
+  // ===== DIMINISHED 7TH CHORDS =====
+  { name: 'Cdim7', short: 'Cdim7', fingers: [-1, 3, 4, 2, 4, 2], fingering: [0, 2, 3, 1, 4, 1], notes: ['C', 'Gb', 'A', 'Eb', 'Gb'], category: 'dim7' },
+  { name: 'Ddim7', short: 'Ddim7', fingers: [-1, -1, 0, 1, 0, 1], fingering: [0, 0, 0, 1, 0, 2], notes: ['D', 'Ab', 'B', 'F'], category: 'dim7' },
+  { name: 'Edim7', short: 'Edim7', fingers: [0, 1, 2, 0, 2, 0], fingering: [0, 1, 2, 0, 3, 0], notes: ['E', 'Bb', 'E', 'G', 'Db', 'E'], category: 'dim7' },
+  { name: 'Fdim7', short: 'Fdim7', fingers: [1, 2, 0, 1, 0, 1], fingering: [1, 2, 0, 1, 0, 1], notes: ['F', 'Ab', 'D', 'Ab', 'B', 'F'], category: 'dim7' },
+  { name: 'Gdim7', short: 'Gdim7', fingers: [3, 4, 2, 3, 2, -1], fingering: [2, 4, 1, 3, 1, 0], notes: ['G', 'Db', 'E', 'Bb', 'E'], category: 'dim7' },
+  { name: 'Adim7', short: 'Adim7', fingers: [-1, 0, 1, 2, 1, 2], fingering: [0, 0, 1, 3, 2, 4], notes: ['A', 'Eb', 'G', 'C', 'Gb'], category: 'dim7' },
+  { name: 'Bdim7', short: 'Bdim7', fingers: [-1, 2, 0, 1, 0, 1], fingering: [0, 2, 0, 1, 0, 1], notes: ['B', 'F', 'Ab', 'D', 'Ab'], category: 'dim7' },
 ];
 
 /**
@@ -446,6 +509,30 @@ export default function ChordDictionary() {
                 </button>
                 <button onClick={() => setFilter('slash')} className={getFilterClass('slash')}>
                   Slash
+                </button>
+                <button onClick={() => setFilter('6th')} className={getFilterClass('6th')}>
+                  6th
+                </button>
+                <button onClick={() => setFilter('m6')} className={getFilterClass('m6')}>
+                  m6
+                </button>
+                <button onClick={() => setFilter('7sus4')} className={getFilterClass('7sus4')}>
+                  7sus4
+                </button>
+                <button onClick={() => setFilter('maj9')} className={getFilterClass('maj9')}>
+                  Maj9
+                </button>
+                <button onClick={() => setFilter('11th')} className={getFilterClass('11th')}>
+                  11th
+                </button>
+                <button onClick={() => setFilter('13th')} className={getFilterClass('13th')}>
+                  13th
+                </button>
+                <button onClick={() => setFilter('m7b5')} className={getFilterClass('m7b5')}>
+                  m7b5
+                </button>
+                <button onClick={() => setFilter('dim7')} className={getFilterClass('dim7')}>
+                  dim7
                 </button>
               </div>
             </div>
