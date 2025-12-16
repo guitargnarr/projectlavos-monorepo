@@ -1,14 +1,15 @@
 import { useState, useMemo, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import catalogData from '../../data/catalog.json';
 import ProgressBar from '../components/catalog/ProgressBar';
 import CatalogSearch from '../components/catalog/CatalogSearch';
 import CatalogFilters from '../components/catalog/CatalogFilters';
 import LessonCard from '../components/catalog/LessonCard';
 import ShareModal from '../components/catalog/ShareModal';
+import InlinePlayer from '../components/InlinePlayer';
 
 export default function Catalog() {
-  const navigate = useNavigate();
+  // Selected lesson for inline player
+  const [selectedLesson, setSelectedLesson] = useState(null);
 
   // Search state
   const [searchQuery, setSearchQuery] = useState('');
@@ -88,9 +89,14 @@ export default function Catalog() {
     );
   };
 
-  // Navigate to TabPlayer with file
+  // Open inline player instead of navigating
   const handlePreview = (filename) => {
-    navigate(`/tabplayer?file=${encodeURIComponent(filename)}`);
+    const lesson = catalogData.files.find(f => f.filename === filename);
+    setSelectedLesson(lesson || { filename, title: filename });
+  };
+
+  const closePlayer = () => {
+    setSelectedLesson(null);
   };
 
   // Share URL generation with UTM parameters
@@ -253,6 +259,15 @@ export default function Catalog() {
           onFacebookShare={shareOnFacebook}
           onCopyLink={copyLink}
         />
+
+        {/* Inline Player Modal */}
+        {selectedLesson && (
+          <InlinePlayer
+            filename={selectedLesson.filename}
+            title={selectedLesson.title}
+            onClose={closePlayer}
+          />
+        )}
       </div>
     </div>
   );
