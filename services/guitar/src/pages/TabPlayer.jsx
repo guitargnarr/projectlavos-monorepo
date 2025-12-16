@@ -219,11 +219,33 @@ export default function TabPlayer() {
             fontDirectory: '/font/', // Point to public/font/ directory
           },
           display: {
-            layoutMode: 'horizontal',
+            layoutMode: 'page', // Page layout - bars wrap to new rows
+            staveProfile: 'tab', // Optimized for tab display
+            scale: 0.9, // Slightly smaller for better fit
+            stretchForce: 1.0, // Full stretch to fill width naturally
+            resources: {
+              // White/light colors for dark theme visibility using alphaTab.model.Color
+              mainGlyphColor: new alphaTab.model.Color(255, 255, 255, 255), // White notes/stems
+              secondaryGlyphColor: new alphaTab.model.Color(200, 200, 200, 255), // Light gray secondary
+              scoreInfoColor: new alphaTab.model.Color(255, 255, 255, 255), // White score info
+              barNumberColor: new alphaTab.model.Color(45, 212, 191, 255), // Teal bar numbers
+              tabNumberColor: new alphaTab.model.Color(255, 255, 255, 255), // WHITE TAB NUMBERS
+              staffLineColor: new alphaTab.model.Color(100, 116, 139, 255), // Slate-500 staff lines
+              barSeparatorColor: new alphaTab.model.Color(100, 116, 139, 255), // Slate-500 bar lines
+            },
+          },
+          notation: {
+            rhythmMode: 'showWithBars', // Show rhythm notation
           },
           player: {
             enablePlayer: true,
             enableUserInteraction: true,
+            enableCursor: true, // Show playback cursor
+            enableAnimatedBeatCursor: true, // Smooth cursor animation
+            scrollElement: alphaTabContainerRef.current, // Auto-scroll container
+            scrollOffsetX: 0, // No horizontal offset needed for page layout
+            scrollOffsetY: -100, // Keep cursor 100px from top during vertical scroll
+            scrollMode: 'continuous', // Smooth continuous scrolling (vertical for page layout)
             soundFont: 'https://cdn.jsdelivr.net/npm/@coderline/alphatab@latest/dist/soundfont/sonivox.sf2',
           },
         });
@@ -378,13 +400,13 @@ export default function TabPlayer() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
       <div className="mb-6 flex gap-4">
-        <Link to="/" className="text-blue-500 hover:text-blue-400 flex items-center gap-2">
+        <Link to="/" className="text-teal-400 hover:text-teal-300 flex items-center gap-2 transition-colors">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
           Back to Home
         </Link>
-        <Link to="/catalog" className="text-blue-500 hover:text-blue-400 flex items-center gap-2">
+        <Link to="/catalog" className="text-teal-400 hover:text-teal-300 flex items-center gap-2 transition-colors">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
           </svg>
@@ -392,15 +414,15 @@ export default function TabPlayer() {
         </Link>
       </div>
 
-      <header className="text-center mb-8">
-        <h1 className="text-4xl font-bold mb-2 text-blue-400">Guitar Tab Player</h1>
+      <header className="text-center mb-8 py-6 rounded-xl header-elite">
+        <h1 className="text-4xl font-bold mb-2 gradient-text">Guitar Tab Player</h1>
         <p className="text-gray-400">Practice with Interactive Tab Playback</p>
       </header>
 
       {isLoading && (
-        <div className="bg-blue-900/30 border border-blue-500 rounded-lg p-6 mb-6 text-center">
-          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400 mb-3"></div>
-          <p className="text-blue-300 font-medium">Loading guitar soundfont...</p>
+        <div className="bg-teal-900/30 border border-teal-500 rounded-lg p-6 mb-6 text-center controls-panel-glass">
+          <div className="spinner-elite mx-auto mb-3"></div>
+          <p className="text-teal-300 font-medium">Loading guitar soundfont...</p>
           <p className="text-gray-400 text-sm mt-2">This may take a few moments</p>
         </div>
       )}
@@ -411,62 +433,69 @@ export default function TabPlayer() {
         </div>
       )}
 
-      <div className="bg-gray-800 rounded-lg p-6 mb-6 border border-gray-700">
+      <div className="rounded-xl p-6 mb-6 controls-panel-glass">
         <div className="flex flex-wrap gap-4 items-center">
           <button
             onClick={play}
             disabled={isPlaying || isLoading || (useInlineMode ? false : (gpFileLoading || !soundFontLoaded))}
-            className="bg-green-500 hover:bg-green-600 disabled:bg-gray-600 text-white px-6 py-3 rounded font-medium transition-colors min-h-[44px]"
+            className={`btn-play disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center ${isPlaying ? 'playing' : ''}`}
           >
-            {isLoading ? 'Loading...' : useInlineMode ? 'Play' : (gpFileLoading ? 'Loading GP...' : (!soundFontLoaded ? 'Loading Audio...' : 'Play'))}
+            <span className="text-lg">
+              {isLoading ? '...' : useInlineMode ? '▶' : (gpFileLoading ? '◌' : (!soundFontLoaded ? '◌' : '▶'))}
+            </span>
           </button>
           <button
             onClick={stop}
-            className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded font-medium transition-colors min-h-[44px]"
+            className="btn-stop flex items-center justify-center"
           >
-            Stop
+            <span className="text-lg">■</span>
           </button>
           <button
             onClick={toggleLoop}
-            className={`px-6 py-3 rounded font-medium transition-colors min-h-[44px] ${
-              isLooping ? 'bg-orange-500 hover:bg-orange-600' : 'bg-gray-600 hover:bg-gray-700'
-            } text-white`}
+            className={`btn-loop ${isLooping ? 'active' : ''}`}
           >
-            {isLooping ? 'Loop: ON' : 'Loop: OFF'}
+            {isLooping ? '🔁 Loop ON' : '🔁 Loop OFF'}
           </button>
 
           <div className="flex items-center gap-3">
-            <label className="text-sm font-medium">Tempo: {tempo} BPM</label>
+            <label className="text-sm font-medium tempo-label">Tempo: {tempo} BPM</label>
             <input
               type="range"
               min="40"
               max="200"
               value={tempo}
               onChange={(e) => handleTempoChange(parseInt(e.target.value))}
-              className="w-48 h-11 accent-blue-500"
+              className="w-48 h-11 tempo-slider"
             />
           </div>
 
-          <label htmlFor="metronome" className="flex items-center gap-3 cursor-pointer min-h-[44px]">
-            <input
-              type="checkbox"
-              id="metronome"
-              checked={metronomeEnabled}
-              onChange={(e) => setMetronomeEnabled(e.target.checked)}
-              className="w-5 h-5 accent-blue-500 cursor-pointer"
+          <label className="flex items-center gap-3 cursor-pointer min-h-[44px]">
+            <div
+              className={`metronome-switch ${metronomeEnabled ? 'active' : ''}`}
+              onClick={() => setMetronomeEnabled(!metronomeEnabled)}
             />
-            <span className="text-sm font-medium">Metronome</span>
+            <span className="text-sm font-medium text-white">Metronome</span>
           </label>
         </div>
+
+        {/* Progress bar */}
+        {isPlaying && tabDataRef.current.length > 0 && (
+          <div className="mt-4 progress-bar-elite">
+            <div
+              className="fill"
+              style={{ width: `${(currentPosition / tabDataRef.current.length) * 100}%` }}
+            />
+          </div>
+        )}
       </div>
 
       {/* Inline Tab Display (from /riff command) */}
       {useInlineMode && (
-        <div className="bg-gray-800 rounded-lg p-6 mb-6 border border-teal-500">
-          <h3 className="text-xl font-bold mb-4 text-teal-400">
+        <div className="rounded-xl p-6 mb-6 sheet-music-container controls-panel-glass">
+          <h3 className="text-xl font-bold mb-4 gradient-text">
             AI-Generated Riff (E Phrygian)
           </h3>
-          <pre className="font-mono text-sm sm:text-base bg-gray-900 p-4 rounded overflow-x-auto text-green-400">
+          <pre className="font-mono text-sm sm:text-base bg-gray-900/80 p-4 rounded-lg overflow-x-auto text-green-400 border border-gray-700">
             {tab.join('\n')}
           </pre>
           <p className="text-gray-400 text-sm mt-3">
@@ -477,15 +506,15 @@ export default function TabPlayer() {
 
       {/* alphaTab Guitar Pro File Rendering (only if not inline mode) */}
       {!useInlineMode && (
-        <div className="bg-gray-800 rounded-lg p-6 mb-6 border border-gray-700">
-          <h3 className="text-xl font-bold mb-4 text-blue-400">
+        <div className="rounded-xl p-6 mb-6 sheet-music-container controls-panel-glass">
+          <h3 className="text-xl font-bold mb-4 gradient-text">
             Guitar Pro File: {gpFileName.replace('.gp', '').replace(/-/g, ' ')}
           </h3>
 
           {gpFileLoading && (
             <div className="text-center py-8">
-              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400 mb-3"></div>
-              <p className="text-blue-300 font-medium">Loading Guitar Pro file...</p>
+              <div className="spinner-elite mx-auto mb-3"></div>
+              <p className="text-teal-300 font-medium">Loading Guitar Pro file...</p>
             </div>
           )}
 
@@ -497,8 +526,8 @@ export default function TabPlayer() {
 
           <div
             ref={alphaTabContainerRef}
-            className="overflow-x-auto min-h-[200px]"
-            style={{ minHeight: '300px' }}
+            className="tabplayer-viewport rounded-lg"
+            style={{ width: '100%' }}
           />
         </div>
       )}

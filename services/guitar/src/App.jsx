@@ -15,6 +15,7 @@ const ScaleTrainer = lazy(() => import('./pages/ScaleTrainer'));
 const EarTraining = lazy(() => import('./pages/EarTraining'));
 const Pricing = lazy(() => import('./pages/Pricing'));
 const RiffGenerator = lazy(() => import('./pages/RiffGenerator'));
+const About = lazy(() => import('./pages/About'));
 
 // Loading fallback
 function PageLoader() {
@@ -47,6 +48,7 @@ function App() {
             <Route path="/ear-training" element={<EarTraining />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/riff-generator" element={<RiffGenerator />} />
+            <Route path="/about" element={<About />} />
           </Routes>
         </Suspense>
       </div>

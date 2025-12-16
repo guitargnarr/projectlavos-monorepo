@@ -11,6 +11,9 @@ const GUITAR_STRINGS = [
   { name: 'E', octave: 4, frequency: 329.63, stringNum: 1 }
 ];
 
+// All 12 chromatic notes for detection circles
+const CHROMATIC_NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+
 // Tolerance for "in tune" detection (in cents)
 const IN_TUNE_THRESHOLD = 5; // cents
 const CLOSE_THRESHOLD = 15; // cents
@@ -19,6 +22,7 @@ export default function Tuner() {
   const [isListening, setIsListening] = useState(false);
   const [detectedFrequency, setDetectedFrequency] = useState(null);
   const [detectedString, setDetectedString] = useState(null);
+  const [detectedNote, setDetectedNote] = useState(null);
   const [centsOff, setCentsOff] = useState(0);
   const [error, setError] = useState(null);
 
@@ -36,17 +40,14 @@ export default function Tuner() {
     let bestCorrelation = 0;
     let rms = 0;
 
-    // Calculate RMS (root mean square) to check if signal is strong enough
     for (let i = 0; i < SIZE; i++) {
       const val = buffer[i];
       rms += val * val;
     }
     rms = Math.sqrt(rms / SIZE);
 
-    // If signal is too weak, return -1
     if (rms < 0.01) return -1;
 
-    // Find the best offset using autocorrelation
     let lastCorrelation = 1;
     for (let offset = 0; offset < MAX_SAMPLES; offset++) {
       let correlation = 0;
@@ -79,6 +80,14 @@ export default function Tuner() {
     return 1200 * Math.log2(detected / target);
   };
 
+  // Get note name from frequency
+  const frequencyToNote = (frequency) => {
+    if (!frequency || frequency < 20) return null;
+    const noteNum = 12 * (Math.log2(frequency / 440)) + 69;
+    const noteIndex = Math.round(noteNum) % 12;
+    return CHROMATIC_NOTES[noteIndex];
+  };
+
   // Find closest guitar string to detected frequency
   const findClosestString = (frequency) => {
     if (!frequency || frequency < 70 || frequency > 350) return null;
@@ -101,17 +110,17 @@ export default function Tuner() {
   const getTuningStatus = (cents) => {
     const absCents = Math.abs(cents);
     if (absCents <= IN_TUNE_THRESHOLD) {
-      return { status: 'in-tune', color: '#10b981', label: 'In Tune!' };
+      return { status: 'perfect', color: '#14b8a6', label: 'In Tune!' };
     } else if (absCents <= CLOSE_THRESHOLD) {
       return {
-        status: 'close',
-        color: '#fbbf24',
+        status: cents > 0 ? 'sharp' : 'flat',
+        color: cents > 0 ? '#f97316' : '#3b82f6',
         label: cents > 0 ? 'Sharp' : 'Flat'
       };
     } else {
       return {
-        status: 'off',
-        color: cents > 0 ? '#f97316' : '#ef4444',
+        status: cents > 0 ? 'sharp' : 'flat',
+        color: cents > 0 ? '#f97316' : '#3b82f6',
         label: cents > 0 ? 'Too Sharp' : 'Too Flat'
       };
     }
@@ -128,13 +137,12 @@ export default function Tuner() {
     const centerX = width / 2;
     const centerY = height / 2;
 
-    // Clear canvas
     ctx.clearRect(0, 0, width, height);
 
     // Draw gauge background arc
     ctx.beginPath();
     ctx.arc(centerX, centerY + 40, 120, Math.PI * 0.75, Math.PI * 0.25, false);
-    ctx.strokeStyle = '#374151';
+    ctx.strokeStyle = '#334155';
     ctx.lineWidth = 20;
     ctx.stroke();
 
@@ -153,14 +161,13 @@ export default function Tuner() {
         centerX + Math.cos(angle) * endRadius,
         centerY + 40 + Math.sin(angle) * endRadius
       );
-      ctx.strokeStyle = '#9ca3af';
+      ctx.strokeStyle = '#64748b';
       ctx.lineWidth = 2;
       ctx.stroke();
 
-      // Draw labels for major ticks
       if (i % 20 === 0) {
-        ctx.fillStyle = '#9ca3af';
-        ctx.font = '12px sans-serif';
+        ctx.fillStyle = '#64748b';
+        ctx.font = '12px ui-monospace, monospace';
         ctx.textAlign = 'center';
         ctx.fillText(
           i.toString(),
@@ -181,14 +188,18 @@ export default function Tuner() {
       centerX + Math.cos(centerAngle) * 90,
       centerY + 40 + Math.sin(centerAngle) * 90
     );
-    ctx.strokeStyle = '#10b981';
+    ctx.strokeStyle = '#14b8a6';
     ctx.lineWidth = 3;
     ctx.stroke();
 
-    // Draw needle
+    // Draw needle with glow
     const clampedCents = Math.max(-50, Math.min(50, cents));
     const needleAngle = Math.PI * 0.75 + (clampedCents + 50) / 100 * Math.PI * 1.5;
     const tuningStatus = getTuningStatus(cents);
+
+    // Needle glow
+    ctx.shadowColor = tuningStatus.color;
+    ctx.shadowBlur = 15;
 
     ctx.beginPath();
     ctx.moveTo(centerX, centerY + 40);
@@ -200,11 +211,16 @@ export default function Tuner() {
     ctx.lineWidth = 4;
     ctx.stroke();
 
-    // Draw needle center circle
+    ctx.shadowBlur = 0;
+
+    // Draw needle center circle with glow
+    ctx.shadowColor = tuningStatus.color;
+    ctx.shadowBlur = 10;
     ctx.beginPath();
-    ctx.arc(centerX, centerY + 40, 8, 0, 2 * Math.PI);
+    ctx.arc(centerX, centerY + 40, 10, 0, 2 * Math.PI);
     ctx.fillStyle = tuningStatus.color;
     ctx.fill();
+    ctx.shadowBlur = 0;
   };
 
   // Main pitch detection loop
@@ -222,6 +238,7 @@ export default function Tuner() {
 
     if (frequency > 0) {
       setDetectedFrequency(frequency);
+      setDetectedNote(frequencyToNote(frequency));
 
       const closestString = findClosestString(frequency);
       if (closestString) {
@@ -292,9 +309,9 @@ export default function Tuner() {
     setIsListening(false);
     setDetectedFrequency(null);
     setDetectedString(null);
+    setDetectedNote(null);
     setCentsOff(0);
 
-    // Clear canvas
     const canvas = canvasRef.current;
     if (canvas) {
       const ctx = canvas.getContext('2d');
@@ -302,7 +319,6 @@ export default function Tuner() {
     }
   };
 
-  // Cleanup on unmount
   useEffect(() => {
     return () => {
       stopTuner();
@@ -312,146 +328,175 @@ export default function Tuner() {
   const tuningStatus = detectedString ? getTuningStatus(centsOff) : null;
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
-      <div className="mb-6">
-        <Link to="/" className="text-green-500 hover:text-green-400 flex items-center gap-2">
+    <div className="tuner-page">
+      <div className="tuner-page-inner">
+        {/* Back Link */}
+        <Link to="/" className="tuner-back-link">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
           Back to Home
         </Link>
-      </div>
 
-      <header className="text-center mb-8">
-        <h1 className="text-4xl font-bold mb-2 text-green-400">Guitar Tuner</h1>
-        <p className="text-gray-400">Real-time pitch detection using Web Audio API</p>
-      </header>
+        {/* Header */}
+        <header className="tuner-header">
+          <h1 className="tuner-title">Guitar Tuner</h1>
+          <p className="tuner-subtitle">Real-time pitch detection with Web Audio API</p>
+        </header>
 
-      {/* Tuner Control */}
-      <div className="bg-gray-800 rounded-lg p-6 mb-6 border border-gray-700 text-center">
-        <button
-          onClick={isListening ? stopTuner : startTuner}
-          className={`px-8 py-4 rounded-lg font-bold text-lg transition-all ${
-            isListening
-              ? 'bg-red-500 hover:bg-red-600 text-white'
-              : 'bg-green-500 hover:bg-green-600 text-white'
-          }`}
-        >
-          {isListening ? 'Stop Tuner' : 'Start Tuner'}
-        </button>
+        {/* Control Panel */}
+        <div className="tuner-control-panel">
+          <button
+            onClick={isListening ? stopTuner : startTuner}
+            className={`tuner-button-start ${isListening ? 'tuner-button-active' : 'tuner-button-inactive'}`}
+          >
+            <span className="tuner-button-ring" />
+            {isListening ? 'Stop' : 'Start'}
+          </button>
 
-        {error && (
-          <div className="mt-4 p-4 bg-red-900/50 border border-red-500 rounded text-red-200">
-            {error}
-          </div>
-        )}
+          {error && (
+            <div className="tuner-error">{error}</div>
+          )}
 
-        {isListening && !detectedFrequency && (
-          <div className="mt-4 text-gray-400">
-            Play a string... Listening for pitch...
-          </div>
-        )}
-      </div>
-
-      {/* Gauge Display */}
-      {isListening && (
-        <div className="bg-gray-800 rounded-lg p-6 mb-6 border border-gray-700">
-          <div className="text-center mb-4">
-            {detectedString ? (
-              <>
-                <div className="text-6xl font-bold mb-2" style={{ color: tuningStatus.color }}>
-                  {detectedString.name}{detectedString.octave}
-                </div>
-                <div className="text-2xl font-medium mb-2" style={{ color: tuningStatus.color }}>
-                  {tuningStatus.label}
-                </div>
-                <div className="text-lg text-gray-400">
-                  String {detectedString.stringNum}
-                </div>
-              </>
-            ) : (
-              <div className="text-2xl text-gray-400">Detecting...</div>
-            )}
-          </div>
-
-          <div className="flex justify-center mb-4">
-            <canvas
-              ref={canvasRef}
-              width={400}
-              height={300}
-              className="max-w-full"
-            />
-          </div>
-
-          {detectedFrequency && (
-            <div className="text-center space-y-2">
-              <div className="text-lg">
-                Detected: <span className="font-mono font-bold text-blue-400">
-                  {detectedFrequency.toFixed(2)} Hz
-                </span>
-              </div>
-              {detectedString && (
-                <>
-                  <div className="text-lg">
-                    Target: <span className="font-mono font-bold text-green-400">
-                      {detectedString.frequency.toFixed(2)} Hz
-                    </span>
-                  </div>
-                  <div className="text-lg">
-                    Difference: <span className="font-mono font-bold" style={{ color: tuningStatus.color }}>
-                      {centsOff > 0 ? '+' : ''}{centsOff.toFixed(1)} cents
-                    </span>
-                  </div>
-                </>
-              )}
+          {isListening && !detectedFrequency && (
+            <div className="tuner-listening-text">
+              Play a string... Listening for pitch...
             </div>
           )}
         </div>
-      )}
 
-      {/* String Reference Chart */}
-      <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
-        <h3 className="text-xl font-bold mb-4 text-green-400">Standard Tuning Reference</h3>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {GUITAR_STRINGS.map((string) => (
-            <div
-              key={string.stringNum}
-              className={`p-4 rounded-lg border-2 transition-all ${
-                detectedString && detectedString.stringNum === string.stringNum
-                  ? 'border-green-500 bg-green-900/20'
-                  : 'border-gray-600 bg-gray-700/50'
-              }`}
-            >
-              <div className="text-center">
-                <div className="text-sm text-gray-400 mb-1">String {string.stringNum}</div>
-                <div className="text-3xl font-bold text-green-400">
+        {/* Gauge Display */}
+        {isListening && (
+          <div className="tuner-gauge-panel">
+            {/* Note Display */}
+            <div className="tuner-note-display">
+              {detectedString ? (
+                <>
+                  <div className="tuner-note-name" style={{ color: tuningStatus.color }}>
+                    {detectedString.name}{detectedString.octave}
+                  </div>
+                  <div className="tuner-note-status" style={{ color: tuningStatus.color }}>
+                    {tuningStatus.label}
+                  </div>
+                  <div className="tuner-note-string">String {detectedString.stringNum}</div>
+                </>
+              ) : (
+                <div className="tuner-note-name" style={{ color: '#64748b' }}>--</div>
+              )}
+            </div>
+
+            {/* Pitch Indicator (Sharp/Flat/Perfect) */}
+            <div className="tuner-pitch-indicator">
+              <span className="text-sm text-blue-400 font-medium">FLAT</span>
+              {[-3, -2, -1, 0, 1, 2, 3].map((level) => {
+                let markerClass = 'tuner-pitch-marker';
+                if (tuningStatus) {
+                  const normalizedCents = Math.round(centsOff / 10);
+                  if (level === 0 && tuningStatus.status === 'perfect') {
+                    markerClass += ' perfect';
+                  } else if (level === normalizedCents && level < 0) {
+                    markerClass += ' flat';
+                  } else if (level === normalizedCents && level > 0) {
+                    markerClass += ' sharp';
+                  }
+                }
+                return <div key={level} className={markerClass} />;
+              })}
+              <span className="text-sm text-orange-400 font-medium">SHARP</span>
+            </div>
+
+            {/* Detection Circles (12 semitones) */}
+            <div className="tuner-detection-circles">
+              {CHROMATIC_NOTES.map((note) => (
+                <div
+                  key={note}
+                  className={`tuner-detection-dot ${detectedNote === note ? 'active' : ''}`}
+                  title={note}
+                >
+                  <span className="tuner-detection-dot-label">{note}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Canvas Gauge */}
+            <div className="tuner-gauge-canvas">
+              <canvas
+                ref={canvasRef}
+                width={400}
+                height={300}
+              />
+            </div>
+
+            {/* Cents Display */}
+            {detectedFrequency && tuningStatus && (
+              <div className="tuner-cents-display">
+                <div className="tuner-cents-value" style={{ color: tuningStatus.color }}>
+                  {centsOff > 0 ? '+' : ''}{centsOff.toFixed(1)}
+                </div>
+                <div className="tuner-cents-label">cents</div>
+              </div>
+            )}
+
+            {/* Frequency Info */}
+            {detectedFrequency && (
+              <div className="tuner-freq-info">
+                <div className="tuner-freq-row">
+                  Detected: <span className="tuner-freq-value tuner-freq-detected">
+                    {detectedFrequency.toFixed(2)} Hz
+                  </span>
+                </div>
+                {detectedString && (
+                  <div className="tuner-freq-row">
+                    Target: <span className="tuner-freq-value tuner-freq-target">
+                      {detectedString.frequency.toFixed(2)} Hz
+                    </span>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* String Reference Grid */}
+        <div className="tuner-reference-panel">
+          <h3 className="tuner-reference-title">Standard Tuning Reference</h3>
+          <div className="tuner-string-grid">
+            {GUITAR_STRINGS.map((string) => (
+              <div
+                key={string.stringNum}
+                className={`tuner-string-card ${
+                  detectedString && detectedString.stringNum === string.stringNum ? 'detected' : ''
+                }`}
+              >
+                <div className="tuner-string-num">String {string.stringNum}</div>
+                <div className="tuner-string-name">
                   {string.name}{string.octave}
                 </div>
-                <div className="text-sm text-gray-400 font-mono mt-1">
+                <div className="tuner-string-freq">
                   {string.frequency.toFixed(2)} Hz
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Instructions */}
-      <div className="bg-gray-800 rounded-lg p-6 mt-6 border border-gray-700">
-        <h3 className="text-xl font-bold mb-4 text-green-400">How to Use</h3>
-        <ol className="list-decimal list-inside space-y-2 text-gray-300">
-          <li>Click &quot;Start Tuner&quot; and allow microphone access</li>
-          <li>Play one string at a time on your guitar</li>
-          <li>Watch the gauge needle - center means in tune!</li>
-          <li>Adjust your tuning peg:
-            <ul className="list-disc list-inside ml-6 mt-1 space-y-1">
-              <li className="text-red-400">Red/Left (Flat): Tighten the string</li>
-              <li className="text-green-400">Green/Center (In Tune): Perfect!</li>
-              <li className="text-orange-400">Orange/Right (Sharp): Loosen the string</li>
-            </ul>
-          </li>
-          <li>The tuner automatically detects which string you&apos;re playing</li>
-        </ol>
+        {/* Instructions */}
+        <div className="tuner-instructions">
+          <h3 className="tuner-instructions-title">How to Use</h3>
+          <ol className="tuner-instructions-list">
+            <li>Click the Start button and allow microphone access</li>
+            <li>Play one string at a time on your guitar</li>
+            <li>Watch the gauge needle - center means in tune!</li>
+            <li>Adjust your tuning peg:
+              <ul>
+                <li><span className="flat-hint">Blue/Left (Flat): Tighten the string</span></li>
+                <li><span className="perfect-hint">Teal/Center (In Tune): Perfect!</span></li>
+                <li><span className="sharp-hint">Orange/Right (Sharp): Loosen the string</span></li>
+              </ul>
+            </li>
+            <li>The tuner automatically detects which string you are playing</li>
+          </ol>
+        </div>
       </div>
     </div>
   );

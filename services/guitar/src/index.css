@@ -1,3 +1,2216 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ===== ELITE FRONTEND ENHANCEMENTS 2025 ===== */
+
+/* Staggered entrance animations */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-scale {
+  animation: fade-in-scale 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+/* Stagger delays */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+.delay-700 { animation-delay: 0.7s; }
+.delay-800 { animation-delay: 0.8s; }
+
+/* Floating/breathing animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(20, 184, 166, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(20, 184, 166, 0.5); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* Button micro-interactions */
+.btn-elite {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-elite::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-elite:hover::before {
+  left: 100%;
+}
+
+.btn-elite:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px rgba(20, 184, 166, 0.4);
+}
+
+.btn-elite:active {
+  transform: translateY(0);
+}
+
+/* Card lift effect */
+.card-elite {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-elite:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Glow border effect */
+.glow-border {
+  position: relative;
+}
+
+.glow-border::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, #14b8a6, #f97316, #14b8a6);
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.glow-border:hover::after {
+  opacity: 1;
+  filter: blur(8px);
+}
+
+/* Hero gradient depth */
+.hero-gradient {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(20, 184, 166, 0.15), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 60%, rgba(249, 115, 22, 0.1), transparent),
+    radial-gradient(ellipse 50% 30% at 20% 80%, rgba(20, 184, 166, 0.1), transparent);
+}
+
+/* Text shimmer effect for headings */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    #2dd4bf 0%,
+    #ffffff 25%,
+    #2dd4bf 50%,
+    #fb923c 75%,
+    #2dd4bf 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(135deg, #2dd4bf 0%, #fb923c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== TABPLAYER ELITE ENHANCEMENTS ===== */
+
+/* Glassmorphism controls panel */
+.controls-panel-glass {
+  background: rgba(30, 41, 59, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Play button pulse animation during playback */
+@keyframes pulse-play {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(34, 197, 94, 0);
+    transform: scale(1.02);
+  }
+}
+
+.btn-play {
+  position: relative;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-play:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+}
+
+.btn-play:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.btn-play.playing {
+  animation: pulse-play 1.5s ease-in-out infinite;
+}
+
+/* Stop button with shake micro-interaction */
+.btn-stop {
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-stop:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+}
+
+.btn-stop:active {
+  transform: scale(0.95);
+}
+
+/* Loop toggle with glow when active */
+.btn-loop {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.btn-loop.active {
+  box-shadow: 0 0 20px rgba(249, 115, 22, 0.5),
+              0 0 40px rgba(249, 115, 22, 0.3);
+}
+
+.btn-loop.active::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, #f97316, #fb923c, #f97316);
+  border-radius: inherit;
+  z-index: -1;
+  animation: rotate-glow 3s linear infinite;
+  filter: blur(4px);
+}
+
+@keyframes rotate-glow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Elite tempo slider */
+.tempo-slider {
+  appearance: none;
+  -webkit-appearance: none;
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #334155, #475569);
+  outline: none;
+}
+
+.tempo-slider::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #14b8a6, #2dd4bf);
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(20, 184, 166, 0.5);
+  transition: all 0.2s ease;
+}
+
+.tempo-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 20px rgba(20, 184, 166, 0.7);
+}
+
+.tempo-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #14b8a6, #2dd4bf);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 10px rgba(20, 184, 166, 0.5);
+}
+
+/* Progress bar with animated gradient */
+.progress-bar-elite {
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #334155, #475569);
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar-elite .fill {
+  height: 100%;
+  background: linear-gradient(90deg, #14b8a6, #2dd4bf, #f97316);
+  background-size: 200% 100%;
+  animation: gradient-flow 2s linear infinite;
+  transition: width 0.1s linear;
+}
+
+@keyframes gradient-flow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* Sheet music container glow */
+.sheet-music-container {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.sheet-music-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.3), rgba(249, 115, 22, 0.3));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Metronome checkbox elite styling */
+.metronome-toggle {
+  position: relative;
+  width: 48px;
+  height: 24px;
+  background: #334155;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.metronome-toggle.active {
+  background: linear-gradient(135deg, #14b8a6, #2dd4bf);
+}
+
+.metronome-toggle::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.metronome-toggle.active::after {
+  transform: translateX(24px);
+}
+
+/* Loading spinner elite */
+.spinner-elite {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(20, 184, 166, 0.2);
+  border-top-color: #14b8a6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Header gradient for TabPlayer */
+.header-elite {
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.1), rgba(249, 115, 22, 0.1));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ===== ALPHATAB CURSOR & PLAYBACK SYNC ===== */
+
+/* Main playback cursor - vertical line that moves with playback */
+.at-cursor-bar {
+  background: linear-gradient(180deg, #14b8a6, #2dd4bf) !important;
+  width: 3px !important;
+  opacity: 0.9 !important;
+  box-shadow: 0 0 10px rgba(20, 184, 166, 0.6),
+              0 0 20px rgba(20, 184, 166, 0.4) !important;
+  border-radius: 2px !important;
+}
+
+/* Beat cursor - highlights current beat */
+.at-cursor-beat {
+  background: rgba(249, 115, 22, 0.3) !important;
+  border-left: 2px solid #f97316 !important;
+  transition: left 0.05s linear !important;
+}
+
+/* Selection highlight for clicked notes */
+.at-selection div {
+  background: rgba(20, 184, 166, 0.2) !important;
+  border: 1px solid rgba(20, 184, 166, 0.5) !important;
+  border-radius: 4px !important;
+}
+
+/* Highlighted notes during playback */
+.at-highlight * {
+  fill: #f97316 !important;
+  color: #f97316 !important;
+}
+
+/* Container styling for smooth scrolling */
+.at-main {
+  scroll-behavior: smooth !important;
+}
+
+/* Tab player container with fixed height for vertical scrolling (page layout) */
+.tabplayer-viewport {
+  max-height: 600px; /* Taller for multiple rows of 4 bars each */
+  overflow-x: hidden; /* No horizontal scroll needed */
+  overflow-y: auto; /* Vertical scroll for stacked rows */
+  scroll-behavior: smooth;
+  position: relative;
+  width: 100%;
+  max-width: 900px; /* Constrain width to force 4-bar wrapping */
+  margin: 0 auto; /* Center the notation */
+}
+
+/* Ensure the alphaTab canvas doesn't overflow weirdly */
+.tabplayer-viewport canvas {
+  display: block;
+}
+
+/* Current bar highlight background */
+.at-bar-cursor {
+  background: linear-gradient(90deg,
+    rgba(20, 184, 166, 0.05),
+    rgba(20, 184, 166, 0.15),
+    rgba(20, 184, 166, 0.05)) !important;
+}
+
+/* Note playback animation - pulse effect on played notes */
+@keyframes note-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.at-note-active {
+  animation: note-pulse 0.15s ease-out !important;
+}
+
+/* Countdown cursor styling (for count-in before playback) */
+.at-cursor-countdown {
+  background: rgba(249, 115, 22, 0.5) !important;
+  border: 2px dashed #f97316 !important;
+}
+
+/* Loading state styling */
+.at-loading {
+  background: rgba(30, 41, 59, 0.9) !important;
+  color: #14b8a6 !important;
+}
+
+/* Track header styling */
+.at-track {
+  background: rgba(30, 41, 59, 0.6) !important;
+  border-bottom: 1px solid rgba(20, 184, 166, 0.3) !important;
+}
+
+/* Ensure dark theme compatibility */
+.at-surface {
+  background: transparent !important;
+}
+
+/* Scrollbar styling for the tab viewport */
+.tabplayer-viewport::-webkit-scrollbar {
+  height: 8px;
+}
+
+.tabplayer-viewport::-webkit-scrollbar-track {
+  background: #1e293b;
+  border-radius: 4px;
+}
+
+.tabplayer-viewport::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #14b8a6, #2dd4bf);
+  border-radius: 4px;
+}
+
+.tabplayer-viewport::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(90deg, #2dd4bf, #14b8a6);
+}
+
+/* ===== ALPHATAB WHITE FONT OVERRIDE ===== */
+.tabplayer-viewport text,
+.tabplayer-viewport .at-surface text,
+.at-surface text,
+.at-main text {
+  fill: #ffffff !important;
+}
+
+.tabplayer-viewport svg text,
+.at-surface svg text {
+  fill: #ffffff !important;
+}
+
+/* Force white on all alphaTab text elements */
+[class*="at-"] text {
+  fill: #ffffff !important;
+}
+
+/* ===== DAW-STYLE PREMIUM CONTROLS ===== */
+
+/* Play button - circular DAW style */
+.btn-play {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #2ade6a, #18a84a);
+  box-shadow:
+    0 4px 15px rgba(34, 197, 94, 0.4),
+    inset 0 2px 4px rgba(255, 255, 255, 0.2),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.15s ease;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  font-weight: bold;
+}
+
+.btn-play:hover {
+  transform: scale(1.08);
+  box-shadow:
+    0 6px 25px rgba(34, 197, 94, 0.6),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3);
+}
+
+.btn-play:active {
+  transform: scale(0.95);
+  box-shadow:
+    0 2px 10px rgba(34, 197, 94, 0.4),
+    inset 0 -2px 4px rgba(255, 255, 255, 0.1);
+}
+
+.btn-play.playing {
+  animation: pulse-play 1.5s infinite;
+  background: linear-gradient(145deg, #4ade80, #22c55e);
+}
+
+@keyframes pulse-play {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5), 0 4px 15px rgba(34, 197, 94, 0.4); }
+  50% { box-shadow: 0 0 0 15px rgba(34, 197, 94, 0), 0 4px 15px rgba(34, 197, 94, 0.4); }
+}
+
+/* Stop button - circular DAW style */
+.btn-stop {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #f87171, #dc2626);
+  box-shadow:
+    0 4px 15px rgba(239, 68, 68, 0.4),
+    inset 0 2px 4px rgba(255, 255, 255, 0.2),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.15s ease;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  font-weight: bold;
+}
+
+.btn-stop:hover {
+  transform: scale(1.08);
+  box-shadow:
+    0 6px 25px rgba(239, 68, 68, 0.6),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3);
+}
+
+.btn-stop:active {
+  transform: scale(0.95);
+}
+
+/* Loop button - pill shape */
+.btn-loop {
+  height: 44px;
+  padding: 0 20px;
+  border-radius: 22px;
+  background: linear-gradient(145deg, #475569, #334155);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    inset 0 1px 2px rgba(255, 255, 255, 0.1);
+  transition: all 0.15s ease;
+  border: 2px solid rgba(255, 255, 255, 0.05);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: white;
+}
+
+.btn-loop:hover {
+  transform: scale(1.05);
+  background: linear-gradient(145deg, #64748b, #475569);
+}
+
+.btn-loop:active {
+  transform: scale(0.97);
+}
+
+.btn-loop.active {
+  background: linear-gradient(145deg, #fb923c, #ea580c);
+  box-shadow:
+    0 4px 20px rgba(249, 115, 22, 0.5),
+    inset 0 1px 2px rgba(255, 255, 255, 0.2);
+  animation: loop-glow 2s ease-in-out infinite;
+}
+
+@keyframes loop-glow {
+  0%, 100% { box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4); }
+  50% { box-shadow: 0 4px 25px rgba(249, 115, 22, 0.7), 0 0 30px rgba(249, 115, 22, 0.3); }
+}
+
+/* Tempo label styling */
+.tempo-label {
+  color: #14b8a6;
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(20, 184, 166, 0.3);
+}
+
+/* Metronome toggle - premium switch */
+.metronome-switch {
+  width: 52px;
+  height: 28px;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #334155, #1e293b);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.3),
+    0 1px 2px rgba(255, 255, 255, 0.05);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.metronome-switch::after {
+  content: '';
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #64748b, #475569);
+  top: 3px;
+  left: 3px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.metronome-switch.active {
+  background: linear-gradient(145deg, #14b8a6, #0d9488);
+}
+
+.metronome-switch.active::after {
+  left: 27px;
+  background: linear-gradient(145deg, #ffffff, #e2e8f0);
+}
+
+/* ============================================
+   RIFF GENERATOR ELITE CSS
+   Premium enhancements for fretboard visualization
+   and control panels
+   ============================================ */
+
+/* --- Premium MiniFretboard --- */
+.fretboard-elite {
+  background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%);
+  border: 1px solid rgba(20, 184, 166, 0.2);
+  border-radius: 12px;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 40px rgba(20, 184, 166, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Wood grain texture overlay */
+.fretboard-elite::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 2px,
+    rgba(139, 90, 43, 0.03) 2px,
+    rgba(139, 90, 43, 0.03) 4px
+  );
+  pointer-events: none;
+}
+
+/* Fret marker inlays (dots at frets 3, 5, 7, 9, 12) */
+.fret-inlay {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #e2e8f0 0%, #94a3b8 100%);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+  opacity: 0.6;
+}
+
+/* String highlight on hover */
+.string-elite {
+  transition: all 0.15s ease;
+}
+
+.string-elite:hover {
+  background: rgba(20, 184, 166, 0.1);
+}
+
+/* Fret note dot - base */
+.fret-dot-elite {
+  transition: all 0.15s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Root note - teal with glow */
+.fret-dot-root {
+  background: linear-gradient(145deg, #14b8a6, #0d9488);
+  box-shadow:
+    0 2px 8px rgba(20, 184, 166, 0.5),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+/* Scale note - subtle */
+.fret-dot-scale {
+  background: linear-gradient(145deg, #64748b, #475569);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    inset 0 1px 2px rgba(255, 255, 255, 0.1);
+}
+
+/* Active/Playing note - orange pulse */
+.fret-dot-active {
+  background: linear-gradient(145deg, #fb923c, #ea580c);
+  box-shadow:
+    0 0 20px rgba(249, 115, 22, 0.7),
+    0 2px 8px rgba(249, 115, 22, 0.5),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  animation: note-pulse 0.3s ease-out;
+}
+
+@keyframes note-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1.25); }
+}
+
+/* --- Pattern Selector Buttons --- */
+.pattern-btn-elite {
+  background: linear-gradient(145deg, #1e293b, #0f172a);
+  border: 1px solid rgba(100, 116, 139, 0.3);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.pattern-btn-elite::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.pattern-btn-elite:hover {
+  transform: translateY(-2px);
+  border-color: rgba(20, 184, 166, 0.4);
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(20, 184, 166, 0.1);
+}
+
+.pattern-btn-elite:active {
+  transform: translateY(0);
+}
+
+.pattern-btn-elite.selected {
+  background: linear-gradient(145deg, rgba(20, 184, 166, 0.15), rgba(20, 184, 166, 0.05));
+  border-color: #14b8a6;
+  box-shadow:
+    0 0 20px rgba(20, 184, 166, 0.2),
+    inset 0 1px 0 rgba(20, 184, 166, 0.2);
+}
+
+/* --- Root Note Grid --- */
+.root-btn-elite {
+  background: linear-gradient(145deg, #334155, #1e293b);
+  border: 1px solid rgba(100, 116, 139, 0.3);
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.root-btn-elite:hover {
+  transform: scale(1.05);
+  border-color: rgba(20, 184, 166, 0.5);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.root-btn-elite.selected {
+  background: linear-gradient(145deg, #14b8a6, #0d9488);
+  border-color: #2dd4bf;
+  color: white;
+  box-shadow:
+    0 4px 15px rgba(20, 184, 166, 0.4),
+    inset 0 1px 2px rgba(255, 255, 255, 0.2);
+  animation: root-glow 2s ease-in-out infinite;
+}
+
+@keyframes root-glow {
+  0%, 100% { box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3); }
+  50% { box-shadow: 0 4px 20px rgba(20, 184, 166, 0.5), 0 0 25px rgba(20, 184, 166, 0.2); }
+}
+
+/* --- Export Button Row --- */
+.export-btn-elite {
+  background: linear-gradient(145deg, #334155, #1e293b);
+  border: 1px solid rgba(100, 116, 139, 0.3);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.export-btn-elite::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.4s ease;
+}
+
+.export-btn-elite:hover::before {
+  left: 100%;
+}
+
+.export-btn-elite:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Export button variants */
+.export-btn-copy {
+  border-color: rgba(100, 116, 139, 0.5);
+}
+
+.export-btn-tab {
+  background: linear-gradient(145deg, #14b8a6, #0d9488);
+  border-color: #2dd4bf;
+  color: white;
+}
+
+.export-btn-tab:hover {
+  box-shadow: 0 4px 15px rgba(20, 184, 166, 0.4);
+}
+
+.export-btn-midi {
+  background: linear-gradient(145deg, #f97316, #ea580c);
+  border-color: #fb923c;
+  color: white;
+}
+
+.export-btn-midi:hover {
+  box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
+}
+
+.export-btn-gp5 {
+  background: linear-gradient(145deg, #a855f7, #9333ea);
+  border-color: #c084fc;
+  color: white;
+}
+
+.export-btn-gp5:hover {
+  box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+}
+
+/* --- Settings Panel Glassmorphism --- */
+.settings-panel-elite {
+  background: rgba(30, 41, 59, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(100, 116, 139, 0.2);
+  border-radius: 16px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Section header */
+.section-header-elite {
+  color: #14b8a6;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-shadow: 0 0 20px rgba(20, 184, 166, 0.3);
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.section-header-elite::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, #14b8a6, transparent);
+}
+
+/* --- Tab Display Container --- */
+.tab-display-elite {
+  background: linear-gradient(145deg, #0f172a, #020617);
+  border: 1px solid rgba(20, 184, 166, 0.3);
+  border-radius: 12px;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.02);
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* Tab text styling */
+.tab-text-elite {
+  color: #4ade80;
+  text-shadow: 0 0 10px rgba(74, 222, 128, 0.2);
+}
+
+/* --- Premium Progress Bar --- */
+.progress-elite {
+  height: 4px;
+  background: linear-gradient(90deg, #1e293b, #334155);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-elite-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #14b8a6, #2dd4bf, #14b8a6);
+  background-size: 200% 100%;
+  animation: progress-shimmer 2s linear infinite;
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(20, 184, 166, 0.5);
+  transition: width 0.1s ease;
+}
+
+@keyframes progress-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* --- Keyboard Shortcuts Panel --- */
+.shortcuts-panel-elite {
+  background: rgba(30, 41, 59, 0.5);
+  border: 1px solid rgba(100, 116, 139, 0.15);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+}
+
+.kbd-elite {
+  background: linear-gradient(145deg, #334155, #1e293b);
+  border: 1px solid rgba(100, 116, 139, 0.3);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #e2e8f0;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* --- Premium Slider --- */
+.slider-elite {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, #1e293b, #334155);
+  border-radius: 3px;
+  outline: none;
+}
+
+.slider-elite::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #14b8a6, #0d9488);
+  cursor: pointer;
+  box-shadow:
+    0 2px 8px rgba(20, 184, 166, 0.4),
+    inset 0 1px 2px rgba(255, 255, 255, 0.2);
+  transition: all 0.15s ease;
+}
+
+.slider-elite::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+  box-shadow:
+    0 4px 15px rgba(20, 184, 166, 0.5),
+    inset 0 1px 2px rgba(255, 255, 255, 0.2);
+}
+
+.slider-elite::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #14b8a6, #0d9488);
+  cursor: pointer;
+  box-shadow:
+    0 2px 8px rgba(20, 184, 166, 0.4),
+    inset 0 1px 2px rgba(255, 255, 255, 0.2);
+}
+
+/* --- Premium Select Dropdown --- */
+.select-elite {
+  background: linear-gradient(145deg, #1e293b, #0f172a);
+  border: 1px solid rgba(100, 116, 139, 0.3);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #e2e8f0;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.select-elite:hover {
+  border-color: rgba(20, 184, 166, 0.5);
+}
+
+.select-elite:focus {
+  border-color: #14b8a6;
+  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.2);
+  outline: none;
+}
+
+/* --- Scale Info Display --- */
+.scale-info-elite {
+  background: linear-gradient(145deg, rgba(20, 184, 166, 0.1), rgba(20, 184, 166, 0.05));
+  border: 1px solid rgba(20, 184, 166, 0.2);
+  border-radius: 10px;
+  padding: 12px 16px;
+}
+
+.scale-notes-display {
+  font-family: 'JetBrains Mono', monospace;
+  color: #2dd4bf;
+  letter-spacing: 0.05em;
+}
+
+/* ================================================================
+   INTERACTIVE FRETBOARD - Full Neck View with Playback Sync
+   ================================================================ */
+
+.interactive-fretboard-container {
+  background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid rgba(20, 184, 166, 0.3);
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  overflow-x: auto;
+}
+
+/* Fret numbers row */
+.fretboard-fret-numbers {
+  display: flex;
+  padding-left: 28px;
+  margin-bottom: 4px;
+}
+
+.fret-number-label {
+  width: 28px;
+  flex-shrink: 0;
+}
+
+.fret-number {
+  font-size: 10px;
+  color: #64748b;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.fret-marker-number {
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+/* Fretboard body */
+.fretboard-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.fretboard-string-row {
+  display: flex;
+  align-items: center;
+  height: 28px;
+}
+
+.string-label {
+  width: 24px;
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  color: #64748b;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.string-frets {
+  display: flex;
+  flex: 1;
+  height: 100%;
+  border-bottom: 2px solid #475569;
+  position: relative;
+}
+
+/* Individual fret cell */
+.fret-cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #374151;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  min-width: 32px;
+}
+
+.fret-cell:hover {
+  background-color: rgba(20, 184, 166, 0.1);
+}
+
+.fret-cell.nut-fret {
+  border-left: 4px solid #94a3b8;
+  background: linear-gradient(90deg, rgba(148, 163, 184, 0.1) 0%, transparent 100%);
+}
+
+/* Fret marker dots (3, 5, 7, 9, 12) */
+.fret-marker-dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #475569;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Note dots */
+.fret-note-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.fret-note-dot .note-label {
+  font-size: 8px;
+  opacity: 0.8;
+}
+
+.fret-note-dot .fret-label {
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* Note states */
+.fret-note-dot.note-scale {
+  background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+  color: #94a3b8;
+  border: 1px solid #4b5563;
+}
+
+.fret-note-dot.note-scale:hover {
+  background: linear-gradient(135deg, #475569 0%, #374151 100%);
+  transform: scale(1.1);
+}
+
+.fret-note-dot.note-root {
+  background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+  color: white;
+  border: 2px solid #2dd4bf;
+  box-shadow: 0 0 12px rgba(20, 184, 166, 0.5);
+  animation: root-pulse 2s ease-in-out infinite;
+}
+
+.fret-note-dot.note-active {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  color: white;
+  border: 2px solid #fb923c;
+  box-shadow: 0 0 20px rgba(249, 115, 22, 0.8);
+  transform: scale(1.3);
+  animation: active-pulse 0.3s ease-in-out;
+}
+
+@keyframes root-pulse {
+  0%, 100% { box-shadow: 0 0 12px rgba(20, 184, 166, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(20, 184, 166, 0.8); }
+}
+
+@keyframes active-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+  100% { transform: scale(1.3); }
+}
+
+/* Fretboard legend */
+.fretboard-legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #374151;
+  font-size: 12px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #94a3b8;
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.legend-dot.root {
+  background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+  border: 1px solid #2dd4bf;
+}
+
+.legend-dot.scale {
+  background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+  border: 1px solid #4b5563;
+}
+
+.legend-dot.active {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  border: 1px solid #fb923c;
+}
+
+.legend-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #22c55e;
+  margin-left: auto;
+}
+
+.status-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: status-blink 1s ease-in-out infinite;
+}
+
+@keyframes status-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ================================================================
+   DAW-STYLE CONTROLS PANEL - RiffGenerator
+   ================================================================ */
+
+.daw-controls-panel {
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid rgba(20, 184, 166, 0.2);
+  backdrop-filter: blur(12px);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.daw-controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* DAW Button base */
+.daw-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    inset 0 2px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.daw-btn:active {
+  transform: scale(0.95);
+}
+
+/* Play button */
+.daw-btn-play {
+  background: linear-gradient(180deg, #22c55e 0%, #16a34a 100%);
+  color: white;
+}
+
+.daw-btn-play:hover {
+  background: linear-gradient(180deg, #4ade80 0%, #22c55e 100%);
+  box-shadow:
+    0 4px 20px rgba(34, 197, 94, 0.5),
+    inset 0 2px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Stop button */
+.daw-btn-stop {
+  background: linear-gradient(180deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  animation: playing-pulse 1s ease-in-out infinite;
+}
+
+.daw-btn-stop:hover {
+  background: linear-gradient(180deg, #f87171 0%, #ef4444 100%);
+}
+
+@keyframes playing-pulse {
+  0%, 100% { box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3); }
+  50% { box-shadow: 0 4px 24px rgba(239, 68, 68, 0.6); }
+}
+
+/* Loop button */
+.daw-btn-loop {
+  background: linear-gradient(180deg, #475569 0%, #334155 100%);
+  color: #94a3b8;
+  width: 44px;
+  height: 44px;
+  font-size: 16px;
+}
+
+.daw-btn-loop.active {
+  background: linear-gradient(180deg, #14b8a6 0%, #0d9488 100%);
+  color: white;
+  box-shadow:
+    0 4px 16px rgba(20, 184, 166, 0.5),
+    inset 0 2px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Metronome button */
+.daw-btn-metronome {
+  background: linear-gradient(180deg, #475569 0%, #334155 100%);
+  color: #94a3b8;
+  width: 44px;
+  height: 44px;
+  font-size: 16px;
+}
+
+.daw-btn-metronome.active {
+  background: linear-gradient(180deg, #f97316 0%, #ea580c 100%);
+  color: white;
+  box-shadow:
+    0 4px 16px rgba(249, 115, 22, 0.5),
+    inset 0 2px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Regenerate button */
+.daw-btn-regen {
+  background: linear-gradient(180deg, #6366f1 0%, #4f46e5 100%);
+  color: white;
+  width: 44px;
+  height: 44px;
+  font-size: 18px;
+}
+
+.daw-btn-regen:hover {
+  background: linear-gradient(180deg, #818cf8 0%, #6366f1 100%);
+  box-shadow:
+    0 4px 16px rgba(99, 102, 241, 0.5),
+    inset 0 2px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Tempo display */
+.daw-tempo-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 16px;
+  background: rgba(15, 23, 42, 0.8);
+  border-radius: 8px;
+  border: 1px solid #334155;
+}
+
+.daw-tempo-display .tempo-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2dd4bf;
+  font-family: 'JetBrains Mono', monospace;
+  text-shadow: 0 0 10px rgba(45, 212, 191, 0.5);
+}
+
+.daw-tempo-display .tempo-unit {
+  font-size: 10px;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Progress bar */
+.daw-progress-container {
+  margin-top: 16px;
+}
+
+.daw-progress-bar {
+  height: 8px;
+  background: #1e293b;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #334155;
+}
+
+.daw-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #14b8a6 0%, #f97316 100%);
+  border-radius: 4px;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 12px rgba(20, 184, 166, 0.5);
+}
+
+.daw-progress-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.loop-indicator {
+  color: #14b8a6;
+  font-weight: 500;
+}
+
+.playing-indicator {
+  color: #22c55e;
+  animation: status-blink 1s ease-in-out infinite;
+}
+
+/* Open in TabPlayer button */
+.open-tabplayer-btn {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.2) 0%, rgba(20, 184, 166, 0.1) 100%);
+  border: 1px solid rgba(20, 184, 166, 0.3);
+  border-radius: 8px;
+  color: #2dd4bf;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.open-tabplayer-btn:hover {
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.3) 0%, rgba(20, 184, 166, 0.2) 100%);
+  border-color: #14b8a6;
+  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Tab with cursor indicator */
+.tab-with-cursor {
+  position: relative;
+}
+
+/* ========================================
+   ELITE NAVIGATION STYLES
+   ======================================== */
+
+/* Glassmorphism Navbar */
+.navbar-elite {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(20, 184, 166, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Logo with Hover Glow */
+.navbar-logo {
+  transition: all 0.3s ease;
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.navbar-logo:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 20px rgba(20, 184, 166, 0.5);
+}
+
+.navbar-logo:hover div {
+  filter: drop-shadow(0 0 8px rgba(20, 184, 166, 0.6));
+}
+
+/* Base Nav Link */
+.nav-link {
+  transition: all 0.2s ease;
+  position: relative;
+  color: #cbd5e1;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #14b8a6, #f97316);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+  width: 80%;
+}
+
+/* Teal Nav Links */
+.nav-link-teal {
+  color: #cbd5e1;
+}
+
+.nav-link-teal:hover {
+  color: #2dd4bf;
+  background: rgba(20, 184, 166, 0.1);
+}
+
+/* Orange Nav Links */
+.nav-link-orange {
+  color: #cbd5e1;
+}
+
+.nav-link-orange:hover {
+  color: #fb923c;
+  background: rgba(249, 115, 22, 0.1);
+}
+
+/* Active Teal Link */
+.nav-link-active-teal {
+  background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+  color: #0f172a;
+  box-shadow: 0 0 15px rgba(20, 184, 166, 0.4);
+  animation: active-glow-teal 2s ease-in-out infinite;
+}
+
+@keyframes active-glow-teal {
+  0%, 100% { box-shadow: 0 0 10px rgba(20, 184, 166, 0.4); }
+  50% { box-shadow: 0 0 20px rgba(20, 184, 166, 0.6); }
+}
+
+/* Active Orange Link */
+.nav-link-active-orange {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  color: #0f172a;
+  box-shadow: 0 0 15px rgba(249, 115, 22, 0.4);
+  animation: active-glow-orange 2s ease-in-out infinite;
+}
+
+@keyframes active-glow-orange {
+  0%, 100% { box-shadow: 0 0 10px rgba(249, 115, 22, 0.4); }
+  50% { box-shadow: 0 0 20px rgba(249, 115, 22, 0.6); }
+}
+
+/* Mobile Menu Button */
+.mobile-menu-btn {
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(20, 184, 166, 0.3);
+  transition: all 0.2s ease;
+}
+
+.mobile-menu-btn:hover {
+  background: rgba(20, 184, 166, 0.2);
+  border-color: #14b8a6;
+  box-shadow: 0 0 12px rgba(20, 184, 166, 0.3);
+}
+
+/* Mobile Menu Panel */
+.mobile-menu {
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(20, 184, 166, 0.2);
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile Nav Links */
+.mobile-nav-link {
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(51, 65, 85, 0.5);
+  transition: all 0.2s ease;
+  color: #cbd5e1;
+}
+
+.mobile-nav-link:hover {
+  border-color: rgba(20, 184, 166, 0.5);
+  transform: translateY(-2px);
+}
+
+/* ========================================
+   "More" Dropdown Menu - Elite Glassmorphism
+   ======================================== */
+
+.more-dropdown {
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(20, 184, 166, 0.3);
+  animation: dropdownSlide 0.2s ease-out;
+  z-index: 60;
+}
+
+@keyframes dropdownSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-link {
+  color: #cbd5e1;
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.dropdown-link:hover {
+  color: #2dd4bf;
+  background: rgba(20, 184, 166, 0.1);
+  padding-left: 1.25rem;
+}
+
+.dropdown-link-active {
+  color: #14b8a6;
+  background: rgba(20, 184, 166, 0.15);
+  border-left: 3px solid #14b8a6;
+}
+
+.dropdown-link-active:hover {
+  background: rgba(20, 184, 166, 0.2);
+}
+
+/* ========================================
+   TUNER - Elite DAW-Style Visual Overhaul
+   ======================================== */
+
+/* Main Container */
+.tuner-page {
+  background: linear-gradient(180deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  min-height: 100vh;
+}
+
+.tuner-page-inner {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Header */
+.tuner-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  position: relative;
+}
+
+.tuner-header::after {
+  content: '';
+  position: absolute;
+  bottom: -1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 3px;
+  background: linear-gradient(90deg, #14b8a6, #f97316);
+  border-radius: 2px;
+}
+
+.tuner-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #14b8a6 0%, #2dd4bf 50%, #f97316 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+}
+
+.tuner-subtitle {
+  color: #94a3b8;
+  font-size: 1rem;
+}
+
+/* Control Panel - Glassmorphism */
+.tuner-control-panel {
+  background: rgba(30, 41, 59, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(20, 184, 166, 0.2);
+  border-radius: 1rem;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Start/Stop Button - DAW Style */
+.tuner-button-start {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.tuner-button-inactive {
+  background: linear-gradient(180deg, #14b8a6 0%, #0d9488 100%);
+  color: white;
+  box-shadow:
+    0 8px 32px rgba(20, 184, 166, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.tuner-button-inactive:hover {
+  transform: scale(1.05);
+  box-shadow:
+    0 12px 48px rgba(20, 184, 166, 0.5),
+    inset 0 2px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.tuner-button-active {
+  background: linear-gradient(180deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  box-shadow:
+    0 8px 32px rgba(239, 68, 68, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+  animation: tuner-pulse 2s ease-in-out infinite;
+}
+
+.tuner-button-active:hover {
+  transform: scale(1.05);
+}
+
+@keyframes tuner-pulse {
+  0%, 100% {
+    box-shadow:
+      0 8px 32px rgba(239, 68, 68, 0.4),
+      inset 0 2px 0 rgba(255, 255, 255, 0.2),
+      inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+  }
+  50% {
+    box-shadow:
+      0 8px 48px rgba(239, 68, 68, 0.6),
+      inset 0 2px 0 rgba(255, 255, 255, 0.2),
+      inset 0 -2px 0 rgba(0, 0, 0, 0.2),
+      0 0 0 8px rgba(239, 68, 68, 0.2);
+  }
+}
+
+/* Button Icon Ring */
+.tuner-button-ring {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+}
+
+/* Listening Indicator */
+.tuner-listening-text {
+  color: #94a3b8;
+  font-size: 1rem;
+  margin-top: 1.5rem;
+  animation: tuner-fade 1.5s ease-in-out infinite;
+}
+
+@keyframes tuner-fade {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Error Message */
+.tuner-error {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 0.5rem;
+  color: #fca5a5;
+}
+
+/* Gauge Display Panel */
+.tuner-gauge-panel {
+  background: rgba(30, 41, 59, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(20, 184, 166, 0.2);
+  border-radius: 1rem;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Detected Note Display */
+.tuner-note-display {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.tuner-note-name {
+  font-size: 4.5rem;
+  font-weight: 800;
+  line-height: 1;
+  transition: color 0.3s ease;
+}
+
+.tuner-note-status {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.tuner-note-string {
+  font-size: 1rem;
+  color: #94a3b8;
+  margin-top: 0.25rem;
+}
+
+/* Pitch Indicator - Sharp/Flat/Perfect */
+.tuner-pitch-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tuner-pitch-marker {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #334155;
+  transition: all 0.2s ease;
+}
+
+.tuner-pitch-marker.flat {
+  background: #3b82f6;
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.6);
+}
+
+.tuner-pitch-marker.sharp {
+  background: #f97316;
+  box-shadow: 0 0 12px rgba(249, 115, 22, 0.6);
+}
+
+.tuner-pitch-marker.perfect {
+  background: #14b8a6;
+  box-shadow: 0 0 16px rgba(20, 184, 166, 0.8);
+  animation: tuner-perfect-glow 1s ease-in-out infinite;
+}
+
+@keyframes tuner-perfect-glow {
+  0%, 100% {
+    box-shadow: 0 0 16px rgba(20, 184, 166, 0.8);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 24px rgba(20, 184, 166, 1);
+    transform: scale(1.2);
+  }
+}
+
+/* Note Detection Circles (12 semitones) */
+.tuner-detection-circles {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.tuner-detection-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(51, 65, 85, 0.5);
+  border: 2px solid #475569;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.tuner-detection-dot.active {
+  background: rgba(20, 184, 166, 0.3);
+  border-color: #14b8a6;
+  box-shadow: 0 0 12px rgba(20, 184, 166, 0.5);
+}
+
+.tuner-detection-dot.active::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #14b8a6;
+}
+
+.tuner-detection-dot-label {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: #64748b;
+}
+
+/* Canvas Container */
+.tuner-gauge-canvas {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.tuner-gauge-canvas canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Frequency Info */
+.tuner-freq-info {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.tuner-freq-row {
+  font-size: 1rem;
+  color: #94a3b8;
+}
+
+.tuner-freq-value {
+  font-family: ui-monospace, monospace;
+  font-weight: 700;
+}
+
+.tuner-freq-detected { color: #60a5fa; }
+.tuner-freq-target { color: #14b8a6; }
+
+/* String Reference Grid */
+.tuner-reference-panel {
+  background: rgba(30, 41, 59, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(20, 184, 166, 0.2);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.tuner-reference-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #14b8a6;
+  margin-bottom: 1rem;
+}
+
+.tuner-string-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .tuner-string-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.tuner-string-card {
+  padding: 1rem;
+  background: rgba(51, 65, 85, 0.4);
+  border: 2px solid #475569;
+  border-radius: 0.75rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.tuner-string-card:hover {
+  border-color: rgba(20, 184, 166, 0.5);
+  background: rgba(20, 184, 166, 0.1);
+  transform: translateY(-2px);
+}
+
+.tuner-string-card.detected {
+  border-color: #14b8a6;
+  background: rgba(20, 184, 166, 0.15);
+  box-shadow:
+    0 0 20px rgba(20, 184, 166, 0.3),
+    inset 0 0 20px rgba(20, 184, 166, 0.1);
+}
+
+.tuner-string-num {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-bottom: 0.25rem;
+}
+
+.tuner-string-name {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #14b8a6;
+}
+
+.tuner-string-freq {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-family: ui-monospace, monospace;
+  margin-top: 0.25rem;
+}
+
+/* Instructions Panel */
+.tuner-instructions {
+  background: rgba(30, 41, 59, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(20, 184, 166, 0.2);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.tuner-instructions-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #14b8a6;
+  margin-bottom: 1rem;
+}
+
+.tuner-instructions-list {
+  list-style: decimal;
+  list-style-position: inside;
+  color: #cbd5e1;
+}
+
+.tuner-instructions-list li {
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+.tuner-instructions-list ul {
+  list-style: disc;
+  list-style-position: inside;
+  margin-left: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.tuner-instructions-list .flat-hint { color: #3b82f6; }
+.tuner-instructions-list .perfect-hint { color: #14b8a6; }
+.tuner-instructions-list .sharp-hint { color: #f97316; }
+
+/* Back Link */
+.tuner-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #14b8a6;
+  transition: all 0.2s ease;
+  margin-bottom: 1.5rem;
+}
+
+.tuner-back-link:hover {
+  color: #2dd4bf;
+  transform: translateX(-4px);
+}
+
+/* SVG Needle Meter (Alternative to Canvas) */
+.tuner-meter-svg {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+}
+
+.tuner-meter-arc {
+  fill: none;
+  stroke: #334155;
+  stroke-width: 20;
+  stroke-linecap: round;
+}
+
+.tuner-meter-needle {
+  fill: none;
+  stroke: #14b8a6;
+  stroke-width: 4;
+  stroke-linecap: round;
+  transition: all 0.15s ease-out;
+  filter: drop-shadow(0 0 8px rgba(20, 184, 166, 0.5));
+}
+
+.tuner-meter-needle.flat {
+  stroke: #3b82f6;
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.5));
+}
+
+.tuner-meter-needle.sharp {
+  stroke: #f97316;
+  filter: drop-shadow(0 0 8px rgba(249, 115, 22, 0.5));
+}
+
+.tuner-meter-needle.perfect {
+  stroke: #14b8a6;
+  filter: drop-shadow(0 0 12px rgba(20, 184, 166, 0.8));
+}
+
+.tuner-meter-center {
+  fill: #14b8a6;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+/* Cents Display */
+.tuner-cents-display {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.tuner-cents-value {
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: ui-monospace, monospace;
+  transition: color 0.3s ease;
+}
+
+.tuner-cents-label {
+  font-size: 0.875rem;
+  color: #64748b;
+}

@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import Soundfont from 'soundfont-player';
-import { generateTab, getScaleInfo, SCALES, NOTE_NAMES, GuitarTheory, TUNINGS, CHORD_PROGRESSIONS } from '../lib/guitarTheory';
+import { generateTab, getScaleInfo, SCALES, NOTE_NAMES, GuitarTheory, TUNINGS, MIDI_BASE, CHORD_PROGRESSIONS } from '../lib/guitarTheory';
 
 // MIDI file generation utilities
 const MIDI_HEADER = [0x4D, 0x54, 0x68, 0x64]; // 'MThd'
@@ -79,13 +79,22 @@ function encodeVariableLength(value) {
   return result;
 }
 
-// Reuse GuitarSynthesizer from TabPlayer with improved sustain
+// Reuse GuitarSynthesizer from TabPlayer with improved sustain and tuning support
 class GuitarSynthesizer {
-  constructor() {
+  constructor(tuning = 'standard') {
     this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
     this.instrument = null;
     this.loading = true;
-    this.stringBaseMidi = [64, 59, 55, 50, 45, 40];
+    this.tuning = tuning;
+    // Get MIDI base notes for the selected tuning (reversed: high string first in display order)
+    const baseMidi = MIDI_BASE[tuning] || MIDI_BASE.standard;
+    this.stringBaseMidi = [...baseMidi].reverse(); // [E4, B3, G3, D3, A2, E2] for standard
+  }
+
+  setTuning(tuning) {
+    this.tuning = tuning;
+    const baseMidi = MIDI_BASE[tuning] || MIDI_BASE.standard;
+    this.stringBaseMidi = [...baseMidi].reverse();
   }
 
   async loadInstrument() {
@@ -162,7 +171,111 @@ const PROGRESSION_OPTIONS = [
   { value: 'andalusian', label: 'Andalusian', desc: 'Flamenco bVII-bVI-V-i' },
 ];
 
-// Mini fretboard component - responsive with dynamic fret range
+// Interactive Fretboard - Full 15-fret view with playback sync and clickable notes
+function InteractiveFretboard({ activeNotes, scaleNotes, root, position, onNoteClick, isPlaying, tuning = 'standard' }) {
+  const fretCount = 15; // Full neck visibility
+  const fretMarkers = [3, 5, 7, 9, 12]; // Standard guitar fret markers
+  const doubleFretMarker = 12;
+
+  // Use tuning-aware GuitarTheory instance
+  const theory = new GuitarTheory(tuning);
+  const scaleNoteNames = scaleNotes || [];
+
+  // Get string labels from the tuning (reversed for display: high string first)
+  const tuningNotes = TUNINGS[tuning] || TUNINGS.standard;
+  const strings = [...tuningNotes].reverse(); // Display high to low: e, B, G, D, A, E
+
+  // Calculate fret width percentage for responsive layout
+  const fretWidthPct = 100 / fretCount;
+
+  return (
+    <div className="interactive-fretboard-container" role="img" aria-label={`Interactive fretboard showing ${root} scale`}>
+      {/* Fret numbers */}
+      <div className="fretboard-fret-numbers">
+        <span className="fret-number-label"></span>
+        {Array.from({ length: fretCount }, (_, i) => (
+          <span
+            key={i}
+            className={`fret-number ${fretMarkers.includes(i) ? 'fret-marker-number' : ''}`}
+            style={{ width: `${fretWidthPct}%` }}
+          >
+            {i}
+          </span>
+        ))}
+      </div>
+
+      {/* Fretboard body */}
+      <div className="fretboard-body">
+        {strings.map((stringName, stringIdx) => (
+          <div key={stringName} className="fretboard-string-row">
+            <span className="string-label">{stringName}</span>
+            <div className="string-frets">
+              {Array.from({ length: fretCount }, (_, fret) => {
+                const note = theory.getNoteAtFret(5 - stringIdx, fret);
+                const isActive = activeNotes.some(n => n.string === stringIdx && n.fret === fret);
+                const isInScale = scaleNoteNames.includes(note);
+                const isRoot = note === root;
+                const hasMarker = stringIdx === 2 && fretMarkers.includes(fret) && fret !== doubleFretMarker;
+                const hasDoubleMarker = (stringIdx === 1 || stringIdx === 3) && fret === doubleFretMarker;
+
+                return (
+                  <div
+                    key={fret}
+                    className={`fret-cell ${fret === 0 ? 'nut-fret' : ''}`}
+                    style={{ width: `${fretWidthPct}%` }}
+                    onClick={() => onNoteClick && onNoteClick(stringIdx, fret, note)}
+                  >
+                    {/* Fret marker dots */}
+                    {hasMarker && <div className="fret-marker-dot" />}
+                    {hasDoubleMarker && <div className="fret-marker-dot" />}
+
+                    {/* Note dot */}
+                    {isInScale && (
+                      <div
+                        className={`fret-note-dot ${
+                          isActive
+                            ? 'note-active'
+                            : isRoot
+                            ? 'note-root'
+                            : 'note-scale'
+                        }`}
+                        role="button"
+                        aria-label={`${note} at fret ${fret}${isActive ? ', playing' : ''}`}
+                      >
+                        <span className="note-label">{note}</span>
+                        <span className="fret-label">{fret}</span>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Legend */}
+      <div className="fretboard-legend">
+        <span className="legend-item">
+          <span className="legend-dot root" aria-hidden="true"></span> Root
+        </span>
+        <span className="legend-item">
+          <span className="legend-dot scale" aria-hidden="true"></span> Scale
+        </span>
+        <span className="legend-item">
+          <span className="legend-dot active" aria-hidden="true"></span> Playing
+        </span>
+        {isPlaying && (
+          <span className="legend-status">
+            <span className="status-pulse"></span> Playing...
+          </span>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// Mini fretboard component - compact position-based view
 function MiniFretboard({ activeNotes, scaleNotes, root, position }) {
   const strings = ['e', 'B', 'G', 'D', 'A', 'E'];
   const startFret = Math.max(0, (position - 1) * 3);
@@ -172,7 +285,7 @@ function MiniFretboard({ activeNotes, scaleNotes, root, position }) {
   const scaleNoteNames = scaleNotes || [];
 
   return (
-    <div className="bg-slate-900 rounded-lg p-3 sm:p-4 border border-slate-700" role="img" aria-label={`Fretboard showing ${root} scale at position ${position}`}>
+    <div className="fretboard-elite p-3 sm:p-4" role="img" aria-label={`Fretboard showing ${root} scale at position ${position}`}>
       <div className="flex justify-between text-xs text-slate-500 mb-1 pl-5 sm:pl-6">
         {Array.from({ length: fretCount }, (_, i) => (
           <span key={i} className="w-6 sm:w-8 text-center">{startFret + i}</span>
@@ -199,12 +312,12 @@ function MiniFretboard({ activeNotes, scaleNotes, root, position }) {
                   >
                     {isInScale && (
                       <div
-                        className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center text-[10px] sm:text-xs font-bold transition-all duration-100 ${
+                        className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center text-[10px] sm:text-xs font-bold fret-dot-elite ${
                           isActive
-                            ? 'bg-orange-500 text-white scale-125 shadow-lg shadow-orange-500/50'
+                            ? 'fret-dot-active text-white'
                             : isRoot
-                            ? 'bg-teal-500 text-white'
-                            : 'bg-slate-600 text-slate-300'
+                            ? 'fret-dot-root text-white'
+                            : 'fret-dot-scale text-slate-300'
                         }`}
                         role="note"
                         aria-label={`${note} at fret ${fret}${isActive ? ', playing' : ''}`}
@@ -339,7 +452,7 @@ export default function RiffGenerator() {
   // Initialize synth
   useEffect(() => {
     const init = async () => {
-      synthRef.current = new GuitarSynthesizer();
+      synthRef.current = new GuitarSynthesizer(tuning);
       await synthRef.current.loadInstrument();
       setIsLoading(false);
     };
@@ -349,6 +462,13 @@ export default function RiffGenerator() {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
   }, []);
+
+  // Update synth tuning when tuning changes
+  useEffect(() => {
+    if (synthRef.current) {
+      synthRef.current.setTuning(tuning);
+    }
+  }, [tuning]);
 
   // Update URL when settings change
   useEffect(() => {
@@ -494,6 +614,15 @@ export default function RiffGenerator() {
     playNextNote();
     intervalRef.current = setInterval(playNextNote, beatDuration);
   }, [isPlaying, tempo, metronomeEnabled]);
+
+  // Handle clicking a note on the interactive fretboard
+  const handleNoteClick = useCallback((stringIdx, fret, note) => {
+    if (!synthRef.current?.isReady()) return;
+    synthRef.current.playNote(stringIdx, fret, 0.8);
+    // Briefly highlight the clicked note
+    setActiveNotes([{ string: stringIdx, fret }]);
+    setTimeout(() => setActiveNotes([]), 300);
+  }, []);
 
   const regenerate = () => {
     // Check free tier limits
@@ -683,7 +812,7 @@ export default function RiffGenerator() {
             <button
               onClick={exportTab}
               disabled={!tab}
-              className="px-3 py-2 bg-teal-600 hover:bg-teal-500 rounded text-sm disabled:opacity-50"
+              className="export-btn-elite export-btn-tab"
               title="Download Tab file"
               aria-label="Download Tab file"
             >
@@ -692,7 +821,7 @@ export default function RiffGenerator() {
             <button
               onClick={exportMidi}
               disabled={tabDataRef.current.length === 0}
-              className="px-3 py-2 bg-orange-600 hover:bg-orange-500 rounded text-sm disabled:opacity-50"
+              className="export-btn-elite export-btn-midi"
               title="Download MIDI file (Premium)"
               aria-label="Download MIDI file"
             >
@@ -701,7 +830,7 @@ export default function RiffGenerator() {
             <button
               onClick={exportGP5}
               disabled={!tab}
-              className="px-3 py-2 bg-purple-600 hover:bg-purple-500 rounded text-sm disabled:opacity-50"
+              className="export-btn-elite export-btn-gp5"
               title="Download Guitar Pro file"
               aria-label="Download Guitar Pro file"
             >
@@ -730,8 +859,8 @@ export default function RiffGenerator() {
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Controls */}
           <div className="space-y-6">
-            <div className="bg-slate-800 rounded-lg p-6 space-y-4">
-              <h2 className="text-lg font-semibold text-teal-400">Scale Settings</h2>
+            <div className="settings-panel-elite p-6 space-y-4">
+              <h2 className="section-header-elite">Scale Settings</h2>
 
               {/* Root */}
               <div>
@@ -743,10 +872,8 @@ export default function RiffGenerator() {
                       onClick={() => setRoot(r)}
                       role="radio"
                       aria-checked={root === r}
-                      className={`py-2 rounded text-sm font-medium transition-colors ${
-                        root === r
-                          ? 'bg-teal-500 text-white'
-                          : 'bg-slate-700 hover:bg-slate-600 text-slate-300'
+                      className={`py-2 rounded text-sm root-btn-elite ${
+                        root === r ? 'selected' : 'text-slate-300'
                       }`}
                     >
                       {r}
@@ -762,7 +889,7 @@ export default function RiffGenerator() {
                   id="scale-select"
                   value={scale}
                   onChange={(e) => setScale(e.target.value)}
-                  className="w-full bg-slate-700 border border-slate-600 rounded px-3 py-2 text-white"
+                  className="w-full select-elite"
                 >
                   {Object.keys(SCALES).map(s => (
                     <option key={s} value={s}>
@@ -779,7 +906,7 @@ export default function RiffGenerator() {
                   id="tuning-select"
                   value={tuning}
                   onChange={(e) => setTuning(e.target.value)}
-                  className="w-full bg-slate-700 border border-slate-600 rounded px-3 py-2 text-white"
+                  className="w-full select-elite"
                 >
                   {TUNING_OPTIONS.map(t => (
                     <option key={t.value} value={t.value}>
@@ -791,16 +918,16 @@ export default function RiffGenerator() {
 
               {/* Scale Info */}
               {scaleInfo && (
-                <div className="bg-slate-700/50 rounded p-3">
+                <div className="scale-info-elite">
                   <div className="text-sm text-slate-400">Notes in scale:</div>
-                  <div className="text-teal-300 font-mono">{scaleInfo.notes}</div>
+                  <div className="scale-notes-display">{scaleInfo.notes}</div>
                   <div className="text-sm text-slate-500 mt-1">Tuning: {TUNING_OPTIONS.find(t => t.value === tuning)?.label}</div>
                 </div>
               )}
             </div>
 
-            <div className="bg-slate-800 rounded-lg p-6 space-y-4">
-              <h2 className="text-lg font-semibold text-teal-400">Pattern Settings</h2>
+            <div className="settings-panel-elite p-6 space-y-4">
+              <h2 className="section-header-elite">Pattern Settings</h2>
 
               {/* Pattern */}
               <div>
@@ -816,12 +943,12 @@ export default function RiffGenerator() {
                         role="radio"
                         aria-checked={pattern === p.value}
                         aria-disabled={isDisabled}
-                        className={`w-full text-left px-4 py-3 rounded transition-colors ${
+                        className={`w-full text-left pattern-btn-elite ${
                           isDisabled
-                            ? 'bg-slate-800 border border-slate-700 opacity-50 cursor-not-allowed'
+                            ? 'disabled'
                             : pattern === p.value
-                            ? 'bg-teal-500/20 border border-teal-500'
-                            : 'bg-slate-700 hover:bg-slate-600 border border-transparent'
+                            ? 'selected'
+                            : ''
                         }`}
                       >
                         <div className="font-medium">{p.label}</div>
@@ -840,7 +967,7 @@ export default function RiffGenerator() {
                     id="progression-select"
                     value={progression}
                     onChange={(e) => setProgression(e.target.value)}
-                    className="w-full bg-slate-700 border border-slate-600 rounded px-3 py-2 text-white mb-2"
+                    className="w-full select-elite mb-2"
                   >
                     {PROGRESSION_OPTIONS.map(p => (
                       <option key={p.value} value={p.value}>
@@ -865,7 +992,7 @@ export default function RiffGenerator() {
                     max="5"
                     value={position}
                     onChange={(e) => setPosition(parseInt(e.target.value))}
-                    className="w-full"
+                    className="w-full slider-elite"
                     aria-valuemin={1}
                     aria-valuemax={5}
                     aria-valuenow={position}
@@ -881,7 +1008,7 @@ export default function RiffGenerator() {
                     max="8"
                     value={bars}
                     onChange={(e) => setBars(parseInt(e.target.value))}
-                    className="w-full"
+                    className="w-full slider-elite"
                     aria-valuemin={1}
                     aria-valuemax={8}
                     aria-valuenow={bars}
@@ -900,7 +1027,7 @@ export default function RiffGenerator() {
                   max="200"
                   value={tempo}
                   onChange={(e) => setTempo(parseInt(e.target.value))}
-                  className="w-full"
+                  className="w-full slider-elite"
                   aria-valuemin={60}
                   aria-valuemax={200}
                   aria-valuenow={tempo}
@@ -943,24 +1070,92 @@ export default function RiffGenerator() {
 
           {/* Tab Display & Controls */}
           <div className="space-y-6">
-            {/* Fretboard Visualization */}
-            <MiniFretboard
+            {/* Interactive Fretboard Visualization - Full Neck View */}
+            <InteractiveFretboard
               activeNotes={activeNotes}
               scaleNotes={scaleNoteNames}
               root={root}
               position={position}
+              onNoteClick={handleNoteClick}
+              isPlaying={isPlaying}
+              tuning={tuning}
             />
 
-            <div className="bg-slate-800 rounded-lg p-6">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold text-teal-400">Generated Tab</h2>
+            {/* DAW-Style Playback Controls */}
+            <div className="daw-controls-panel">
+              <div className="daw-controls-row">
+                {/* Play/Stop Button */}
+                <button
+                  onClick={playTab}
+                  disabled={isLoading || tabDataRef.current.length === 0}
+                  aria-label={isPlaying ? 'Stop playback' : 'Start playback'}
+                  className={`daw-btn ${isPlaying ? 'daw-btn-stop' : 'daw-btn-play'} ${
+                    isLoading || tabDataRef.current.length === 0 ? 'opacity-50 cursor-not-allowed' : ''
+                  }`}
+                >
+                  {isPlaying ? '■' : '▶'}
+                </button>
+
+                {/* Loop Button */}
+                <button
+                  onClick={() => setLoopEnabled(!loopEnabled)}
+                  aria-pressed={loopEnabled}
+                  className={`daw-btn daw-btn-loop ${loopEnabled ? 'active' : ''}`}
+                >
+                  🔁
+                </button>
+
+                {/* Metronome Button */}
+                <button
+                  onClick={() => setMetronomeEnabled(!metronomeEnabled)}
+                  aria-pressed={metronomeEnabled}
+                  className={`daw-btn daw-btn-metronome ${metronomeEnabled ? 'active' : ''}`}
+                >
+                  🥁
+                </button>
+
+                {/* Tempo Display */}
+                <div className="daw-tempo-display">
+                  <span className="tempo-value">{tempo}</span>
+                  <span className="tempo-unit">BPM</span>
+                </div>
+
+                {/* Regenerate Button */}
                 <button
                   onClick={regenerate}
-                  className="px-3 py-1 bg-slate-700 hover:bg-slate-600 rounded text-sm"
-                  aria-label="Regenerate tab"
+                  className="daw-btn daw-btn-regen"
+                  aria-label="Regenerate riff"
                 >
-                  Regenerate (R)
+                  ↻
                 </button>
+              </div>
+
+              {/* Progress Bar */}
+              <div className="daw-progress-container">
+                <div className="daw-progress-bar" role="progressbar" aria-valuenow={currentNoteIndex + 1} aria-valuemin={1} aria-valuemax={tabDataRef.current.length || 1}>
+                  <div
+                    className="daw-progress-fill"
+                    style={{ width: `${tabDataRef.current.length > 0 ? (currentNoteIndex / tabDataRef.current.length) * 100 : 0}%` }}
+                  />
+                </div>
+                <div className="daw-progress-labels">
+                  <span>{currentNoteIndex + 1} / {tabDataRef.current.length || 0}</span>
+                  {loopEnabled && <span className="loop-indicator">⟳ Loop</span>}
+                  {isPlaying && <span className="playing-indicator">● Playing</span>}
+                </div>
+              </div>
+            </div>
+
+            <div className="tab-display-elite p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="section-header-elite">Generated Tab</h2>
+                <Link
+                  to={`/tabplayer?tab=${encodeURIComponent(tab)}`}
+                  className="open-tabplayer-btn"
+                  aria-label="Open in Tab Player for professional notation"
+                >
+                  Open in TabPlayer ↗
+                </Link>
               </div>
 
               {/* Error Display */}
@@ -970,41 +1165,9 @@ export default function RiffGenerator() {
                 </div>
               )}
 
-              {/* Tab Display */}
-              <div className="bg-slate-900 rounded border border-teal-500/30 p-4 font-mono text-sm overflow-x-auto">
-                <pre className="text-green-400 whitespace-pre" aria-label="Generated guitar tablature">{tab || '// Select a valid pattern'}</pre>
-              </div>
-
-              {/* Progress indicator */}
-              {isPlaying && tabDataRef.current.length > 0 && (
-                <div className="mt-2">
-                  <div className="h-1 bg-slate-700 rounded-full overflow-hidden" role="progressbar" aria-valuenow={currentNoteIndex + 1} aria-valuemin={1} aria-valuemax={tabDataRef.current.length}>
-                    <div
-                      className="h-full bg-teal-500 transition-all duration-100"
-                      style={{ width: `${(currentNoteIndex / tabDataRef.current.length) * 100}%` }}
-                    />
-                  </div>
-                  <div className="text-xs text-slate-500 mt-1 text-center">
-                    {currentNoteIndex + 1} / {tabDataRef.current.length}
-                    {loopEnabled && <span className="text-teal-400 ml-2">(looping)</span>}
-                  </div>
-                </div>
-              )}
-
-              {/* Play Controls */}
-              <div className="mt-6 flex gap-4">
-                <button
-                  onClick={playTab}
-                  disabled={isLoading || tabDataRef.current.length === 0}
-                  aria-label={isPlaying ? 'Stop playback' : 'Start playback'}
-                  className={`flex-1 py-3 rounded font-medium transition-colors ${
-                    isPlaying
-                      ? 'bg-orange-500 hover:bg-orange-400'
-                      : 'bg-teal-500 hover:bg-teal-400'
-                  } ${isLoading || tabDataRef.current.length === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
-                >
-                  {isLoading ? 'Loading...' : isPlaying ? 'Stop (Space)' : 'Play (Space)'}
-                </button>
+              {/* Tab Display with Cursor */}
+              <div className="tab-text-elite tab-with-cursor">
+                <pre className="text-white whitespace-pre" aria-label="Generated guitar tablature">{tab || '// Select a valid pattern'}</pre>
               </div>
 
               {/* Info */}
@@ -1015,15 +1178,15 @@ export default function RiffGenerator() {
             </div>
 
             {/* Keyboard Shortcuts */}
-            <div className="bg-slate-800/50 rounded-lg p-4 text-sm text-slate-400">
+            <div className="shortcuts-panel-elite">
               <h3 className="font-medium text-slate-300 mb-2">Keyboard Shortcuts</h3>
               <div className="grid grid-cols-2 gap-2">
-                <div><kbd className="px-2 py-1 bg-slate-700 rounded text-xs">Space</kbd> Play/Stop</div>
-                <div><kbd className="px-2 py-1 bg-slate-700 rounded text-xs">R</kbd> Regenerate</div>
-                <div><kbd className="px-2 py-1 bg-slate-700 rounded text-xs">M</kbd> Metronome</div>
-                <div><kbd className="px-2 py-1 bg-slate-700 rounded text-xs">L</kbd> Loop</div>
-                <div><kbd className="px-2 py-1 bg-slate-700 rounded text-xs">C</kbd> Copy Tab</div>
-                <div><kbd className="px-2 py-1 bg-slate-700 rounded text-xs">&uarr;/&darr;</kbd> Tempo</div>
+                <div><kbd className="kbd-elite">Space</kbd> Play/Stop</div>
+                <div><kbd className="kbd-elite">R</kbd> Regenerate</div>
+                <div><kbd className="kbd-elite">M</kbd> Metronome</div>
+                <div><kbd className="kbd-elite">L</kbd> Loop</div>
+                <div><kbd className="kbd-elite">C</kbd> Copy Tab</div>
+                <div><kbd className="kbd-elite">&uarr;/&darr;</kbd> Tempo</div>
               </div>
             </div>
           </div>

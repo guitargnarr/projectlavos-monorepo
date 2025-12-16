@@ -3,18 +3,18 @@ import { Link } from 'react-router-dom';
 export default function Home() {
   return (
     <div className="container mx-auto px-4 py-8">
-      <header className="text-center mb-12">
-        <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
-          Guitar Learning Platform
+      <header className="text-center mb-12 hero-gradient rounded-xl py-12 px-4">
+        <h1 className="text-5xl font-bold mb-4 gradient-text">
+          FretVision
         </h1>
         <p className="text-xl text-gray-400">
-          Master your guitar skills with interactive visualizations and tab playback
+          Master your guitar skills with interactive fretboard visualizations and intelligent practice tools
         </p>
       </header>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
         <Link to="/fretvision" className="group">
-          <div className="bg-gray-800 rounded-lg p-8 hover:bg-gray-700 transition-all duration-300 border border-gray-700 hover:border-green-500">
+          <div className="card-elite bg-gray-800 rounded-lg p-8 border border-gray-700 hover:border-green-500">
             <div className="mb-4">
               <svg className="w-16 h-16 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
@@ -36,8 +36,31 @@ export default function Home() {
           </div>
         </Link>
 
+        <Link to="/riff-generator" className="group">
+          <div className="card-elite bg-gray-800 rounded-lg p-8 border border-gray-700 hover:border-cyan-500">
+            <div className="mb-4">
+              <svg className="w-16 h-16 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h2 className="text-2xl font-bold mb-3 group-hover:text-cyan-400 transition-colors">
+              Riff Generator
+            </h2>
+            <p className="text-gray-400 mb-4">
+              Generate custom guitar riffs with 12 scales, 8 patterns, and 4 tunings.
+              Interactive fretboard playback and export to Tab/MIDI/GP5.
+            </p>
+            <div className="flex items-center text-cyan-500">
+              <span className="mr-2">Generate Riffs</span>
+              <svg className="w-4 h-4 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </div>
+        </Link>
+
         <Link to="/tabplayer" className="group">
-          <div className="bg-gray-800 rounded-lg p-8 hover:bg-gray-700 transition-all duration-300 border border-gray-700 hover:border-blue-500">
+          <div className="card-elite bg-gray-800 rounded-lg p-8 border border-gray-700 hover:border-blue-500">
             <div className="mb-4">
               <svg className="w-16 h-16 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
@@ -61,7 +84,7 @@ export default function Home() {
         </Link>
 
         <Link to="/catalog" className="group">
-          <div className="bg-gray-800 rounded-lg p-8 hover:bg-gray-700 transition-all duration-300 border border-gray-700 hover:border-purple-500">
+          <div className="card-elite bg-gray-800 rounded-lg p-8 border border-gray-700 hover:border-purple-500">
             <div className="mb-4">
               <svg className="w-16 h-16 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
@@ -84,7 +107,7 @@ export default function Home() {
         </Link>
 
         <Link to="/scales" className="group">
-          <div className="bg-gray-800 rounded-lg p-8 hover:bg-gray-700 transition-all duration-300 border border-gray-700 hover:border-teal-500">
+          <div className="card-elite bg-gray-800 rounded-lg p-8 border border-gray-700 hover:border-teal-500">
             <div className="mb-4">
               <svg className="w-16 h-16 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -107,7 +130,7 @@ export default function Home() {
         </Link>
 
         <Link to="/backing" className="group">
-          <div className="bg-gray-800 rounded-lg p-8 hover:bg-gray-700 transition-all duration-300 border border-gray-700 hover:border-orange-500">
+          <div className="card-elite bg-gray-800 rounded-lg p-8 border border-gray-700 hover:border-orange-500">
             <div className="mb-4">
               <svg className="w-16 h-16 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
@@ -130,7 +153,7 @@ export default function Home() {
         </Link>
 
         <Link to="/ear-training" className="group">
-          <div className="bg-gray-800 rounded-lg p-8 hover:bg-gray-700 transition-all duration-300 border border-gray-700 hover:border-pink-500">
+          <div className="card-elite bg-gray-800 rounded-lg p-8 border border-gray-700 hover:border-pink-500">
             <div className="mb-4">
               <svg className="w-16 h-16 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
