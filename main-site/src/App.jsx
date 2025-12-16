@@ -107,10 +107,10 @@ function Header() {
 
 function Hero() {
   return (
-    <section className="py-24 px-6">
+    <section className="py-24 px-6 hero-gradient">
       <div className="max-w-4xl mx-auto text-center">
-        <h1 className="text-5xl md:text-7xl font-bold mb-6">
-          <span className="bg-gradient-to-r from-teal-400 to-orange-400 bg-clip-text text-transparent">
+        <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in-up">
+          <span className="text-shimmer">
             Matthew Scott
           </span>
         </h1>
@@ -124,22 +124,22 @@ function Hero() {
           Building practical tools with modern technology. 10 years healthcare IT experience at Humana,
           now focused on shipping production-ready applications that solve real problems.
         </p>
-        <div className="flex gap-4 justify-center flex-wrap">
+        <div className="flex gap-4 justify-center flex-wrap animate-fade-in-up delay-300">
           <a
             href="#projects"
-            className="bg-teal-500 hover:bg-teal-400 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
+            className="btn-elite bg-teal-500 hover:bg-teal-400 text-slate-900 px-8 py-3 rounded-lg font-semibold"
           >
             View Projects
           </a>
           <Link
             to="/projects"
-            className="border border-teal-500 hover:bg-teal-500/10 text-teal-400 px-8 py-3 rounded-lg font-semibold transition-colors"
+            className="btn-elite border border-teal-500 hover:bg-teal-500/10 text-teal-400 px-8 py-3 rounded-lg font-semibold"
           >
             Systems Map
           </Link>
           <a
             href="#contact"
-            className="border border-slate-600 hover:border-teal-500 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
+            className="btn-elite border border-slate-600 hover:border-teal-500 text-white px-8 py-3 rounded-lg font-semibold glow-border"
           >
             Get in Touch
           </a>
@@ -191,7 +191,7 @@ function ProjectCard({ project }) {
       href={project.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="block bg-slate-800 border border-slate-700 rounded-lg p-6 hover:border-teal-500/50 hover:-translate-y-1 transition-all duration-200 group"
+      className="card-elite block bg-slate-800 border border-slate-700 rounded-lg p-6 hover:border-teal-500/50 group"
     >
       <div className="flex items-start justify-between mb-4">
         <h3 className="text-xl font-semibold text-white group-hover:text-teal-400 transition-colors">
@@ -230,7 +230,7 @@ function Skills() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {skills.map((skill, index) => (
-            <div key={index} className="bg-slate-800 border border-slate-700 rounded-lg p-6">
+            <div key={index} className="card-elite bg-slate-800 border border-slate-700 rounded-lg p-6">
               <h3 className="text-lg font-semibold text-teal-400 mb-4">{skill.category}</h3>
               <ul className="space-y-2">
                 {skill.items.map((item, i) => (
@@ -272,7 +272,7 @@ function Contact() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <button
             onClick={copyEmail}
-            className="bg-teal-500 hover:bg-teal-400 text-white px-8 py-3 rounded-lg font-semibold transition-colors flex items-center gap-2"
+            className="btn-elite bg-teal-500 hover:bg-teal-400 text-slate-900 px-8 py-3 rounded-lg font-semibold flex items-center gap-2"
           >
             {copied ? 'Copied!' : 'matthewdscott7@gmail.com'}
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
