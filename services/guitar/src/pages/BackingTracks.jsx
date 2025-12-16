@@ -258,191 +258,180 @@ export default function BackingTracks() {
     };
   }, [stop]);
 
+  // Get chord circle class
+  const getChordCircleClass = () => {
+    if (!isPlaying) return 'backing-tracks-chord-circle';
+    if (currentBeat === 0) return 'backing-tracks-chord-circle downbeat';
+    return 'backing-tracks-chord-circle playing';
+  };
+
   const progression = PROGRESSIONS[style];
   const currentChord = progression.chords[currentChordIndex];
   const currentChordName = getChordName(currentChord, selectedKey);
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
-      {/* Header */}
-      <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
-          Backing Tracks
-        </h1>
-        <p className="text-gray-400">
-          Practice with chord progressions in any key
-        </p>
-      </div>
-
-      {/* Main Control Panel */}
-      <div className="bg-gray-800 rounded-lg shadow-xl p-8 mb-6">
-        {/* Current Chord Display */}
-        <div className="flex justify-center mb-8">
-          <div className="relative">
-            <div className={`w-48 h-48 rounded-full flex flex-col items-center justify-center transition-all duration-100 ${
-              isPlaying && currentBeat === 0
-                ? 'bg-orange-500 text-gray-900 scale-110 shadow-lg shadow-orange-500/50'
-                : isPlaying
-                  ? 'bg-gray-700 text-orange-400'
-                  : 'bg-gray-700 text-gray-400'
-            }`}>
-              <span className="text-4xl font-bold">{isPlaying ? currentChordName : '–'}</span>
-              <span className="text-sm mt-2">{isPlaying ? `Beat ${currentBeat + 1}` : 'Ready'}</span>
-            </div>
-            {isPlaying && currentBeat === 0 && (
-              <div className="absolute inset-0 rounded-full border-4 border-orange-400 animate-ping opacity-75"></div>
-            )}
-          </div>
+    <div className="backing-tracks-page">
+      <div className="max-w-4xl mx-auto">
+        {/* Header */}
+        <div className="backing-tracks-header">
+          <h1 className="backing-tracks-title">Backing Tracks</h1>
+          <p className="backing-tracks-subtitle">
+            Practice with chord progressions in any key
+          </p>
         </div>
 
-        {/* Chord Progression Display */}
-        {isPlaying && (
-          <div className="flex justify-center gap-2 mb-6 flex-wrap">
-            {progression.chords.map((chord, idx) => (
-              <div
-                key={idx}
-                className={`px-4 py-2 rounded font-mono transition-all ${
-                  idx === currentChordIndex
-                    ? 'bg-orange-500 text-gray-900 scale-110'
-                    : 'bg-gray-700 text-gray-400'
-                }`}
-              >
-                {getChordName(chord, selectedKey)}
+        {/* Main Control Panel */}
+        <div className="backing-tracks-panel">
+          {/* Current Chord Display */}
+          <div className="backing-tracks-chord-display">
+            <div className="relative">
+              <div className={getChordCircleClass()}>
+                <span className="backing-tracks-chord-name">
+                  {isPlaying ? currentChordName : '–'}
+                </span>
+                <span className="backing-tracks-beat-label">
+                  {isPlaying ? `Beat ${currentBeat + 1}` : 'Ready'}
+                </span>
               </div>
-            ))}
+              {isPlaying && currentBeat === 0 && (
+                <div className="backing-tracks-chord-ring"></div>
+              )}
+            </div>
           </div>
-        )}
 
-        {/* Key Selection */}
-        <div className="mb-6">
-          <label className="block text-gray-300 font-semibold mb-2">Key</label>
-          <div className="grid grid-cols-6 sm:grid-cols-12 gap-2">
-            {NOTE_NAMES.map(note => (
-              <button
-                key={note}
-                onClick={() => setSelectedKey(note)}
+          {/* Chord Progression Display */}
+          {isPlaying && (
+            <div className="backing-tracks-progression">
+              {progression.chords.map((chord, idx) => (
+                <div
+                  key={idx}
+                  className={`backing-tracks-progression-chord ${idx === currentChordIndex ? 'active' : ''}`}
+                >
+                  {getChordName(chord, selectedKey)}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Key Selection */}
+          <div className="mb-6">
+            <label className="backing-tracks-label">Key</label>
+            <div className="backing-tracks-key-grid">
+              {NOTE_NAMES.map(note => (
+                <button
+                  key={note}
+                  onClick={() => setSelectedKey(note)}
+                  disabled={isPlaying}
+                  className={`backing-tracks-key-btn ${selectedKey === note ? 'selected' : ''}`}
+                >
+                  {note}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Style Selection */}
+          <div className="mb-6">
+            <label className="backing-tracks-label">Style</label>
+            <div className="backing-tracks-style-grid">
+              {Object.entries(PROGRESSIONS).map(([key, value]) => (
+                <button
+                  key={key}
+                  onClick={() => setStyle(key)}
+                  disabled={isPlaying}
+                  className={`backing-tracks-style-btn ${style === key ? 'selected' : ''}`}
+                >
+                  {key.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
+                </button>
+              ))}
+            </div>
+            <p className="backing-tracks-style-name">{progression.name}</p>
+          </div>
+
+          {/* BPM Control */}
+          <div className="mb-6">
+            <label className="backing-tracks-label">Tempo (BPM)</label>
+            <div className="backing-tracks-tempo-row">
+              <input
+                type="range"
+                min="40"
+                max="200"
+                value={bpm}
+                onChange={(e) => setBpm(Number(e.target.value))}
+                className="backing-tracks-slider"
                 disabled={isPlaying}
-                className={`py-3 px-2 rounded font-medium transition-all ${
-                  selectedKey === note
-                    ? 'bg-orange-500 text-gray-900'
-                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                } disabled:opacity-50 disabled:cursor-not-allowed`}
-              >
-                {note}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Style Selection */}
-        <div className="mb-6">
-          <label className="block text-gray-300 font-semibold mb-2">Style</label>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-            {Object.entries(PROGRESSIONS).map(([key, value]) => (
-              <button
-                key={key}
-                onClick={() => setStyle(key)}
+              />
+              <input
+                type="number"
+                min="40"
+                max="200"
+                value={bpm}
+                onChange={(e) => setBpm(Math.max(40, Math.min(200, Number(e.target.value) || 40)))}
+                className="backing-tracks-bpm-input"
                 disabled={isPlaying}
-                className={`py-2 px-3 rounded text-sm transition-all ${
-                  style === key
-                    ? 'bg-orange-500 text-gray-900'
-                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                } disabled:opacity-50 disabled:cursor-not-allowed`}
-              >
-                {key.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
-              </button>
-            ))}
+              />
+            </div>
           </div>
-          <p className="text-sm text-gray-500 mt-2">{progression.name}</p>
-        </div>
 
-        {/* BPM Control */}
-        <div className="mb-6">
-          <label className="block text-gray-300 font-semibold mb-2">Tempo (BPM)</label>
-          <div className="flex items-center gap-4">
-            <input
-              type="range"
-              min="40"
-              max="200"
-              value={bpm}
-              onChange={(e) => setBpm(Number(e.target.value))}
-              className="flex-1 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-orange-500"
+          {/* Play/Stop and Tap Tempo */}
+          <div className="backing-tracks-button-grid mb-6">
+            <button
+              onClick={togglePlay}
+              className={`backing-tracks-play-btn ${isPlaying ? 'stop' : 'start'}`}
+            >
+              {isPlaying ? 'Stop' : 'Start'}
+            </button>
+            <button
+              onClick={handleTap}
+              className="backing-tracks-tap-btn"
               disabled={isPlaying}
-            />
-            <input
-              type="number"
-              min="40"
-              max="200"
-              value={bpm}
-              onChange={(e) => setBpm(Math.max(40, Math.min(200, Number(e.target.value) || 40)))}
-              className="w-20 bg-gray-700 border border-gray-600 rounded px-3 py-2 text-center font-mono text-lg"
-              disabled={isPlaying}
-            />
+            >
+              Tap Tempo {tapTimes.length > 0 && `(${tapTimes.length})`}
+            </button>
+          </div>
+
+          {/* Volume Control */}
+          <div>
+            <label className="backing-tracks-label">Volume</label>
+            <div className="backing-tracks-volume-row">
+              <span className="backing-tracks-volume-icon">-</span>
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value={volume}
+                onChange={(e) => setVolume(Number(e.target.value))}
+                className="backing-tracks-slider flex-1"
+              />
+              <span className="backing-tracks-volume-icon">+</span>
+              <span className="backing-tracks-volume-value">{Math.round(volume * 100)}%</span>
+            </div>
           </div>
         </div>
 
-        {/* Play/Stop and Tap Tempo */}
-        <div className="grid grid-cols-2 gap-4 mb-6">
-          <button
-            onClick={togglePlay}
-            className={`py-4 px-6 rounded-lg font-bold text-lg transition-all ${
-              isPlaying
-                ? 'bg-red-500 hover:bg-red-600 text-white'
-                : 'bg-orange-500 hover:bg-orange-600 text-gray-900'
-            }`}
-          >
-            {isPlaying ? 'Stop' : 'Start'}
-          </button>
-          <button
-            onClick={handleTap}
-            className="py-4 px-6 bg-gray-600 hover:bg-gray-500 text-white rounded-lg font-bold text-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-            disabled={isPlaying}
-          >
-            Tap Tempo {tapTimes.length > 0 && `(${tapTimes.length})`}
-          </button>
+        {/* Instructions */}
+        <div className="backing-tracks-instructions">
+          <h2 className="backing-tracks-instructions-title">How to Use</h2>
+          <ul className="backing-tracks-instructions-list">
+            <li>
+              <span className="backing-tracks-step-num">1.</span>
+              <span><strong>Choose a key</strong> to practice in (e.g., A for blues, G for rock)</span>
+            </li>
+            <li>
+              <span className="backing-tracks-step-num">2.</span>
+              <span><strong>Select a style</strong> with different chord progressions</span>
+            </li>
+            <li>
+              <span className="backing-tracks-step-num">3.</span>
+              <span><strong>Set the tempo</strong> using the slider or tap tempo</span>
+            </li>
+            <li>
+              <span className="backing-tracks-step-num">4.</span>
+              <span><strong>Press Start</strong> and improvise over the progression!</span>
+            </li>
+          </ul>
         </div>
-
-        {/* Volume Control */}
-        <div>
-          <label className="block text-gray-300 font-semibold mb-2">Volume</label>
-          <div className="flex items-center gap-4">
-            <span className="text-2xl">-</span>
-            <input
-              type="range"
-              min="0"
-              max="1"
-              step="0.01"
-              value={volume}
-              onChange={(e) => setVolume(Number(e.target.value))}
-              className="flex-1 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-orange-500"
-            />
-            <span className="text-2xl">+</span>
-            <span className="w-12 text-center font-mono text-sm">{Math.round(volume * 100)}%</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Instructions */}
-      <div className="bg-gray-800 rounded-lg p-6">
-        <h2 className="text-xl font-bold mb-3 text-orange-400">How to Use</h2>
-        <ul className="space-y-2 text-gray-300">
-          <li className="flex items-start">
-            <span className="text-orange-400 mr-2">1.</span>
-            <span><strong>Choose a key</strong> to practice in (e.g., A for blues, G for rock)</span>
-          </li>
-          <li className="flex items-start">
-            <span className="text-orange-400 mr-2">2.</span>
-            <span><strong>Select a style</strong> with different chord progressions</span>
-          </li>
-          <li className="flex items-start">
-            <span className="text-orange-400 mr-2">3.</span>
-            <span><strong>Set the tempo</strong> using the slider or tap tempo</span>
-          </li>
-          <li className="flex items-start">
-            <span className="text-orange-400 mr-2">4.</span>
-            <span><strong>Press Start</strong> and improvise over the progression!</span>
-          </li>
-        </ul>
       </div>
     </div>
   );

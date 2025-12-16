@@ -56,7 +56,7 @@ export default function EarTraining() {
   const [score, setScore] = useState({ correct: 0, total: 0 });
   const [streak, setStreak] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
-  const [lastAnswer, setLastAnswer] = useState(null); // { correct: boolean, selected: string, actual: string }
+  const [lastAnswer, setLastAnswer] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const audioContextRef = useRef(null);
@@ -229,203 +229,176 @@ export default function EarTraining() {
     };
   }, []);
 
+  // Get option button class based on state
+  const getOptionClass = (option) => {
+    if (!showAnswer) return 'ear-training-option-btn';
+
+    if (option.name === currentQuestion.correct.name) {
+      return 'ear-training-option-btn correct';
+    }
+    if (lastAnswer && option.name === lastAnswer.selected && !lastAnswer.correct) {
+      return 'ear-training-option-btn incorrect';
+    }
+    return 'ear-training-option-btn disabled-other';
+  };
+
   const options = currentQuestion?.options || [];
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
-      {/* Header */}
-      <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent">
-          Ear Training
-        </h1>
-        <p className="text-gray-400">
-          Develop your musical ear with interval and chord recognition
-        </p>
-      </div>
-
-      {/* Settings Panel */}
-      <div className="bg-gray-800 rounded-lg p-6 mb-6">
-        {/* Game Mode */}
-        <div className="mb-6">
-          <label className="block text-gray-300 font-semibold mb-2">Game Mode</label>
-          <div className="grid grid-cols-2 gap-4">
-            {GAME_MODES.map(gameMode => (
-              <button
-                key={gameMode.id}
-                onClick={() => {
-                  setMode(gameMode.id);
-                  setCurrentQuestion(null);
-                }}
-                className={`p-4 rounded-lg transition-all text-left ${
-                  mode === gameMode.id
-                    ? 'bg-pink-500 text-gray-900'
-                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                }`}
-              >
-                <div className="font-bold">{gameMode.name}</div>
-                <div className="text-sm opacity-80">{gameMode.description}</div>
-              </button>
-            ))}
-          </div>
+    <div className="ear-training-page">
+      <div className="max-w-4xl mx-auto">
+        {/* Header */}
+        <div className="ear-training-header">
+          <h1 className="ear-training-title">Ear Training</h1>
+          <p className="ear-training-subtitle">
+            Develop your musical ear with interval and chord recognition
+          </p>
         </div>
 
-        {/* Difficulty (only for intervals) */}
-        {mode === 'intervals' && (
+        {/* Settings Panel */}
+        <div className="ear-training-panel">
+          {/* Game Mode */}
           <div className="mb-6">
-            <label className="block text-gray-300 font-semibold mb-2">Difficulty</label>
-            <div className="grid grid-cols-3 gap-2">
-              {Object.entries(DIFFICULTY_LEVELS).map(([key, value]) => (
+            <label className="ear-training-label">Game Mode</label>
+            <div className="ear-training-mode-grid">
+              {GAME_MODES.map(gameMode => (
                 <button
-                  key={key}
+                  key={gameMode.id}
                   onClick={() => {
-                    setDifficulty(key);
+                    setMode(gameMode.id);
                     setCurrentQuestion(null);
                   }}
-                  className={`py-3 px-4 rounded transition-all ${
-                    difficulty === key
-                      ? 'bg-purple-500 text-gray-900'
-                      : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                  }`}
+                  className={`ear-training-mode-btn ${mode === gameMode.id ? 'selected' : ''}`}
                 >
-                  <div className="font-bold">{value.name}</div>
-                  <div className="text-xs opacity-80">{value.description}</div>
+                  <div className="mode-name">{gameMode.name}</div>
+                  <div className="mode-desc">{gameMode.description}</div>
                 </button>
               ))}
             </div>
           </div>
-        )}
 
-        {/* Start Button */}
-        {!currentQuestion && (
-          <button
-            onClick={startGame}
-            className="w-full py-4 bg-pink-500 hover:bg-pink-600 text-gray-900 rounded-lg font-bold text-lg transition-all"
-          >
-            Start Training
-          </button>
-        )}
-      </div>
-
-      {/* Game Area */}
-      {currentQuestion && (
-        <div className="bg-gray-800 rounded-lg p-6 mb-6">
-          {/* Score and Streak */}
-          <div className="flex justify-between items-center mb-6">
-            <div className="text-lg">
-              <span className="text-gray-400">Score: </span>
-              <span className="font-bold text-pink-400">{score.correct}</span>
-              <span className="text-gray-400"> / {score.total}</span>
-            </div>
-            {streak > 0 && (
-              <div className="px-4 py-2 bg-purple-500 rounded-full font-bold text-gray-900">
-                {streak} streak!
+          {/* Difficulty (only for intervals) */}
+          {mode === 'intervals' && (
+            <div className="mb-6">
+              <label className="ear-training-label">Difficulty</label>
+              <div className="ear-training-difficulty-grid">
+                {Object.entries(DIFFICULTY_LEVELS).map(([key, value]) => (
+                  <button
+                    key={key}
+                    onClick={() => {
+                      setDifficulty(key);
+                      setCurrentQuestion(null);
+                    }}
+                    className={`ear-training-difficulty-btn ${difficulty === key ? 'selected' : ''}`}
+                  >
+                    <div className="diff-name">{value.name}</div>
+                    <div className="diff-desc">{value.description}</div>
+                  </button>
+                ))}
               </div>
-            )}
-          </div>
+            </div>
+          )}
 
-          {/* Play Button */}
-          <div className="text-center mb-8">
-            <button
-              onClick={playQuestion}
-              disabled={isPlaying}
-              className={`w-32 h-32 rounded-full transition-all ${
-                isPlaying
-                  ? 'bg-pink-400 scale-110 animate-pulse'
-                  : 'bg-pink-500 hover:bg-pink-600 hover:scale-105'
-              } text-gray-900 shadow-lg`}
-            >
-              <div className="text-4xl mb-1">{isPlaying ? '...' : '>'}</div>
-              <div className="text-sm font-bold">{isPlaying ? 'Playing' : 'Play'}</div>
+          {/* Start Button */}
+          {!currentQuestion && (
+            <button onClick={startGame} className="ear-training-start-btn">
+              Start Training
             </button>
-            <p className="text-gray-400 mt-4">
-              {mode === 'intervals' ? 'Listen to the two notes' : 'Listen to the chord'}
-            </p>
-          </div>
+          )}
+        </div>
 
-          {/* Answer Options */}
-          <div className="grid grid-cols-2 gap-4 mb-6">
-            {options.map((option, idx) => {
-              let buttonStyle = 'bg-gray-700 text-gray-300 hover:bg-gray-600';
+        {/* Game Area */}
+        {currentQuestion && (
+          <div className="ear-training-panel">
+            {/* Score and Streak */}
+            <div className="ear-training-score-bar">
+              <div className="ear-training-score">
+                Score: <span className="score-value">{score.correct}</span> / {score.total}
+              </div>
+              {streak > 0 && (
+                <div className="ear-training-streak">{streak} streak!</div>
+              )}
+            </div>
 
-              if (showAnswer) {
-                if (option.name === currentQuestion.correct.name) {
-                  buttonStyle = 'bg-green-500 text-gray-900';
-                } else if (lastAnswer && option.name === lastAnswer.selected && !lastAnswer.correct) {
-                  buttonStyle = 'bg-red-500 text-gray-900';
-                } else {
-                  buttonStyle = 'bg-gray-700 text-gray-500';
-                }
-              }
+            {/* Play Button */}
+            <div className="ear-training-play-container">
+              <button
+                onClick={playQuestion}
+                disabled={isPlaying}
+                className={`ear-training-play-btn ${isPlaying ? 'playing' : ''}`}
+              >
+                <div className="play-icon">{isPlaying ? '...' : '>'}</div>
+                <div className="play-label">{isPlaying ? 'Playing' : 'Play'}</div>
+              </button>
+              <p className="ear-training-play-hint">
+                {mode === 'intervals' ? 'Listen to the two notes' : 'Listen to the chord'}
+              </p>
+            </div>
 
-              return (
+            {/* Answer Options */}
+            <div className="ear-training-options-grid">
+              {options.map((option, idx) => (
                 <button
                   key={idx}
                   onClick={() => handleAnswer(option)}
                   disabled={showAnswer}
-                  className={`p-4 rounded-lg transition-all ${buttonStyle}`}
+                  className={getOptionClass(option)}
                 >
-                  <div className="font-bold text-lg">{option.name}</div>
+                  <div className="option-name">{option.name}</div>
                   {mode === 'intervals' && option.example && (
-                    <div className="text-sm opacity-70 mt-1">{option.example}</div>
+                    <div className="option-hint">{option.example}</div>
                   )}
                 </button>
-              );
-            })}
-          </div>
-
-          {/* Result and Next */}
-          {showAnswer && (
-            <div className="text-center">
-              <div className={`text-2xl font-bold mb-4 ${lastAnswer.correct ? 'text-green-400' : 'text-red-400'}`}>
-                {lastAnswer.correct ? 'Correct!' : `Incorrect - it was ${lastAnswer.actual}`}
-              </div>
-              <button
-                onClick={nextQuestion}
-                className="px-8 py-3 bg-purple-500 hover:bg-purple-600 text-gray-900 rounded-lg font-bold transition-all"
-              >
-                Next Question
-              </button>
+              ))}
             </div>
-          )}
-        </div>
-      )}
 
-      {/* Interval Reference */}
-      {mode === 'intervals' && (
-        <div className="bg-gray-800 rounded-lg p-6">
-          <h2 className="text-xl font-bold mb-4 text-pink-400">Interval Reference</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {INTERVALS.map(interval => {
-              const isInDifficulty = DIFFICULTY_LEVELS[difficulty].intervals.includes(interval.semitones);
-              return (
-                <div
-                  key={interval.semitones}
-                  className={`p-3 rounded border transition-all ${
-                    isInDifficulty
-                      ? 'border-pink-500 bg-pink-500/10'
-                      : 'border-gray-700 bg-gray-700/50 opacity-50'
-                  }`}
-                >
-                  <div className="font-bold text-sm">{interval.name}</div>
-                  <div className="text-xs text-gray-400">{interval.example}</div>
+            {/* Result and Next */}
+            {showAnswer && (
+              <div className="ear-training-result">
+                <div className={`ear-training-result-text ${lastAnswer.correct ? 'correct' : 'incorrect'}`}>
+                  {lastAnswer.correct ? 'Correct!' : `Incorrect - it was ${lastAnswer.actual}`}
                 </div>
-              );
-            })}
+                <button onClick={nextQuestion} className="ear-training-next-btn">
+                  Next Question
+                </button>
+              </div>
+            )}
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Instructions */}
-      <div className="bg-gray-800 rounded-lg p-6 mt-6">
-        <h2 className="text-xl font-bold mb-3 text-pink-400">How to Use</h2>
-        <ol className="list-decimal list-inside space-y-2 text-gray-300">
-          <li>Select a game mode (Intervals or Chords)</li>
-          <li>For intervals, choose your difficulty level</li>
-          <li>Click &quot;Start Training&quot; to begin</li>
-          <li>Press the Play button to hear the sound</li>
-          <li>Select your answer from the options</li>
-          <li>Build your streak for bonus satisfaction!</li>
-        </ol>
+        {/* Interval Reference */}
+        {mode === 'intervals' && (
+          <div className="ear-training-reference">
+            <h2 className="ear-training-reference-title">Interval Reference</h2>
+            <div className="ear-training-reference-grid">
+              {INTERVALS.map(interval => {
+                const isInDifficulty = DIFFICULTY_LEVELS[difficulty].intervals.includes(interval.semitones);
+                return (
+                  <div
+                    key={interval.semitones}
+                    className={`ear-training-interval-card ${isInDifficulty ? 'active' : 'inactive'}`}
+                  >
+                    <div className="interval-name">{interval.name}</div>
+                    <div className="interval-example">{interval.example}</div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Instructions */}
+        <div className="ear-training-instructions">
+          <h2 className="ear-training-instructions-title">How to Use</h2>
+          <ol className="ear-training-instructions-list">
+            <li>Select a game mode (Intervals or Chords)</li>
+            <li>For intervals, choose your difficulty level</li>
+            <li>Click &quot;Start Training&quot; to begin</li>
+            <li>Press the Play button to hear the sound</li>
+            <li>Select your answer from the options</li>
+            <li>Build your streak for bonus satisfaction!</li>
+          </ol>
+        </div>
       </div>
     </div>
   );

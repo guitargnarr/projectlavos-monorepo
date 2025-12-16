@@ -7,12 +7,6 @@ import CatalogFilters from '../components/catalog/CatalogFilters';
 import LessonCard from '../components/catalog/LessonCard';
 import ShareModal from '../components/catalog/ShareModal';
 
-// Icon positioning constants to prevent overlap
-const ICON_POSITIONS = {
-  favorite: 'top-3 right-3',
-  share: 'top-14 right-3',
-};
-
 export default function Catalog() {
   const navigate = useNavigate();
 
@@ -125,7 +119,7 @@ export default function Catalog() {
 
   const shareOnTwitter = () => {
     if (!shareLesson) return;
-    const text = `Check out this guitar lesson: ${shareLesson.title} 🎸`;
+    const text = `Check out this guitar lesson: ${shareLesson.title}`;
     const url = getShareUrl(shareLesson, 'twitter');
     const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
     window.open(twitterUrl, '_blank', 'width=550,height=420');
@@ -193,77 +187,73 @@ export default function Catalog() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
-          Guitar Pro Catalog
-        </h1>
-        <p className="text-gray-400">
-          Browse {catalogData.total_files} Guitar Pro files - {filteredFiles.length} matching your filters
-        </p>
-      </div>
+    <div className="catalog-page">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="catalog-header">
+          <h1 className="catalog-title">Guitar Pro Catalog</h1>
+          <p className="catalog-subtitle">
+            Browse {catalogData.total_files} Guitar Pro files - {filteredFiles.length} matching your filters
+          </p>
+        </div>
 
-      {/* Progress Bar */}
-      <ProgressBar completed={completed.length} total={catalogData.total_files} />
+        {/* Progress Bar */}
+        <ProgressBar completed={completed.length} total={catalogData.total_files} />
 
-      {/* Search and Filters */}
-      <div className="mb-8 space-y-4">
-        <CatalogSearch value={searchQuery} onChange={setSearchQuery} />
+        {/* Search and Filters */}
+        <div className="catalog-controls">
+          <CatalogSearch value={searchQuery} onChange={setSearchQuery} />
 
-        <CatalogFilters
-          selectedTier={selectedTier}
-          selectedDifficulty={selectedDifficulty}
-          showFavorites={showFavorites}
-          progressFilter={progressFilter}
-          favoriteCount={favorites.length}
-          onTierChange={setSelectedTier}
-          onDifficultyChange={setSelectedDifficulty}
-          onFavoritesToggle={() => setShowFavorites(!showFavorites)}
-          onProgressFilterChange={setProgressFilter}
+          <CatalogFilters
+            selectedTier={selectedTier}
+            selectedDifficulty={selectedDifficulty}
+            showFavorites={showFavorites}
+            progressFilter={progressFilter}
+            favoriteCount={favorites.length}
+            onTierChange={setSelectedTier}
+            onDifficultyChange={setSelectedDifficulty}
+            onFavoritesToggle={() => setShowFavorites(!showFavorites)}
+            onProgressFilterChange={setProgressFilter}
+          />
+        </div>
+
+        {/* Lesson Grid */}
+        <div className="catalog-grid">
+          {filteredFiles.map((file, index) => (
+            <LessonCard
+              key={index}
+              file={file}
+              isFavorite={favorites.includes(file.filename)}
+              isCompleted={completed.includes(file.filename)}
+              onToggleFavorite={toggleFavorite}
+              onToggleCompleted={toggleCompleted}
+              onShare={openShareModal}
+              onPreview={handlePreview}
+            />
+          ))}
+        </div>
+
+        {/* No results */}
+        {filteredFiles.length === 0 && (
+          <div className="catalog-empty">
+            <p className="catalog-empty-text">No files match your filters</p>
+            <button onClick={clearFilters} className="catalog-clear-btn">
+              Clear Filters
+            </button>
+          </div>
+        )}
+
+        {/* Share Modal */}
+        <ShareModal
+          lesson={shareLesson}
+          isOpen={shareModalOpen}
+          onClose={closeShareModal}
+          copiedMessage={copiedMessage}
+          onTwitterShare={shareOnTwitter}
+          onFacebookShare={shareOnFacebook}
+          onCopyLink={copyLink}
         />
       </div>
-
-      {/* Lesson Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filteredFiles.map((file, index) => (
-          <LessonCard
-            key={index}
-            file={file}
-            isFavorite={favorites.includes(file.filename)}
-            isCompleted={completed.includes(file.filename)}
-            onToggleFavorite={toggleFavorite}
-            onToggleCompleted={toggleCompleted}
-            onShare={openShareModal}
-            onPreview={handlePreview}
-            iconPositions={ICON_POSITIONS}
-          />
-        ))}
-      </div>
-
-      {/* No results */}
-      {filteredFiles.length === 0 && (
-        <div className="text-center py-12">
-          <p className="text-gray-400 text-lg">No files match your filters</p>
-          <button
-            onClick={clearFilters}
-            className="mt-4 px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded transition-colors"
-          >
-            Clear Filters
-          </button>
-        </div>
-      )}
-
-      {/* Share Modal */}
-      <ShareModal
-        lesson={shareLesson}
-        isOpen={shareModalOpen}
-        onClose={closeShareModal}
-        copiedMessage={copiedMessage}
-        onTwitterShare={shareOnTwitter}
-        onFacebookShare={shareOnFacebook}
-        onCopyLink={copyLink}
-      />
     </div>
   );
 }

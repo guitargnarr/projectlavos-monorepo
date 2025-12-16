@@ -146,8 +146,8 @@ function ChordDiagram({ chord, width = 120, height = 160 }) {
         const adjustedFret = showFretNumber ? fret - baseFret + 1 : fret;
         const y = padding + (adjustedFret - 0.5) * fretSpacing;
 
-        // Draw finger position
-        ctx.fillStyle = '#3B82F6';
+        // Draw finger position - using teal brand color
+        ctx.fillStyle = '#14b8a6';
         ctx.beginPath();
         ctx.arc(x, y, 8, 0, Math.PI * 2);
         ctx.fill();
@@ -192,16 +192,12 @@ function ChordCard({ chord, onPlay }) {
   };
 
   return (
-    <div className="bg-gray-800 rounded-lg p-4 border border-gray-700 hover:border-blue-500 transition-all">
-      <h3 className="text-lg font-bold mb-3 text-center text-blue-400">{chord.name}</h3>
+    <div className="chord-dictionary-card">
+      <h3 className="chord-dictionary-card-title">{chord.name}</h3>
       <ChordDiagram chord={chord} />
       <button
         onClick={handlePlay}
-        className={`mt-4 w-full py-2 rounded font-medium transition-all ${
-          isPlaying
-            ? 'bg-green-500 text-white'
-            : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-        }`}
+        className={`chord-dictionary-play-btn ${isPlaying ? 'playing' : ''}`}
       >
         {isPlaying ? 'Playing...' : 'Play Chord'}
       </button>
@@ -305,156 +301,137 @@ export default function ChordDictionary() {
     return matchesSearch;
   });
 
+  // Get filter button class
+  const getFilterClass = (filterValue) => {
+    return `chord-dictionary-filter-btn ${filter === filterValue ? 'selected' : ''}`;
+  };
+
   return (
-    <div className="container mx-auto px-4 py-8 max-w-7xl">
-      {/* Back Button */}
-      <div className="mb-6">
-        <Link to="/" className="text-blue-500 hover:text-blue-400 flex items-center gap-2">
+    <div className="chord-dictionary-page">
+      <div className="max-w-7xl mx-auto">
+        {/* Back Button */}
+        <Link to="/" className="chord-dictionary-back-btn">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
           Back to Home
         </Link>
-      </div>
 
-      {/* Header */}
-      <header className="text-center mb-8">
-        <h1 className="text-4xl font-bold mb-2 text-blue-400">Chord Dictionary</h1>
-        <p className="text-gray-400">Interactive guitar chord diagrams with audio playback</p>
-      </header>
+        {/* Header */}
+        <header className="chord-dictionary-header">
+          <h1 className="chord-dictionary-title">Chord Dictionary</h1>
+          <p className="chord-dictionary-subtitle">Interactive guitar chord diagrams with audio playback</p>
+        </header>
 
-      {/* Search and Filter Controls */}
-      <div className="bg-gray-800 rounded-lg p-6 mb-8 border border-gray-700">
-        <div className="grid md:grid-cols-2 gap-4">
-          {/* Search */}
-          <div>
-            <label className="block text-sm font-medium mb-2">Search Chords</label>
-            <input
-              type="text"
-              placeholder="Type chord name (e.g., C, Am, G Major...)"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-gray-700 border border-gray-600 rounded px-4 py-2 focus:outline-none focus:border-blue-500"
-            />
-          </div>
+        {/* Search and Filter Controls */}
+        <div className="chord-dictionary-search-panel">
+          <div className="chord-dictionary-search-grid">
+            {/* Search */}
+            <div>
+              <label className="chord-dictionary-label">Search Chords</label>
+              <input
+                type="text"
+                placeholder="Type chord name (e.g., C, Am, G Major...)"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="chord-dictionary-search-input"
+              />
+            </div>
 
-          {/* Filter */}
-          <div>
-            <label className="block text-sm font-medium mb-2">Filter by Type</label>
-            <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-              <button
-                onClick={() => setFilter('all')}
-                className={`py-2 px-2 rounded font-medium text-sm transition-all ${
-                  filter === 'all'
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                }`}
-              >
-                All ({CHORD_DATA.length})
-              </button>
-              <button
-                onClick={() => setFilter('major')}
-                className={`py-2 px-2 rounded font-medium text-sm transition-all ${
-                  filter === 'major'
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                }`}
-              >
-                Major
-              </button>
-              <button
-                onClick={() => setFilter('minor')}
-                className={`py-2 px-2 rounded font-medium text-sm transition-all ${
-                  filter === 'minor'
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                }`}
-              >
-                Minor
-              </button>
-              <button
-                onClick={() => setFilter('maj7')}
-                className={`py-2 px-2 rounded font-medium text-sm transition-all ${
-                  filter === 'maj7'
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                }`}
-              >
-                Maj7
-              </button>
-              <button
-                onClick={() => setFilter('min7')}
-                className={`py-2 px-2 rounded font-medium text-sm transition-all ${
-                  filter === 'min7'
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                }`}
-              >
-                Min7
-              </button>
-              <button
-                onClick={() => setFilter('dom7')}
-                className={`py-2 px-2 rounded font-medium text-sm transition-all ${
-                  filter === 'dom7'
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                }`}
-              >
-                Dom7
-              </button>
+            {/* Filter */}
+            <div>
+              <label className="chord-dictionary-label">Filter by Type</label>
+              <div className="chord-dictionary-filter-grid">
+                <button
+                  onClick={() => setFilter('all')}
+                  className={getFilterClass('all')}
+                >
+                  All ({CHORD_DATA.length})
+                </button>
+                <button
+                  onClick={() => setFilter('major')}
+                  className={getFilterClass('major')}
+                >
+                  Major
+                </button>
+                <button
+                  onClick={() => setFilter('minor')}
+                  className={getFilterClass('minor')}
+                >
+                  Minor
+                </button>
+                <button
+                  onClick={() => setFilter('maj7')}
+                  className={getFilterClass('maj7')}
+                >
+                  Maj7
+                </button>
+                <button
+                  onClick={() => setFilter('min7')}
+                  className={getFilterClass('min7')}
+                >
+                  Min7
+                </button>
+                <button
+                  onClick={() => setFilter('dom7')}
+                  className={getFilterClass('dom7')}
+                >
+                  Dom7
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Results Count */}
-      <div className="mb-4 text-gray-400">
-        Showing {filteredChords.length} chord{filteredChords.length !== 1 ? 's' : ''}
-      </div>
-
-      {/* Chord Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {filteredChords.map((chord) => (
-          <ChordCard key={chord.name} chord={chord} onPlay={playChord} />
-        ))}
-      </div>
-
-      {/* No Results */}
-      {filteredChords.length === 0 && (
-        <div className="text-center py-12 bg-gray-800 rounded-lg border border-gray-700">
-          <p className="text-gray-400 text-lg">No chords found matching &quot;{searchTerm}&quot;</p>
-          <button
-            onClick={() => setSearchTerm('')}
-            className="mt-4 px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-all"
-          >
-            Clear Search
-          </button>
+        {/* Results Count */}
+        <div className="chord-dictionary-results-count">
+          Showing {filteredChords.length} chord{filteredChords.length !== 1 ? 's' : ''}
         </div>
-      )}
 
-      {/* Legend */}
-      <div className="mt-8 bg-gray-800 rounded-lg p-6 border border-gray-700">
-        <h3 className="text-xl font-bold mb-4 text-blue-400">How to Read Chord Diagrams</h3>
-        <div className="grid md:grid-cols-3 gap-4 text-sm">
-          <div className="flex items-start gap-3">
-            <div className="w-6 h-6 rounded-full border-2 border-green-500 flex-shrink-0 mt-0.5"></div>
-            <div>
-              <p className="font-medium text-gray-300">Open String</p>
-              <p className="text-gray-500">Play the string without fretting</p>
-            </div>
+        {/* Chord Grid */}
+        <div className="chord-dictionary-grid">
+          {filteredChords.map((chord) => (
+            <ChordCard key={chord.name} chord={chord} onPlay={playChord} />
+          ))}
+        </div>
+
+        {/* No Results */}
+        {filteredChords.length === 0 && (
+          <div className="chord-dictionary-no-results">
+            <p>No chords found matching &quot;{searchTerm}&quot;</p>
+            <button
+              onClick={() => setSearchTerm('')}
+              className="chord-dictionary-clear-btn"
+            >
+              Clear Search
+            </button>
           </div>
-          <div className="flex items-start gap-3">
-            <div className="w-6 h-6 rounded-full bg-blue-500 flex-shrink-0 mt-0.5"></div>
-            <div>
-              <p className="font-medium text-gray-300">Fretted Note</p>
-              <p className="text-gray-500">Press string at indicated fret</p>
+        )}
+
+        {/* Legend */}
+        <div className="chord-dictionary-legend">
+          <h3 className="chord-dictionary-legend-title">How to Read Chord Diagrams</h3>
+          <div className="chord-dictionary-legend-grid">
+            <div className="chord-dictionary-legend-item">
+              <div className="chord-dictionary-legend-icon open"></div>
+              <div className="chord-dictionary-legend-text">
+                <strong>Open String</strong>
+                <span>Play the string without fretting</span>
+              </div>
             </div>
-          </div>
-          <div className="flex items-start gap-3">
-            <div className="text-red-500 text-xl font-bold flex-shrink-0 w-6 text-center">X</div>
-            <div>
-              <p className="font-medium text-gray-300">Muted String</p>
-              <p className="text-gray-500">Don&apos;t play this string</p>
+            <div className="chord-dictionary-legend-item">
+              <div className="chord-dictionary-legend-icon fretted"></div>
+              <div className="chord-dictionary-legend-text">
+                <strong>Fretted Note</strong>
+                <span>Press string at indicated fret</span>
+              </div>
+            </div>
+            <div className="chord-dictionary-legend-item">
+              <div className="chord-dictionary-legend-icon muted">X</div>
+              <div className="chord-dictionary-legend-text">
+                <strong>Muted String</strong>
+                <span>Don&apos;t play this string</span>
+              </div>
             </div>
           </div>
         </div>

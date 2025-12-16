@@ -4,18 +4,18 @@ export default function ProgressBar({ completed, total }) {
   const percentage = Math.round((completed / total) * 100);
 
   return (
-    <div className="mb-6 bg-gray-800 rounded-lg p-4 border border-gray-700">
-      <div className="flex items-center justify-between mb-2">
-        <span className="text-sm text-gray-300 font-medium">
+    <div className="catalog-progress-panel">
+      <div className="catalog-progress-header">
+        <span className="catalog-progress-text">
           Overall Progress: {completed}/{total} lessons completed
         </span>
-        <span className="text-sm font-semibold text-green-400">
+        <span className="catalog-progress-percent">
           {percentage}%
         </span>
       </div>
-      <div className="w-full bg-gray-700 rounded-full h-2.5">
+      <div className="catalog-progress-track">
         <div
-          className="bg-gradient-to-r from-green-500 to-emerald-400 h-2.5 rounded-full transition-all duration-300"
+          className="catalog-progress-fill"
           style={{ width: `${percentage}%` }}
         />
       </div>

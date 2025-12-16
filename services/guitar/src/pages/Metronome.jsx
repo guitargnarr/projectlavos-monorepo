@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 
 /**
- * Enhanced Metronome Component
+ * Enhanced Metronome Component with Elite CSS
  *
  * Features:
  * - BPM control (40-240) via slider and numeric input
@@ -223,193 +223,173 @@ export default function Metronome() {
     };
   }, [stop]);
 
+  // Get beat circle class
+  const getBeatCircleClass = () => {
+    if (!isPulsing) return 'metronome-beat-circle';
+    return currentBeat === 0
+      ? 'metronome-beat-circle downbeat'
+      : 'metronome-beat-circle upbeat';
+  };
+
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
-      {/* Header */}
-      <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
-          Metronome
-        </h1>
-        <p className="text-gray-400">
-          Precise timing practice with visual feedback and tap tempo
-        </p>
-      </div>
+    <div className="metronome-page">
+      <div className="max-w-4xl mx-auto">
+        {/* Header */}
+        <div className="metronome-header">
+          <h1 className="metronome-title">Metronome</h1>
+          <p className="metronome-subtitle">
+            Precise timing practice with visual feedback and tap tempo
+          </p>
+        </div>
 
-      {/* Main Control Panel */}
-      <div className="bg-gray-800 rounded-lg shadow-xl p-8 mb-6">
-        {/* Visual Beat Indicator */}
-        <div className="flex justify-center mb-8">
-          <div className="relative">
-            <div
-              className={`w-48 h-48 rounded-full flex items-center justify-center text-6xl font-bold transition-all duration-100 ${
-                isPulsing
-                  ? currentBeat === 0
-                    ? 'bg-green-500 text-gray-900 scale-110 shadow-lg shadow-green-500/50'
-                    : 'bg-blue-500 text-gray-900 scale-110 shadow-lg shadow-blue-500/50'
-                  : 'bg-gray-700 text-gray-400'
-              }`}
-            >
-              {isPlaying ? currentBeat + 1 : '–'}
+        {/* Main Control Panel */}
+        <div className="metronome-control-panel">
+          {/* Visual Beat Indicator */}
+          <div className="metronome-beat-container">
+            <div className="relative">
+              <div className={getBeatCircleClass()}>
+                {isPlaying ? currentBeat + 1 : '–'}
+              </div>
+              {isPlaying && isPulsing && (
+                <div className="metronome-beat-ring" style={{
+                  color: currentBeat === 0 ? '#14b8a6' : '#f97316'
+                }}></div>
+              )}
             </div>
-            {isPlaying && (
-              <div className={`absolute inset-0 rounded-full border-4 ${
-                currentBeat === 0 ? 'border-green-400' : 'border-blue-400'
-              } animate-ping opacity-75`}></div>
-            )}
           </div>
-        </div>
 
-        {/* BPM Control */}
-        <div className="mb-6">
-          <label className="block text-gray-300 font-semibold mb-2">
-            Tempo (BPM)
-          </label>
-          <div className="flex items-center gap-4">
-            <input
-              type="range"
-              min="40"
-              max="240"
-              value={bpm}
-              onChange={(e) => setBpm(Number(e.target.value))}
-              className="flex-1 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-green-500"
-              disabled={isPlaying}
-            />
-            <input
-              type="number"
-              min="40"
-              max="240"
-              value={bpm}
-              onChange={(e) => setBpm(Math.max(40, Math.min(240, Number(e.target.value) || 40)))}
-              className="w-20 bg-gray-700 border border-gray-600 rounded px-3 py-2 text-center font-mono text-lg"
-              disabled={isPlaying}
-            />
-          </div>
-        </div>
-
-        {/* Play/Stop and Tap Tempo Buttons */}
-        <div className="grid grid-cols-2 gap-4 mb-6">
-          <button
-            onClick={togglePlay}
-            className={`py-4 px-6 rounded-lg font-bold text-lg transition-all ${
-              isPlaying
-                ? 'bg-red-500 hover:bg-red-600 text-white'
-                : 'bg-green-500 hover:bg-green-600 text-gray-900'
-            }`}
-          >
-            {isPlaying ? 'Stop' : 'Start'}
-          </button>
-          <button
-            onClick={handleTap}
-            className="py-4 px-6 bg-blue-500 hover:bg-blue-600 text-gray-900 rounded-lg font-bold text-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-            disabled={isPlaying}
-          >
-            Tap Tempo {tapTimes.length > 0 && `(${tapTimes.length})`}
-          </button>
-        </div>
-
-        {/* Time Signature */}
-        <div className="mb-6">
-          <label className="block text-gray-300 font-semibold mb-2">
-            Time Signature
-          </label>
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-            {['2/4', '3/4', '4/4', '5/4', '6/8', '7/8'].map((sig) => (
-              <button
-                key={sig}
-                onClick={() => setTimeSignature(sig)}
+          {/* BPM Control */}
+          <div className="metronome-tempo-section">
+            <label className="metronome-label">Tempo (BPM)</label>
+            <div className="metronome-tempo-controls">
+              <input
+                type="range"
+                min="40"
+                max="240"
+                value={bpm}
+                onChange={(e) => setBpm(Number(e.target.value))}
+                className="metronome-slider"
                 disabled={isPlaying}
-                className={`py-2 px-4 rounded font-mono transition-all ${
-                  timeSignature === sig
-                    ? 'bg-green-500 text-gray-900'
-                    : 'bg-gray-700 hover:bg-gray-600 text-gray-300'
-                } disabled:opacity-50 disabled:cursor-not-allowed`}
-              >
-                {sig}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Subdivision */}
-        <div className="mb-6">
-          <label className="block text-gray-300 font-semibold mb-2">
-            Subdivision
-          </label>
-          <div className="grid grid-cols-3 gap-2">
-            {[
-              { value: 'quarter', label: 'Quarter ♩' },
-              { value: 'eighth', label: 'Eighth ♪' },
-              { value: 'sixteenth', label: 'Sixteenth 𝅘𝅥𝅯' },
-            ].map((sub) => (
-              <button
-                key={sub.value}
-                onClick={() => setSubdivision(sub.value)}
+              />
+              <input
+                type="number"
+                min="40"
+                max="240"
+                value={bpm}
+                onChange={(e) => setBpm(Math.max(40, Math.min(240, Number(e.target.value) || 40)))}
+                className="metronome-bpm-input"
                 disabled={isPlaying}
-                className={`py-2 px-4 rounded transition-all ${
-                  subdivision === sub.value
-                    ? 'bg-blue-500 text-gray-900'
-                    : 'bg-gray-700 hover:bg-gray-600 text-gray-300'
-                } disabled:opacity-50 disabled:cursor-not-allowed`}
-              >
-                {sub.label}
-              </button>
-            ))}
+              />
+            </div>
+          </div>
+
+          {/* Play/Stop and Tap Tempo Buttons */}
+          <div className="metronome-button-grid cols-2 mb-6">
+            <button
+              onClick={togglePlay}
+              className={`metronome-button-start ${isPlaying ? 'active' : 'inactive'}`}
+            >
+              {isPlaying ? 'Stop' : 'Start'}
+            </button>
+            <button
+              onClick={handleTap}
+              className="metronome-button-tap"
+              disabled={isPlaying}
+            >
+              Tap Tempo {tapTimes.length > 0 && `(${tapTimes.length})`}
+            </button>
+          </div>
+
+          {/* Time Signature */}
+          <div className="mb-6">
+            <label className="metronome-label">Time Signature</label>
+            <div className="metronome-button-grid cols-6">
+              {['2/4', '3/4', '4/4', '5/4', '6/8', '7/8'].map((sig) => (
+                <button
+                  key={sig}
+                  onClick={() => setTimeSignature(sig)}
+                  disabled={isPlaying}
+                  className={`metronome-option-btn ${timeSignature === sig ? 'selected' : ''}`}
+                >
+                  {sig}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Subdivision */}
+          <div className="mb-6">
+            <label className="metronome-label">Subdivision</label>
+            <div className="metronome-button-grid cols-3">
+              {[
+                { value: 'quarter', label: 'Quarter' },
+                { value: 'eighth', label: 'Eighth' },
+                { value: 'sixteenth', label: 'Sixteenth' },
+              ].map((sub) => (
+                <button
+                  key={sub.value}
+                  onClick={() => setSubdivision(sub.value)}
+                  disabled={isPlaying}
+                  className={`metronome-option-btn ${subdivision === sub.value ? 'selected-alt' : ''}`}
+                >
+                  {sub.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Volume Control */}
+          <div className="metronome-volume-section">
+            <label className="metronome-label">Volume</label>
+            <div className="metronome-volume-controls">
+              <span className="metronome-volume-icon">🔇</span>
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value={volume}
+                onChange={(e) => setVolume(Number(e.target.value))}
+                className="metronome-slider flex-1"
+              />
+              <span className="metronome-volume-icon">🔊</span>
+              <span className="metronome-volume-value">
+                {Math.round(volume * 100)}%
+              </span>
+            </div>
           </div>
         </div>
 
-        {/* Volume Control */}
-        <div>
-          <label className="block text-gray-300 font-semibold mb-2">
-            Volume
-          </label>
-          <div className="flex items-center gap-4">
-            <span className="text-2xl">🔇</span>
-            <input
-              type="range"
-              min="0"
-              max="1"
-              step="0.01"
-              value={volume}
-              onChange={(e) => setVolume(Number(e.target.value))}
-              className="flex-1 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-500"
-            />
-            <span className="text-2xl">🔊</span>
-            <span className="w-12 text-center font-mono text-sm">
-              {Math.round(volume * 100)}%
-            </span>
+        {/* Instructions */}
+        <div className="metronome-instructions">
+          <h2 className="metronome-instructions-title">How to Use</h2>
+          <div className="metronome-instructions-list">
+            <div className="metronome-instruction-item">
+              <span className="metronome-instruction-bullet">•</span>
+              <span><span className="metronome-instruction-teal">Set Tempo:</span> Use the slider or type a BPM value (40-240)</span>
+            </div>
+            <div className="metronome-instruction-item">
+              <span className="metronome-instruction-bullet">•</span>
+              <span><span className="metronome-instruction-teal">Tap Tempo:</span> Tap the button 2-4 times to set tempo by tapping the beat</span>
+            </div>
+            <div className="metronome-instruction-item">
+              <span className="metronome-instruction-bullet">•</span>
+              <span><span className="metronome-instruction-teal">Time Signature:</span> Choose your time signature (defaults to 4/4)</span>
+            </div>
+            <div className="metronome-instruction-item">
+              <span className="metronome-instruction-bullet">•</span>
+              <span><span className="metronome-instruction-teal">Subdivision:</span> Practice with quarter notes, eighth notes, or sixteenth notes</span>
+            </div>
+            <div className="metronome-instruction-item">
+              <span className="metronome-instruction-bullet">•</span>
+              <span><span className="metronome-instruction-highlight">Visual Feedback:</span> Teal pulse = downbeat, Orange pulse = other beats</span>
+            </div>
+            <div className="metronome-instruction-item">
+              <span className="metronome-instruction-bullet">•</span>
+              <span><span className="metronome-instruction-highlight">Audio:</span> High beep for downbeat, lower beep for other beats</span>
+            </div>
           </div>
         </div>
-      </div>
-
-      {/* Instructions */}
-      <div className="bg-gray-800 rounded-lg p-6">
-        <h2 className="text-xl font-bold mb-3 text-green-400">How to Use</h2>
-        <ul className="space-y-2 text-gray-300">
-          <li className="flex items-start">
-            <span className="text-green-400 mr-2">•</span>
-            <span><strong>Set Tempo:</strong> Use the slider or type a BPM value (40-240)</span>
-          </li>
-          <li className="flex items-start">
-            <span className="text-green-400 mr-2">•</span>
-            <span><strong>Tap Tempo:</strong> Tap the button 2-4 times to set tempo by tapping the beat</span>
-          </li>
-          <li className="flex items-start">
-            <span className="text-green-400 mr-2">•</span>
-            <span><strong>Time Signature:</strong> Choose your time signature (defaults to 4/4)</span>
-          </li>
-          <li className="flex items-start">
-            <span className="text-green-400 mr-2">•</span>
-            <span><strong>Subdivision:</strong> Practice with quarter notes, eighth notes, or sixteenth notes</span>
-          </li>
-          <li className="flex items-start">
-            <span className="text-green-400 mr-2">•</span>
-            <span><strong>Visual Feedback:</strong> Green pulse = downbeat, Blue pulse = other beats</span>
-          </li>
-          <li className="flex items-start">
-            <span className="text-green-400 mr-2">•</span>
-            <span><strong>Audio:</strong> High beep for downbeat, lower beep for other beats</span>
-          </li>
-        </ul>
       </div>
     </div>
   );

@@ -12,19 +12,15 @@ export default function CatalogFilters({
   onProgressFilterChange,
 }) {
   return (
-    <div className="flex flex-wrap gap-4">
+    <div className="catalog-filters">
       {/* Tier filter */}
-      <div className="space-x-2">
-        <span className="text-sm text-gray-400">Tier:</span>
+      <div className="catalog-filter-group">
+        <span className="catalog-filter-label">Tier:</span>
         {['all', 'free', 'premium', 'pro'].map((tier) => (
           <button
             key={tier}
             onClick={() => onTierChange(tier)}
-            className={`px-4 py-2.5 rounded-full text-sm font-medium transition-all min-h-[44px] ${
-              selectedTier === tier
-                ? 'bg-green-500 text-gray-900'
-                : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
-            }`}
+            className={`catalog-filter-btn ${selectedTier === tier ? 'selected' : ''}`}
           >
             {tier.charAt(0).toUpperCase() + tier.slice(1)}
           </button>
@@ -32,17 +28,13 @@ export default function CatalogFilters({
       </div>
 
       {/* Difficulty filter */}
-      <div className="space-x-2">
-        <span className="text-sm text-gray-400">Difficulty:</span>
+      <div className="catalog-filter-group">
+        <span className="catalog-filter-label">Difficulty:</span>
         {['all', 'beginner', 'intermediate', 'advanced'].map((difficulty) => (
           <button
             key={difficulty}
             onClick={() => onDifficultyChange(difficulty)}
-            className={`px-4 py-2.5 rounded-full text-sm font-medium transition-all min-h-[44px] ${
-              selectedDifficulty === difficulty
-                ? 'bg-green-500 text-gray-900'
-                : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
-            }`}
+            className={`catalog-filter-btn ${selectedDifficulty === difficulty ? 'selected' : ''}`}
           >
             {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
           </button>
@@ -50,31 +42,23 @@ export default function CatalogFilters({
       </div>
 
       {/* Favorites filter */}
-      <div className="space-x-2">
+      <div className="catalog-filter-group">
         <button
           onClick={onFavoritesToggle}
-          className={`px-4 py-2.5 rounded-full text-sm font-medium transition-all min-h-[44px] ${
-            showFavorites
-              ? 'bg-pink-500 text-gray-900'
-              : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
-          }`}
+          className={`catalog-filter-btn favorites ${showFavorites ? 'selected' : ''}`}
         >
           Favorites {favoriteCount > 0 && `(${favoriteCount})`}
         </button>
       </div>
 
       {/* Progress filter */}
-      <div className="space-x-2">
-        <span className="text-sm text-gray-400">Progress:</span>
+      <div className="catalog-filter-group">
+        <span className="catalog-filter-label">Progress:</span>
         {['all', 'completed', 'in-progress'].map((filter) => (
           <button
             key={filter}
             onClick={() => onProgressFilterChange(filter)}
-            className={`px-4 py-2.5 rounded-full text-sm font-medium transition-all min-h-[44px] ${
-              progressFilter === filter
-                ? 'bg-green-500 text-gray-900'
-                : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
-            }`}
+            className={`catalog-filter-btn ${progressFilter === filter ? 'selected' : ''}`}
           >
             {filter === 'in-progress' ? 'In Progress' : filter.charAt(0).toUpperCase() + filter.slice(1)}
           </button>

@@ -256,238 +256,226 @@ export default function ScaleTrainer() {
     return (stringIndex + fret) % 12;
   };
 
+  // Get note class for fretboard
+  const getNoteClass = (noteIndex, isRoot, isTarget) => {
+    if (isTarget) return 'scale-trainer-note-dot target';
+    if (isRoot) return 'scale-trainer-note-dot root';
+    return 'scale-trainer-note-dot scale';
+  };
+
+  // Get progress note class
+  const getProgressClass = (idx) => {
+    if (idx < currentNoteIndex) return 'scale-trainer-progress-note completed';
+    if (idx === currentNoteIndex) return 'scale-trainer-progress-note current';
+    return 'scale-trainer-progress-note';
+  };
+
+  // Get target note class
+  const getTargetClass = () => {
+    if (lastResult === 'correct') return 'scale-trainer-target-note correct';
+    if (lastResult === 'incorrect') return 'scale-trainer-target-note incorrect';
+    return 'scale-trainer-target-note';
+  };
+
   return (
-    <div className="container mx-auto px-4 py-8 max-w-6xl">
-      {/* Header */}
-      <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-teal-400 to-cyan-500 bg-clip-text text-transparent">
-          Scale Trainer
-        </h1>
-        <p className="text-gray-400">
-          Practice scales with real-time pitch detection
-        </p>
-      </div>
-
-      {/* Control Panel */}
-      <div className="bg-gray-800 rounded-lg p-6 mb-6">
-        {/* Root Note Selection */}
-        <div className="mb-6">
-          <label className="block text-gray-300 font-semibold mb-2">Root Note</label>
-          <div className="grid grid-cols-6 sm:grid-cols-12 gap-2">
-            {NOTE_NAMES.map((note, idx) => (
-              <button
-                key={note}
-                onClick={() => setRootNote(idx)}
-                disabled={isPracticing}
-                className={`py-3 px-2 rounded font-medium transition-all ${
-                  rootNote === idx
-                    ? 'bg-teal-500 text-gray-900'
-                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                } disabled:opacity-50 disabled:cursor-not-allowed`}
-              >
-                {note}
-              </button>
-            ))}
-          </div>
+    <div className="scale-trainer-page">
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="scale-trainer-header">
+          <h1 className="scale-trainer-title">Scale Trainer</h1>
+          <p className="scale-trainer-subtitle">
+            Practice scales with real-time pitch detection
+          </p>
         </div>
 
-        {/* Scale Selection */}
-        <div className="mb-6">
-          <label className="block text-gray-300 font-semibold mb-2">Scale</label>
-          <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-2">
-            {Object.entries(SCALES).map(([key, value]) => (
-              <button
-                key={key}
-                onClick={() => setScaleType(key)}
-                disabled={isPracticing}
-                className={`py-2 px-3 rounded text-sm transition-all ${
-                  scaleType === key
-                    ? 'bg-teal-500 text-gray-900'
-                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                } disabled:opacity-50 disabled:cursor-not-allowed`}
-              >
-                {value.name}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Practice Mode */}
-        <div className="mb-6">
-          <label className="block text-gray-300 font-semibold mb-2">Practice Mode</label>
-          <div className="grid grid-cols-3 gap-2">
-            {PRACTICE_MODES.map(mode => (
-              <button
-                key={mode.id}
-                onClick={() => setPracticeMode(mode.id)}
-                disabled={isPracticing}
-                className={`py-2 px-3 rounded text-sm transition-all ${
-                  practiceMode === mode.id
-                    ? 'bg-cyan-500 text-gray-900'
-                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                } disabled:opacity-50 disabled:cursor-not-allowed`}
-              >
-                {mode.name}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Action Buttons */}
-        <div className="grid grid-cols-2 gap-4">
-          <button
-            onClick={isListening ? stopListening : startListening}
-            className={`py-4 px-6 rounded-lg font-bold text-lg transition-all ${
-              isListening
-                ? 'bg-red-500 hover:bg-red-600 text-white'
-                : 'bg-teal-500 hover:bg-teal-600 text-gray-900'
-            }`}
-          >
-            {isListening ? 'Stop Listening' : 'Start Listening'}
-          </button>
-          <button
-            onClick={startPractice}
-            disabled={!isListening || isPracticing}
-            className="py-4 px-6 bg-cyan-500 hover:bg-cyan-600 text-gray-900 rounded-lg font-bold text-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {isPracticing ? 'Practicing...' : 'Start Practice'}
-          </button>
-        </div>
-
-        {error && (
-          <div className="mt-4 p-4 bg-red-900/50 border border-red-500 rounded text-red-200">
-            {error}
-          </div>
-        )}
-      </div>
-
-      {/* Practice Display */}
-      {isPracticing && (
-        <div className="bg-gray-800 rounded-lg p-6 mb-6">
-          <div className="text-center mb-6">
-            <div className="text-sm text-gray-400 mb-2">Play this note:</div>
-            <div className={`text-6xl font-bold mb-2 transition-all ${
-              lastResult === 'correct' ? 'text-green-400 scale-110' :
-              lastResult === 'incorrect' ? 'text-red-400' :
-              'text-teal-400'
-            }`}>
-              {NOTE_NAMES[targetNote]}
+        {/* Control Panel */}
+        <div className="scale-trainer-panel">
+          {/* Root Note Selection */}
+          <div className="mb-6">
+            <label className="scale-trainer-label">Root Note</label>
+            <div className="scale-trainer-note-grid">
+              {NOTE_NAMES.map((note, idx) => (
+                <button
+                  key={note}
+                  onClick={() => setRootNote(idx)}
+                  disabled={isPracticing}
+                  className={`scale-trainer-note-btn ${rootNote === idx ? 'selected' : ''}`}
+                >
+                  {note}
+                </button>
+              ))}
             </div>
-            {detectedNote !== null && (
-              <div className="text-lg text-gray-400">
-                You played: <span className={detectedNote === targetNote ? 'text-green-400' : 'text-red-400'}>
-                  {NOTE_NAMES[detectedNote]}
-                </span>
-              </div>
-            )}
           </div>
 
-          {/* Progress */}
-          <div className="flex justify-center gap-2 mb-4">
-            {sequence.map((note, idx) => (
-              <div
-                key={idx}
-                className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-all ${
-                  idx < currentNoteIndex
-                    ? 'bg-green-500 text-gray-900'
-                    : idx === currentNoteIndex
-                      ? 'bg-teal-500 text-gray-900 scale-110'
-                      : 'bg-gray-700 text-gray-400'
-                }`}
-              >
-                {NOTE_NAMES[note]}
-              </div>
-            ))}
-          </div>
-
-          {/* Score */}
-          <div className="text-center">
-            <span className="text-2xl font-bold text-green-400">{score.correct}</span>
-            <span className="text-gray-400"> / {score.total} correct</span>
-          </div>
-        </div>
-      )}
-
-      {/* Fretboard Display */}
-      <div className="bg-gray-800 rounded-lg p-6 overflow-x-auto">
-        <h3 className="text-xl font-bold mb-4 text-teal-400">
-          {NOTE_NAMES[rootNote]} {scale.name} Scale
-        </h3>
-        <div className="min-w-max">
-          {/* Fret numbers */}
-          <div className="flex mb-2">
-            <div className="w-12"></div>
-            {[...Array(13)].map((_, i) => (
-              <div key={i} className="w-14 text-center text-sm text-gray-500">{i}</div>
-            ))}
-          </div>
-
-          {/* Strings */}
-          {TUNING.slice().reverse().map((stringNote, stringIdx) => (
-            <div key={stringIdx} className="flex items-center mb-1">
-              <div className="w-12 text-sm font-medium text-gray-400">{stringNote}</div>
-              {[...Array(13)].map((_, fret) => {
-                const noteIndex = getNoteAtFret(stringNote, fret);
-                const inScale = scaleNotes.includes(noteIndex);
-                const isRoot = noteIndex === rootNote;
-                const isTarget = isPracticing && noteIndex === targetNote;
-
-                return (
-                  <div
-                    key={fret}
-                    className="w-14 h-10 border border-gray-700 flex items-center justify-center relative"
-                  >
-                    {inScale && (
-                      <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
-                        isTarget
-                          ? 'bg-yellow-400 text-gray-900 animate-pulse'
-                          : isRoot
-                            ? 'bg-teal-500 text-gray-900'
-                            : 'bg-cyan-500 text-gray-900'
-                      }`}>
-                        {NOTE_NAMES[noteIndex]}
-                      </div>
-                    )}
-                    {[3, 5, 7, 9, 12].includes(fret) && !inScale && (
-                      <div className="absolute bottom-0.5 w-1.5 h-1.5 rounded-full bg-gray-600"></div>
-                    )}
-                  </div>
-                );
-              })}
+          {/* Scale Selection */}
+          <div className="mb-6">
+            <label className="scale-trainer-label">Scale</label>
+            <div className="scale-trainer-scale-grid">
+              {Object.entries(SCALES).map(([key, value]) => (
+                <button
+                  key={key}
+                  onClick={() => setScaleType(key)}
+                  disabled={isPracticing}
+                  className={`scale-trainer-scale-btn ${scaleType === key ? 'selected' : ''}`}
+                >
+                  {value.name}
+                </button>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
 
-        {/* Legend */}
-        <div className="mt-4 flex gap-6 text-sm text-gray-400">
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded-full bg-teal-500"></div>
-            <span>Root Note</span>
+          {/* Practice Mode */}
+          <div className="mb-6">
+            <label className="scale-trainer-label">Practice Mode</label>
+            <div className="scale-trainer-mode-grid">
+              {PRACTICE_MODES.map(mode => (
+                <button
+                  key={mode.id}
+                  onClick={() => setPracticeMode(mode.id)}
+                  disabled={isPracticing}
+                  className={`scale-trainer-mode-btn ${practiceMode === mode.id ? 'selected' : ''}`}
+                >
+                  {mode.name}
+                </button>
+              ))}
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded-full bg-cyan-500"></div>
-            <span>Scale Notes</span>
+
+          {/* Action Buttons */}
+          <div className="scale-trainer-action-grid">
+            <button
+              onClick={isListening ? stopListening : startListening}
+              className={`scale-trainer-listen-btn ${isListening ? 'active' : ''}`}
+            >
+              {isListening ? 'Stop Listening' : 'Start Listening'}
+            </button>
+            <button
+              onClick={startPractice}
+              disabled={!isListening || isPracticing}
+              className="scale-trainer-practice-btn"
+            >
+              {isPracticing ? 'Practicing...' : 'Start Practice'}
+            </button>
           </div>
-          {isPracticing && (
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 rounded-full bg-yellow-400"></div>
-              <span>Target Note</span>
+
+          {error && (
+            <div className="scale-trainer-error">
+              {error}
             </div>
           )}
         </div>
-      </div>
 
-      {/* Instructions */}
-      <div className="bg-gray-800 rounded-lg p-6 mt-6">
-        <h2 className="text-xl font-bold mb-3 text-teal-400">How to Use</h2>
-        <ol className="list-decimal list-inside space-y-2 text-gray-300">
-          <li>Select a root note and scale type</li>
-          <li>Choose a practice mode (ascending, descending, or random)</li>
-          <li>Click &quot;Start Listening&quot; to enable microphone</li>
-          <li>Click &quot;Start Practice&quot; to begin</li>
-          <li>Play each highlighted note on your guitar</li>
-          <li>The trainer detects your pitch and tracks your score!</li>
-        </ol>
+        {/* Practice Display */}
+        {isPracticing && (
+          <div className="scale-trainer-panel">
+            <div className="scale-trainer-practice-display">
+              <div className="scale-trainer-target-label">Play this note:</div>
+              <div className={getTargetClass()}>
+                {NOTE_NAMES[targetNote]}
+              </div>
+              {detectedNote !== null && (
+                <div className="scale-trainer-detected">
+                  You played: <span className={detectedNote === targetNote ? 'match' : 'no-match'}>
+                    {NOTE_NAMES[detectedNote]}
+                  </span>
+                </div>
+              )}
+            </div>
+
+            {/* Progress */}
+            <div className="scale-trainer-progress">
+              {sequence.map((note, idx) => (
+                <div
+                  key={idx}
+                  className={getProgressClass(idx)}
+                >
+                  {NOTE_NAMES[note]}
+                </div>
+              ))}
+            </div>
+
+            {/* Score */}
+            <div className="scale-trainer-score">
+              <span className="scale-trainer-score-value">{score.correct}</span>
+              <span className="scale-trainer-score-total"> / {score.total} correct</span>
+            </div>
+          </div>
+        )}
+
+        {/* Fretboard Display */}
+        <div className="scale-trainer-panel">
+          <div className="scale-trainer-fretboard">
+            <h3 className="scale-trainer-fretboard-title">
+              {NOTE_NAMES[rootNote]} {scale.name} Scale
+            </h3>
+            <div className="scale-trainer-fretboard-content">
+              {/* Fret numbers */}
+              <div className="scale-trainer-fret-numbers">
+                <div className="scale-trainer-fret-label"></div>
+                {[...Array(13)].map((_, i) => (
+                  <div key={i} className="scale-trainer-fret-num">{i}</div>
+                ))}
+              </div>
+
+              {/* Strings */}
+              {TUNING.slice().reverse().map((stringNote, stringIdx) => (
+                <div key={stringIdx} className="scale-trainer-string">
+                  <div className="scale-trainer-string-label">{stringNote}</div>
+                  {[...Array(13)].map((_, fret) => {
+                    const noteIndex = getNoteAtFret(stringNote, fret);
+                    const inScale = scaleNotes.includes(noteIndex);
+                    const isRoot = noteIndex === rootNote;
+                    const isTarget = isPracticing && noteIndex === targetNote;
+
+                    return (
+                      <div key={fret} className="scale-trainer-fret">
+                        {inScale && (
+                          <div className={getNoteClass(noteIndex, isRoot, isTarget)}>
+                            {NOTE_NAMES[noteIndex]}
+                          </div>
+                        )}
+                        {[3, 5, 7, 9, 12].includes(fret) && !inScale && (
+                          <div className="scale-trainer-fret-marker"></div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              ))}
+            </div>
+
+            {/* Legend */}
+            <div className="scale-trainer-legend">
+              <div className="scale-trainer-legend-item">
+                <div className="scale-trainer-legend-dot root"></div>
+                <span>Root Note</span>
+              </div>
+              <div className="scale-trainer-legend-item">
+                <div className="scale-trainer-legend-dot scale"></div>
+                <span>Scale Notes</span>
+              </div>
+              {isPracticing && (
+                <div className="scale-trainer-legend-item">
+                  <div className="scale-trainer-legend-dot target"></div>
+                  <span>Target Note</span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Instructions */}
+        <div className="scale-trainer-instructions">
+          <h2 className="scale-trainer-instructions-title">How to Use</h2>
+          <ol className="scale-trainer-instructions-list">
+            <li>Select a root note and scale type</li>
+            <li>Choose a practice mode (ascending, descending, or random)</li>
+            <li>Click &quot;Start Listening&quot; to enable microphone</li>
+            <li>Click &quot;Start Practice&quot; to begin</li>
+            <li>Play each highlighted note on your guitar</li>
+            <li>The trainer detects your pitch and tracks your score!</li>
+          </ol>
+        </div>
       </div>
     </div>
   );

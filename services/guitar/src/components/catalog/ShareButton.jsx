@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 
-export default function ShareButton({ lesson, onShare, position }) {
+export default function ShareButton({ lesson, onShare }) {
   return (
     <button
       onClick={(e) => {
         e.stopPropagation();
         onShare(lesson);
       }}
-      className={`absolute ${position} p-2.5 hover:scale-110 transition-transform text-gray-400 hover:text-blue-400 min-w-[44px] min-h-[44px] flex items-center justify-center`}
+      className="catalog-card-icon share"
       aria-label="Share lesson"
     >
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -21,5 +21,4 @@ export default function ShareButton({ lesson, onShare, position }) {
 ShareButton.propTypes = {
   lesson: PropTypes.object.isRequired,
   onShare: PropTypes.func.isRequired,
-  position: PropTypes.string.isRequired,
 };
