@@ -5213,3 +5213,402 @@
     font-size: 2rem;
   }
 }
+
+/* ============================================
+   FRETVISION PAGE - Elite Frontend Oracle CSS
+   ============================================ */
+
+/* Page Container with Gradient Background */
+.fretvision-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  position: relative;
+  overflow-x: hidden;
+}
+
+.fretvision-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(20, 184, 166, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(249, 115, 22, 0.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Header with Gradient Title */
+.fretvision-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.fretvision-title {
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #2dd4bf 0%, #14b8a6 50%, #fb923c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.25rem;
+}
+
+.fretvision-title-accent {
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #14b8a6, #f97316);
+  border-radius: 2px;
+  margin: 0 auto 0.75rem;
+}
+
+.fretvision-subtitle {
+  color: #94a3b8;
+  font-size: 1.1rem;
+}
+
+/* Back Link */
+.fretvision-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #14b8a6;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background: rgba(20, 184, 166, 0.1);
+}
+
+.fretvision-back-link:hover {
+  color: #2dd4bf;
+  background: rgba(20, 184, 166, 0.2);
+  transform: translateX(-4px);
+}
+
+/* Control Panel - Glassmorphism */
+.fretvision-control-panel {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(71, 85, 105, 0.5);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* DAW-Style Select Dropdowns */
+.fretvision-select-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.fretvision-select {
+  width: 100%;
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid #475569;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  color: #e2e8f0;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.25rem;
+}
+
+.fretvision-select:hover {
+  border-color: #14b8a6;
+  box-shadow: 0 0 0 2px rgba(20, 184, 166, 0.2);
+}
+
+.fretvision-select:focus {
+  outline: none;
+  border-color: #14b8a6;
+  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.3);
+}
+
+/* Root Note Button Grid */
+.fretvision-root-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .fretvision-root-grid {
+    grid-template-columns: repeat(12, 1fr);
+  }
+}
+
+.fretvision-root-button {
+  padding: 0.875rem 0.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  background: linear-gradient(180deg, #334155 0%, #1e293b 100%);
+  border: 1px solid #475569;
+  color: #94a3b8;
+  cursor: pointer;
+  min-height: 44px;
+}
+
+.fretvision-root-button:hover {
+  background: linear-gradient(180deg, #475569 0%, #334155 100%);
+  border-color: #64748b;
+  color: #e2e8f0;
+  transform: translateY(-1px);
+}
+
+.fretvision-root-button.selected {
+  background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+  border-color: #2dd4bf;
+  color: white;
+  box-shadow:
+    0 0 20px rgba(20, 184, 166, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Fretboard Container - Rosewood Style */
+.fretvision-fretboard {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(71, 85, 105, 0.5);
+  border-radius: 16px;
+  padding: 1.5rem;
+  overflow-x: auto;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.fretvision-fretboard-inner {
+  min-width: max-content;
+}
+
+/* Fret Numbers Row */
+.fretvision-fret-numbers {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+.fretvision-fret-number {
+  width: 4rem;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.fretvision-fret-number:first-child {
+  width: 3rem;
+}
+
+/* String Row */
+.fretvision-string-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2px;
+}
+
+.fretvision-string-label {
+  width: 3rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #64748b;
+}
+
+/* Fret Cell - Wood Texture Effect */
+.fretvision-fret-cell {
+  width: 4rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: linear-gradient(180deg,
+    #3d2914 0%,
+    #5c3d1e 20%,
+    #4a3218 50%,
+    #5c3d1e 80%,
+    #3d2914 100%);
+  border-right: 2px solid #c9b896;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.fretvision-fret-cell.nut {
+  background: linear-gradient(180deg,
+    #f5f5dc 0%,
+    #e8e8c8 50%,
+    #d4d4aa 100%);
+  border-right: 4px solid #1a1a1a;
+}
+
+/* Fret Position Markers (Inlays) */
+.fretvision-inlay {
+  position: absolute;
+  bottom: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f5f5dc 0%, #c9b896 100%);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+  opacity: 0.8;
+}
+
+/* Note Dots with Glow Effects */
+.fretvision-note-dot {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  position: relative;
+  z-index: 10;
+}
+
+.fretvision-note-dot.root {
+  background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+  color: white;
+  box-shadow:
+    0 0 20px rgba(20, 184, 166, 0.6),
+    0 0 40px rgba(20, 184, 166, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  animation: fretvision-pulse-teal 2s ease-in-out infinite;
+}
+
+.fretvision-note-dot.scale {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  color: white;
+  box-shadow:
+    0 0 15px rgba(249, 115, 22, 0.5),
+    0 0 30px rgba(249, 115, 22, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.fretvision-note-dot:hover {
+  transform: scale(1.15);
+}
+
+@keyframes fretvision-pulse-teal {
+  0%, 100% {
+    box-shadow:
+      0 0 20px rgba(20, 184, 166, 0.6),
+      0 0 40px rgba(20, 184, 166, 0.3);
+  }
+  50% {
+    box-shadow:
+      0 0 30px rgba(20, 184, 166, 0.8),
+      0 0 60px rgba(20, 184, 166, 0.4);
+  }
+}
+
+/* Scale Info Panel */
+.fretvision-info-panel {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(71, 85, 105, 0.5);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.fretvision-info-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #2dd4bf 0%, #14b8a6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+}
+
+.fretvision-notes-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+
+.fretvision-notes-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.fretvision-note-pill {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.fretvision-note-pill.root {
+  background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+  color: white;
+  box-shadow: 0 0 15px rgba(20, 184, 166, 0.4);
+}
+
+.fretvision-note-pill.scale {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  color: white;
+  box-shadow: 0 0 10px rgba(249, 115, 22, 0.3);
+}
+
+/* Legend */
+.fretvision-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #94a3b8;
+}
+
+.fretvision-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.fretvision-legend-dot {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+}
+
+.fretvision-legend-dot.root {
+  background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+  box-shadow: 0 0 8px rgba(20, 184, 166, 0.5);
+}
+
+.fretvision-legend-dot.scale {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  box-shadow: 0 0 8px rgba(249, 115, 22, 0.4);
+}
