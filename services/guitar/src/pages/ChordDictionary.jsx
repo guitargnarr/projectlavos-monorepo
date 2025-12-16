@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Soundfont from 'soundfont-player';
+import { MIDI_BASE } from '../lib/guitarTheory';
 
 /**
  * Chord data structure:
@@ -411,11 +413,26 @@ ChordCard.propTypes = {
 export default function ChordDictionary() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filter, setFilter] = useState('all'); // all, major, minor, maj7, min7, dom7
+  const [synthReady, setSynthReady] = useState(false);
   const audioContextRef = useRef(null);
+  const instrumentRef = useRef(null);
 
-  // Initialize Web Audio API
+  // Initialize soundfont-based guitar synthesizer
   useEffect(() => {
-    audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
+    const initAudio = async () => {
+      try {
+        audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
+        instrumentRef.current = await Soundfont.instrument(
+          audioContextRef.current,
+          'acoustic_guitar_nylon'
+        );
+        setSynthReady(true);
+      } catch (error) {
+        console.error('Failed to load guitar soundfont:', error);
+      }
+    };
+
+    initAudio();
 
     return () => {
       if (audioContextRef.current) {
@@ -424,49 +441,29 @@ export default function ChordDictionary() {
     };
   }, []);
 
-  // Note frequencies (A4 = 440 Hz)
-  const getNoteFrequency = (noteName) => {
-    const noteFrequencies = {
-      'C': 130.81, 'C#': 138.59, 'Db': 138.59,
-      'D': 146.83, 'D#': 155.56, 'Eb': 155.56,
-      'E': 164.81,
-      'F': 174.61, 'F#': 185.00, 'Gb': 185.00,
-      'G': 196.00, 'G#': 207.65, 'Ab': 207.65,
-      'A': 220.00, 'A#': 233.08, 'Bb': 233.08,
-      'B': 246.94,
-    };
-    return noteFrequencies[noteName] || 440;
-  };
-
-  // Play chord using Web Audio API
+  // Play chord using soundfont - calculates MIDI notes from finger positions
   const playChord = (chord) => {
-    if (!audioContextRef.current || !chord.notes) return;
+    if (!instrumentRef.current || !synthReady) return;
 
     const ctx = audioContextRef.current;
     const now = ctx.currentTime;
-    const duration = 1.5;
+    const stringBaseMidi = MIDI_BASE.standard; // [40, 45, 50, 55, 59, 64] = E2, A2, D3, G3, B3, E4
 
-    chord.notes.forEach((note, index) => {
-      const oscillator = ctx.createOscillator();
-      const gainNode = ctx.createGain();
+    // Calculate MIDI notes from finger positions
+    chord.fingers.forEach((fret, stringIndex) => {
+      if (fret === -1) return; // Skip muted strings
 
-      oscillator.type = 'sine';
-      oscillator.frequency.setValueAtTime(getNoteFrequency(note), now);
+      const midiNote = stringBaseMidi[stringIndex] + fret;
+      // Strum delay: low strings first (bass to treble)
+      const startTime = now + (stringIndex * 0.035);
 
-      // Stagger the notes slightly for a strumming effect
-      const startTime = now + (index * 0.05);
-
-      // Envelope (ADSR)
-      gainNode.gain.setValueAtTime(0, startTime);
-      gainNode.gain.linearRampToValueAtTime(0.3, startTime + 0.01);
-      gainNode.gain.exponentialRampToValueAtTime(0.1, startTime + 0.3);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
-
-      oscillator.connect(gainNode);
-      gainNode.connect(ctx.destination);
-
-      oscillator.start(startTime);
-      oscillator.stop(startTime + duration);
+      instrumentRef.current.play(midiNote, startTime, {
+        duration: 2.0,
+        gain: 0.6,
+        decay: 0.5,
+        sustain: 0.7,
+        release: 0.5
+      });
     });
   };
 
