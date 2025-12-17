@@ -126,21 +126,26 @@ export default function ScaleTrainer() {
   const animationFrameRef = useRef(null);
   const synthRef = useRef(null);
   const [synthReady, setSynthReady] = useState(false);
+  const [synthLoading, setSynthLoading] = useState(false);
 
-  // Initialize synthesizer for reference note playback
-  useEffect(() => {
-    const initSynth = async () => {
+  // Lazy load synthesizer - only when user wants to play
+  const ensureSynthReady = async () => {
+    if (synthRef.current && synthReady) return true;
+    if (synthLoading) return false;
+
+    setSynthLoading(true);
+    try {
       synthRef.current = new GuitarSynthesizer();
       const success = await synthRef.current.loadInstrument();
       setSynthReady(success);
-    };
-    initSynth();
-    return () => {
-      if (synthRef.current) {
-        synthRef.current = null;
-      }
-    };
-  }, []);
+      setSynthLoading(false);
+      return success;
+    } catch (err) {
+      console.error('Failed to load synth:', err);
+      setSynthLoading(false);
+      return false;
+    }
+  };
 
   // Generate proper scale fingering pattern (box position)
   const generateScalePattern = () => {
@@ -191,7 +196,11 @@ export default function ScaleTrainer() {
 
   // Play entire scale with animation - proper fingering pattern (ascending only)
   const playScale = async () => {
-    if (!synthRef.current || !synthReady || isPlayingScale) return;
+    if (isPlayingScale || synthLoading) return;
+
+    // Lazy load synth on first play
+    const ready = await ensureSynthReady();
+    if (!ready) return;
 
     const pattern = generateScalePattern();
     if (pattern.length === 0) return;
@@ -535,10 +544,10 @@ export default function ScaleTrainer() {
           <div className="scale-trainer-action-grid">
             <button
               onClick={playScale}
-              disabled={!synthReady || isPlayingScale}
+              disabled={isPlayingScale || synthLoading}
               className="scale-trainer-play-scale-btn"
             >
-              {isPlayingScale ? 'Playing...' : synthReady ? 'Play Scale' : 'Loading...'}
+              {synthLoading ? 'Loading...' : isPlayingScale ? 'Playing...' : 'Play Scale'}
             </button>
             <button
               onClick={isListening ? stopListening : startListening}
