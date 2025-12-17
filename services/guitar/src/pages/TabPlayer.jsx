@@ -1,61 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import Soundfont from 'soundfont-player';
 import * as alphaTab from '@coderline/alphatab';
-
-class GuitarSynthesizer {
-  constructor() {
-    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    this.instrument = null;
-    this.loading = true;
-    // Guitar string MIDI note numbers (standard tuning E-A-D-G-B-e)
-    this.stringBaseMidi = [64, 59, 55, 50, 45, 40]; // E4, B3, G3, D3, A2, E2
-  }
-
-  async loadInstrument() {
-    try {
-      this.instrument = await Soundfont.instrument(this.audioContext, 'acoustic_guitar_nylon');
-      this.loading = false;
-      return true;
-    } catch (error) {
-      console.error('Failed to load soundfont:', error);
-      this.loading = false;
-      return false;
-    }
-  }
-
-  playNote(string, fret, duration = 0.5) {
-    if (!this.instrument || this.loading) return;
-
-    const midiNote = this.stringBaseMidi[string] + fret;
-    this.instrument.play(midiNote, this.audioContext.currentTime, { duration, gain: 0.8 });
-  }
-
-  playMetronomeTick(isDownbeat = false) {
-    const now = this.audioContext.currentTime;
-    const osc = this.audioContext.createOscillator();
-    const gain = this.audioContext.createGain();
-
-    osc.frequency.value = isDownbeat ? 1000 : 800;
-    osc.type = 'sine';
-
-    gain.gain.setValueAtTime(0.1, now);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
-
-    const masterGain = this.audioContext.createGain();
-    masterGain.connect(this.audioContext.destination);
-
-    osc.connect(gain);
-    gain.connect(masterGain);
-
-    osc.start(now);
-    osc.stop(now + 0.05);
-  }
-
-  isReady() {
-    return !this.loading && this.instrument !== null;
-  }
-}
+import GuitarSynthesizer from '../lib/GuitarSynthesizer';
 
 const DEFAULT_TAB = [
   'e|--0-----0-----0-----0-----|',

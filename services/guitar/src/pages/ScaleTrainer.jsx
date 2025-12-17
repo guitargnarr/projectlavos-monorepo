@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { NOTE_NAMES, SCALE_INFO } from '../lib/guitarTheory.js';
+import GuitarSynthesizer from '../lib/GuitarSynthesizer';
 
 // Use SCALE_INFO from guitarTheory.js - now has all 12 scales
 const SCALES = SCALE_INFO;
@@ -115,12 +116,99 @@ export default function ScaleTrainer() {
   const [lastResult, setLastResult] = useState(null);
   const [detectedNote, setDetectedNote] = useState(null);
   const [error, setError] = useState(null);
+  const [isPlayingScale, setIsPlayingScale] = useState(false);
+  const [playingPosition, setPlayingPosition] = useState(null); // {string, fret}
 
   // Audio refs
   const audioContextRef = useRef(null);
   const analyserRef = useRef(null);
   const microphoneRef = useRef(null);
   const animationFrameRef = useRef(null);
+  const synthRef = useRef(null);
+  const [synthReady, setSynthReady] = useState(false);
+
+  // Initialize synthesizer for reference note playback
+  useEffect(() => {
+    const initSynth = async () => {
+      synthRef.current = new GuitarSynthesizer();
+      const success = await synthRef.current.loadInstrument();
+      setSynthReady(success);
+    };
+    initSynth();
+    return () => {
+      if (synthRef.current) {
+        synthRef.current = null;
+      }
+    };
+  }, []);
+
+  // Generate proper scale fingering pattern (box position)
+  const generateScalePattern = () => {
+    const scaleNotes = getScaleNotes();
+    // String open notes (note index): E=4, A=9, D=2, G=7, B=11, E=4
+    const stringOpenNotes = [4, 9, 2, 7, 11, 4];
+
+    // Find root note position on low E string (E = note index 4)
+    // This gives us fret 0-11 where the root note appears
+    let startFret = (rootNote - 4 + 12) % 12;
+
+    // For roots that would start high (fret 8+), use open position instead
+    if (startFret >= 8) startFret = 0;
+
+    const pattern = [];
+
+    // Go through each string from low E (0) to high E (5)
+    for (let stringIdx = 0; stringIdx <= 5; stringIdx++) {
+      const openNote = stringOpenNotes[stringIdx];
+
+      // Find scale notes playable on this string within the position (startFret to startFret+4)
+      for (let fret = startFret; fret <= startFret + 4; fret++) {
+        if (fret < 0 || fret > 12) continue;
+        const noteAtFret = (openNote + fret) % 12;
+
+        if (scaleNotes.includes(noteAtFret)) {
+          pattern.push({ string: stringIdx, fret, note: noteAtFret });
+        }
+      }
+    }
+
+    // Sort by string then fret for proper ascending order
+    pattern.sort((a, b) => {
+      if (a.string !== b.string) return a.string - b.string;
+      return a.fret - b.fret;
+    });
+
+    return pattern;
+  };
+
+  // Play a note at specific position
+  // GuitarSynthesizer uses reversed string order (0=high E), pattern uses (0=low E)
+  const playNoteAtPosition = (stringIdx, fret) => {
+    if (!synthRef.current || !synthReady) return;
+    const synthStringIdx = 5 - stringIdx; // Convert to synth's reversed order
+    synthRef.current.playNote(synthStringIdx, fret, 1.0);
+  };
+
+  // Play entire scale with animation - proper fingering pattern (ascending only)
+  const playScale = async () => {
+    if (!synthRef.current || !synthReady || isPlayingScale) return;
+
+    const pattern = generateScalePattern();
+    if (pattern.length === 0) return;
+
+    setIsPlayingScale(true);
+
+    // Play ascending only
+    for (let i = 0; i < pattern.length; i++) {
+      const pos = pattern[i];
+      setPlayingPosition({ string: pos.string, fret: pos.fret });
+      playNoteAtPosition(pos.string, pos.fret);
+      await new Promise(resolve => setTimeout(resolve, 450));
+    }
+
+    setPlayingPosition(null);
+    setIsPlayingScale(false);
+  };
 
   // Practice sequence
   const [sequence, setSequence] = useState([]);
@@ -278,25 +366,38 @@ export default function ScaleTrainer() {
 
   // Stop listening
   const stopListening = () => {
-    if (animationFrameRef.current) {
-      cancelAnimationFrame(animationFrameRef.current);
+    try {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+        animationFrameRef.current = null;
+      }
+
+      if (microphoneRef.current) {
+        microphoneRef.current.getTracks().forEach(track => {
+          try { track.stop(); } catch (e) { /* ignore */ }
+        });
+        microphoneRef.current = null;
+      }
+
+      if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
+        audioContextRef.current.close().catch(() => {});
+      }
+      audioContextRef.current = null;
+      analyserRef.current = null;
+
+      // Reset all related state
+      setIsListening(false);
+      setIsPracticing(false);
+      setDetectedNote(null);
+      setCurrentNoteIndex(0);
+      setLastResult(null);
+      setError(null);
+    } catch (err) {
+      console.error('Error stopping listener:', err);
+      // Force state reset even on error
+      setIsListening(false);
+      setIsPracticing(false);
     }
-
-    if (microphoneRef.current) {
-      microphoneRef.current.getTracks().forEach(track => track.stop());
-    }
-
-    if (audioContextRef.current) {
-      audioContextRef.current.close();
-    }
-
-    audioContextRef.current = null;
-    analyserRef.current = null;
-    microphoneRef.current = null;
-
-    setIsListening(false);
-    setIsPracticing(false);
-    setDetectedNote(null);
   };
 
   // Start practice session
@@ -339,7 +440,11 @@ export default function ScaleTrainer() {
   };
 
   // Get note class for fretboard
-  const getNoteClass = (noteIndex, isRoot, isTarget) => {
+  const getNoteClass = (noteIndex, isRoot, isTarget, stringIdx, fret) => {
+    const isPlaying = playingPosition &&
+      playingPosition.string === stringIdx &&
+      playingPosition.fret === fret;
+    if (isPlaying) return 'scale-trainer-note-dot playing';
     if (isTarget) return 'scale-trainer-note-dot target';
     if (isRoot) return 'scale-trainer-note-dot root';
     return 'scale-trainer-note-dot scale';
@@ -429,6 +534,13 @@ export default function ScaleTrainer() {
           {/* Action Buttons */}
           <div className="scale-trainer-action-grid">
             <button
+              onClick={playScale}
+              disabled={!synthReady || isPlayingScale}
+              className="scale-trainer-play-scale-btn"
+            >
+              {isPlayingScale ? 'Playing...' : synthReady ? 'Play Scale' : 'Loading...'}
+            </button>
+            <button
               onClick={isListening ? stopListening : startListening}
               className={`scale-trainer-listen-btn ${isListening ? 'active' : ''}`}
             >
@@ -458,6 +570,14 @@ export default function ScaleTrainer() {
               <div className={getTargetClass()}>
                 {NOTE_NAMES[targetNote]}
               </div>
+              <button
+                onClick={() => playReferenceNote(targetNote)}
+                disabled={!synthReady}
+                className="scale-trainer-play-ref-btn"
+                title="Hear the target note"
+              >
+                {synthReady ? 'Hear Note' : 'Loading...'}
+              </button>
               {detectedNote !== null && (
                 <div className="scale-trainer-detected">
                   You played: <span className={detectedNote === targetNote ? 'match' : 'no-match'}>
@@ -512,10 +632,12 @@ export default function ScaleTrainer() {
                     const isRoot = noteIndex === rootNote;
                     const isTarget = isPracticing && noteIndex === targetNote;
 
+                    // Convert display stringIdx back to TUNING index (reversed)
+                    const tuningIdx = 5 - stringIdx;
                     return (
                       <div key={fret} className="scale-trainer-fret">
                         {inScale && (
-                          <div className={getNoteClass(noteIndex, isRoot, isTarget)}>
+                          <div className={getNoteClass(noteIndex, isRoot, isTarget, tuningIdx, fret)}>
                             {NOTE_NAMES[noteIndex]}
                           </div>
                         )}

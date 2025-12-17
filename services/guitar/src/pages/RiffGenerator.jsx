@@ -1,146 +1,9 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import Soundfont from 'soundfont-player';
 import { generateTab, getScaleInfo, SCALES, NOTE_NAMES, GuitarTheory, TUNINGS, MIDI_BASE, CHORD_PROGRESSIONS } from '../lib/guitarTheory';
-
-// MIDI file generation utilities
-const MIDI_HEADER = [0x4D, 0x54, 0x68, 0x64]; // 'MThd'
-const MIDI_TRACK_HEADER = [0x4D, 0x54, 0x72, 0x6B]; // 'MTrk'
-
-function createMidiFile(notes, tempo = 120) {
-  const ticksPerBeat = 480;
-  const microsecondsPerBeat = Math.round(60000000 / tempo);
-
-  // Build track data
-  const trackData = [];
-
-  // Tempo meta event
-  trackData.push(0x00); // Delta time
-  trackData.push(0xFF, 0x51, 0x03); // Tempo meta event
-  trackData.push((microsecondsPerBeat >> 16) & 0xFF);
-  trackData.push((microsecondsPerBeat >> 8) & 0xFF);
-  trackData.push(microsecondsPerBeat & 0xFF);
-
-  // Program change to acoustic guitar
-  trackData.push(0x00); // Delta time
-  trackData.push(0xC0, 0x19); // Channel 0, acoustic guitar (nylon)
-
-  // Add notes
-  const noteDuration = ticksPerBeat / 2; // Eighth notes
-  let currentTime = 0;
-
-  for (const note of notes) {
-    // Note on
-    trackData.push(...encodeVariableLength(currentTime === 0 ? 0 : 0));
-    trackData.push(0x90, note.midi, 0x64); // Note on, velocity 100
-
-    // Note off
-    trackData.push(...encodeVariableLength(noteDuration));
-    trackData.push(0x80, note.midi, 0x00); // Note off
-
-    currentTime += noteDuration;
-  }
-
-  // End of track
-  trackData.push(0x00);
-  trackData.push(0xFF, 0x2F, 0x00);
-
-  // Build file
-  const file = [];
-
-  // Header chunk
-  file.push(...MIDI_HEADER);
-  file.push(0x00, 0x00, 0x00, 0x06); // Header length
-  file.push(0x00, 0x00); // Format 0
-  file.push(0x00, 0x01); // 1 track
-  file.push((ticksPerBeat >> 8) & 0xFF, ticksPerBeat & 0xFF);
-
-  // Track chunk
-  file.push(...MIDI_TRACK_HEADER);
-  const trackLength = trackData.length;
-  file.push((trackLength >> 24) & 0xFF);
-  file.push((trackLength >> 16) & 0xFF);
-  file.push((trackLength >> 8) & 0xFF);
-  file.push(trackLength & 0xFF);
-  file.push(...trackData);
-
-  return new Uint8Array(file);
-}
-
-function encodeVariableLength(value) {
-  if (value < 128) return [value];
-  const result = [];
-  result.push(value & 0x7F);
-  value >>= 7;
-  while (value > 0) {
-    result.unshift((value & 0x7F) | 0x80);
-    value >>= 7;
-  }
-  return result;
-}
-
-// Reuse GuitarSynthesizer from TabPlayer with improved sustain and tuning support
-class GuitarSynthesizer {
-  constructor(tuning = 'standard') {
-    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    this.instrument = null;
-    this.loading = true;
-    this.tuning = tuning;
-    // Get MIDI base notes for the selected tuning (reversed: high string first in display order)
-    const baseMidi = MIDI_BASE[tuning] || MIDI_BASE.standard;
-    this.stringBaseMidi = [...baseMidi].reverse(); // [E4, B3, G3, D3, A2, E2] for standard
-  }
-
-  setTuning(tuning) {
-    this.tuning = tuning;
-    const baseMidi = MIDI_BASE[tuning] || MIDI_BASE.standard;
-    this.stringBaseMidi = [...baseMidi].reverse();
-  }
-
-  async loadInstrument() {
-    try {
-      this.instrument = await Soundfont.instrument(this.audioContext, 'acoustic_guitar_nylon');
-      this.loading = false;
-      return true;
-    } catch (error) {
-      console.error('Failed to load soundfont:', error);
-      this.loading = false;
-      return false;
-    }
-  }
-
-  playNote(string, fret, duration = 0.5) {
-    if (!this.instrument || this.loading) return;
-    const midiNote = this.stringBaseMidi[string] + fret;
-    // Add natural decay - duration is minimum, sustain extends it
-    const sustain = Math.max(duration * 1.5, 0.8);
-    this.instrument.play(midiNote, this.audioContext.currentTime, {
-      duration: sustain,
-      gain: 0.7,
-      decay: 0.3,
-      sustain: 0.6,
-      release: 0.4
-    });
-  }
-
-  playMetronomeTick(isDownbeat = false) {
-    const now = this.audioContext.currentTime;
-    const osc = this.audioContext.createOscillator();
-    const gain = this.audioContext.createGain();
-    osc.frequency.value = isDownbeat ? 1000 : 800;
-    osc.type = 'sine';
-    gain.gain.setValueAtTime(0.1, now);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
-    osc.connect(gain);
-    gain.connect(this.audioContext.destination);
-    osc.start(now);
-    osc.stop(now + 0.05);
-  }
-
-  isReady() {
-    return !this.loading && this.instrument !== null;
-  }
-}
+import GuitarSynthesizer from '../lib/GuitarSynthesizer';
+import { createMidiFile, downloadMidiFile } from '../lib/midiGenerator';
+import { InteractiveFretboard } from '../components/riffgen';
 
 const ROOTS = ['E', 'A', 'D', 'G', 'C', 'F', 'B', 'F#', 'C#', 'G#', 'D#', 'A#'];
 const PATTERNS = [
@@ -171,245 +34,6 @@ const PROGRESSION_OPTIONS = [
   { value: 'andalusian', label: 'Andalusian', desc: 'Flamenco bVII-bVI-V-i' },
 ];
 
-// Interactive Fretboard - Full 15-fret view with playback sync and clickable notes
-function InteractiveFretboard({ activeNotes, scaleNotes, root, position, onNoteClick, isPlaying, tuning = 'standard' }) {
-  const fretCount = 15; // Full neck visibility
-  const fretMarkers = [3, 5, 7, 9, 12]; // Standard guitar fret markers
-  const doubleFretMarker = 12;
-
-  // Use tuning-aware GuitarTheory instance
-  const theory = new GuitarTheory(tuning);
-  const scaleNoteNames = scaleNotes || [];
-
-  // Get string labels from the tuning (reversed for display: high string first)
-  const tuningNotes = TUNINGS[tuning] || TUNINGS.standard;
-  const strings = [...tuningNotes].reverse(); // Display high to low: e, B, G, D, A, E
-
-  // Calculate fret width percentage for responsive layout
-  const fretWidthPct = 100 / fretCount;
-
-  return (
-    <div className="interactive-fretboard-container" role="img" aria-label={`Interactive fretboard showing ${root} scale`}>
-      {/* Fret numbers */}
-      <div className="fretboard-fret-numbers">
-        <span className="fret-number-label"></span>
-        {Array.from({ length: fretCount }, (_, i) => (
-          <span
-            key={i}
-            className={`fret-number ${fretMarkers.includes(i) ? 'fret-marker-number' : ''}`}
-            style={{ width: `${fretWidthPct}%` }}
-          >
-            {i}
-          </span>
-        ))}
-      </div>
-
-      {/* Fretboard body */}
-      <div className="fretboard-body">
-        {strings.map((stringName, stringIdx) => (
-          <div key={stringName} className="fretboard-string-row">
-            <span className="string-label">{stringName}</span>
-            <div className="string-frets">
-              {Array.from({ length: fretCount }, (_, fret) => {
-                const note = theory.getNoteAtFret(5 - stringIdx, fret);
-                const isActive = activeNotes.some(n => n.string === stringIdx && n.fret === fret);
-                const isInScale = scaleNoteNames.includes(note);
-                const isRoot = note === root;
-                const hasMarker = stringIdx === 2 && fretMarkers.includes(fret) && fret !== doubleFretMarker;
-                const hasDoubleMarker = (stringIdx === 1 || stringIdx === 3) && fret === doubleFretMarker;
-
-                return (
-                  <div
-                    key={fret}
-                    className={`fret-cell ${fret === 0 ? 'nut-fret' : ''}`}
-                    style={{ width: `${fretWidthPct}%` }}
-                    onClick={() => onNoteClick && onNoteClick(stringIdx, fret, note)}
-                  >
-                    {/* Fret marker dots */}
-                    {hasMarker && <div className="fret-marker-dot" />}
-                    {hasDoubleMarker && <div className="fret-marker-dot" />}
-
-                    {/* Note dot */}
-                    {isInScale && (
-                      <div
-                        className={`fret-note-dot ${
-                          isActive
-                            ? 'note-active'
-                            : isRoot
-                            ? 'note-root'
-                            : 'note-scale'
-                        }`}
-                        role="button"
-                        aria-label={`${note} at fret ${fret}${isActive ? ', playing' : ''}`}
-                      >
-                        <span className="note-label">{note}</span>
-                        <span className="fret-label">{fret}</span>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Legend */}
-      <div className="fretboard-legend">
-        <span className="legend-item">
-          <span className="legend-dot root" aria-hidden="true"></span> Root
-        </span>
-        <span className="legend-item">
-          <span className="legend-dot scale" aria-hidden="true"></span> Scale
-        </span>
-        <span className="legend-item">
-          <span className="legend-dot active" aria-hidden="true"></span> Playing
-        </span>
-        {isPlaying && (
-          <span className="legend-status">
-            <span className="status-pulse"></span> Playing...
-          </span>
-        )}
-      </div>
-    </div>
-  );
-}
-
-// Mini fretboard component - compact position-based view
-function MiniFretboard({ activeNotes, scaleNotes, root, position }) {
-  const strings = ['e', 'B', 'G', 'D', 'A', 'E'];
-  const startFret = Math.max(0, (position - 1) * 3);
-  const fretCount = 6;
-
-  const theory = new GuitarTheory();
-  const scaleNoteNames = scaleNotes || [];
-
-  return (
-    <div className="fretboard-elite p-3 sm:p-4" role="img" aria-label={`Fretboard showing ${root} scale at position ${position}`}>
-      <div className="flex justify-between text-xs text-slate-500 mb-1 pl-5 sm:pl-6">
-        {Array.from({ length: fretCount }, (_, i) => (
-          <span key={i} className="w-6 sm:w-8 text-center">{startFret + i}</span>
-        ))}
-      </div>
-      <div className="space-y-0.5 sm:space-y-1">
-        {strings.map((stringName, stringIdx) => (
-          <div key={stringName} className="flex items-center">
-            <span className="w-4 sm:w-5 text-xs text-slate-500 font-mono">{stringName}</span>
-            <div className="flex-1 flex h-5 sm:h-6 border-b border-slate-600 relative">
-              {Array.from({ length: fretCount }, (_, fretOffset) => {
-                const fret = startFret + fretOffset;
-                const note = theory.getNoteAtFret(5 - stringIdx, fret);
-                const isActive = activeNotes.some(n => n.string === stringIdx && n.fret === fret);
-                const isInScale = scaleNoteNames.includes(note);
-                const isRoot = note === root;
-
-                return (
-                  <div
-                    key={fretOffset}
-                    className={`w-6 sm:w-8 h-full flex items-center justify-center border-r border-slate-700 relative ${
-                      fretOffset === 0 && startFret === 0 ? 'border-l-4 border-l-slate-400' : ''
-                    }`}
-                  >
-                    {isInScale && (
-                      <div
-                        className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center text-[10px] sm:text-xs font-bold fret-dot-elite ${
-                          isActive
-                            ? 'fret-dot-active text-white'
-                            : isRoot
-                            ? 'fret-dot-root text-white'
-                            : 'fret-dot-scale text-slate-300'
-                        }`}
-                        role="note"
-                        aria-label={`${note} at fret ${fret}${isActive ? ', playing' : ''}`}
-                      >
-                        {fret}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="mt-2 flex gap-3 sm:gap-4 text-xs">
-        <span className="flex items-center gap-1">
-          <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-teal-500" aria-hidden="true"></span> Root
-        </span>
-        <span className="flex items-center gap-1">
-          <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-slate-600" aria-hidden="true"></span> Scale
-        </span>
-        <span className="flex items-center gap-1">
-          <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-orange-500" aria-hidden="true"></span> Playing
-        </span>
-      </div>
-    </div>
-  );
-}
-
-// Free tier limits
-const FREE_GENERATIONS_PER_DAY = 10;
-const FREE_PATTERNS = ['ascending', 'descending'];
-const FREE_SCALES = ['major', 'minor', 'pentatonic_minor'];
-
-function isPremiumFeature(pattern, scale) {
-  return !FREE_PATTERNS.includes(pattern) || !FREE_SCALES.includes(scale);
-}
-
-function getGenerationsToday() {
-  const today = new Date().toISOString().split('T')[0];
-  const stored = localStorage.getItem('riff_gen_count');
-  if (stored) {
-    const { date, count } = JSON.parse(stored);
-    if (date === today) return count;
-  }
-  return 0;
-}
-
-function incrementGenerations() {
-  const today = new Date().toISOString().split('T')[0];
-  const count = getGenerationsToday() + 1;
-  localStorage.setItem('riff_gen_count', JSON.stringify({ date: today, count }));
-  return count;
-}
-
-// Premium upgrade modal
-function UpgradeModal({ isOpen, onClose, reason }) {
-  if (!isOpen) return null;
-
-  return (
-    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4" role="dialog" aria-modal="true" aria-labelledby="upgrade-title">
-      <div className="bg-slate-800 rounded-xl p-6 max-w-md w-full border border-teal-500/30">
-        <h2 id="upgrade-title" className="text-xl font-bold text-teal-400 mb-4">Upgrade to Premium</h2>
-        <p className="text-slate-300 mb-4">{reason}</p>
-        <div className="bg-slate-900 rounded-lg p-4 mb-6">
-          <div className="text-2xl font-bold text-white mb-1">$9.99<span className="text-sm text-slate-400">/month</span></div>
-          <ul className="text-sm text-slate-400 space-y-1">
-            <li>- Unlimited riff generations</li>
-            <li>- All patterns (3NPS, Pedal, Arpeggio, Random)</li>
-            <li>- All 15+ scales</li>
-            <li>- MIDI export</li>
-          </ul>
-        </div>
-        <div className="flex gap-3">
-          <Link
-            to="/pricing"
-            className="flex-1 py-3 bg-teal-500 hover:bg-teal-400 text-gray-900 font-semibold rounded-lg text-center"
-          >
-            View Plans
-          </Link>
-          <button
-            onClick={onClose}
-            className="flex-1 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg"
-          >
-            Maybe Later
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function RiffGenerator() {
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -432,9 +56,6 @@ export default function RiffGenerator() {
   const [activeNotes, setActiveNotes] = useState([]);
   const [currentNoteIndex, setCurrentNoteIndex] = useState(0);
   const [error, setError] = useState(null);
-  const [showUpgrade, setShowUpgrade] = useState(false);
-  const [upgradeReason, setUpgradeReason] = useState('');
-  const [generationsToday, setGenerationsToday] = useState(getGenerationsToday());
   const [copyFeedback, setCopyFeedback] = useState('');
 
   const synthRef = useRef(null);
@@ -625,23 +246,9 @@ export default function RiffGenerator() {
   }, []);
 
   const regenerate = () => {
-    // Check free tier limits
-    if (generationsToday >= FREE_GENERATIONS_PER_DAY) {
-      setUpgradeReason(`You've used all ${FREE_GENERATIONS_PER_DAY} free generations today. Upgrade for unlimited access!`);
-      setShowUpgrade(true);
-      return;
-    }
-
-    if (isPremiumFeature(pattern, scale)) {
-      setUpgradeReason(`${pattern.charAt(0).toUpperCase() + pattern.slice(1)} pattern with ${scale.replace(/_/g, ' ')} scale is a premium feature.`);
-      setShowUpgrade(true);
-      return;
-    }
-
     const newTab = generateTab(root, scale, pattern, bars, position);
     setTab(newTab);
     parseTab(newTab);
-    setGenerationsToday(incrementGenerations());
   };
 
   const copyShareLink = async () => {
@@ -660,13 +267,6 @@ export default function RiffGenerator() {
   const TABPLAYER_MIDI = [64, 59, 55, 50, 45, 40];
 
   const exportMidi = () => {
-    // Gate MIDI export behind premium
-    if (isPremiumFeature(pattern, scale) || generationsToday >= FREE_GENERATIONS_PER_DAY) {
-      setUpgradeReason('MIDI export is a premium feature. Upgrade for unlimited exports!');
-      setShowUpgrade(true);
-      return;
-    }
-
     if (tabDataRef.current.length === 0) return;
 
     // Convert tab data to MIDI notes
@@ -1193,28 +793,6 @@ export default function RiffGenerator() {
         </div>
       </main>
 
-      {/* Free tier info */}
-      <div className="max-w-6xl mx-auto px-4 pb-8">
-        <div className="bg-slate-800/50 rounded-lg p-4 text-sm text-slate-400 flex items-center justify-between">
-          <div>
-            <span className="text-slate-300">Free tier: </span>
-            {generationsToday}/{FREE_GENERATIONS_PER_DAY} generations today
-            {isPremiumFeature(pattern, scale) && (
-              <span className="text-orange-400 ml-2">(Premium feature selected)</span>
-            )}
-          </div>
-          <Link to="/pricing" className="text-teal-400 hover:text-teal-300">
-            Upgrade
-          </Link>
-        </div>
-      </div>
-
-      {/* Upgrade Modal */}
-      <UpgradeModal
-        isOpen={showUpgrade}
-        onClose={() => setShowUpgrade(false)}
-        reason={upgradeReason}
-      />
     </div>
   );
 }

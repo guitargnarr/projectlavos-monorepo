@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { autoCorrelate, frequencyToNote, frequencyToCents, CHROMATIC_NOTES } from '../lib/pitchDetection';
 
 // Standard tuning frequencies for 6-string guitar
 const GUITAR_STRINGS = [
@@ -10,9 +11,6 @@ const GUITAR_STRINGS = [
   { name: 'B', octave: 3, frequency: 246.94, stringNum: 2 },
   { name: 'E', octave: 4, frequency: 329.63, stringNum: 1 }
 ];
-
-// All 12 chromatic notes for detection circles
-const CHROMATIC_NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 
 // Tolerance for "in tune" detection (in cents)
 const IN_TUNE_THRESHOLD = 5; // cents
@@ -31,62 +29,6 @@ export default function Tuner() {
   const microphoneRef = useRef(null);
   const animationFrameRef = useRef(null);
   const canvasRef = useRef(null);
-
-  // Autocorrelation algorithm for pitch detection
-  const autoCorrelate = (buffer, sampleRate) => {
-    const SIZE = buffer.length;
-    const MAX_SAMPLES = Math.floor(SIZE / 2);
-    let bestOffset = -1;
-    let bestCorrelation = 0;
-    let rms = 0;
-
-    for (let i = 0; i < SIZE; i++) {
-      const val = buffer[i];
-      rms += val * val;
-    }
-    rms = Math.sqrt(rms / SIZE);
-
-    if (rms < 0.01) return -1;
-
-    let lastCorrelation = 1;
-    for (let offset = 0; offset < MAX_SAMPLES; offset++) {
-      let correlation = 0;
-
-      for (let i = 0; i < MAX_SAMPLES; i++) {
-        correlation += Math.abs(buffer[i] - buffer[i + offset]);
-      }
-
-      correlation = 1 - correlation / MAX_SAMPLES;
-
-      if (correlation > 0.9 && correlation > lastCorrelation) {
-        const foundGoodCorrelation = correlation > bestCorrelation;
-        if (foundGoodCorrelation) {
-          bestCorrelation = correlation;
-          bestOffset = offset;
-        }
-      }
-
-      lastCorrelation = correlation;
-    }
-
-    if (bestCorrelation > 0.01) {
-      return sampleRate / bestOffset;
-    }
-    return -1;
-  };
-
-  // Convert frequency difference to cents
-  const frequencyToCents = (detected, target) => {
-    return 1200 * Math.log2(detected / target);
-  };
-
-  // Get note name from frequency
-  const frequencyToNote = (frequency) => {
-    if (!frequency || frequency < 20) return null;
-    const noteNum = 12 * (Math.log2(frequency / 440)) + 69;
-    const noteIndex = Math.round(noteNum) % 12;
-    return CHROMATIC_NOTES[noteIndex];
-  };
 
   // Find closest guitar string to detected frequency
   const findClosestString = (frequency) => {
