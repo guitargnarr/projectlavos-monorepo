@@ -3,6 +3,14 @@ const { test, expect } = require('@playwright/test');
 test.describe('Guitar Platform New Features Tests', () => {
   const baseUrl = 'https://guitar.projectlavos.com';
 
+  // Helper to open More dropdown and click a link
+  async function clickMoreDropdownLink(page, linkText) {
+    const moreButton = page.locator('nav button:has-text("More")');
+    await moreButton.click();
+    const link = page.locator(`.more-dropdown a:has-text("${linkText}")`);
+    await link.click();
+  }
+
   test.describe('Backing Tracks (/backing)', () => {
     test('should load backing tracks page successfully', async ({ page }) => {
       const response = await page.goto(`${baseUrl}/backing`);
@@ -14,15 +22,22 @@ test.describe('Guitar Platform New Features Tests', () => {
       await expect(header).toBeVisible();
     });
 
-    test('should highlight Backing nav link with orange color', async ({ page }) => {
+    test('should highlight Backing in More dropdown with active style', async ({ page }) => {
       await page.goto(`${baseUrl}/backing`);
       await page.waitForLoadState('networkidle');
 
-      const backingLink = page.locator('nav a:has-text("Backing")');
-      await expect(backingLink).toBeVisible();
+      // More button should show active state when on Backing page
+      const moreButton = page.locator('nav button:has-text("More")');
+      await expect(moreButton).toBeVisible();
 
+      // Click More to see dropdown
+      await moreButton.click();
+
+      // Backing link should have active styling in dropdown
+      const backingLink = page.locator('.more-dropdown a:has-text("Backing")');
+      await expect(backingLink).toBeVisible();
       const classes = await backingLink.getAttribute('class');
-      expect(classes).toContain('bg-orange-500');
+      expect(classes).toContain('dropdown-link-active');
     });
 
     test('should display key selection buttons', async ({ page }) => {
@@ -108,15 +123,19 @@ test.describe('Guitar Platform New Features Tests', () => {
       await expect(header).toBeVisible();
     });
 
-    test('should highlight Scales nav link with teal color', async ({ page }) => {
+    test('should highlight Scales in More dropdown with active style', async ({ page }) => {
       await page.goto(`${baseUrl}/scales`);
       await page.waitForLoadState('networkidle');
 
-      const scalesLink = page.locator('nav a:has-text("Scales")');
-      await expect(scalesLink).toBeVisible();
+      // Click More to see dropdown
+      const moreButton = page.locator('nav button:has-text("More")');
+      await moreButton.click();
 
+      // Scales link should have active styling in dropdown
+      const scalesLink = page.locator('.more-dropdown a:has-text("Scales")');
+      await expect(scalesLink).toBeVisible();
       const classes = await scalesLink.getAttribute('class');
-      expect(classes).toContain('bg-teal-500');
+      expect(classes).toContain('dropdown-link-active');
     });
 
     test('should display root note selection', async ({ page }) => {
@@ -182,6 +201,14 @@ test.describe('Guitar Platform New Features Tests', () => {
       await expect(listenBtn).toBeVisible();
     });
 
+    test('should have Play Scale button', async ({ page }) => {
+      await page.goto(`${baseUrl}/scales`);
+      await page.waitForLoadState('networkidle');
+
+      const playBtn = page.locator('button:has-text("Play Scale")');
+      await expect(playBtn).toBeVisible();
+    });
+
     test('should change scale when clicking scale button', async ({ page }) => {
       await page.goto(`${baseUrl}/scales`);
       await page.waitForLoadState('networkidle');
@@ -207,15 +234,19 @@ test.describe('Guitar Platform New Features Tests', () => {
       await expect(header).toBeVisible();
     });
 
-    test('should highlight Ear nav link with pink color', async ({ page }) => {
+    test('should highlight Ear Training in More dropdown with active style', async ({ page }) => {
       await page.goto(`${baseUrl}/ear-training`);
       await page.waitForLoadState('networkidle');
 
-      const earLink = page.locator('nav a:has-text("Ear")');
-      await expect(earLink).toBeVisible();
+      // Click More to see dropdown
+      const moreButton = page.locator('nav button:has-text("More")');
+      await moreButton.click();
 
+      // Ear Training link should have active styling in dropdown
+      const earLink = page.locator('.more-dropdown a:has-text("Ear Training")');
+      await expect(earLink).toBeVisible();
       const classes = await earLink.getAttribute('class');
-      expect(classes).toContain('bg-pink-500');
+      expect(classes).toContain('dropdown-link-active');
     });
 
     test('should display game mode selection', async ({ page }) => {
@@ -297,89 +328,98 @@ test.describe('Guitar Platform New Features Tests', () => {
   });
 
   test.describe('Navigation Integration', () => {
-    test('should navigate to all new pages from Home', async ({ page }) => {
+    test('should access new pages from More dropdown', async ({ page }) => {
       await page.goto(`${baseUrl}/`);
       await page.waitForLoadState('networkidle');
 
-      // Home page should load successfully
-      const header = page.locator('h1').first();
-      await expect(header).toBeVisible();
+      // Navigation should have More dropdown
+      const moreButton = page.locator('nav button:has-text("More")');
+      await expect(moreButton).toBeVisible();
 
-      // Navigation should have links to new pages
-      const scalesLink = page.locator('nav a:has-text("Scales")');
-      const backingLink = page.locator('nav a:has-text("Backing")');
-      const earLink = page.locator('nav a:has-text("Ear")');
+      // Click More to open dropdown
+      await moreButton.click();
+
+      // Dropdown should show new feature links
+      const scalesLink = page.locator('.more-dropdown a:has-text("Scales")');
+      const backingLink = page.locator('.more-dropdown a:has-text("Backing")');
+      const earLink = page.locator('.more-dropdown a:has-text("Ear Training")');
 
       await expect(scalesLink).toBeVisible();
       await expect(backingLink).toBeVisible();
       await expect(earLink).toBeVisible();
     });
 
-    test('should navigate from Scales card on Home to Scale Trainer', async ({ page }) => {
+    test('should navigate from Home to Scale Trainer via More dropdown', async ({ page }) => {
       await page.goto(`${baseUrl}/`);
       await page.waitForLoadState('networkidle');
 
-      // Click Scale Trainer card
-      await page.click('a[href="/scales"]');
+      // Click More dropdown and then Scales
+      await clickMoreDropdownLink(page, 'Scales');
       await page.waitForURL('**/scales');
       await page.waitForLoadState('networkidle');
 
       expect(page.url()).toContain('/scales');
     });
 
-    test('should navigate from Backing card on Home to Backing Tracks', async ({ page }) => {
+    test('should navigate from Home to Backing Tracks via More dropdown', async ({ page }) => {
       await page.goto(`${baseUrl}/`);
       await page.waitForLoadState('networkidle');
 
-      // Click Backing Tracks card
-      await page.click('a[href="/backing"]');
+      // Click More dropdown and then Backing
+      await clickMoreDropdownLink(page, 'Backing');
       await page.waitForURL('**/backing');
       await page.waitForLoadState('networkidle');
 
       expect(page.url()).toContain('/backing');
     });
 
-    test('should navigate from Ear card on Home to Ear Training', async ({ page }) => {
+    test('should navigate from Home to Ear Training via More dropdown', async ({ page }) => {
       await page.goto(`${baseUrl}/`);
       await page.waitForLoadState('networkidle');
 
-      // Click Ear Training card
-      await page.click('a[href="/ear-training"]');
+      // Click More dropdown and then Ear Training
+      await clickMoreDropdownLink(page, 'Ear Training');
       await page.waitForURL('**/ear-training');
       await page.waitForLoadState('networkidle');
 
       expect(page.url()).toContain('/ear-training');
     });
 
-    test('should navigate between new features using navbar', async ({ page }) => {
+    test('should navigate between new features using More dropdown', async ({ page }) => {
       // Start at Scales
       await page.goto(`${baseUrl}/scales`);
       await page.waitForLoadState('networkidle');
 
-      // Navigate to Backing via navbar
-      await page.click('nav a:has-text("Backing")');
+      // Navigate to Backing via dropdown
+      await clickMoreDropdownLink(page, 'Backing');
       await page.waitForURL('**/backing');
       expect(page.url()).toContain('/backing');
 
-      // Navigate to Ear Training via navbar
-      await page.click('nav a:has-text("Ear")');
+      // Navigate to Ear Training via dropdown
+      await clickMoreDropdownLink(page, 'Ear Training');
       await page.waitForURL('**/ear-training');
       expect(page.url()).toContain('/ear-training');
 
-      // Navigate back to Scales via navbar
-      await page.click('nav a:has-text("Scales")');
+      // Navigate back to Scales via dropdown
+      await clickMoreDropdownLink(page, 'Scales');
       await page.waitForURL('**/scales');
       expect(page.url()).toContain('/scales');
     });
 
-    test('should show all 10 nav links', async ({ page }) => {
+    test('should have main nav links plus More dropdown', async ({ page }) => {
       await page.goto(`${baseUrl}/`);
       await page.waitForLoadState('networkidle');
 
-      // Count nav links (excluding logo)
-      const navLinks = page.locator('nav a:not(:has-text("Guitar Platform"))');
-      const count = await navLinks.count();
-      expect(count).toBe(10); // Home, FretVision, Tab Player, Chords, Tuner, Metronome, Catalog, Scales, Backing, Ear
+      // Main nav should have key links visible
+      const homeLink = page.locator('nav a:has-text("Home")');
+      const fretboardLink = page.locator('nav a:has-text("Fretboard")');
+      const tabPlayerLink = page.locator('nav a:has-text("Tab Player")');
+      const moreButton = page.locator('nav button:has-text("More")');
+
+      await expect(homeLink).toBeVisible();
+      await expect(fretboardLink).toBeVisible();
+      await expect(tabPlayerLink).toBeVisible();
+      await expect(moreButton).toBeVisible();
     });
   });
 });

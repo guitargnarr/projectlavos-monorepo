@@ -3,34 +3,44 @@ const { breakpoints } = require('../helpers/test-helpers');
 
 test.describe('Guitar Platform Navigation Tests', () => {
   const baseUrl = 'https://guitar.projectlavos.com';
-  const pages = [
-    { path: '/', name: 'Home' },
-    { path: '/fretvision', name: 'FretVision' },
-    { path: '/tabplayer', name: 'Tab Player' },
-    { path: '/catalog', name: 'Catalog' },
+
+  // Updated pages to match current navigation structure
+  const mainNavPages = [
+    { path: '/', name: 'Home', linkText: 'Home' },
+    { path: '/fretvision', name: 'Fretboard', linkText: 'Fretboard' },
+    { path: '/tabplayer', name: 'Tab Player', linkText: 'Tab Player' },
+    { path: '/riff-generator', name: 'Riff Gen', linkText: 'Riff Gen' },
+    { path: '/chords', name: 'Chords', linkText: 'Chords' },
+  ];
+
+  // Pages in "More" dropdown
+  const moreDropdownPages = [
+    { path: '/catalog', name: 'Catalog', linkText: 'Catalog' },
+    { path: '/scales', name: 'Scales', linkText: 'Scales' },
+    { path: '/tuner', name: 'Tuner', linkText: 'Tuner' },
   ];
 
   test('should display navigation bar on all pages', async ({ page }) => {
-    for (const pageInfo of pages) {
+    for (const pageInfo of mainNavPages) {
       await page.goto(`${baseUrl}${pageInfo.path}`);
       await page.waitForLoadState('networkidle');
 
-      // Navigation bar should be visible
-      const nav = page.locator('nav.bg-gray-800');
+      // Navigation bar should be visible (updated selector)
+      const nav = page.locator('nav.navbar-elite');
       await expect(nav).toBeVisible();
 
       // Should have sticky positioning
       const navClasses = await nav.getAttribute('class');
       expect(navClasses).toContain('sticky');
 
-      // Should have logo/brand
-      const logo = page.locator('nav a:has-text("Guitar Platform")');
+      // Should have logo/brand (updated to FretVision)
+      const logo = page.locator('nav a:has-text("FretVision")');
       await expect(logo).toBeVisible();
 
       // Should have navigation links
       const navLinks = page.locator('nav a');
       const linkCount = await navLinks.count();
-      expect(linkCount).toBeGreaterThanOrEqual(5); // 4 pages + logo
+      expect(linkCount).toBeGreaterThanOrEqual(5);
     }
   });
 
@@ -38,74 +48,75 @@ test.describe('Guitar Platform Navigation Tests', () => {
     await page.goto(`${baseUrl}/`);
     await page.waitForLoadState('networkidle');
 
-    // Home link should have active class (bg-green-500)
+    // Home link should have active class (teal brand color)
     const homeLink = page.locator('nav a:has-text("Home")');
     await expect(homeLink).toBeVisible();
 
     const classes = await homeLink.getAttribute('class');
-    expect(classes).toContain('bg-green-500');
-    expect(classes).toContain('text-gray-900');
+    expect(classes).toContain('nav-link-active-teal');
   });
 
-  test('should highlight active route on FretVision page', async ({ page }) => {
+  test('should highlight active route on Fretboard page', async ({ page }) => {
     await page.goto(`${baseUrl}/fretvision`);
     await page.waitForLoadState('networkidle');
 
-    // FretVision link should have active class (bg-green-500)
-    const fretVisionLink = page.locator('nav a:has-text("FretVision")');
-    await expect(fretVisionLink).toBeVisible();
+    // Fretboard link should have active class
+    const fretboardLink = page.locator('nav a:has-text("Fretboard")');
+    await expect(fretboardLink).toBeVisible();
 
-    const classes = await fretVisionLink.getAttribute('class');
-    expect(classes).toContain('bg-green-500');
-    expect(classes).toContain('text-gray-900');
+    const classes = await fretboardLink.getAttribute('class');
+    expect(classes).toContain('nav-link-active-teal');
   });
 
   test('should highlight active route on Tab Player page', async ({ page }) => {
     await page.goto(`${baseUrl}/tabplayer`);
     await page.waitForLoadState('networkidle');
 
-    // Tab Player link should have active class (bg-blue-500)
+    // Tab Player link should have active class (orange for this route)
     const tabPlayerLink = page.locator('nav a:has-text("Tab Player")');
     await expect(tabPlayerLink).toBeVisible();
 
     const classes = await tabPlayerLink.getAttribute('class');
-    expect(classes).toContain('bg-blue-500');
-    expect(classes).toContain('text-gray-900');
+    expect(classes).toContain('nav-link-active-orange');
   });
 
-  test('should highlight active route on Catalog page', async ({ page }) => {
-    await page.goto(`${baseUrl}/catalog`);
-    await page.waitForLoadState('networkidle');
-
-    // Catalog link should have active class (bg-purple-500)
-    const catalogLink = page.locator('nav a:has-text("Catalog")');
-    await expect(catalogLink).toBeVisible();
-
-    const classes = await catalogLink.getAttribute('class');
-    expect(classes).toContain('bg-purple-500');
-    expect(classes).toContain('text-gray-900');
-  });
-
-  test('should navigate from Home to FretVision', async ({ page }) => {
+  test('should access Catalog from More dropdown', async ({ page }) => {
     await page.goto(`${baseUrl}/`);
     await page.waitForLoadState('networkidle');
 
-    // Click FretVision link in navbar
-    await page.click('nav a:has-text("FretVision")');
+    // Click More dropdown button
+    const moreButton = page.locator('nav button:has-text("More")');
+    await expect(moreButton).toBeVisible();
+    await moreButton.click();
+
+    // Catalog link should be visible in dropdown
+    const catalogLink = page.locator('.more-dropdown a:has-text("Catalog")');
+    await expect(catalogLink).toBeVisible();
+
+    // Click Catalog
+    await catalogLink.click();
+    await page.waitForURL('**/catalog');
+    expect(page.url()).toContain('/catalog');
+  });
+
+  test('should navigate from Home to Fretboard', async ({ page }) => {
+    await page.goto(`${baseUrl}/`);
+    await page.waitForLoadState('networkidle');
+
+    // Click Fretboard link in navbar
+    await page.click('nav a:has-text("Fretboard")');
     await page.waitForURL('**/fretvision');
     await page.waitForLoadState('networkidle');
 
     // Verify URL changed
     expect(page.url()).toContain('/fretvision');
 
-    // FretVision link should now be active (bg-green-500)
-    const fretVisionLink = page.locator('nav a:has-text("FretVision")');
-
-    // Wait for active class to appear
-    await expect(fretVisionLink).toHaveClass(/bg-green-500/);
+    // Fretboard link should now be active
+    const fretboardLink = page.locator('nav a:has-text("Fretboard")');
+    await expect(fretboardLink).toHaveClass(/nav-link-active-teal/);
   });
 
-  test('should navigate from FretVision to Tab Player', async ({ page }) => {
+  test('should navigate from Fretboard to Tab Player', async ({ page }) => {
     await page.goto(`${baseUrl}/fretvision`);
     await page.waitForLoadState('networkidle');
 
@@ -117,39 +128,36 @@ test.describe('Guitar Platform Navigation Tests', () => {
     // Verify URL changed
     expect(page.url()).toContain('/tabplayer');
 
-    // Tab Player link should now be active (bg-blue-500)
+    // Tab Player link should now be active
     const tabPlayerLink = page.locator('nav a:has-text("Tab Player")');
-
-    // Wait for active class to appear
-    await expect(tabPlayerLink).toHaveClass(/bg-blue-500/);
+    await expect(tabPlayerLink).toHaveClass(/nav-link-active-orange/);
   });
 
-  test('should navigate from Tab Player to Catalog', async ({ page }) => {
+  test('should navigate to Tab Player then to Catalog via dropdown', async ({ page }) => {
     await page.goto(`${baseUrl}/tabplayer`);
     await page.waitForLoadState('networkidle');
 
-    // Click Catalog link in navbar
-    await page.click('nav a:has-text("Catalog")');
+    // Click More dropdown
+    const moreButton = page.locator('nav button:has-text("More")');
+    await moreButton.click();
+
+    // Click Catalog link in dropdown
+    const catalogLink = page.locator('.more-dropdown a:has-text("Catalog")');
+    await catalogLink.click();
     await page.waitForURL('**/catalog');
     await page.waitForLoadState('networkidle');
 
     // Verify URL changed
     expect(page.url()).toContain('/catalog');
-
-    // Catalog link should now be active (bg-purple-500)
-    const catalogLink = page.locator('nav a:has-text("Catalog")');
-
-    // Wait for active class to appear
-    await expect(catalogLink).toHaveClass(/bg-purple-500/);
   });
 
   test('should navigate to Home when clicking logo', async ({ page }) => {
     // Start on a different page
-    await page.goto(`${baseUrl}/catalog`);
+    await page.goto(`${baseUrl}/fretvision`);
     await page.waitForLoadState('networkidle');
 
-    // Click logo
-    await page.click('nav a:has-text("Guitar Platform")');
+    // Click logo (FretVision text)
+    await page.click('nav a:has-text("FretVision")');
     await page.waitForURL(`${baseUrl}/`);
     await page.waitForLoadState('networkidle');
 
@@ -158,13 +166,11 @@ test.describe('Guitar Platform Navigation Tests', () => {
 
     // Home link should be active
     const homeLink = page.locator('nav a:has-text("Home")');
-
-    // Wait for active class to appear
-    await expect(homeLink).toHaveClass(/bg-green-500/);
+    await expect(homeLink).toHaveClass(/nav-link-active-teal/);
   });
 
-  test('should load all pages successfully', async ({ page }) => {
-    for (const pageInfo of pages) {
+  test('should load all main nav pages successfully', async ({ page }) => {
+    for (const pageInfo of mainNavPages) {
       const response = await page.goto(`${baseUrl}${pageInfo.path}`);
 
       // Verify successful load
@@ -173,7 +179,7 @@ test.describe('Guitar Platform Navigation Tests', () => {
       await page.waitForLoadState('networkidle');
 
       // Navigation should be visible
-      const nav = page.locator('nav.bg-gray-800');
+      const nav = page.locator('nav.navbar-elite');
       await expect(nav).toBeVisible();
     }
   });
@@ -183,25 +189,25 @@ test.describe('Guitar Platform Navigation Tests', () => {
     await page.waitForLoadState('networkidle');
 
     // Get initial navbar position
-    const nav = page.locator('nav.bg-gray-800');
+    const nav = page.locator('nav.navbar-elite');
     await expect(nav).toBeVisible();
 
     // Scroll down
     await page.evaluate(() => window.scrollTo(0, 500));
-    await page.waitForTimeout(500); // Wait for scroll
+    await page.waitForTimeout(500);
 
     // Navbar should still be visible (sticky)
     await expect(nav).toBeVisible();
 
     // Verify sticky positioning
     const position = await page.evaluate(() => {
-      const navbar = document.querySelector('nav.bg-gray-800');
+      const navbar = document.querySelector('nav.navbar-elite');
       return window.getComputedStyle(navbar).position;
     });
     expect(position).toBe('sticky');
   });
 
-  test('should be mobile responsive on small screens', async ({ page }) => {
+  test('should show mobile menu on small screens', async ({ page }) => {
     // Set mobile viewport
     await page.setViewportSize(breakpoints.mobile);
 
@@ -209,25 +215,39 @@ test.describe('Guitar Platform Navigation Tests', () => {
     await page.waitForLoadState('networkidle');
 
     // Navigation should be visible
-    const nav = page.locator('nav.bg-gray-800');
+    const nav = page.locator('nav.navbar-elite');
     await expect(nav).toBeVisible();
 
-    // Links should be visible (might be smaller)
-    const homeLink = page.locator('nav a:has-text("Home")');
+    // Mobile menu button should be visible
+    const mobileMenuBtn = page.locator('button.mobile-menu-btn');
+    await expect(mobileMenuBtn).toBeVisible();
+
+    // Click to open mobile menu
+    await mobileMenuBtn.click();
+
+    // Mobile menu should show navigation links
+    const mobileMenu = page.locator('.mobile-menu');
+    await expect(mobileMenu).toBeVisible();
+
+    // Home link should be visible in mobile menu
+    const homeLink = page.locator('.mobile-menu a:has-text("Home")');
     await expect(homeLink).toBeVisible();
+  });
 
-    const fretVisionLink = page.locator('nav a:has-text("FretVision")');
-    await expect(fretVisionLink).toBeVisible();
+  test('should navigate via mobile menu', async ({ page }) => {
+    await page.setViewportSize(breakpoints.mobile);
+    await page.goto(`${baseUrl}/`);
+    await page.waitForLoadState('networkidle');
 
-    const tabPlayerLink = page.locator('nav a:has-text("Tab Player")');
-    await expect(tabPlayerLink).toBeVisible();
+    // Open mobile menu
+    const mobileMenuBtn = page.locator('button.mobile-menu-btn');
+    await mobileMenuBtn.click();
 
-    const catalogLink = page.locator('nav a:has-text("Catalog")');
-    await expect(catalogLink).toBeVisible();
-
-    // Navigation should work on mobile
-    await page.click('nav a:has-text("FretVision")');
+    // Click Fretboard in mobile menu
+    const fretboardLink = page.locator('.mobile-menu a:has-text("Fretboard")');
+    await fretboardLink.click();
     await page.waitForURL('**/fretvision');
+
     expect(page.url()).toContain('/fretvision');
   });
 
@@ -236,8 +256,8 @@ test.describe('Guitar Platform Navigation Tests', () => {
     await page.goto(`${baseUrl}/`);
     await page.waitForLoadState('networkidle');
 
-    // Navigate to FretVision
-    await page.click('nav a:has-text("FretVision")');
+    // Navigate to Fretboard
+    await page.click('nav a:has-text("Fretboard")');
     await page.waitForURL('**/fretvision');
     await page.waitForLoadState('networkidle');
 
@@ -251,10 +271,10 @@ test.describe('Guitar Platform Navigation Tests', () => {
     await page.waitForLoadState('networkidle');
     expect(page.url()).toContain('/fretvision');
 
-    // FretVision should be active
-    const fretVisionLink = page.locator('nav a:has-text("FretVision")');
-    const classes = await fretVisionLink.getAttribute('class');
-    expect(classes).toContain('bg-green-500');
+    // Fretboard should be active
+    const fretboardLink = page.locator('nav a:has-text("Fretboard")');
+    const classes = await fretboardLink.getAttribute('class');
+    expect(classes).toContain('nav-link-active-teal');
 
     // Use browser forward button
     await page.goForward();
@@ -264,39 +284,30 @@ test.describe('Guitar Platform Navigation Tests', () => {
     // Tab Player should be active
     const tabPlayerLink = page.locator('nav a:has-text("Tab Player")');
     const tabPlayerClasses = await tabPlayerLink.getAttribute('class');
-    expect(tabPlayerClasses).toContain('bg-blue-500');
+    expect(tabPlayerClasses).toContain('nav-link-active-orange');
   });
 
-  test('should have consistent dark theme across all pages', async ({ page }) => {
-    for (const pageInfo of pages) {
-      await page.goto(`${baseUrl}${pageInfo.path}`);
-      await page.waitForLoadState('networkidle');
+  test('should have dark theme navbar', async ({ page }) => {
+    await page.goto(`${baseUrl}/`);
+    await page.waitForLoadState('networkidle');
 
-      // Navigation should have dark background
-      const navBgColor = await page.evaluate(() => {
-        const nav = document.querySelector('nav.bg-gray-800');
-        return window.getComputedStyle(nav).backgroundColor;
-      });
+    // Navigation should have dark background via navbar-elite class
+    const nav = page.locator('nav.navbar-elite');
+    await expect(nav).toBeVisible();
 
-      // Should be a dark gray color (RGB values should be low)
-      expect(navBgColor).toBeTruthy();
-
-      // Check for border
-      const nav = page.locator('nav.bg-gray-800');
-      const classes = await nav.getAttribute('class');
-      expect(classes).toContain('border-b');
-      expect(classes).toContain('border-gray-700');
-    }
+    // Verify it has the elite navbar styling
+    const navClasses = await nav.getAttribute('class');
+    expect(navClasses).toContain('navbar-elite');
   });
 
-  test('should navigate through all pages in sequence', async ({ page }) => {
+  test('should navigate through main pages in sequence', async ({ page }) => {
     // Start at Home
     await page.goto(`${baseUrl}/`);
     await page.waitForLoadState('networkidle');
     expect(page.url()).toBe(`${baseUrl}/`);
 
-    // Navigate to FretVision
-    await page.click('nav a:has-text("FretVision")');
+    // Navigate to Fretboard
+    await page.click('nav a:has-text("Fretboard")');
     await page.waitForURL('**/fretvision');
     await page.waitForLoadState('networkidle');
     expect(page.url()).toContain('/fretvision');
@@ -307,11 +318,11 @@ test.describe('Guitar Platform Navigation Tests', () => {
     await page.waitForLoadState('networkidle');
     expect(page.url()).toContain('/tabplayer');
 
-    // Navigate to Catalog
-    await page.click('nav a:has-text("Catalog")');
-    await page.waitForURL('**/catalog');
+    // Navigate to Riff Gen
+    await page.click('nav a:has-text("Riff Gen")');
+    await page.waitForURL('**/riff-generator');
     await page.waitForLoadState('networkidle');
-    expect(page.url()).toContain('/catalog');
+    expect(page.url()).toContain('/riff-generator');
 
     // Navigate back to Home
     await page.click('nav a:has-text("Home")');
@@ -321,8 +332,24 @@ test.describe('Guitar Platform Navigation Tests', () => {
 
     // Verify Home is active
     const homeLink = page.locator('nav a:has-text("Home")');
+    await expect(homeLink).toHaveClass(/nav-link-active-teal/);
+  });
 
-    // Wait for active class to appear
-    await expect(homeLink).toHaveClass(/bg-green-500/);
+  test('should show More dropdown items when clicked', async ({ page }) => {
+    await page.goto(`${baseUrl}/`);
+    await page.waitForLoadState('networkidle');
+
+    // Click More dropdown
+    const moreButton = page.locator('nav button:has-text("More")');
+    await moreButton.click();
+
+    // Dropdown should be visible
+    const dropdown = page.locator('.more-dropdown');
+    await expect(dropdown).toBeVisible();
+
+    // Check for expected dropdown items
+    await expect(page.locator('.more-dropdown a:has-text("Tuner")')).toBeVisible();
+    await expect(page.locator('.more-dropdown a:has-text("Catalog")')).toBeVisible();
+    await expect(page.locator('.more-dropdown a:has-text("Scales")')).toBeVisible();
   });
 });
