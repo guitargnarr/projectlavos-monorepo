@@ -83,6 +83,9 @@ curl http://localhost:5001/api/health`
             <a href="#paradigm" className="text-slate-300 hover:text-white transition-colors">
               The Paradigm
             </a>
+            <a href="#governance" className="text-slate-300 hover:text-white transition-colors">
+              Self-Governance
+            </a>
             <a href="#api" className="text-slate-300 hover:text-white transition-colors">
               Live API
             </a>
@@ -100,26 +103,26 @@ curl http://localhost:5001/api/health`
 
         <div className="relative max-w-6xl mx-auto px-6 py-24 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in-up">
-            <span className="text-shimmer">89 Specialized Personas</span>
+            <span className="text-shimmer">Self-Governing AI</span>
             <span className="block text-2xl md:text-3xl mt-4 text-slate-300 font-normal">
-              One Conductor. Local Execution. Personality-Aware Intelligence.
+              It fired 11% of itself. And got smarter.
             </span>
           </h1>
           <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto mb-6">
-            An orchestration framework built because no existing tool could handle the complexity of actual life.
+            89 specialized personas. One conductor. An AI system that monitors, optimizes, and governs itself.
           </p>
           <p className="text-lg text-slate-300 max-w-2xl mx-auto mb-4">
             30,000+ lines of Python. 49 Ollama models. 100% local execution.
           </p>
           <div className="flex flex-wrap justify-center gap-4 text-sm text-slate-400 mb-12">
             <span className="flex items-center gap-2">
-              <span className="text-teal-400">&#10003;</span> Conductor-based dynamic routing
+              <span className="text-teal-400">&#10003;</span> Self-monitoring performance
             </span>
             <span className="flex items-center gap-2">
-              <span className="text-teal-400">&#10003;</span> Bidirectional agent communication
+              <span className="text-teal-400">&#10003;</span> Autonomous optimization
             </span>
             <span className="flex items-center gap-2">
-              <span className="text-teal-400">&#10003;</span> OCEAN personality integration
+              <span className="text-teal-400">&#10003;</span> 100% governance coverage
             </span>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up delay-400">
@@ -169,6 +172,52 @@ curl http://localhost:5001/api/health`
                 AI should augment human capability, not replace human judgment. Mirador runs locally because
                 privacy is non-negotiable. It's personality-aware because generic advice is useless advice.
                 It chains specialists because no single model can do everything well.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Self-Governance Section */}
+      <section id="governance" className="py-24 bg-gradient-to-br from-orange-500/5 to-teal-500/5">
+        <div className="max-w-4xl mx-auto px-6">
+          <h2 className="text-3xl font-bold text-center mb-4">The System That Optimized Itself</h2>
+          <p className="text-slate-400 text-center mb-12 max-w-2xl mx-auto">
+            Zero human intervention. 100% autonomous governance.
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            <div className="bg-slate-800/50 rounded-xl p-6 text-center">
+              <div className="text-4xl font-bold text-orange-400 mb-2">75 → 67</div>
+              <div className="text-slate-400 text-sm">Models</div>
+              <div className="text-teal-400 text-xs mt-1">11% removed</div>
+            </div>
+            <div className="bg-slate-800/50 rounded-xl p-6 text-center">
+              <div className="text-4xl font-bold text-orange-400 mb-2">150GB → 115GB</div>
+              <div className="text-slate-400 text-sm">Storage</div>
+              <div className="text-teal-400 text-xs mt-1">23% reduction</div>
+            </div>
+            <div className="bg-slate-800/50 rounded-xl p-6 text-center">
+              <div className="text-4xl font-bold text-orange-400 mb-2">3.2s → 1.1s</div>
+              <div className="text-slate-400 text-sm">Response Time</div>
+              <div className="text-teal-400 text-xs mt-1">66% faster</div>
+            </div>
+          </div>
+
+          <div className="bg-slate-900 rounded-xl p-6 md:p-8">
+            <h3 className="text-xl font-semibold text-teal-400 mb-4">What Happened</h3>
+            <div className="space-y-4 text-slate-300">
+              <p>
+                Over 30 days, Mirador's self-reflection guardian monitored every model's performance.
+                It identified 9 models that consistently underperformed - returning generic responses,
+                high latency, or redundant capabilities already covered by other specialists.
+              </p>
+              <p>
+                Without any human intervention, the system quarantined these models, ran validation
+                tests to ensure no capability gaps, then permanently removed them from the active pool.
+              </p>
+              <p className="text-slate-400 italic">
+                "The first AI system that governs itself. It fired 11% of itself - and got smarter."
               </p>
             </div>
           </div>

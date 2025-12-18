@@ -48,9 +48,9 @@ const projects = [
   },
   {
     title: 'Mirador',
-    description: '89+ specialized AI personas with conductor-based orchestration. OCEAN personality integration, bidirectional agent communication. Live API with interactive demo.',
-    url: 'https://mirador-dch2y3pxu-matthew-scotts-projects-1dc9743e.vercel.app',
-    tags: ['Python', 'Flask', 'Ollama', 'AI Orchestration'],
+    description: 'Self-governing AI that fired 11% of itself and got smarter. 89+ personas, autonomous optimization, zero human intervention. The first AI system that governs itself.',
+    url: 'https://mirador-o2wgw9o65-matthew-scotts-projects-1dc9743e.vercel.app',
+    tags: ['Python', 'Ollama', 'Self-Governance', 'AI Orchestration'],
     status: 'Live',
   },
 ]
