@@ -437,7 +437,7 @@ function App() {
                 <a href="mailto:matthewdscott7@gmail.com" className="text-teal-400 hover:text-teal-300 transition-colors">
                   matthewdscott7@gmail.com
                 </a>
-                <a href="https://linkedin.com/in/matthewdavidscott" target="_blank" rel="noopener noreferrer" className="text-teal-400 hover:text-teal-300 transition-colors">
+                <a href="https://linkedin.com/in/mscott77" target="_blank" rel="noopener noreferrer" className="text-teal-400 hover:text-teal-300 transition-colors">
                   LinkedIn
                 </a>
                 <a href="https://github.com/guitargnarr/mirador" target="_blank" rel="noopener noreferrer" className="text-teal-400 hover:text-teal-300 transition-colors">
