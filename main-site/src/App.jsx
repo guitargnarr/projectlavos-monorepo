@@ -46,6 +46,13 @@ const projects = [
     tags: ['Python', 'FastAPI', 'ML', 'React'],
     status: 'Live',
   },
+  {
+    title: 'Mirador',
+    description: '89+ specialized AI personas with conductor-based orchestration. OCEAN personality integration, bidirectional agent communication. Live API with interactive demo.',
+    url: 'https://mirador-dch2y3pxu-matthew-scotts-projects-1dc9743e.vercel.app',
+    tags: ['Python', 'Flask', 'Ollama', 'AI Orchestration'],
+    status: 'Live',
+  },
 ]
 
 const skills = [
