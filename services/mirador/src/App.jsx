@@ -89,11 +89,6 @@ curl http://localhost:5001/api/health`
             <a href="#api" className="text-slate-300 hover:text-white transition-colors">
               Live API
             </a>
-            <a href="https://github.com/guitargnarr/mirador"
-               className="text-slate-300 hover:text-white transition-colors"
-               target="_blank" rel="noopener noreferrer">
-              GitHub
-            </a>
             <a href="https://projectlavos.com"
                className="text-slate-300 hover:text-white transition-colors">
               Portfolio
@@ -129,11 +124,6 @@ curl http://localhost:5001/api/health`
             <a href="#api"
                className="btn-elite px-8 py-4 bg-teal-500 hover:bg-teal-400 text-slate-900 font-semibold rounded-lg">
               Try Live API
-            </a>
-            <a href="https://github.com/guitargnarr/mirador"
-               className="btn-elite px-8 py-4 border border-slate-600 hover:border-teal-500 text-white rounded-lg glow-border"
-               target="_blank" rel="noopener noreferrer">
-              View on GitHub
             </a>
           </div>
         </div>
@@ -577,10 +567,9 @@ curl http://localhost:5001/api/health`
             I built one that could. Mirador is the result.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="https://github.com/guitargnarr/mirador"
-               className="btn-elite px-8 py-4 bg-teal-500 hover:bg-teal-400 text-slate-900 font-semibold rounded-lg"
-               target="_blank" rel="noopener noreferrer">
-              Explore the Code
+            <a href="#api"
+               className="btn-elite px-8 py-4 bg-teal-500 hover:bg-teal-400 text-slate-900 font-semibold rounded-lg">
+              Try Live API
             </a>
             <a href="https://projectlavos.com"
                className="btn-elite px-8 py-4 border border-slate-600 hover:border-teal-500 text-white rounded-lg">
