@@ -82,12 +82,6 @@ const standaloneTools = [
     tags: ['React', 'Music Theory'],
   },
   {
-    title: 'FretForge',
-    url: 'https://fretforge-showcase.vercel.app',
-    description: 'Guitar fretboard visualization and pattern exploration showcase.',
-    tags: ['React', 'Canvas', 'SVG'],
-  },
-  {
     title: 'Apartment Demo',
     url: 'https://frontend-mu-dusky-38.vercel.app',
     description: 'Apartment leasing demo SPA for lead capture and unit browsing.',
