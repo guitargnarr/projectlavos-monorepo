@@ -132,7 +132,6 @@ const localOnly = [
     path: '~/Projects/Security-Tools/mirador-test',
     description: 'Local AI orchestration framework. 16 personas, 51 models, chains for security audits that actually work.',
     tags: ['Python', 'Ollama', 'Flask', 'SSE'],
-    github: 'https://github.com/guitargnarr/mirador',
   },
   {
     title: 'Reflexia',
