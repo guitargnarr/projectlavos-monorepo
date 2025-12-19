@@ -8,9 +8,15 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // In production, this would submit to a backend
-    setFormStatus('success')
-    setTimeout(() => setFormStatus(null), 3000)
+    const subject = encodeURIComponent(`Mirador Executive Briefing Request - ${formData.company}`)
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\n` +
+      `Email: ${formData.email}\n` +
+      `Company: ${formData.company}\n\n` +
+      `AI Governance Challenges:\n${formData.message}\n\n` +
+      `---\nSent from Mirador Enterprise contact form`
+    )
+    window.location.href = `mailto:matthewdscott7@gmail.com?subject=${subject}&body=${body}`
   }
 
   return (
@@ -51,8 +57,8 @@ function App() {
           </h1>
 
           <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto mb-8">
-            It analyzed 75 models, fired 9 underperformers, and got 66% faster.
-            <span className="text-white"> Zero human intervention.</span>
+            It analyzed 74 models, found redundancies, and improved diversity from 5% to 20%.
+            <span className="text-white"> One approval click.</span>
           </p>
 
           <div className="flex flex-wrap justify-center gap-6 text-sm text-slate-400 mb-12">
@@ -207,25 +213,26 @@ function App() {
           </p>
 
           <div className="grid md:grid-cols-4 gap-6 mb-12">
-            <MetricCard before="75" after="67" label="Models" improvement="11% removed" />
-            <MetricCard before="150GB" after="115GB" label="Storage" improvement="23% reduction" />
-            <MetricCard before="3.2s" after="1.1s" label="Response" improvement="66% faster" />
+            <MetricCard before="74" after="8" label="Routing Models" improvement="71 consolidated" />
+            <MetricCard before="2GB" after="0" label="Duplicates" improvement="1 removed" />
+            <MetricCard before="5%" after="20%" label="Diversity" improvement="4 LLMs added" />
             <MetricCard before="0%" after="100%" label="Governance" improvement="Complete" />
           </div>
 
           <div className="bg-slate-900 rounded-xl p-8 border border-teal-500/30">
             <h3 className="text-xl font-semibold text-teal-400 mb-4">What Happened</h3>
             <p className="text-slate-300 mb-4">
-              Over 30 days, Mirador's self-reflection guardian monitored every model's performance.
-              It identified 9 models that consistently underperformed - returning generic responses,
-              high latency, or redundant capabilities already covered by other specialists.
+              Mirador scanned its own model inventory - 74 specialized AI models built over two years.
+              It found 1 exact duplicate (llama3.2:3b = llama3.2:latest) wasting 2GB, and identified
+              71 models sharing the same base architecture with consolidation potential.
             </p>
             <p className="text-slate-300 mb-4">
-              Without any human intervention, the system quarantined these models, ran validation
-              tests to ensure no capability gaps, then permanently removed them from the active pool.
+              The system proposed routing through 8 universal models instead of 71 specialized variants,
+              and adding 4 diverse base LLMs (Gemma, Qwen, Phi-3, Command-R) to reduce single-vendor risk.
+              I reviewed the recommendation. Clicked approve. The system executed.
             </p>
             <p className="text-slate-400 italic">
-              "The first AI system that fired 11% of itself - and got smarter."
+              "The first AI system that audited itself - and got leaner."
             </p>
           </div>
         </div>
@@ -363,7 +370,7 @@ function App() {
               </div>
             </div>
             <blockquote className="mt-8 text-lg text-slate-400 italic border-l-4 border-teal-500 pl-6">
-              "I built an AI system that fired its own unnecessary components and got smarter without me.
+              "I built an AI system that found its own redundancies. One approval click later, it was leaner and more diverse.
               Now I'm teaching enterprises to do the same."
             </blockquote>
           </div>

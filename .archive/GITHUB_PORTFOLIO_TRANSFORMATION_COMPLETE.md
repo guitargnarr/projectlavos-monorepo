@@ -619,7 +619,7 @@ Changes:
 ### Short-term (This Month)
 - [ ] Add tech stack section (years per technology)
 - [ ] Rework Hero section (authentic transition story)
-- [ ] Add timeline/journey section (Humana → Current)
+- [ ] Add timeline/journey section (Healthcare IT → Current)
 - [ ] Create project deep dives (dedicated pages per repo)
 
 ### Long-term (Next Quarter)

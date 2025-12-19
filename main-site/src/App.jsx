@@ -128,7 +128,7 @@ function Hero() {
           Louisville, KY
         </p>
         <p className="text-slate-300 max-w-2xl mx-auto mb-12 leading-relaxed">
-          Building practical tools with modern technology. 10 years healthcare IT experience at Humana,
+          Building practical tools with modern technology. 10 years healthcare IT experience,
           now focused on shipping production-ready applications that solve real problems.
         </p>
         <div className="flex gap-4 justify-center flex-wrap animate-fade-in-up delay-300">

@@ -329,7 +329,7 @@ cd ~/Projects/.worktrees/1_PRIORITY_JOB_SEARCH/feature/cover-letter-gen
 claude
 > Build a Python script that:
 > 1. Reads job description and company info
-> 2. Uses Matthew's background (Humana, skills, achievements)
+> 2. Uses Matthew's background (healthcare IT, skills, achievements)
 > 3. Generates personalized cover letter
 > 4. Follows best practices (1 page, specific examples)
 > 5. Outputs in Word and PDF formats

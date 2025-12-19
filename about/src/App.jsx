@@ -957,7 +957,7 @@ function About() {
 
         <div className="prose prose-lg max-w-none">
           <p className="text-xl text-gray-700 leading-relaxed mb-6">
-            I'm Matthew Scott, a Louisville-based AI consultant with 10 years of healthcare IT experience at Humana. I help local businesses implement practical AI tools that save time and increase revenue—without the tech jargon.
+            I'm Matthew Scott, a Louisville-based AI consultant with 10 years of healthcare IT experience. I help local businesses implement practical AI tools that save time and increase revenue—without the tech jargon.
           </p>
 
           <div className="grid md:grid-cols-2 gap-8 mt-12">
