@@ -119,7 +119,7 @@ function Header() {
   return (
     <header className="border-b border-slate-700/50 sticky top-0 bg-slate-900/95 backdrop-blur-sm z-50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-        <Link to="/" className="text-xl font-bold bg-gradient-to-r from-teal-400 to-orange-400 bg-clip-text text-transparent min-h-[44px] flex items-center">
+        <Link to="/" className="text-xl font-bold bg-gradient-to-r from-teal-400 to-orange-400 bg-clip-text text-transparent min-h-[44px] min-w-[44px] flex items-center justify-center">
           MS
         </Link>
 
