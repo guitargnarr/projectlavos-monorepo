@@ -68,7 +68,7 @@ export default function Navigation() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo/Brand - Always links to home */}
-          <Link to="/" className="navbar-logo flex items-center">
+          <Link to="/" className="navbar-logo flex items-center min-h-[44px]">
             <div className="text-xl font-bold bg-gradient-to-r from-teal-400 to-orange-400 bg-clip-text text-transparent">
               FretVision
             </div>
@@ -140,7 +140,7 @@ export default function Navigation() {
           {/* Mobile menu button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="mobile-menu-btn lg:hidden p-2 rounded-md text-gray-400 hover:text-white focus:outline-none"
+            className="mobile-menu-btn lg:hidden p-2 rounded-md text-gray-400 hover:text-white focus:outline-none min-w-[44px] min-h-[44px] flex items-center justify-center"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? (
