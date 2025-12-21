@@ -97,9 +97,9 @@ function Hero() {
           <div className="space-y-4 text-lg text-gray-700">
             <p>10 years in AI/ML. Teaching individuals, consulting for Louisville businesses.</p>
 
-            <p>
+            <p className="flex flex-wrap items-center gap-1">
               If you have a 10-hour problem, let's talk:{' '}
-              <a href="mailto:matthewdscott7@gmail.com" className="text-lavos-blue font-bold hover:underline">
+              <a href="mailto:matthewdscott7@gmail.com" className="text-lavos-blue font-bold hover:underline inline-flex items-center min-h-[44px] px-1">
                 matthewdscott7@gmail.com
               </a>
             </p>
@@ -351,7 +351,7 @@ function LeadScoringDemo() {
 
       <button
         onClick={loadSampleData}
-        className="mb-4 bg-lavos-green text-white px-4 py-2 border-2 border-lavos-black shadow-brutal-sm font-bold text-sm hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200"
+        className="mb-4 bg-lavos-green text-white px-4 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold text-sm hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 min-h-[44px]"
       >
         💡 Try Sample Lead
       </button>
@@ -489,7 +489,7 @@ function PhishingDemo() {
 
       <button
         onClick={loadSamplePhishing}
-        className="mb-4 bg-lavos-green text-white px-4 py-2 border-2 border-lavos-black shadow-brutal-sm font-bold text-sm hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200"
+        className="mb-4 bg-lavos-green text-white px-4 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold text-sm hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 min-h-[44px]"
       >
         💡 Try Phishing Example
       </button>
@@ -937,8 +937,8 @@ function ContactForm() {
           </div>
         </form>
 
-        <p className="text-center text-gray-600 mt-8 text-sm">
-          Or book a free assessment directly: <a href="https://calendly.com/matthewdscott7/ai-assessment" target="_blank" rel="noopener noreferrer" className="text-lavos-blue font-bold hover:underline">Schedule on Calendly →</a>
+        <p className="text-center text-gray-600 mt-8 text-sm flex flex-wrap items-center justify-center gap-2">
+          Or book a free assessment directly: <a href="https://calendly.com/matthewdscott7/ai-assessment" target="_blank" rel="noopener noreferrer" className="text-lavos-blue font-bold hover:underline inline-flex items-center min-h-[44px] px-2">Schedule on Calendly →</a>
         </p>
       </div>
     </section>

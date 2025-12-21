@@ -234,12 +234,15 @@ body {
 }
 
 .footer-section a {
-  display: block;
+  display: flex;
+  align-items: center;
   color: #ccc;
   text-decoration: none;
   margin-bottom: 0.5rem;
   transition: color 0.3s;
   font-size: 0.95rem;
+  min-height: 44px;
+  padding: 0.5rem 0;
 }
 
 .footer-section a:hover {
