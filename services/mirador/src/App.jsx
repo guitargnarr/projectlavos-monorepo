@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 
 const API_URL = 'https://mirador-xva2.onrender.com'
 
@@ -11,6 +11,7 @@ function App() {
   const [demoInput, setDemoInput] = useState('Review my API for vulnerabilities')
   const [demoResult, setDemoResult] = useState(null)
   const [demoLoading, setDemoLoading] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     // Fetch API health and stats on load
@@ -75,11 +76,12 @@ curl http://localhost:5001/api/health`
       {/* Hero Section */}
       <header className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-orange-500/10 hero-gradient" />
-        <nav className="relative max-w-6xl mx-auto px-6 py-6 flex justify-between items-center">
-          <div className="text-xl font-bold">
+        <nav className="relative max-w-6xl mx-auto px-6 py-6 flex justify-between items-center" aria-label="Main navigation">
+          <a href="/" className="text-xl font-bold">
             <span className="gradient-text">MIRADOR</span>
-          </div>
-          <div className="flex gap-6">
+          </a>
+          {/* Desktop navigation */}
+          <div className="hidden md:flex gap-6">
             <a href="#paradigm" className="text-slate-300 hover:text-white transition-colors">
               The Paradigm
             </a>
@@ -94,7 +96,42 @@ curl http://localhost:5001/api/health`
               Portfolio
             </a>
           </div>
+          {/* Mobile menu button */}
+          <button
+            className="md:hidden p-2 text-slate-300 hover:text-white"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-expanded={mobileMenuOpen}
+            aria-label="Toggle navigation menu"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {mobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
         </nav>
+        {/* Mobile navigation menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-slate-800/95 backdrop-blur-sm border-t border-slate-700">
+            <div className="max-w-6xl mx-auto px-6 py-4 flex flex-col gap-4">
+              <a href="#paradigm" className="text-slate-300 hover:text-white transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>
+                The Paradigm
+              </a>
+              <a href="#governance" className="text-slate-300 hover:text-white transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>
+                Self-Governance
+              </a>
+              <a href="#api" className="text-slate-300 hover:text-white transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>
+                Live API
+              </a>
+              <a href="https://projectlavos.com"
+                 className="text-slate-300 hover:text-white transition-colors py-2">
+                Portfolio
+              </a>
+            </div>
+          </div>
+        )}
 
         <div className="relative max-w-6xl mx-auto px-6 py-24 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in-up">
@@ -129,10 +166,11 @@ curl http://localhost:5001/api/health`
         </div>
       </header>
 
-      {/* The Paradigm Section */}
-      <section id="paradigm" className="py-24 border-b border-slate-800">
+      <main>
+        {/* The Paradigm Section */}
+        <section id="paradigm" className="py-24 border-b border-slate-800" aria-labelledby="paradigm-heading">
         <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-4">The Mirador Paradigm</h2>
+          <h2 id="paradigm-heading" className="text-3xl font-bold text-center mb-4">The Mirador Paradigm</h2>
           <p className="text-slate-400 text-center mb-12 max-w-2xl mx-auto">
             A philosophical and architectural framework for human-AI collaboration
           </p>
@@ -227,15 +265,16 @@ curl http://localhost:5001/api/health`
       </section>
 
       {/* Architecture Section */}
-      <section className="py-24">
+      <section className="py-24" aria-labelledby="architecture-heading">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-4">Architecture</h2>
+          <h2 id="architecture-heading" className="text-3xl font-bold text-center mb-4">Architecture</h2>
           <p className="text-slate-400 text-center mb-12 max-w-2xl mx-auto">
             Conductor-based orchestration with bidirectional communication
           </p>
 
-          <div className="bg-slate-900 rounded-xl p-6 md:p-8 overflow-x-auto mb-12">
-            <pre className="text-sm md:text-base text-slate-300 leading-relaxed">
+          <div className="bg-slate-900 rounded-xl p-6 md:p-8 overflow-x-auto mb-12 relative">
+            <span className="absolute top-2 right-2 text-xs text-slate-500 md:hidden">Scroll to view</span>
+            <pre className="text-xs sm:text-sm md:text-base text-slate-300 leading-relaxed" role="img" aria-label="Architecture diagram showing flow from User Query through Conductor Agent, Message Bus, Persona Chains, Meta-Cognitive Layer, to Ollama runtime">
 {`User Query
     │
     ▼
@@ -578,6 +617,7 @@ curl http://localhost:5001/api/health`
           </div>
         </div>
       </section>
+      </main>
 
       {/* Footer */}
       <footer className="py-12 border-t border-slate-800">
