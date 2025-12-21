@@ -1602,8 +1602,8 @@ function ContactForm() {
           </div>
         </form>
 
-        <p className="text-center text-gray-600 mt-8 text-sm">
-          Or book a free assessment directly: <a href="https://calendly.com/matthewdscott7/ai-assessment" target="_blank" rel="noopener noreferrer" className="text-lavos-blue font-bold hover:underline">Schedule on Calendly →</a>
+        <p className="text-center text-gray-600 mt-8 text-sm flex flex-wrap items-center justify-center gap-2">
+          Or book a free assessment directly: <a href="https://calendly.com/matthewdscott7/ai-assessment" target="_blank" rel="noopener noreferrer" className="text-lavos-blue font-bold hover:underline inline-flex items-center min-h-[44px] px-2">Schedule on Calendly →</a>
         </p>
       </div>
     </section>
