@@ -3537,6 +3537,42 @@
   color: #cbd5e1;
 }
 
+/* Drum Controls */
+.backing-tracks-drum-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.backing-tracks-drum-toggle {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 0.375rem;
+  background: rgba(51, 65, 85, 0.6);
+  color: #94a3b8;
+  border: 1px solid rgba(71, 85, 105, 0.5);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.backing-tracks-drum-toggle:hover {
+  background: rgba(51, 65, 85, 0.8);
+}
+
+.backing-tracks-drum-toggle.enabled {
+  background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+  color: #0f172a;
+  border-color: #14b8a6;
+}
+
+.backing-tracks-drum-toggle.enabled:hover {
+  background: linear-gradient(135deg, #2dd4bf 0%, #14b8a6 100%);
+}
+
 /* ============================================
    CHORD DICTIONARY - ELITE CSS
    ============================================ */

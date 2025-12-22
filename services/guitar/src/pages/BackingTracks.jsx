@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import createDrumSynthesizer from '../audio/DrumSynthesizer';
+import { getDrumPattern } from '../data/drumPatterns';
 
 const NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 
@@ -60,6 +62,8 @@ export default function BackingTracks() {
   const [volume, setVolume] = useState(0.5);
   const [isCountingIn, setIsCountingIn] = useState(false);
   const [countInBeat, setCountInBeat] = useState(0);
+  const [drumsEnabled, setDrumsEnabled] = useState(true);
+  const [drumVolume, setDrumVolume] = useState(0.7);
 
   // Tap tempo state
   const [tapTimes, setTapTimes] = useState([]);
@@ -67,6 +71,7 @@ export default function BackingTracks() {
 
   // Audio refs
   const audioContextRef = useRef(null);
+  const drumSynthRef = useRef(null);
   const nextNoteTimeRef = useRef(0);
   const currentBeatRef = useRef(0);
   const timerIDRef = useRef(null);
@@ -98,13 +103,21 @@ export default function BackingTracks() {
     return BASE_FREQUENCIES[chordRoot];
   }, []);
 
-  // Initialize audio context
+  // Initialize audio context and drum synthesizer
   const initAudioContext = useCallback(() => {
     if (!audioContextRef.current) {
       audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
+      drumSynthRef.current = createDrumSynthesizer(audioContextRef.current);
     }
     return audioContextRef.current;
   }, []);
+
+  // Update drum volume when slider changes
+  useEffect(() => {
+    if (drumSynthRef.current) {
+      drumSynthRef.current.setMasterVolume(drumVolume);
+    }
+  }, [drumVolume]);
 
   // Play a bass note
   const playBassNote = useCallback((frequency, time, duration, isDownbeat) => {
@@ -172,6 +185,21 @@ export default function BackingTracks() {
     oscillator.stop(time + 0.08);
   }, [volume]);
 
+  // Schedule drums for a bar
+  const scheduleDrums = useCallback((barStartTime, barNumber) => {
+    if (!drumsEnabled || !drumSynthRef.current) return;
+
+    const drumPattern = getDrumPattern(style);
+    const beatDuration = 60 / bpm;
+
+    drumPattern.pattern.forEach(event => {
+      const eventTime = barStartTime + (event.position * beatDuration);
+      event.drums.forEach(drum => {
+        drumSynthRef.current.play(drum, eventTime, event.velocity || 1.0);
+      });
+    });
+  }, [style, bpm, drumsEnabled]);
+
   // Schedule a beat
   const scheduleBeat = useCallback((beatNumber, time) => {
     const progression = PROGRESSIONS[style];
@@ -182,6 +210,7 @@ export default function BackingTracks() {
     const chordIndex = Math.floor(beatInProgression / beatsPerChord);
     const beatInChord = beatInProgression % beatsPerChord;
     const isDownbeat = beatInChord === 0;
+    const barNumber = Math.floor(beatNumber / 4);
 
     const romanNumeral = progression.chords[chordIndex];
     const frequency = getChordFrequency(romanNumeral, selectedKey);
@@ -194,8 +223,15 @@ export default function BackingTracks() {
       playBassNote(frequency, time, beatDuration * 1.5, isDownbeat);
     }
 
-    // Play click on every beat
-    playClick(time, isDownbeat);
+    // Schedule drums at the start of each bar
+    if (beatInChord === 0) {
+      scheduleDrums(time, barNumber);
+    }
+
+    // Play click on every beat (only if drums disabled)
+    if (!drumsEnabled) {
+      playClick(time, isDownbeat);
+    }
 
     // Update visual state
     const audioContext = audioContextRef.current;
@@ -205,7 +241,7 @@ export default function BackingTracks() {
       setCurrentChordIndex(chordIndex);
       setCurrentBeat(beatInChord);
     }, delay);
-  }, [style, selectedKey, bpm, getChordFrequency, playBassNote, playClick]);
+  }, [style, selectedKey, bpm, getChordFrequency, playBassNote, playClick, scheduleDrums, drumsEnabled]);
 
   // Scheduler loop
   const scheduler = useCallback(() => {
@@ -465,9 +501,9 @@ export default function BackingTracks() {
             </button>
           </div>
 
-          {/* Volume Control */}
-          <div>
-            <label className="backing-tracks-label">Volume</label>
+          {/* Volume Controls */}
+          <div className="mb-6">
+            <label className="backing-tracks-label">Bass Volume</label>
             <div className="backing-tracks-volume-row">
               <span className="backing-tracks-volume-icon">-</span>
               <input
@@ -482,6 +518,35 @@ export default function BackingTracks() {
               <span className="backing-tracks-volume-icon">+</span>
               <span className="backing-tracks-volume-value">{Math.round(volume * 100)}%</span>
             </div>
+          </div>
+
+          {/* Drum Controls */}
+          <div>
+            <div className="backing-tracks-drum-header">
+              <label className="backing-tracks-label">Drums</label>
+              <button
+                onClick={() => setDrumsEnabled(!drumsEnabled)}
+                className={`backing-tracks-drum-toggle ${drumsEnabled ? 'enabled' : ''}`}
+              >
+                {drumsEnabled ? 'ON' : 'OFF'}
+              </button>
+            </div>
+            {drumsEnabled && (
+              <div className="backing-tracks-volume-row">
+                <span className="backing-tracks-volume-icon">-</span>
+                <input
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  value={drumVolume}
+                  onChange={(e) => setDrumVolume(Number(e.target.value))}
+                  className="backing-tracks-slider flex-1"
+                />
+                <span className="backing-tracks-volume-icon">+</span>
+                <span className="backing-tracks-volume-value">{Math.round(drumVolume * 100)}%</span>
+              </div>
+            )}
           </div>
         </div>
 
