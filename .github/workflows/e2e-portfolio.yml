@@ -1,0 +1,55 @@
+name: Portfolio E2E Tests
+
+on:
+  schedule:
+    # Weekly on Monday at 6am UTC (1am EST)
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+    # Allow manual trigger from GitHub Actions UI
+
+jobs:
+  e2e-tests:
+    name: Run Portfolio E2E Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          cd e2e
+          npm init -y
+          npm install -D @playwright/test
+
+      - name: Install Playwright browsers
+        run: |
+          cd e2e
+          npx playwright install chromium --with-deps
+
+      - name: Run E2E tests
+        run: |
+          cd e2e
+          npx playwright test --config=playwright.config.js
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+
+      - name: Upload test screenshots
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: test-screenshots
+          path: e2e/test-results/
+          retention-days: 7
