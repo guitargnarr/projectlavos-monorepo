@@ -3489,6 +3489,54 @@
   min-width: 1.5rem;
 }
 
+/* Count-In State */
+.backing-tracks-chord-circle.counting-in {
+  background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+  color: #0f172a;
+  animation: count-in-pulse 0.5s ease-in-out infinite;
+}
+
+@keyframes count-in-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Suggested Scales */
+.backing-tracks-scales {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: rgba(51, 65, 85, 0.5);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(71, 85, 105, 0.5);
+}
+
+.backing-tracks-scale-primary,
+.backing-tracks-scale-alt {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.backing-tracks-scale-label {
+  font-size: 0.875rem;
+  color: #94a3b8;
+  min-width: 5rem;
+}
+
+.backing-tracks-scale-primary .backing-tracks-scale-name {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #14b8a6;
+}
+
+.backing-tracks-scale-alt .backing-tracks-scale-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #cbd5e1;
+}
+
 /* ============================================
    CHORD DICTIONARY - ELITE CSS
    ============================================ */

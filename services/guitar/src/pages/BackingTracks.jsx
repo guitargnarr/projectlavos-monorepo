@@ -4,14 +4,25 @@ const NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 
 
 // Chord progressions by style (using Roman numeral notation)
 const PROGRESSIONS = {
-  rock: { name: 'Rock (I-IV-V-I)', chords: ['I', 'IV', 'V', 'I'], beatsPerChord: 4 },
-  blues: { name: '12-Bar Blues', chords: ['I', 'I', 'I', 'I', 'IV', 'IV', 'I', 'I', 'V', 'IV', 'I', 'V'], beatsPerChord: 4 },
-  'minor-blues': { name: 'Minor Blues (i-iv-V)', chords: ['i', 'i', 'i', 'i', 'iv', 'iv', 'i', 'i', 'V', 'iv', 'i', 'V'], beatsPerChord: 4 },
-  jazz: { name: 'Jazz ii-V-I', chords: ['ii', 'V', 'I', 'I'], beatsPerChord: 4 },
-  pop: { name: 'Pop (I-V-vi-IV)', chords: ['I', 'V', 'vi', 'IV'], beatsPerChord: 4 },
-  funk: { name: 'Funk (i-IV)', chords: ['i', 'IV', 'i', 'IV'], beatsPerChord: 4 },
-  country: { name: 'Country (I-IV-V-IV)', chords: ['I', 'IV', 'V', 'IV'], beatsPerChord: 4 },
-  motown: { name: 'Motown (I-vi-IV-V)', chords: ['I', 'vi', 'IV', 'V'], beatsPerChord: 4 },
+  rock: { name: 'Rock (I-IV-V-I)', chords: ['I', 'IV', 'V', 'I'], beatsPerChord: 4, scale: 'major_pentatonic', scaleAlt: 'major' },
+  blues: { name: '12-Bar Blues', chords: ['I', 'I', 'I', 'I', 'IV', 'IV', 'I', 'I', 'V', 'IV', 'I', 'V'], beatsPerChord: 4, scale: 'blues', scaleAlt: 'minor_pentatonic' },
+  'minor-blues': { name: 'Minor Blues (i-iv-V)', chords: ['i', 'i', 'i', 'i', 'iv', 'iv', 'i', 'i', 'V', 'iv', 'i', 'V'], beatsPerChord: 4, scale: 'minor_pentatonic', scaleAlt: 'blues' },
+  jazz: { name: 'Jazz ii-V-I', chords: ['ii', 'V', 'I', 'I'], beatsPerChord: 4, scale: 'major', scaleAlt: 'dorian' },
+  pop: { name: 'Pop (I-V-vi-IV)', chords: ['I', 'V', 'vi', 'IV'], beatsPerChord: 4, scale: 'major', scaleAlt: 'major_pentatonic' },
+  funk: { name: 'Funk (i-IV)', chords: ['i', 'IV', 'i', 'IV'], beatsPerChord: 4, scale: 'dorian', scaleAlt: 'minor_pentatonic' },
+  country: { name: 'Country (I-IV-V-IV)', chords: ['I', 'IV', 'V', 'IV'], beatsPerChord: 4, scale: 'major_pentatonic', scaleAlt: 'mixolydian' },
+  motown: { name: 'Motown (I-vi-IV-V)', chords: ['I', 'vi', 'IV', 'V'], beatsPerChord: 4, scale: 'major_pentatonic', scaleAlt: 'major' },
+};
+
+// Scale display names
+const SCALE_NAMES = {
+  major: 'Major',
+  minor: 'Natural Minor',
+  major_pentatonic: 'Major Pentatonic',
+  minor_pentatonic: 'Minor Pentatonic',
+  blues: 'Blues',
+  dorian: 'Dorian',
+  mixolydian: 'Mixolydian',
 };
 
 // Map Roman numerals to semitone offsets and chord quality
@@ -47,6 +58,8 @@ export default function BackingTracks() {
   const [currentChordIndex, setCurrentChordIndex] = useState(0);
   const [currentBeat, setCurrentBeat] = useState(0);
   const [volume, setVolume] = useState(0.5);
+  const [isCountingIn, setIsCountingIn] = useState(false);
+  const [countInBeat, setCountInBeat] = useState(0);
 
   // Tap tempo state
   const [tapTimes, setTapTimes] = useState([]);
@@ -137,6 +150,28 @@ export default function BackingTracks() {
     oscillator.stop(time + 0.05);
   }, [volume]);
 
+  // Play a count-in click (higher pitched, more prominent)
+  const playCountInClick = useCallback((time, beatNum) => {
+    const audioContext = audioContextRef.current;
+    if (!audioContext) return;
+
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+
+    oscillator.type = 'sine';
+    // Higher pitch for beat 1, slightly lower for others
+    oscillator.frequency.value = beatNum === 1 ? 1200 : 900;
+
+    gainNode.gain.setValueAtTime(volume * 0.5, time);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, time + 0.08);
+
+    oscillator.start(time);
+    oscillator.stop(time + 0.08);
+  }, [volume]);
+
   // Schedule a beat
   const scheduleBeat = useCallback((beatNumber, time) => {
     const progression = PROGRESSIONS[style];
@@ -189,16 +224,38 @@ export default function BackingTracks() {
     timerIDRef.current = setTimeout(scheduler, 25);
   }, [bpm, scheduleBeat]);
 
-  // Start playback
+  // Start playback with count-in
   const start = useCallback(() => {
     const audioContext = initAudioContext();
-    currentBeatRef.current = 0;
-    setCurrentChordIndex(0);
-    setCurrentBeat(0);
-    nextNoteTimeRef.current = audioContext.currentTime;
-    scheduler();
-    setIsPlaying(true);
-  }, [initAudioContext, scheduler]);
+    const beatDuration = 60 / bpm;
+
+    // Start count-in
+    setIsCountingIn(true);
+    setCountInBeat(0);
+
+    // Schedule 4 count-in beats
+    for (let i = 0; i < 4; i++) {
+      const time = audioContext.currentTime + (i * beatDuration);
+      playCountInClick(time, i + 1);
+
+      // Update visual count-in beat
+      setTimeout(() => {
+        setCountInBeat(i + 1);
+      }, i * beatDuration * 1000);
+    }
+
+    // After count-in, start the actual playback
+    setTimeout(() => {
+      setIsCountingIn(false);
+      setCountInBeat(0);
+      currentBeatRef.current = 0;
+      setCurrentChordIndex(0);
+      setCurrentBeat(0);
+      nextNoteTimeRef.current = audioContext.currentTime;
+      scheduler();
+      setIsPlaying(true);
+    }, 4 * beatDuration * 1000);
+  }, [initAudioContext, scheduler, bpm, playCountInClick]);
 
   // Stop playback
   const stop = useCallback(() => {
@@ -207,13 +264,15 @@ export default function BackingTracks() {
       timerIDRef.current = null;
     }
     setIsPlaying(false);
+    setIsCountingIn(false);
+    setCountInBeat(0);
     setCurrentChordIndex(0);
     setCurrentBeat(0);
   }, []);
 
   // Toggle play/stop
   const togglePlay = () => {
-    if (isPlaying) {
+    if (isPlaying || isCountingIn) {
       stop();
     } else {
       start();
@@ -260,6 +319,7 @@ export default function BackingTracks() {
 
   // Get chord circle class
   const getChordCircleClass = () => {
+    if (isCountingIn) return 'backing-tracks-chord-circle counting-in';
     if (!isPlaying) return 'backing-tracks-chord-circle';
     if (currentBeat === 0) return 'backing-tracks-chord-circle downbeat';
     return 'backing-tracks-chord-circle playing';
@@ -287,13 +347,13 @@ export default function BackingTracks() {
             <div className="relative">
               <div className={getChordCircleClass()}>
                 <span className="backing-tracks-chord-name">
-                  {isPlaying ? currentChordName : '–'}
+                  {isCountingIn ? countInBeat || '...' : (isPlaying ? currentChordName : '–')}
                 </span>
                 <span className="backing-tracks-beat-label">
-                  {isPlaying ? `Beat ${currentBeat + 1}` : 'Ready'}
+                  {isCountingIn ? 'Count In' : (isPlaying ? `Beat ${currentBeat + 1}` : 'Ready')}
                 </span>
               </div>
-              {isPlaying && currentBeat === 0 && (
+              {((isPlaying && currentBeat === 0) || isCountingIn) && (
                 <div className="backing-tracks-chord-ring"></div>
               )}
             </div>
@@ -348,6 +408,21 @@ export default function BackingTracks() {
             <p className="backing-tracks-style-name">{progression.name}</p>
           </div>
 
+          {/* Suggested Scales */}
+          <div className="mb-6">
+            <label className="backing-tracks-label">Suggested Scales</label>
+            <div className="backing-tracks-scales">
+              <div className="backing-tracks-scale-primary">
+                <span className="backing-tracks-scale-label">Primary:</span>
+                <span className="backing-tracks-scale-name">{selectedKey} {SCALE_NAMES[progression.scale]}</span>
+              </div>
+              <div className="backing-tracks-scale-alt">
+                <span className="backing-tracks-scale-label">Alternative:</span>
+                <span className="backing-tracks-scale-name">{selectedKey} {SCALE_NAMES[progression.scaleAlt]}</span>
+              </div>
+            </div>
+          </div>
+
           {/* BPM Control */}
           <div className="mb-6">
             <label className="backing-tracks-label">Tempo (BPM)</label>
@@ -377,14 +452,14 @@ export default function BackingTracks() {
           <div className="backing-tracks-button-grid mb-6">
             <button
               onClick={togglePlay}
-              className={`backing-tracks-play-btn ${isPlaying ? 'stop' : 'start'}`}
+              className={`backing-tracks-play-btn ${(isPlaying || isCountingIn) ? 'stop' : 'start'}`}
             >
-              {isPlaying ? 'Stop' : 'Start'}
+              {(isPlaying || isCountingIn) ? 'Stop' : 'Start'}
             </button>
             <button
               onClick={handleTap}
               className="backing-tracks-tap-btn"
-              disabled={isPlaying}
+              disabled={isPlaying || isCountingIn}
             >
               Tap Tempo {tapTimes.length > 0 && `(${tapTimes.length})`}
             </button>
