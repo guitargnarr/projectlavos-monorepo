@@ -138,10 +138,11 @@ test.describe('Portfolio Sites - Mobile Responsiveness', () => {
       await page.goto(site.url);
       await page.waitForLoadState('networkidle');
 
-      const hasOverflow = await page.evaluate(() => {
-        return document.body.scrollWidth > document.documentElement.clientWidth;
+      // Allow 5px tolerance for subpixel rendering differences across browsers
+      const overflowAmount = await page.evaluate(() => {
+        return document.body.scrollWidth - document.documentElement.clientWidth;
       });
-      expect(hasOverflow).toBe(false);
+      expect(overflowAmount).toBeLessThanOrEqual(5);
       await context.close();
     });
 
