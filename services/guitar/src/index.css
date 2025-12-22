@@ -5614,6 +5614,125 @@
 }
 
 /* ============================================
+   MUSIC INFO CARD - Interval Color System
+   ============================================ */
+
+/* Music Info Card Header */
+.music-info-card {
+  position: relative;
+}
+
+.music-info-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.music-info-mode {
+  font-size: 0.875rem;
+  color: #94a3b8;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.music-info-section {
+  margin-bottom: 1.25rem;
+}
+
+.music-info-formula {
+  font-family: 'SF Mono', 'Fira Code', 'Monaco', monospace;
+  font-size: 1rem;
+  color: #e2e8f0;
+  background: rgba(15, 23, 42, 0.5);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(71, 85, 105, 0.3);
+  letter-spacing: 0.05em;
+}
+
+/* Interval Color System (from fret-vision brand) */
+.fretvision-note-pill.interval-root {
+  background: linear-gradient(135deg, #3E64FF 0%, #2952e0 100%);
+  color: white;
+  box-shadow: 0 0 15px rgba(62, 100, 255, 0.5);
+}
+
+.fretvision-note-pill.interval-third {
+  background: linear-gradient(135deg, #5E17EB 0%, #4c12c0 100%);
+  color: white;
+  box-shadow: 0 0 12px rgba(94, 23, 235, 0.5);
+}
+
+.fretvision-note-pill.interval-fifth {
+  background: linear-gradient(135deg, #FF8E3C 0%, #e67a2e 100%);
+  color: white;
+  box-shadow: 0 0 12px rgba(255, 142, 60, 0.5);
+}
+
+.fretvision-note-pill.interval-seventh {
+  background: linear-gradient(135deg, #2CB67D 0%, #239e6a 100%);
+  color: white;
+  box-shadow: 0 0 12px rgba(44, 182, 125, 0.5);
+}
+
+.fretvision-note-pill.interval-other {
+  background: linear-gradient(135deg, #475569 0%, #334155 100%);
+  color: #e2e8f0;
+  box-shadow: 0 0 8px rgba(71, 85, 105, 0.3);
+}
+
+/* Note pill with degree display */
+.fretvision-note-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem 0.875rem;
+  min-width: 3rem;
+}
+
+.fretvision-note-pill .note-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.fretvision-note-pill .note-degree {
+  font-size: 0.65rem;
+  opacity: 0.85;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/* Legend with interval colors */
+.music-info-legend {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(71, 85, 105, 0.3);
+}
+
+.fretvision-legend-dot.interval-root {
+  background: linear-gradient(135deg, #3E64FF 0%, #2952e0 100%);
+  box-shadow: 0 0 8px rgba(62, 100, 255, 0.5);
+}
+
+.fretvision-legend-dot.interval-third {
+  background: linear-gradient(135deg, #5E17EB 0%, #4c12c0 100%);
+  box-shadow: 0 0 8px rgba(94, 23, 235, 0.5);
+}
+
+.fretvision-legend-dot.interval-fifth {
+  background: linear-gradient(135deg, #FF8E3C 0%, #e67a2e 100%);
+  box-shadow: 0 0 8px rgba(255, 142, 60, 0.5);
+}
+
+.fretvision-legend-dot.interval-seventh {
+  background: linear-gradient(135deg, #2CB67D 0%, #239e6a 100%);
+  box-shadow: 0 0 8px rgba(44, 182, 125, 0.5);
+}
+
+/* ============================================
    SCALE TRAINER - Elite Frontend Oracle Design
    ============================================ */
 

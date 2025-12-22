@@ -14,6 +14,41 @@ const TUNINGS = {
 // Fret markers (inlay positions)
 const INLAY_FRETS = [3, 5, 7, 9, 12];
 
+// Scale metadata for Music Info Card
+const SCALE_METADATA = {
+  major: { mode: 'Ionian', formula: 'W-W-H-W-W-W-H', degrees: ['1', '2', '3', '4', '5', '6', '7'] },
+  minor: { mode: 'Aeolian (Natural Minor)', formula: 'W-H-W-W-H-W-W', degrees: ['1', '2', 'b3', '4', '5', 'b6', 'b7'] },
+  pentatonic_major: { mode: 'Major Pentatonic', formula: 'W-W-m3-W-m3', degrees: ['1', '2', '3', '5', '6'] },
+  pentatonic_minor: { mode: 'Minor Pentatonic', formula: 'm3-W-W-m3-W', degrees: ['1', 'b3', '4', '5', 'b7'] },
+  blues: { mode: 'Blues Scale', formula: 'm3-W-H-H-m3-W', degrees: ['1', 'b3', '4', 'b5', '5', 'b7'] },
+  phrygian: { mode: 'Phrygian', formula: 'H-W-W-W-H-W-W', degrees: ['1', 'b2', 'b3', '4', '5', 'b6', 'b7'] },
+  lydian: { mode: 'Lydian', formula: 'W-W-W-H-W-W-H', degrees: ['1', '2', '3', '#4', '5', '6', '7'] },
+  mixolydian: { mode: 'Mixolydian', formula: 'W-W-H-W-W-H-W', degrees: ['1', '2', '3', '4', '5', '6', 'b7'] },
+  dorian: { mode: 'Dorian', formula: 'W-H-W-W-W-H-W', degrees: ['1', '2', 'b3', '4', '5', '6', 'b7'] },
+  locrian: { mode: 'Locrian', formula: 'H-W-W-H-W-W-W', degrees: ['1', 'b2', 'b3', '4', 'b5', 'b6', 'b7'] },
+  harmonic_minor: { mode: 'Harmonic Minor', formula: 'W-H-W-W-H-m3-H', degrees: ['1', '2', 'b3', '4', '5', 'b6', '7'] },
+  melodic_minor: { mode: 'Melodic Minor', formula: 'W-H-W-W-W-W-H', degrees: ['1', '2', 'b3', '4', '5', '6', '7'] }
+};
+
+// Get interval color class for a note position in scale
+const getIntervalColor = (noteIndex, scaleLength) => {
+  // Root (1st)
+  if (noteIndex === 0) return 'interval-root';
+  // Third (3rd position - index 2 for 7-note, varies for pentatonic)
+  if (scaleLength === 7 && noteIndex === 2) return 'interval-third';
+  if (scaleLength === 5 && noteIndex === 2) return 'interval-fifth'; // Pentatonic: 1-b3-4-5-b7, index 2 is 4th
+  if (scaleLength === 6 && noteIndex === 2) return 'interval-third'; // Blues
+  // Fifth (5th position)
+  if (scaleLength === 7 && noteIndex === 4) return 'interval-fifth';
+  if (scaleLength === 5 && noteIndex === 3) return 'interval-fifth'; // Pentatonic
+  if (scaleLength === 6 && noteIndex === 4) return 'interval-fifth'; // Blues (actual 5th)
+  // Seventh (7th position for 7-note scales)
+  if (scaleLength === 7 && noteIndex === 6) return 'interval-seventh';
+  if (scaleLength === 5 && noteIndex === 4) return 'interval-seventh'; // Pentatonic b7
+  if (scaleLength === 6 && noteIndex === 5) return 'interval-seventh'; // Blues b7
+  return 'interval-other';
+};
+
 export default function FretVision() {
   const [rootNote, setRootNote] = useState('B');
   const [scaleType, setScaleType] = useState('minor');
@@ -179,33 +214,56 @@ export default function FretVision() {
           </div>
         </div>
 
-        {/* Scale Info Panel */}
-        <div className="fretvision-info-panel">
-          <h3 className="fretvision-info-title">{rootNote} {formatScaleName(scaleType)} Scale</h3>
+        {/* Music Info Card */}
+        <div className="fretvision-info-panel music-info-card">
+          {/* Title with Mode */}
+          <div className="music-info-header">
+            <h3 className="fretvision-info-title">{rootNote} {formatScaleName(scaleType)} Scale</h3>
+            <span className="music-info-mode">{SCALE_METADATA[scaleType]?.mode || scaleType}</span>
+          </div>
 
-          <div>
+          {/* Interval Formula */}
+          <div className="music-info-section">
+            <h4 className="fretvision-notes-label">Interval Formula</h4>
+            <div className="music-info-formula">
+              {SCALE_METADATA[scaleType]?.formula || 'N/A'}
+            </div>
+          </div>
+
+          {/* Color-coded Notes */}
+          <div className="music-info-section">
             <h4 className="fretvision-notes-label">Notes in Scale</h4>
             <div className="fretvision-notes-list">
               {scaleNotes.map((note, i) => (
                 <div
                   key={i}
-                  className={`fretvision-note-pill ${note === rootNote ? 'root' : 'scale'}`}
+                  className={`fretvision-note-pill ${getIntervalColor(i, scaleNotes.length)}`}
+                  title={SCALE_METADATA[scaleType]?.degrees?.[i] || `${i + 1}`}
                 >
-                  {note}
+                  <span className="note-name">{note}</span>
+                  <span className="note-degree">{SCALE_METADATA[scaleType]?.degrees?.[i] || ''}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Legend */}
-          <div className="fretvision-legend">
+          {/* Enhanced Legend with Interval Colors */}
+          <div className="fretvision-legend music-info-legend">
             <div className="fretvision-legend-item">
-              <span className="fretvision-legend-dot root"></span>
-              Root Note
+              <span className="fretvision-legend-dot interval-root"></span>
+              Root (1)
             </div>
             <div className="fretvision-legend-item">
-              <span className="fretvision-legend-dot scale"></span>
-              Scale Notes
+              <span className="fretvision-legend-dot interval-third"></span>
+              Third (3)
+            </div>
+            <div className="fretvision-legend-item">
+              <span className="fretvision-legend-dot interval-fifth"></span>
+              Fifth (5)
+            </div>
+            <div className="fretvision-legend-item">
+              <span className="fretvision-legend-dot interval-seventh"></span>
+              Seventh (7)
             </div>
           </div>
         </div>
