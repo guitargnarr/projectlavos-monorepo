@@ -27,7 +27,6 @@ export default function About() {
         <h2 className="text-2xl font-bold text-white mb-6 text-center">Core Features</h2>
         <div className="grid md:grid-cols-2 gap-6">
           <div className="settings-panel-elite p-6 rounded-xl">
-            <div className="text-3xl mb-3">🎸</div>
             <h3 className="text-lg font-semibold text-teal-400 mb-2">Interactive Fretboard</h3>
             <p className="text-gray-400 text-sm">
               Visualize scales, chords, and patterns across the entire neck with clickable notes and real-time audio feedback.
@@ -35,7 +34,6 @@ export default function About() {
           </div>
 
           <div className="settings-panel-elite p-6 rounded-xl">
-            <div className="text-3xl mb-3">🎵</div>
             <h3 className="text-lg font-semibold text-orange-400 mb-2">Tab Player</h3>
             <p className="text-gray-400 text-sm">
               Load and play Guitar Pro files with synchronized notation, cursor tracking, and adjustable playback speed.
@@ -43,7 +41,6 @@ export default function About() {
           </div>
 
           <div className="settings-panel-elite p-6 rounded-xl">
-            <div className="text-3xl mb-3">⚡</div>
             <h3 className="text-lg font-semibold text-cyan-400 mb-2">Riff Generator</h3>
             <p className="text-gray-400 text-sm">
               Generate custom riffs with 12 scales, 8 patterns, and 4 tunings. Export to Tab, MIDI, or GP5 format.
@@ -51,7 +48,6 @@ export default function About() {
           </div>
 
           <div className="settings-panel-elite p-6 rounded-xl">
-            <div className="text-3xl mb-3">🎹</div>
             <h3 className="text-lg font-semibold text-purple-400 mb-2">Practice Tools</h3>
             <p className="text-gray-400 text-sm">
               Chromatic tuner, metronome, backing tracks, and ear training exercises to build your skills.
