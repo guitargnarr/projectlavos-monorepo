@@ -16,14 +16,12 @@ Requirements:
 - numpy: Audio processing
 """
 
-import os
-import sys
 import json
 import tempfile
 import numpy as np
 import soundfile as sf
 from pathlib import Path
-from typing import List, Tuple, Optional
+from typing import List, Optional
 from dataclasses import dataclass
 from midiutil import MIDIFile
 
@@ -36,8 +34,8 @@ except ImportError:
     print("Warning: pyguitarpro not available, GP export disabled")
 
 try:
-    from pedalboard import Pedalboard, load_plugin
-    from pedalboard.io import AudioFile
+    from pedalboard import Pedalboard, load_plugin  # noqa: F401
+    from pedalboard.io import AudioFile  # noqa: F401
     HAS_PEDALBOARD = True
 except ImportError:
     HAS_PEDALBOARD = False
@@ -62,20 +60,20 @@ PROGRESSIONS = {
 
 # Rhythm patterns for variety (master_guitar_instructor recommendation)
 RHYTHM_PATTERNS = {
-    'straight': [1, 1, 1, 1, 1, 1, 1, 1],           # Straight 8ths
-    'syncopated': [1.5, 0.5, 1, 1, 1.5, 0.5, 1, 1], # Syncopated feel
-    'triplet': [0.67, 0.67, 0.66, 0.67, 0.67, 0.66, 0.67, 0.67, 0.66],  # Triplet feel
-    'gallop': [0.5, 0.5, 1, 0.5, 0.5, 1, 0.5, 0.5, 1, 0.5, 0.5, 1],     # Metal gallop
-    'staccato': [0.3, 0.7, 0.3, 0.7, 0.3, 0.7, 0.3, 0.7],  # Tight staccato
-    'tremolo': [0.25, 0.25, 0.25, 0.25] * 8,        # Tremolo picking
+    'straight': [1, 1, 1, 1, 1, 1, 1, 1],
+    'syncopated': [1.5, 0.5, 1, 1, 1.5, 0.5, 1, 1],
+    'triplet': [0.67, 0.67, 0.66, 0.67, 0.67, 0.66, 0.67, 0.67, 0.66],
+    'gallop': [0.5, 0.5, 1, 0.5, 0.5, 1, 0.5, 0.5, 1, 0.5, 0.5, 1],
+    'staccato': [0.3, 0.7, 0.3, 0.7, 0.3, 0.7, 0.3, 0.7],
+    'tremolo': [0.25, 0.25, 0.25, 0.25] * 8,
 }
 
 # Accent patterns for dynamics (master_guitar_instructor recommendation)
 ACCENT_PATTERNS = {
-    'none': [1.0] * 8,                              # No accents
-    'downbeat': [1.2, 0.8, 1.0, 0.8, 1.2, 0.8, 1.0, 0.8],  # Accent downbeats
-    'backbeat': [0.8, 1.2, 0.8, 1.2, 0.8, 1.2, 0.8, 1.2],  # Accent backbeats
-    'buildup': [0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3],   # Building intensity
+    'none': [1.0] * 8,
+    'downbeat': [1.2, 0.8, 1.0, 0.8, 1.2, 0.8, 1.0, 0.8],
+    'backbeat': [0.8, 1.2, 0.8, 1.2, 0.8, 1.2, 0.8, 1.2],
+    'buildup': [0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3],
 }
 
 # NeuralDSP preset paths
@@ -107,24 +105,24 @@ class ChordEvent:
 class BackingTrackConfig:
     """Configuration for backing track generation"""
     key: str = 'E'
-    octave: int = 2  # Low E for metal/rock
+    octave: int = 2
     style: str = 'metal'
     bpm: int = 120
     bars: int = 4
     beats_per_bar: int = 4
     plugin: str = 'gojira'
     preset_name: Optional[str] = None
-    # New options from model recommendations
-    rhythm_pattern: str = 'straight'     # master_guitar_instructor: rhythm variety
-    accent_pattern: str = 'downbeat'     # master_guitar_instructor: dynamic accents
-    articulation: str = 'palm_mute'      # guitar_expert_qwen: staccato/legato/palm_mute
-    modulation: str = 'none'             # guitar_expert_qwen: none/phaser/flanger/chorus
-    attack_style: str = 'aggressive'     # guitar_expert_precise: aggressive/natural/soft
+    # Model recommendations
+    rhythm_pattern: str = 'straight'
+    accent_pattern: str = 'downbeat'
+    articulation: str = 'palm_mute'
+    modulation: str = 'none'
+    attack_style: str = 'aggressive'
     # Bass track options
-    include_bass: bool = False           # Add bass track to mix
-    bass_octave: int = 1                 # Bass plays one octave below guitar
-    bass_style: str = 'root'             # root/fifth/octave pattern
-    bass_volume: float = 0.7             # Bass volume in mix (0.0-1.0)
+    include_bass: bool = False
+    bass_octave: int = 1
+    bass_style: str = 'root'
+    bass_volume: float = 0.7
 
 
 def note_to_midi(note: str, octave: int) -> int:
@@ -163,7 +161,10 @@ def get_scale_degree_note(root: str, degree: int, minor: bool = False) -> str:
 def generate_progression(config: BackingTrackConfig) -> List[ChordEvent]:
     """Generate chord progression based on config"""
     # metal_reference uses same progression as metal
-    style_for_progression = 'metal' if config.style == 'metal_reference' else config.style
+    if config.style == 'metal_reference':
+        style_for_progression = 'metal'
+    else:
+        style_for_progression = config.style
     progression = PROGRESSIONS.get(style_for_progression, PROGRESSIONS['rock'])
 
     # Determine if minor key (metal typically uses minor)
@@ -193,7 +194,8 @@ def generate_progression(config: BackingTrackConfig) -> List[ChordEvent]:
     return events
 
 
-def create_midi_file(events: List[ChordEvent], config: BackingTrackConfig, output_path: str):
+def create_midi_file(events: List[ChordEvent],
+                     config: BackingTrackConfig, output_path: str):
     """Create MIDI file from chord events"""
     midi = MIDIFile(1)  # One track
     track = 0
@@ -222,7 +224,10 @@ def create_midi_file(events: List[ChordEvent], config: BackingTrackConfig, outpu
     return output_path
 
 
-def create_guitar_pro_file(events: List[ChordEvent], config: BackingTrackConfig, output_path: str):
+def create_guitar_pro_file(
+        events: List[ChordEvent],
+        config: BackingTrackConfig,
+        output_path: str):
     """Create Guitar Pro file from chord events"""
     if not HAS_GUITARPRO:
         print("pyguitarpro not available, skipping GP export")
@@ -252,7 +257,8 @@ def create_guitar_pro_file(events: List[ChordEvent], config: BackingTrackConfig,
     for i, event in enumerate(events):
         header = guitarpro.models.MeasureHeader()
         header.number = i + 1
-        header.start = i * 960 * int(event.duration)  # GP uses 960 ticks per quarter
+        # GP uses 960 ticks per quarter
+        header.start = i * 960 * int(event.duration)
         header.timeSignature.numerator = config.beats_per_bar
         header.timeSignature.denominator.value = 4
         song.measureHeaders.append(header)
@@ -300,8 +306,12 @@ def create_guitar_pro_file(events: List[ChordEvent], config: BackingTrackConfig,
     return output_path
 
 
-def karplus_strong(freq: float, duration: float, sample_rate: int = 44100,
-                    decay: float = 0.996, brightness: float = 0.5) -> np.ndarray:
+def karplus_strong(
+        freq: float,
+        duration: float,
+        sample_rate: int = 44100,
+        decay: float = 0.996,
+        brightness: float = 0.5) -> np.ndarray:
     """
     Karplus-Strong algorithm for realistic plucked string synthesis.
     This generates rich harmonics naturally through the delay-line feedback.
@@ -327,15 +337,18 @@ def karplus_strong(freq: float, duration: float, sample_rate: int = 44100,
 
         # Average filter (low-pass) with decay
         next_idx = (i + 1) % delay_length
-        # Brightness controls blend between pure averaging and keeping high frequencies
+        # Brightness controls blend between pure averaging and keeping high
+        # frequencies
         avg = (delay_line[i % delay_length] + delay_line[next_idx]) * 0.5
-        blend = brightness * delay_line[i % delay_length] + (1 - brightness) * avg
+        blend = brightness * delay_line[i %
+                                        delay_length] + (1 - brightness) * avg
         delay_line[i % delay_length] = blend * decay
 
     return output
 
 
-def synthesize_guitar_audio(midi_path: str, output_path: str, config: BackingTrackConfig):
+def synthesize_guitar_audio(
+        midi_path: str, output_path: str, config: BackingTrackConfig):
     """
     Synthesize guitar audio from MIDI using Karplus-Strong + harmonic synthesis
 
@@ -345,7 +358,7 @@ def synthesize_guitar_audio(midi_path: str, output_path: str, config: BackingTra
     - guitar_expert_qwen: Modulation effects, articulation options
     """
     sample_rate = 44100
-    from scipy import signal
+    # scipy.signal used implicitly via apply_amp_simulation
 
     duration_seconds = (config.bars * config.beats_per_bar * 60) / config.bpm
     samples = int(duration_seconds * sample_rate)
@@ -357,16 +370,20 @@ def synthesize_guitar_audio(midi_path: str, output_path: str, config: BackingTra
     current_sample = 0
 
     # Get rhythm and accent patterns (master_guitar_instructor)
-    rhythm = RHYTHM_PATTERNS.get(config.rhythm_pattern, RHYTHM_PATTERNS['straight'])
-    accents = ACCENT_PATTERNS.get(config.accent_pattern, ACCENT_PATTERNS['downbeat'])
+    rhythm = RHYTHM_PATTERNS.get(
+        config.rhythm_pattern, RHYTHM_PATTERNS['straight'])
+    accents = ACCENT_PATTERNS.get(
+        config.accent_pattern, ACCENT_PATTERNS['downbeat'])
 
     # Attack style settings (guitar_expert_precise)
     attack_settings = {
         'aggressive': {'attack_ms': 10, 'attack_amp': 2.5, 'decay_exp': 0.3},
-        'natural': {'attack_ms': 25, 'attack_amp': 1.5, 'decay_exp': 0.5},   # More realistic
+        # More realistic
+        'natural': {'attack_ms': 25, 'attack_amp': 1.5, 'decay_exp': 0.5},
         'soft': {'attack_ms': 40, 'attack_amp': 0.8, 'decay_exp': 0.7},
     }
-    attack_cfg = attack_settings.get(config.attack_style, attack_settings['aggressive'])
+    attack_cfg = attack_settings.get(
+        config.attack_style, attack_settings['aggressive'])
 
     # Articulation settings (guitar_expert_qwen)
     articulation_settings = {
@@ -374,7 +391,8 @@ def synthesize_guitar_audio(midi_path: str, output_path: str, config: BackingTra
         'staccato': {'decay_rate': 18, 'gate_point': 0.5, 'brightness': 0.9},
         'legato': {'decay_rate': 4, 'gate_point': 0.95, 'brightness': 0.7},
     }
-    artic_cfg = articulation_settings.get(config.articulation, articulation_settings['palm_mute'])
+    artic_cfg = articulation_settings.get(
+        config.articulation, articulation_settings['palm_mute'])
 
     # Subdivisions based on style
     subdivisions = 8 if config.style in ['metal', 'djent', 'punk'] else 4
@@ -404,17 +422,24 @@ def synthesize_guitar_audio(midi_path: str, output_path: str, config: BackingTra
                 freq = 440 * (2 ** ((event.root_note + interval - 69) / 12))
 
                 # 1. Karplus-Strong with configurable decay/brightness
-                ks = karplus_strong(freq, actual_chunk / sample_rate, sample_rate,
-                                   decay=0.95, brightness=artic_cfg['brightness'])
+                ks = karplus_strong(
+                    freq,
+                    actual_chunk /
+                    sample_rate,
+                    sample_rate,
+                    decay=0.95,
+                    brightness=artic_cfg['brightness'])
                 if len(ks) > actual_chunk:
                     ks = ks[:actual_chunk]
                 elif len(ks) < actual_chunk:
                     ks = np.pad(ks, (0, actual_chunk - len(ks)))
 
-                # 2. Harmonics with mid-body emphasis (guitar_expert_precise: 250-350Hz warmth)
+                # 2. Harmonics with mid-body emphasis (guitar_expert_precise:
+                # 250-350Hz warmth)
                 harmonics = np.zeros(actual_chunk)
                 # Adjusted harmonic weights - more mid-range body
-                harmonic_weights = [1.0, 0.2, 0.7, 0.15, 0.5, 0.1, 0.4, 0.08, 0.3, 0.05]
+                harmonic_weights = [1.0, 0.2, 0.7, 0.15,
+                                    0.5, 0.1, 0.4, 0.08, 0.3, 0.05]
                 for h, weight in enumerate(harmonic_weights, 1):
                     harm_freq = freq * h
                     if harm_freq < sample_rate / 2:
@@ -425,14 +450,19 @@ def synthesize_guitar_audio(midi_path: str, output_path: str, config: BackingTra
                 mid_body = np.sin(2 * np.pi * mid_body_freq * t) * 0.15
                 harmonics += mid_body
 
-                # 3. Pick attack with configurable style (guitar_expert_precise)
-                attack_samples_count = int(attack_cfg['attack_ms'] / 1000 * sample_rate)
+                # 3. Pick attack with configurable style
+                # (guitar_expert_precise)
+                attack_samples_count = int(
+                    attack_cfg['attack_ms'] / 1000 * sample_rate)
                 attack_samples_count = min(attack_samples_count, actual_chunk)
                 attack = np.zeros(actual_chunk)
-                attack[:attack_samples_count] = np.random.uniform(-1, 1, attack_samples_count) * attack_cfg['attack_amp']
-                attack[:attack_samples_count] *= np.linspace(1, 0, attack_samples_count) ** attack_cfg['decay_exp']
+                attack[:attack_samples_count] = np.random.uniform(
+                    -1, 1, attack_samples_count) * attack_cfg['attack_amp']
+                attack[:attack_samples_count] *= np.linspace(
+                    1, 0, attack_samples_count) ** attack_cfg['decay_exp']
 
-                # 4. Envelope with configurable articulation (guitar_expert_qwen)
+                # 4. Envelope with configurable articulation
+                # (guitar_expert_qwen)
                 attack_time = 0.001
                 envelope = np.ones(actual_chunk)
                 attack_samps = int(attack_time * sample_rate)
@@ -443,13 +473,16 @@ def synthesize_guitar_audio(midi_path: str, output_path: str, config: BackingTra
                 # Gate based on articulation
                 gate_start = int(actual_chunk * artic_cfg['gate_point'])
                 if gate_start < actual_chunk:
-                    envelope[gate_start:] *= np.linspace(1, 0, actual_chunk - gate_start) ** 2
+                    envelope[gate_start:] *= np.linspace(
+                        1, 0, actual_chunk - gate_start) ** 2
 
                 # Mix with velocity/accent applied (master_guitar_instructor)
-                note = (ks * 0.3 + harmonics * 0.4 + attack * 0.3) * envelope * velocity_mult
+                note = (ks * 0.3 + harmonics * 0.4 + attack * 0.3) * \
+                    envelope * velocity_mult
                 chunk_audio += note * 0.4
 
-            # Pre-distortion - reduced per guitar_expert_precise (was 4, now 2.8)
+            # Pre-distortion - reduced per guitar_expert_precise (was 4, now
+            # 2.8)
             chunk_audio = np.tanh(chunk_audio * 2.8) * 1.2
 
             # Second stage overdrive
@@ -460,7 +493,8 @@ def synthesize_guitar_audio(midi_path: str, output_path: str, config: BackingTra
             chug_samples = min(chug_samples, actual_chunk)
             if chug_samples > 0:
                 chug = np.zeros(actual_chunk)
-                chug[:chug_samples] = np.sin(2 * np.pi * 90 * t[:chug_samples]) * 0.5
+                chug[:chug_samples] = np.sin(
+                    2 * np.pi * 90 * t[:chug_samples]) * 0.5
                 chug[:chug_samples] *= np.exp(-t[:chug_samples] * 150)
                 chunk_audio[:chug_samples] += chug[:chug_samples]
 
@@ -489,7 +523,8 @@ def synthesize_guitar_audio(midi_path: str, output_path: str, config: BackingTra
     return output_path
 
 
-def apply_modulation(audio: np.ndarray, sample_rate: int, mod_type: str) -> np.ndarray:
+def apply_modulation(audio: np.ndarray, sample_rate: int,
+                     mod_type: str) -> np.ndarray:
     """
     Apply modulation effects (guitar_expert_qwen recommendation)
 
@@ -498,7 +533,7 @@ def apply_modulation(audio: np.ndarray, sample_rate: int, mod_type: str) -> np.n
     if mod_type == 'none':
         return audio
 
-    from scipy import signal
+    from scipy import signal  # noqa: F401
 
     n_samples = len(audio)
     t = np.arange(n_samples) / sample_rate
@@ -565,14 +600,15 @@ def apply_modulation(audio: np.ndarray, sample_rate: int, mod_type: str) -> np.n
     return audio
 
 
-def synthesize_bass_audio(config: BackingTrackConfig, sample_rate: int = 44100) -> np.ndarray:
+def synthesize_bass_audio(config: BackingTrackConfig,
+                          sample_rate: int = 44100) -> np.ndarray:
     """
     Synthesize bass guitar audio to complement the guitar track.
 
-    Bass plays root notes (or root+fifth/octave patterns) one octave below guitar.
-    Uses Karplus-Strong with longer decay and less brightness for bass character.
+    Bass plays root notes (or root+fifth/octave patterns) one octave below
+    guitar. Uses Karplus-Strong with longer decay and less brightness.
     """
-    from scipy import signal
+    # scipy.signal used in apply_bass_amp_simulation
 
     duration_seconds = (config.bars * config.beats_per_bar * 60) / config.bpm
     samples = int(duration_seconds * sample_rate)
@@ -588,7 +624,8 @@ def synthesize_bass_audio(config: BackingTrackConfig, sample_rate: int = 44100) 
         'root': [1.0],                    # Just root on each chord
         'eighth': [1.0] * 8,              # 8th notes on root
         'fifth': [1.0, 0.0, 0.8, 0.0],    # Root, rest, fifth, rest
-        'octave': [1.0, 0.0, 0.7, 0.0, 0.9, 0.0, 0.7, 0.0],  # Root-octave pattern
+        # Root-octave pattern
+        'octave': [1.0, 0.0, 0.7, 0.0, 0.9, 0.0, 0.7, 0.0],
         'walking': [1.0, 0.6, 0.7, 0.8],  # Walking bass feel
     }
 
@@ -621,8 +658,13 @@ def synthesize_bass_audio(config: BackingTrackConfig, sample_rate: int = 44100) 
             freq = 440 * (2 ** ((note_midi - 69) / 12))
 
             # Bass Karplus-Strong: longer decay, less brightness
-            ks = karplus_strong(freq, chunk_samples / sample_rate, sample_rate,
-                               decay=0.998, brightness=0.4)  # Warmer, longer sustain
+            ks = karplus_strong(
+                freq,
+                chunk_samples /
+                sample_rate,
+                sample_rate,
+                decay=0.998,
+                brightness=0.4)  # Warmer, longer sustain
             if len(ks) > chunk_samples:
                 ks = ks[:chunk_samples]
             elif len(ks) < chunk_samples:
@@ -643,7 +685,8 @@ def synthesize_bass_audio(config: BackingTrackConfig, sample_rate: int = 44100) 
             envelope *= np.exp(-t * 3)
 
             # Mix bass components
-            chunk_audio = (ks * 0.3 + fundamental * 0.5 + sub_harm * 0.2) * envelope * velocity
+            chunk_audio = (ks * 0.3 + fundamental * 0.5 +
+                           sub_harm * 0.2) * envelope * velocity
 
             # Place chunk
             start = current_sample + chunk_start
@@ -662,18 +705,20 @@ def synthesize_bass_audio(config: BackingTrackConfig, sample_rate: int = 44100) 
     return audio
 
 
-def apply_bass_amp_simulation(audio: np.ndarray, sample_rate: int) -> np.ndarray:
+def apply_bass_amp_simulation(audio: np.ndarray,
+                              sample_rate: int) -> np.ndarray:
     """
     Apply bass amp simulation optimized for mixing with guitar.
 
-    In metal production, bass sits in the 80-250Hz range to complement guitar mids.
-    We cut sub-bass (<60Hz) and emphasize low-mids for punch without mud.
+    In metal production, bass sits in the 80-250Hz range to complement
+    guitar mids. Cut sub-bass (<60Hz), emphasize low-mids for punch.
     """
     from scipy import signal
 
     # 1. Aggressive high-pass to remove sub-bass that causes muddiness
     # Modern metal bass sits above 60Hz
-    b_hp, a_hp = signal.iirfilter(4, 60 / (sample_rate / 2), btype='high', ftype='butter')
+    b_hp, a_hp = signal.iirfilter(
+        4, 60 / (sample_rate / 2), btype='high', ftype='butter')
     audio = signal.filtfilt(b_hp, a_hp, audio)
 
     # 2. Light saturation (bass amps are cleaner than guitar)
@@ -688,7 +733,8 @@ def apply_bass_amp_simulation(audio: np.ndarray, sample_rate: int) -> np.ndarray
     audio = signal.filtfilt(b_def, a_def, audio) * 0.7
 
     # 5. Low-pass to remove string noise (bass shouldn't have much above 2kHz)
-    b_lp, a_lp = signal.iirfilter(4, 2000 / (sample_rate / 2), btype='low', ftype='butter')
+    b_lp, a_lp = signal.iirfilter(
+        4, 2000 / (sample_rate / 2), btype='low', ftype='butter')
     audio = signal.filtfilt(b_lp, a_lp, audio)
 
     # Normalize
@@ -699,7 +745,8 @@ def apply_bass_amp_simulation(audio: np.ndarray, sample_rate: int) -> np.ndarray
     return audio.astype(np.float32)
 
 
-def apply_amp_simulation(audio: np.ndarray, sample_rate: int, style: str = 'metal') -> np.ndarray:
+def apply_amp_simulation(audio: np.ndarray, sample_rate: int,
+                         style: str = 'metal') -> np.ndarray:
     """
     Apply amp simulation using DSP to approximate NeuralDSP-style tones
 
@@ -715,27 +762,45 @@ def apply_amp_simulation(audio: np.ndarray, sample_rate: int, style: str = 'meta
     """
     from scipy import signal
 
-    # Amp gain settings - updated per guitar_expert_precise recommendations
-    # Key changes: mid_freq 1000→850Hz for warmer tone, added body_freq for 250-350Hz warmth
-    # Added cab_lpf (cabinet low-pass) to control high frequency rolloff
+    # Amp settings - updated per guitar_expert_precise recommendations
     amp_settings = {
-        'metal': {'gain': 14.0, 'bass': 0.25, 'mid': 1.3, 'treble': 0.65, 'presence': 0.45,
-                  'mid_freq': 850, 'body_freq': 300, 'tight': True, 'gate': True, 'cab_res': 100, 'cab_lpf': 4500},
-        # NeuralDSP-matched mode: 99.1% similarity to Gojira reference
-        # Settings: hp_freq=60, bass=0.6, mid=1.6, treble=0.1, presence=0.1, cab_lpf=2400
-        'metal_reference': {'gain': 14.0, 'bass': 0.6, 'mid': 1.6, 'treble': 0.1, 'presence': 0.1,
-                  'mid_freq': 850, 'body_freq': 300, 'tight': True, 'gate': True, 'cab_res': 100,
-                  'cab_lpf': 2400, 'hp_freq': 60, 'bass_boost': 0.5},
-        'rock': {'gain': 6.0, 'bass': 0.5, 'mid': 1.0, 'treble': 0.6, 'presence': 0.4,
-                 'mid_freq': 650, 'body_freq': 280, 'tight': False},
-        'blues': {'gain': 3.0, 'bass': 0.55, 'mid': 0.85, 'treble': 0.5, 'presence': 0.3,
-                  'mid_freq': 550, 'body_freq': 250, 'tight': False},
-        'punk': {'gain': 7.0, 'bass': 0.35, 'mid': 1.1, 'treble': 0.7, 'presence': 0.5,
-                 'mid_freq': 900, 'body_freq': 320, 'tight': True},
-        'djent': {'gain': 11.0, 'bass': 0.4, 'mid': 0.9, 'treble': 0.6, 'presence': 0.4,
-                  'mid_freq': 1100, 'body_freq': 280, 'tight': True},
-        'grunge': {'gain': 8.0, 'bass': 0.6, 'mid': 0.7, 'treble': 0.55, 'presence': 0.35,
-                  'mid_freq': 600, 'body_freq': 320, 'tight': False},
+        'metal': {
+            'gain': 14.0, 'bass': 0.25, 'mid': 1.3, 'treble': 0.65,
+            'presence': 0.45, 'mid_freq': 850, 'body_freq': 300,
+            'tight': True, 'gate': True, 'cab_res': 100,
+            'cab_lpf': 4500
+        },
+        'metal_reference': {
+            'gain': 14.0, 'bass': 0.6, 'mid': 1.6, 'treble': 0.1,
+            'presence': 0.1, 'mid_freq': 850, 'body_freq': 300,
+            'tight': True, 'gate': True, 'cab_res': 100,
+            'cab_lpf': 2400, 'hp_freq': 60, 'bass_boost': 0.5
+        },
+        'rock': {
+            'gain': 6.0, 'bass': 0.5, 'mid': 1.0, 'treble': 0.6,
+            'presence': 0.4, 'mid_freq': 650, 'body_freq': 280,
+            'tight': False
+        },
+        'blues': {
+            'gain': 3.0, 'bass': 0.55, 'mid': 0.85, 'treble': 0.5,
+            'presence': 0.3, 'mid_freq': 550, 'body_freq': 250,
+            'tight': False
+        },
+        'punk': {
+            'gain': 7.0, 'bass': 0.35, 'mid': 1.1, 'treble': 0.7,
+            'presence': 0.5, 'mid_freq': 900, 'body_freq': 320,
+            'tight': True
+        },
+        'djent': {
+            'gain': 11.0, 'bass': 0.4, 'mid': 0.9, 'treble': 0.6,
+            'presence': 0.4, 'mid_freq': 1100, 'body_freq': 280,
+            'tight': True
+        },
+        'grunge': {
+            'gain': 8.0, 'bass': 0.6, 'mid': 0.7, 'treble': 0.55,
+            'presence': 0.35, 'mid_freq': 600, 'body_freq': 320,
+            'tight': False
+        },
     }
 
     settings = amp_settings.get(style, amp_settings['metal'])
@@ -745,11 +810,13 @@ def apply_amp_simulation(audio: np.ndarray, sample_rate: int, style: str = 'meta
     if settings.get('tight', False):
         hp_freq = settings.get('hp_freq', 80)  # Configurable high-pass
         # First pass: Remove sub-bass
-        b_hp1, a_hp1 = signal.iirfilter(2, hp_freq / (sample_rate / 2), btype='high', ftype='butter')
+        b_hp1, a_hp1 = signal.iirfilter(
+            2, hp_freq / (sample_rate / 2), btype='high', ftype='butter')
         audio = signal.filtfilt(b_hp1, a_hp1, audio)
         # Second pass: Gentle roll off (only if hp_freq > 60)
         if hp_freq > 60:
-            b_hp2, a_hp2 = signal.iirfilter(2, 120 / (sample_rate / 2), btype='high', ftype='butter')
+            b_hp2, a_hp2 = signal.iirfilter(
+                2, 120 / (sample_rate / 2), btype='high', ftype='butter')
             audio = signal.filtfilt(b_hp2, a_hp2, audio)
 
     # 1. Input boost/gain staging
@@ -773,48 +840,56 @@ def apply_amp_simulation(audio: np.ndarray, sample_rate: int, style: str = 'meta
     # 3. Tone stack - MID-FOCUSED (this is key to matching NeuralDSP!)
 
     # Cut extreme lows aggressively (NeuralDSP has only 9% below 250Hz)
-    b_lc, a_lc = signal.iirfilter(4, 180 / (sample_rate / 2), btype='high', ftype='butter')
+    b_lc, a_lc = signal.iirfilter(
+        4, 180 / (sample_rate / 2), btype='high', ftype='butter')
     audio = signal.filtfilt(b_lc, a_lc, audio)
 
     # Bass band (very reduced - just subtle warmth)
-    b_bass, a_bass = signal.iirfilter(2, [150 / (sample_rate / 2), 250 / (sample_rate / 2)],
-                                      btype='band', ftype='butter')
-    bass_band = signal.filtfilt(b_bass, a_bass, audio) * settings['bass'] * 0.3
+    nyq = sample_rate / 2
+    b_bass, a_bass = signal.iirfilter(
+        2, [150 / nyq, 250 / nyq], btype='band', ftype='butter')
+    bass_band = signal.filtfilt(
+        b_bass, a_bass, audio) * settings['bass'] * 0.3
 
     # Mid band (THIS IS THE KEY - where guitar lives)
     mid_freq = settings.get('mid_freq', 800)
-    b_mid, a_mid = signal.iirfilter(2, [250 / (sample_rate / 2), 2500 / (sample_rate / 2)],
-                                      btype='band', ftype='butter')
+    b_mid, a_mid = signal.iirfilter(
+        2, [250 / nyq, 2500 / nyq], btype='band', ftype='butter')
     mid_band = signal.filtfilt(b_mid, a_mid, audio) * settings['mid']
 
-    # Mid resonance peak (characteristic amp voicing) - guitar_expert_precise: 800-850Hz
-    b_peak, a_peak = signal.iirpeak(mid_freq / (sample_rate / 2), 2)
+    # Mid resonance peak (characteristic amp voicing) - guitar_expert_precise:
+    # 800-850Hz
+    b_peak, a_peak = signal.iirpeak(mid_freq / nyq, 2)
     mid_band = signal.filtfilt(b_peak, a_peak, mid_band) * 1.3
 
     # Add mid-body warmth (guitar_expert_precise: 250-350Hz band)
     body_freq = settings.get('body_freq', 300)
-    b_body, a_body = signal.iirpeak(body_freq / (sample_rate / 2), 3)
+    b_body, a_body = signal.iirpeak(body_freq / nyq, 3)
     body_band = signal.filtfilt(b_body, a_body, audio) * 0.25
 
     # Treble band (brightness, but not harsh)
-    b_treble, a_treble = signal.iirfilter(2, [2000 / (sample_rate / 2), 4500 / (sample_rate / 2)],
-                                          btype='band', ftype='butter')
-    treble_band = signal.filtfilt(b_treble, a_treble, audio) * settings['treble']
+    b_treble, a_treble = signal.iirfilter(
+        2, [2000 / nyq, 4500 / nyq], btype='band', ftype='butter')
+    treble_band = signal.filtfilt(
+        b_treble, a_treble, audio) * settings['treble']
 
     # Combine with HEAVY mid emphasis (NeuralDSP is 90%+ mids)
     # Added body_band for 250-350Hz warmth (guitar_expert_precise)
-    audio = bass_band * 0.2 + body_band * 0.4 + mid_band * 2.0 + treble_band * 0.3
+    audio = (bass_band * 0.2 + body_band * 0.4 +
+             mid_band * 2.0 + treble_band * 0.3)
 
     # 4. Power amp saturation (gentler, more compression-like)
     audio = tube_saturation(audio, drive=1.5, bias=0.0)
 
     # 5. Cabinet simulation
-    # Real guitar cabs have a resonance around 100-120Hz and roll off above 4-5kHz
+    # Real guitar cabs have a resonance around 100-120Hz and roll off above
+    # 4-5kHz
 
     # Low-pass (speaker can't reproduce very high frequencies)
     # Use configurable cab_lpf for different cab darkness levels
     cab_lpf = settings.get('cab_lpf', 4500)
-    b_cab, a_cab = signal.iirfilter(4, cab_lpf / (sample_rate / 2), btype='low', ftype='butter')
+    b_cab, a_cab = signal.iirfilter(
+        4, cab_lpf / (sample_rate / 2), btype='low', ftype='butter')
     audio = signal.filtfilt(b_cab, a_cab, audio)
 
     # Speaker resonance (the "thump" of a 4x12)
@@ -831,7 +906,8 @@ def apply_amp_simulation(audio: np.ndarray, sample_rate: int, style: str = 'meta
     if settings.get('gate', False):
         # Simple gate - reduce signal below threshold
         threshold = 0.02
-        gate = np.where(np.abs(audio) > threshold, 1.0, np.abs(audio) / threshold)
+        gate = np.where(np.abs(audio) > threshold,
+                        1.0, np.abs(audio) / threshold)
         audio = audio * gate
 
     # 7. Final stage - aggressive limiting for punch
@@ -845,8 +921,9 @@ def apply_amp_simulation(audio: np.ndarray, sample_rate: int, style: str = 'meta
     return audio.astype(np.float32)
 
 
-def process_with_neural_dsp(input_path: str, output_path: str, config: BackingTrackConfig):
-    """Process audio through amp simulation (NeuralDSP plugins require GUI/DAW)"""
+def process_with_neural_dsp(
+        input_path: str, output_path: str, config: BackingTrackConfig):
+    """Process audio through amp simulation."""
 
     # Load audio
     audio, sample_rate = sf.read(input_path)
@@ -888,7 +965,8 @@ def list_available_presets(plugin: str = 'gojira') -> List[str]:
         'misha_x': 'Archetype Misha Mansoor X',
     }
 
-    preset_dir = NEURAL_PRESETS_BASE / plugin_names.get(plugin, plugin_names['gojira'])
+    preset_dir = NEURAL_PRESETS_BASE / \
+        plugin_names.get(plugin, plugin_names['gojira'])
 
     if not preset_dir.exists():
         return []
@@ -896,7 +974,8 @@ def list_available_presets(plugin: str = 'gojira') -> List[str]:
     return [f.stem for f in preset_dir.glob("*.aupreset")]
 
 
-def generate_backing_track(config: BackingTrackConfig, output_dir: str = None) -> dict:
+def generate_backing_track(config: BackingTrackConfig,
+                           output_dir: str = None) -> dict:
     """
     Main function to generate a complete backing track
 
@@ -931,13 +1010,15 @@ def generate_backing_track(config: BackingTrackConfig, output_dir: str = None) -
         print(f"  Guitar Pro: {gp_path}")
 
     # 4. Synthesize raw guitar audio
-    raw_audio_path = str(output_dir / f"backing_{config.key}_{config.style}_raw.wav")
+    raw_audio_path = str(
+        output_dir / f"backing_{config.key}_{config.style}_raw.wav")
     synthesize_guitar_audio(midi_path, raw_audio_path, config)
     results['files']['raw_audio'] = raw_audio_path
     print(f"  Raw guitar audio: {raw_audio_path}")
 
     # 5. Process guitar through amp simulation
-    processed_path = str(output_dir / f"backing_{config.key}_{config.style}_neural.wav")
+    processed_path = str(
+        output_dir / f"backing_{config.key}_{config.style}_neural.wav")
     process_with_neural_dsp(raw_audio_path, processed_path, config)
     results['files']['processed_audio'] = processed_path
     print(f"  Processed guitar: {processed_path}")
@@ -953,7 +1034,8 @@ def generate_backing_track(config: BackingTrackConfig, output_dir: str = None) -
         bass_processed = apply_bass_amp_simulation(bass_audio, 44100)
 
         # Save bass track separately
-        bass_path = str(output_dir / f"backing_{config.key}_{config.style}_bass.wav")
+        bass_path = str(
+            output_dir / f"backing_{config.key}_{config.style}_bass.wav")
         sf.write(bass_path, bass_processed, 44100)
         results['files']['bass_audio'] = bass_path
         print(f"  Bass track: {bass_path}")
@@ -966,9 +1048,11 @@ def generate_backing_track(config: BackingTrackConfig, output_dir: str = None) -
         # Match lengths
         max_len = max(len(guitar_audio), len(bass_processed))
         if len(guitar_audio) < max_len:
-            guitar_audio = np.pad(guitar_audio, (0, max_len - len(guitar_audio)))
+            guitar_audio = np.pad(
+                guitar_audio, (0, max_len - len(guitar_audio)))
         if len(bass_processed) < max_len:
-            bass_processed = np.pad(bass_processed, (0, max_len - len(bass_processed)))
+            bass_processed = np.pad(
+                bass_processed, (0, max_len - len(bass_processed)))
 
         # Normalize each track independently FIRST to get balanced levels
         guitar_max = np.max(np.abs(guitar_audio))
@@ -980,9 +1064,11 @@ def generate_backing_track(config: BackingTrackConfig, output_dir: str = None) -
             bass_processed = bass_processed / bass_max * 0.9
 
         # Apply high-pass to bass to prevent sub-bass from overwhelming the mix
-        # This is standard mixing practice - bass sits above 60Hz in modern metal
+        # This is standard mixing practice - bass sits above 60Hz in modern
+        # metal
         from scipy import signal as sig
-        b_hp, a_hp = sig.iirfilter(4, 80 / (sr / 2), btype='high', ftype='butter')
+        b_hp, a_hp = sig.iirfilter(
+            4, 80 / (sr / 2), btype='high', ftype='butter')
         bass_processed = sig.filtfilt(b_hp, a_hp, bass_processed)
 
         # Re-normalize bass after HP filter
@@ -990,12 +1076,14 @@ def generate_backing_track(config: BackingTrackConfig, output_dir: str = None) -
         if bass_max > 0:
             bass_processed = bass_processed / bass_max * 0.9
 
-        # Mix: guitar dominates (the target is 90% mids), bass provides low-end support
-        # Guitar at 90%, bass at lower level to add punch without overwhelming mids
+        # Mix: guitar dominates, bass provides low-end support
+        # Guitar at 90%, bass at lower level for punch without mud
         guitar_level = 0.9
-        bass_level = config.bass_volume * 0.25  # Scale down bass significantly (~17% with default 0.7)
+        # Scale down bass significantly (~17% with default 0.7)
+        bass_level = config.bass_volume * 0.25
 
-        # Make stereo (guitar slightly left, bass slightly right for separation)
+        # Make stereo (guitar slightly left, bass slightly right for
+        # separation)
         delay_samples = int(0.002 * sr)  # 2ms for guitar width
         guitar_left = guitar_audio * guitar_level
         guitar_right = np.roll(guitar_audio, delay_samples) * guitar_level
@@ -1015,7 +1103,8 @@ def generate_backing_track(config: BackingTrackConfig, output_dir: str = None) -
             stereo = stereo / max_val * 0.95
 
         # Save mixed track
-        mixed_path = str(output_dir / f"backing_{config.key}_{config.style}_full.wav")
+        mixed_path = str(
+            output_dir / f"backing_{config.key}_{config.style}_full.wav")
         sf.write(mixed_path, stereo, sr)
         results['files']['mixed_audio'] = mixed_path
         print(f"  Full mix (guitar + bass): {mixed_path}")
@@ -1030,34 +1119,56 @@ def main():
     """CLI interface"""
     import argparse
 
-    parser = argparse.ArgumentParser(description='Generate backing tracks with NeuralDSP tone')
+    parser = argparse.ArgumentParser(
+        description='Generate backing tracks with NeuralDSP tone')
     parser.add_argument('--key', default='E', help='Key (e.g., E, A, D)')
-    parser.add_argument('--style', default='metal',
-                       choices=list(PROGRESSIONS.keys()) + ['metal_reference'],
-                       help='Style (metal_reference = 97%% NeuralDSP Gojira match)')
+    parser.add_argument(
+        '--style',
+        default='metal',
+        choices=list(
+            PROGRESSIONS.keys()) +
+        ['metal_reference'],
+        help='Style (metal_reference = 97%% NeuralDSP Gojira match)')
     parser.add_argument('--bpm', type=int, default=120)
     parser.add_argument('--bars', type=int, default=4)
-    parser.add_argument('--plugin', default='gojira', choices=list(NEURAL_PLUGINS.keys()))
-    parser.add_argument('--output', '-o', default=None, help='Output directory')
-    parser.add_argument('--list-presets', action='store_true', help='List available presets')
+    parser.add_argument('--plugin', default='gojira',
+                        choices=list(NEURAL_PLUGINS.keys()))
+    parser.add_argument('--output', '-o', default=None,
+                        help='Output directory')
+    parser.add_argument('--list-presets', action='store_true',
+                        help='List available presets')
     # New options from model recommendations
-    parser.add_argument('--rhythm', default='straight', choices=list(RHYTHM_PATTERNS.keys()),
-                       help='Rhythm pattern (master_guitar_instructor)')
-    parser.add_argument('--accents', default='downbeat', choices=list(ACCENT_PATTERNS.keys()),
-                       help='Accent pattern (master_guitar_instructor)')
-    parser.add_argument('--articulation', default='palm_mute', choices=['palm_mute', 'staccato', 'legato'],
-                       help='Articulation style (guitar_expert_qwen)')
-    parser.add_argument('--modulation', default='none', choices=['none', 'phaser', 'flanger', 'chorus'],
-                       help='Modulation effect (guitar_expert_qwen)')
-    parser.add_argument('--attack', default='aggressive', choices=['aggressive', 'natural', 'soft'],
-                       help='Attack style (guitar_expert_precise)')
+    parser.add_argument(
+        '--rhythm', default='straight',
+        choices=list(RHYTHM_PATTERNS.keys()),
+        help='Rhythm pattern')
+    parser.add_argument(
+        '--accents', default='downbeat',
+        choices=list(ACCENT_PATTERNS.keys()),
+        help='Accent pattern')
+    parser.add_argument(
+        '--articulation', default='palm_mute',
+        choices=['palm_mute', 'staccato', 'legato'],
+        help='Articulation style')
+    parser.add_argument(
+        '--modulation', default='none',
+        choices=['none', 'phaser', 'flanger', 'chorus'],
+        help='Modulation effect')
+    parser.add_argument(
+        '--attack', default='aggressive',
+        choices=['aggressive', 'natural', 'soft'],
+        help='Attack style')
     # Bass track options
-    parser.add_argument('--bass', action='store_true', help='Include bass track in output')
-    parser.add_argument('--bass-style', default='eighth',
-                       choices=['root', 'eighth', 'fifth', 'octave', 'walking'],
-                       help='Bass playing style (default: eighth notes)')
-    parser.add_argument('--bass-volume', type=float, default=0.7,
-                       help='Bass volume relative to guitar (0.0-1.0, default: 0.7)')
+    parser.add_argument(
+        '--bass', action='store_true',
+        help='Include bass track in output')
+    parser.add_argument(
+        '--bass-style', default='eighth',
+        choices=['root', 'eighth', 'fifth', 'octave', 'walking'],
+        help='Bass playing style')
+    parser.add_argument(
+        '--bass-volume', type=float, default=0.7,
+        help='Bass volume (0.0-1.0)')
 
     args = parser.parse_args()
 
