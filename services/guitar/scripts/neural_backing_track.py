@@ -195,7 +195,7 @@ def generate_progression(config: BackingTrackConfig) -> List[ChordEvent]:
 
 
 def create_midi_file(events: List[ChordEvent],
-                     config: BackingTrackConfig, output_path: str):
+                     config: BackingTrackConfig, output_path: str) -> None:
     """Create MIDI file from chord events"""
     midi = MIDIFile(1)  # One track
     track = 0
@@ -227,7 +227,7 @@ def create_midi_file(events: List[ChordEvent],
 def create_guitar_pro_file(
         events: List[ChordEvent],
         config: BackingTrackConfig,
-        output_path: str):
+        output_path: str) -> None:
     """Create Guitar Pro file from chord events"""
     if not HAS_GUITARPRO:
         print("pyguitarpro not available, skipping GP export")
@@ -348,7 +348,8 @@ def karplus_strong(
 
 
 def synthesize_guitar_audio(
-        midi_path: str, output_path: str, config: BackingTrackConfig):
+        midi_path: str, output_path: str,
+        config: BackingTrackConfig) -> np.ndarray:
     """
     Synthesize guitar audio from MIDI using Karplus-Strong + harmonic synthesis
 
@@ -424,8 +425,7 @@ def synthesize_guitar_audio(
                 # 1. Karplus-Strong with configurable decay/brightness
                 ks = karplus_strong(
                     freq,
-                    actual_chunk /
-                    sample_rate,
+                    actual_chunk / sample_rate,
                     sample_rate,
                     decay=0.95,
                     brightness=artic_cfg['brightness'])
@@ -660,8 +660,7 @@ def synthesize_bass_audio(config: BackingTrackConfig,
             # Bass Karplus-Strong: longer decay, less brightness
             ks = karplus_strong(
                 freq,
-                chunk_samples /
-                sample_rate,
+                chunk_samples / sample_rate,
                 sample_rate,
                 decay=0.998,
                 brightness=0.4)  # Warmer, longer sustain
@@ -685,8 +684,8 @@ def synthesize_bass_audio(config: BackingTrackConfig,
             envelope *= np.exp(-t * 3)
 
             # Mix bass components
-            chunk_audio = (ks * 0.3 + fundamental * 0.5 +
-                           sub_harm * 0.2) * envelope * velocity
+            chunk_audio = (ks * 0.3 + fundamental * 0.5
+                           + sub_harm * 0.2) * envelope * velocity
 
             # Place chunk
             start = current_sample + chunk_start
@@ -875,8 +874,8 @@ def apply_amp_simulation(audio: np.ndarray, sample_rate: int,
 
     # Combine with HEAVY mid emphasis (NeuralDSP is 90%+ mids)
     # Added body_band for 250-350Hz warmth (guitar_expert_precise)
-    audio = (bass_band * 0.2 + body_band * 0.4 +
-             mid_band * 2.0 + treble_band * 0.3)
+    audio = (bass_band * 0.2 + body_band * 0.4
+             + mid_band * 2.0 + treble_band * 0.3)
 
     # 4. Power amp saturation (gentler, more compression-like)
     audio = tube_saturation(audio, drive=1.5, bias=0.0)
@@ -922,7 +921,8 @@ def apply_amp_simulation(audio: np.ndarray, sample_rate: int,
 
 
 def process_with_neural_dsp(
-        input_path: str, output_path: str, config: BackingTrackConfig):
+        input_path: str, output_path: str,
+        config: BackingTrackConfig) -> None:
     """Process audio through amp simulation."""
 
     # Load audio
@@ -1115,7 +1115,7 @@ def generate_backing_track(config: BackingTrackConfig,
     return results
 
 
-def main():
+def main() -> None:
     """CLI interface"""
     import argparse
 
@@ -1125,9 +1125,7 @@ def main():
     parser.add_argument(
         '--style',
         default='metal',
-        choices=list(
-            PROGRESSIONS.keys()) +
-        ['metal_reference'],
+        choices=list(PROGRESSIONS.keys()) + ['metal_reference'],
         help='Style (metal_reference = 97%% NeuralDSP Gojira match)')
     parser.add_argument('--bpm', type=int, default=120)
     parser.add_argument('--bars', type=int, default=4)
