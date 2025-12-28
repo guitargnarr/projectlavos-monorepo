@@ -65,8 +65,8 @@ const projects = [
   },
   {
     title: 'Mirador',
-    description: 'Self-governing AI that fired 11% of itself and got smarter. 89+ personas, autonomous optimization, zero human intervention. The first AI system that governs itself.',
-    url: 'https://mirador-o2wgw9o65-matthew-scotts-projects-1dc9743e.vercel.app',
+    description: 'Self-governing AI that fired 11% of itself and got smarter. 30 personas, autonomous optimization, zero human intervention. The first AI system that governs itself.',
+    url: 'https://mirador.projectlavos.com',
     tags: ['Python', 'Ollama', 'Self-Governance', 'AI Orchestration'],
     status: 'Live',
   },
