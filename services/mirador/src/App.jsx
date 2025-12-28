@@ -141,7 +141,7 @@ curl http://localhost:5001/api/health`
             </span>
           </h1>
           <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto mb-6">
-            89 specialized personas. One conductor. An AI system that monitors, optimizes, and governs itself.
+            30 specialized personas. One conductor. An AI system that monitors, optimizes, and governs itself.
           </p>
           <p className="text-lg text-slate-300 max-w-2xl mx-auto mb-4">
             30,000+ lines of Python. 49 Ollama models. 100% local execution.
@@ -256,7 +256,7 @@ curl http://localhost:5001/api/health`
       <section className="py-16 bg-slate-800/50">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <StatCard number="89+" label="Specialized Personas" />
+            <StatCard number="30" label="Specialized Personas" />
             <StatCard number="49" label="Ollama Models Installed" />
             <StatCard number="30K+" label="Lines of Python" />
             <StatCard number="100%" label="Local Execution" />
@@ -295,7 +295,7 @@ curl http://localhost:5001/api/health`
     │
     ▼
 ┌───────────────────────────────────────────────────┐
-│  Persona Chains (89+ specialists)                 │
+│  Persona Chains (30 specialists)                  │
 │  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ │
 │  │   Guitar    │ │  Financial  │ │  Security   │ │
 │  │  Experts    │ │  Planning   │ │   Audit     │ │
@@ -433,7 +433,7 @@ curl http://localhost:5001/api/health`
           </p>
 
           <div className="space-y-4">
-            <VerifiedRow claim="89+ specialized personas" evidence="96 unique modelfiles across directories" />
+            <VerifiedRow claim="30 specialized personas" evidence="30 personas defined in API, verified via /api/personas endpoint" />
             <VerifiedRow claim="Conductor-based orchestration" evidence="ConductorAgent class in conductor.py" />
             <VerifiedRow claim="Bidirectional communication" evidence="MessageBus class (25,567 lines)" />
             <VerifiedRow claim="OCEAN personality integration" evidence="46 files reference Big Five traits" />
