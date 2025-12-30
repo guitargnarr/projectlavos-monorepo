@@ -4,6 +4,8 @@ import { generateTab, getScaleInfo, SCALES, NOTE_NAMES, GuitarTheory, TUNINGS, M
 import GuitarSynthesizer from '../lib/GuitarSynthesizer';
 import { createMidiFile, downloadMidiFile } from '../lib/midiGenerator';
 import { InteractiveFretboard } from '../components/riffgen';
+import { usePremiumStatus } from '../hooks/usePremiumStatus';
+import UpgradeModal from '../components/UpgradeModal';
 
 const ROOTS = ['E', 'A', 'D', 'G', 'C', 'F', 'B', 'F#', 'C#', 'G#', 'D#', 'A#'];
 const PATTERNS = [
@@ -57,6 +59,10 @@ export default function RiffGenerator() {
   const [currentNoteIndex, setCurrentNoteIndex] = useState(0);
   const [error, setError] = useState(null);
   const [copyFeedback, setCopyFeedback] = useState('');
+  const [upgradeModal, setUpgradeModal] = useState({ isOpen: false, feature: '', requiredTier: 'pro' });
+
+  // Premium status for export gating
+  const { canExportMidi, canExportGP5 } = usePremiumStatus();
 
   const synthRef = useRef(null);
   const tabDataRef = useRef([]);
@@ -269,6 +275,12 @@ export default function RiffGenerator() {
   const exportMidi = () => {
     if (tabDataRef.current.length === 0) return;
 
+    // Premium gate: MIDI export requires Premium tier
+    if (!canExportMidi) {
+      setUpgradeModal({ isOpen: true, feature: 'MIDI Export', requiredTier: 'premium' });
+      return;
+    }
+
     // Convert tab data to MIDI notes
     const midiNotes = [];
     for (const col of tabDataRef.current) {
@@ -305,6 +317,12 @@ export default function RiffGenerator() {
 
   const exportGP5 = async () => {
     if (!tab) return;
+
+    // Premium gate: GP5 export requires Pro tier
+    if (!canExportGP5) {
+      setUpgradeModal({ isOpen: true, feature: 'Guitar Pro Export', requiredTier: 'pro' });
+      return;
+    }
 
     if (!GP5_API_URL) {
       alert('Guitar Pro export coming soon! Use Tab or MIDI export for now.');
@@ -793,6 +811,13 @@ export default function RiffGenerator() {
         </div>
       </main>
 
+      {/* Premium Upgrade Modal */}
+      <UpgradeModal
+        isOpen={upgradeModal.isOpen}
+        onClose={() => setUpgradeModal({ ...upgradeModal, isOpen: false })}
+        feature={upgradeModal.feature}
+        requiredTier={upgradeModal.requiredTier}
+      />
     </div>
   );
 }
