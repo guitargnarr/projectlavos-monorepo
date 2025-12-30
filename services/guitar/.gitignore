@@ -24,6 +24,5 @@ dist-ssr
 *.sw?
 .vercel
 
-# Playwright test artifacts
+# Playwright test artifacts (keep test-results/ ignored, but track tests/)
 test-results/
-tests/
