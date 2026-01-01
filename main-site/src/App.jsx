@@ -87,6 +87,8 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/projects" element={<Projects />} />
+        <Route path="/skills" element={<SkillsPage />} />
+        <Route path="/contact" element={<ContactPage />} />
       </Routes>
       <Analytics />
       <SpeedInsights />
@@ -115,8 +117,8 @@ function Header() {
   const navLinks = [
     { href: '#projects', label: 'Projects', isAnchor: true },
     { href: '/projects', label: 'Systems Map', isLink: true },
-    { href: '#skills', label: 'Skills', isAnchor: true },
-    { href: '#contact', label: 'Contact', isAnchor: true },
+    { href: '/skills', label: 'Skills', isLink: true },
+    { href: '/contact', label: 'Contact', isLink: true },
     { href: 'https://github.com/guitargnarr', label: 'GitHub', isExternal: true },
   ]
 
@@ -418,6 +420,30 @@ function Contact() {
         </div>
       </div>
     </section>
+  )
+}
+
+function SkillsPage() {
+  return (
+    <div className="min-h-screen bg-slate-900 text-white">
+      <Header />
+      <main className="py-8">
+        <Skills />
+      </main>
+      <Footer />
+    </div>
+  )
+}
+
+function ContactPage() {
+  return (
+    <div className="min-h-screen bg-slate-900 text-white">
+      <Header />
+      <main className="py-8">
+        <Contact />
+      </main>
+      <Footer />
+    </div>
   )
 }
 
