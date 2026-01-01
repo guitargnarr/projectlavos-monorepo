@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import './App.css'
 import Projects from './pages/Projects'
 
@@ -86,6 +88,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/projects" element={<Projects />} />
       </Routes>
+      <Analytics />
+      <SpeedInsights />
     </BrowserRouter>
   )
 }

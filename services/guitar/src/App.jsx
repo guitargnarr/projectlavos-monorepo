@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import Navigation from './components/Navigation';
 import Home from './pages/Home';
 
@@ -51,6 +53,8 @@ function App() {
             <Route path="/about" element={<About />} />
           </Routes>
         </Suspense>
+        <Analytics />
+        <SpeedInsights />
       </div>
     </Router>
   );
