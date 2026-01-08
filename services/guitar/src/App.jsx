@@ -36,23 +36,25 @@ function App() {
     <Router>
       <div className="min-h-screen bg-gray-900 text-gray-100">
         <Navigation />
-        <Suspense fallback={<PageLoader />}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/fretvision" element={<FretVision />} />
-            <Route path="/tabplayer" element={<TabPlayer />} />
-            <Route path="/catalog" element={<Catalog />} />
-            <Route path="/chords" element={<ChordDictionary />} />
-            <Route path="/tuner" element={<Tuner />} />
-            <Route path="/metronome" element={<Metronome />} />
-            <Route path="/backing" element={<BackingTracks />} />
-            <Route path="/scales" element={<ScaleTrainer />} />
-            <Route path="/ear-training" element={<EarTraining />} />
-            <Route path="/pricing" element={<Pricing />} />
-            <Route path="/riff-generator" element={<RiffGenerator />} />
-            <Route path="/about" element={<About />} />
-          </Routes>
-        </Suspense>
+        <main role="main">
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/fretvision" element={<FretVision />} />
+              <Route path="/tabplayer" element={<TabPlayer />} />
+              <Route path="/catalog" element={<Catalog />} />
+              <Route path="/chords" element={<ChordDictionary />} />
+              <Route path="/tuner" element={<Tuner />} />
+              <Route path="/metronome" element={<Metronome />} />
+              <Route path="/backing" element={<BackingTracks />} />
+              <Route path="/scales" element={<ScaleTrainer />} />
+              <Route path="/ear-training" element={<EarTraining />} />
+              <Route path="/pricing" element={<Pricing />} />
+              <Route path="/riff-generator" element={<RiffGenerator />} />
+              <Route path="/about" element={<About />} />
+            </Routes>
+          </Suspense>
+        </main>
         <Analytics />
         <SpeedInsights />
       </div>

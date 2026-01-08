@@ -7,7 +7,6 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Unified teal/orange brand palette
         teal: {
           400: '#2dd4bf',
           500: '#14b8a6',
@@ -16,18 +15,17 @@ export default {
         orange: {
           400: '#fb923c',
           500: '#f97316',
-          600: '#ea580c',
         },
         slate: {
-          300: '#cbd5e1',
-          700: '#334155',
-          800: '#1e293b',
           900: '#0f172a',
-        },
+          800: '#1e293b',
+          700: '#334155',
+          300: '#cbd5e1',
+        }
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-      },
+        mono: ['JetBrains Mono', 'Menlo', 'Monaco', 'monospace'],
+      }
     },
   },
   plugins: [],

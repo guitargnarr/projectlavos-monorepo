@@ -2,68 +2,402 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-
-    <!-- Favicons -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
-    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.json" />
     <link rel="apple-touch-icon" href="/icon-192.png" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://projectlavos.com/" />
 
     <!-- Primary Meta Tags -->
-    <title>Matthew Scott - Full Stack Developer | Louisville, KY</title>
-    <meta name="title" content="Matthew Scott - Full Stack Developer | Louisville, KY" />
-    <meta name="description" content="Full stack developer in Louisville, KY building production applications with React, Python, TypeScript, and PostgreSQL. 10 years healthcare IT experience." />
-    <meta name="keywords" content="full stack developer, React, Python, TypeScript, Louisville KY, Matthew Scott, portfolio, software engineer, web developer" />
+    <title>Matthew Scott | Web Developer & Consultant | Louisville, KY</title>
+    <meta name="title" content="Matthew Scott | Web Developer & Consultant | Louisville, KY" />
+    <meta name="description" content="I untangle complexity. Then I make it useful. Web development for Louisville businesses. Substance first. Built to last." />
+    <meta name="keywords" content="web developer, Louisville KY, web consultant, small business websites, local business, Kentucky, web architect, freelance developer" />
     <meta name="author" content="Matthew Scott" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://projectlavos.com" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://projectlavos.com/" />
-    <meta property="og:title" content="Matthew Scott - Full Stack Developer | Louisville, KY" />
-    <meta property="og:description" content="Building practical tools with modern technology. 10 years healthcare IT experience, now shipping production applications." />
+    <meta property="og:url" content="https://projectlavos.com" />
+    <meta property="og:title" content="Matthew Scott | Web Developer & Consultant | Louisville, KY" />
+    <meta property="og:description" content="I untangle complexity. Then I make it useful. Web development for Louisville businesses." />
     <meta property="og:image" content="https://projectlavos.com/og-image.png" />
     <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="1200" />
-    <meta property="og:image:alt" content="Matthew Scott - Full Stack Developer Portfolio" />
-    <meta property="og:site_name" content="Matthew Scott" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Matthew Scott" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://projectlavos.com/" />
-    <meta name="twitter:title" content="Matthew Scott - Full Stack Developer | Louisville, KY" />
-    <meta name="twitter:description" content="Building practical tools with modern technology. React, Python, TypeScript." />
+    <meta name="twitter:url" content="https://projectlavos.com" />
+    <meta name="twitter:title" content="Matthew Scott | Web Developer & Consultant | Louisville, KY" />
+    <meta name="twitter:description" content="I untangle complexity. Then I make it useful. Web development for Louisville businesses." />
     <meta name="twitter:image" content="https://projectlavos.com/og-image.png" />
-    <meta name="twitter:image:alt" content="Matthew Scott - Full Stack Developer Portfolio" />
 
-    <!-- JSON-LD Structured Data -->
+    <!-- Geo Tags for Local SEO -->
+    <meta name="geo.region" content="US-KY" />
+    <meta name="geo.placename" content="Louisville" />
+
+    <!-- Theme -->
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="msapplication-TileColor" content="#0f172a" />
+
+    <!-- JSON-LD Structured Data - Person -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Matthew Scott",
-      "jobTitle": "Full Stack Developer",
+      "jobTitle": "Web Developer & Consultant",
       "url": "https://projectlavos.com",
-      "image": "https://projectlavos.com/og-image.png",
+      "image": "https://projectlavos.com/headshot.png",
+      "email": "matthewdscott7@gmail.com",
+      "sameAs": [
+        "https://github.com/guitargnarr",
+        "https://linkedin.com/in/mscott77"
+      ],
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Louisville",
         "addressRegion": "KY",
         "addressCountry": "US"
       },
-      "sameAs": [
-        "https://github.com/guitargnarr",
-        "https://linkedin.com/in/mscott77"
-      ],
-      "knowsAbout": ["React", "Python", "TypeScript", "PostgreSQL", "Machine Learning", "Healthcare IT"],
-      "alumniOf": {
-        "@type": "Organization",
-        "name": "University of Louisville"
-      }
+      "knowsAbout": ["Web Development", "React", "JavaScript", "Python", "Small Business Websites", "Web Consulting", "AI Integration"]
+    }
+    </script>
+
+    <!-- JSON-LD Structured Data - Professional Service -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Matthew Scott Web Development",
+      "description": "Web development and consulting services for Louisville small and medium-sized businesses. Building practical web solutions that work.",
+      "url": "https://projectlavos.com",
+      "image": "https://projectlavos.com/og-image.png",
+      "telephone": "+1-502-345-0525",
+      "email": "matthewdscott7@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Louisville",
+        "addressRegion": "KY",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "38.2527",
+        "longitude": "-85.7585"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Louisville",
+        "sameAs": "https://en.wikipedia.org/wiki/Louisville,_Kentucky"
+      },
+      "serviceType": ["Web Development", "Web Consulting", "Small Business Websites", "React Development"],
+      "priceRange": "$$"
+    }
+    </script>
+
+    <!-- JSON-LD Structured Data - Portfolio/Creative Work -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Web Development Portfolio",
+      "description": "Deployed projects by Matthew Scott",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "WebSite",
+            "name": "FretVision",
+            "description": "Interactive guitar fretboard with lessons and MIDI playback",
+            "url": "https://guitar.projectlavos.com"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "WebSite",
+            "name": "PhishGuard",
+            "description": "Sentiment analysis NLP for anti-phishing detection",
+            "url": "https://phishguard.projectlavos.com"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "WebSite",
+            "name": "Vantage",
+            "description": "Local job market analysis and automated resume tailoring",
+            "url": "https://jobs.projectlavos.com"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "item": {
+            "@type": "WebSite",
+            "name": "Fable & Flow",
+            "description": "Boutique retail brand website for Louisville business",
+            "url": "https://fableandflows.vercel.app"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "item": {
+            "@type": "WebSite",
+            "name": "JW Cafe",
+            "description": "Local cafe and bakery digital storefront",
+            "url": "https://jw-cafe-bakery.vercel.app"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "item": {
+            "@type": "WebSite",
+            "name": "Nachbar",
+            "description": "Germantown neighborhood bar website",
+            "url": "https://nachbar.vercel.app"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "item": {
+            "@type": "WebSite",
+            "name": "Rejuvenation Med Spa",
+            "description": "Pain management and medical aesthetics in Louisville",
+            "url": "https://rejuvenation-med-spa.vercel.app"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 8,
+          "item": {
+            "@type": "WebSite",
+            "name": "Louisville Aesthetics",
+            "description": "Premium medical aesthetics clinic",
+            "url": "https://louisville-aesthetics.vercel.app"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 9,
+          "item": {
+            "@type": "WebSite",
+            "name": "Cottage Cafe",
+            "description": "Homemade soups, sandwiches, and desserts in Middletown since 1992",
+            "url": "https://cottage-cafe-eight.vercel.app"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 10,
+          "item": {
+            "@type": "WebSite",
+            "name": "A. Holland Houston",
+            "description": "Louisville family law attorney and mediator - divorce, child custody, domestic violence",
+            "url": "https://ky-family-lawyer.vercel.app"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 11,
+          "item": {
+            "@type": "WebSite",
+            "name": "Highland Cleaners",
+            "description": "Louisville's trusted dry cleaner since 1944 - 12 locations, free pickup & delivery, eco-friendly cleaning",
+            "url": "https://highland-cleaners.vercel.app"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 12,
+          "item": {
+            "@type": "WebSite",
+            "name": "Lawnco Louisville",
+            "description": "Premier landscaping and lawn care since 1978 - residential and commercial lawn maintenance",
+            "url": "https://lawnco-louisville.vercel.app"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 13,
+          "item": {
+            "@type": "WebSite",
+            "name": "Highland Cleaners V2",
+            "description": "Louisville's premier dry cleaner since 1944 - black/yellow rebrand, 12 locations, free pickup & delivery",
+            "url": "https://highland-cleaners-v2.vercel.app"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 14,
+          "item": {
+            "@type": "WebSite",
+            "name": "Cleaning By Regina",
+            "description": "Louisville's trusted cleaning service - 25+ years experience, residential and commercial",
+            "url": "https://cleaning-by-regina.vercel.app"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 15,
+          "item": {
+            "@type": "WebSite",
+            "name": "PassTime Fish House",
+            "description": "Louisville's best kept secret since 2001 - fresh fried fish in Jeffersontown",
+            "url": "https://passtime-fish-house.vercel.app"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 16,
+          "item": {
+            "@type": "WebSite",
+            "name": "Tonini Church Supply",
+            "description": "Serving the faithful since 1883 - church goods, vestments, sacred art",
+            "url": "https://tonini-church-supply.vercel.app"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 17,
+          "item": {
+            "@type": "WebSite",
+            "name": "Camp J",
+            "description": "Louisville JCC day camp - summer, spring, fall programs for ages 5-17",
+            "url": "https://camp-j-lovat.vercel.app"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 18,
+          "item": {
+            "@type": "WebSite",
+            "name": "Shawarma Shack",
+            "description": "Authentic Middle Eastern flavors - build-your-own shawarma in St. Matthews",
+            "url": "https://shawarma-shack.vercel.app"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 19,
+          "item": {
+            "@type": "WebSite",
+            "name": "Tasteful Travels",
+            "description": "Global flavors, Kentucky soul - specialty foods at Logan Street Market",
+            "url": "https://tasteful-travels.vercel.app"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 20,
+          "item": {
+            "@type": "WebSite",
+            "name": "Pilates Plus Louisville",
+            "description": "Louisville's premier Pilates studio on Westport Road",
+            "url": "https://pilates-plus-louisville.vercel.app"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 21,
+          "item": {
+            "@type": "WebSite",
+            "name": "Kentuckiana Gastroenterology",
+            "description": "Board-certified gastroenterology specialists since 1984",
+            "url": "https://kentuckiana-gastro.vercel.app"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 22,
+          "item": {
+            "@type": "WebSite",
+            "name": "Louisville Nails & Spa",
+            "description": "Premier nail salon on Bardstown Road",
+            "url": "https://louisville-nails-spa.vercel.app"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 23,
+          "item": {
+            "@type": "WebSite",
+            "name": "Chabad of Kentucky",
+            "description": "Louisville's Jewish Learning Center since 1985",
+            "url": "https://chabad-of-kentucky.vercel.app"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 24,
+          "item": {
+            "@type": "WebSite",
+            "name": "Paint Spot Louisville",
+            "description": "Paint your own pottery studio since 2000",
+            "url": "https://paint-spot-louisville.vercel.app"
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- JSON-LD Structured Data - FAQ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What services does Matthew Scott offer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Matthew Scott offers web development and consulting services for small and medium-sized businesses in Louisville, KY. Services include custom website development, React applications, web consulting, and helping businesses build their online presence."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Matthew Scott work with Louisville businesses?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, Matthew Scott specializes in helping Louisville businesses build their online presence. Local clients include Fable & Flow, JW Cafe, Nachbar, Rejuvenation Med Spa, and Louisville Aesthetics."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What technologies does Matthew Scott use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Matthew Scott works with modern web technologies including React, JavaScript, Python, and various AI integrations. Projects are deployed and running in production, not just demos."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- JSON-LD Structured Data - BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://projectlavos.com"
+        }
+      ]
     }
     </script>
   </head>

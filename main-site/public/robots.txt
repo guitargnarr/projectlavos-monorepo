@@ -1,4 +1,7 @@
+# robots.txt for projectlavos.com
+
 User-agent: *
 Allow: /
 
+# Sitemap location
 Sitemap: https://projectlavos.com/sitemap.xml

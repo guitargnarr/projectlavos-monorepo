@@ -460,3 +460,121 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+/* ===== AMBIENT BACKGROUND ANIMATIONS ===== */
+
+/* Animated gradient orbs - visible and smooth */
+@keyframes orb-float-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+}
+
+@keyframes orb-float-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-40px, 30px) scale(0.95); }
+  66% { transform: translate(50px, -30px) scale(1.05); }
+}
+
+@keyframes orb-float-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(25px, 40px) scale(1.1); }
+}
+
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ambient-bg::before,
+.ambient-bg::after,
+.ambient-bg .orb-3 {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+}
+
+/* Teal orb - top left */
+.ambient-bg::before {
+  width: 600px;
+  height: 600px;
+  top: -200px;
+  left: -100px;
+  background: radial-gradient(circle, rgba(20, 184, 166, 0.35) 0%, transparent 70%);
+  animation: orb-float-1 15s ease-in-out infinite;
+}
+
+/* Orange orb - bottom right */
+.ambient-bg::after {
+  width: 500px;
+  height: 500px;
+  bottom: -150px;
+  right: -100px;
+  background: radial-gradient(circle, rgba(249, 115, 22, 0.25) 0%, transparent 70%);
+  animation: orb-float-2 18s ease-in-out infinite;
+}
+
+/* Third orb element */
+.orb-3 {
+  width: 400px;
+  height: 400px;
+  top: 50%;
+  left: 50%;
+  margin-left: -200px;
+  margin-top: -200px;
+  background: radial-gradient(circle, rgba(20, 184, 166, 0.15) 0%, transparent 70%);
+  animation: orb-float-3 20s ease-in-out infinite;
+}
+
+/* Floating particles effect - more visible */
+@keyframes particle-rise {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(50px);
+    opacity: 0;
+  }
+}
+
+.particles {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  animation: particle-rise linear infinite;
+}
+
+/* Larger, glowing particles */
+.particle:nth-child(1) { left: 5%; bottom: 0; width: 6px; height: 6px; background: rgba(20, 184, 166, 0.8); box-shadow: 0 0 15px rgba(20, 184, 166, 0.6); animation-duration: 12s; animation-delay: 0s; }
+.particle:nth-child(2) { left: 15%; bottom: 0; width: 4px; height: 4px; background: rgba(249, 115, 22, 0.8); box-shadow: 0 0 12px rgba(249, 115, 22, 0.5); animation-duration: 15s; animation-delay: 2s; }
+.particle:nth-child(3) { left: 25%; bottom: 0; width: 5px; height: 5px; background: rgba(20, 184, 166, 0.7); box-shadow: 0 0 12px rgba(20, 184, 166, 0.5); animation-duration: 14s; animation-delay: 1s; }
+.particle:nth-child(4) { left: 40%; bottom: 0; width: 3px; height: 3px; background: rgba(249, 115, 22, 0.7); box-shadow: 0 0 10px rgba(249, 115, 22, 0.4); animation-duration: 16s; animation-delay: 4s; }
+.particle:nth-child(5) { left: 55%; bottom: 0; width: 7px; height: 7px; background: rgba(20, 184, 166, 0.8); box-shadow: 0 0 18px rgba(20, 184, 166, 0.6); animation-duration: 13s; animation-delay: 0.5s; }
+.particle:nth-child(6) { left: 65%; bottom: 0; width: 4px; height: 4px; background: rgba(249, 115, 22, 0.75); box-shadow: 0 0 12px rgba(249, 115, 22, 0.5); animation-duration: 17s; animation-delay: 3s; }
+.particle:nth-child(7) { left: 75%; bottom: 0; width: 5px; height: 5px; background: rgba(20, 184, 166, 0.75); box-shadow: 0 0 14px rgba(20, 184, 166, 0.5); animation-duration: 11s; animation-delay: 5s; }
+.particle:nth-child(8) { left: 85%; bottom: 0; width: 6px; height: 6px; background: rgba(249, 115, 22, 0.8); box-shadow: 0 0 15px rgba(249, 115, 22, 0.6); animation-duration: 14s; animation-delay: 1.5s; }
+.particle:nth-child(9) { left: 35%; bottom: 0; width: 4px; height: 4px; background: rgba(20, 184, 166, 0.7); box-shadow: 0 0 10px rgba(20, 184, 166, 0.4); animation-duration: 18s; animation-delay: 6s; }
+.particle:nth-child(10) { left: 95%; bottom: 0; width: 5px; height: 5px; background: rgba(20, 184, 166, 0.8); box-shadow: 0 0 12px rgba(20, 184, 166, 0.5); animation-duration: 12s; animation-delay: 2.5s; }
+
+/* Remove grain overlay - was too subtle anyway */
+.grain-overlay {
+  display: none;
+}

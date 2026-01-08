@@ -1,0 +1,43 @@
+# Matthew Scott - Full Stack Developer Portfolio
+https://projectlavos.com
+
+## About
+Matthew Scott is a full stack developer based in Louisville, KY. This portfolio showcases production applications and spec work for local businesses.
+
+## Contact
+- Email: matthewdscott7@gmail.com
+- GitHub: https://github.com/guitargnarr
+- LinkedIn: https://linkedin.com/in/mscott77
+
+## Production Applications
+- FretVision (Guitar Learning): https://guitar.projectlavos.com
+- PhishGuard (Security): https://phishguard.projectlavos.com
+- Vantage (Job Market): https://jobs.projectlavos.com
+- OurJourney (Personal): https://ourjourney.projectlavos.com
+- JobTrack (Career): https://jobtrack.projectlavos.com
+
+## Spec Work (Louisville Businesses)
+20 demonstration websites built for real Louisville businesses. Full URL list available at:
+https://projectlavos.com/portfolio-urls.json
+
+## Technical Stack
+- Frontend: React, Vite, Tailwind CSS
+- Backend: FastAPI, Python, Node.js
+- Deployment: Vercel, Render
+- Database: PostgreSQL, Supabase
+
+## Pages
+- Home: /
+- Louisville Section: /#louisville
+- Work Section: /#work
+- Method Section: /#method
+- Contact: /#contact
+
+## Machine-Readable Data
+- Portfolio URLs (JSON): /portfolio-urls.json
+- This file: /llms.txt
+- Sitemap: /sitemap.xml
+
+## Developer
+Built by Matthew Scott
+Portfolio: https://projectlavos.com

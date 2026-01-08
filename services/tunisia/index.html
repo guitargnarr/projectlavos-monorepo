@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Tunisia">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%2314b8a6' width='100' height='100' rx='20'/><text x='50' y='65' font-size='50' text-anchor='middle' fill='white'>🇹🇳</text></svg>">
+  <title>Tunisia Travel Companion</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    :root {
+      --teal: #14b8a6;
+      --orange: #f97316;
+      --dark: #0f172a;
+      --slate: #1e293b;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--dark);
+      color: #e2e8f0;
+      overflow-x: hidden;
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--slate);
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0 calc(8px + env(safe-area-inset-bottom));
+      border-top: 1px solid #334155;
+      z-index: 1000;
+    }
+
+    .nav-btn {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .nav-btn.active { color: var(--teal); }
+    .nav-btn span { font-size: 24px; }
+
+    /* Sections */
+    .section {
+      display: none;
+      min-height: 100vh;
+      padding-bottom: 80px;
+    }
+
+    .section.active { display: block; }
+
+    /* Map */
+    #map { height: 100vh; width: 100%; }
+
+    .map-controls {
+      position: absolute;
+      top: calc(10px + env(safe-area-inset-top));
+      right: 10px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .map-btn {
+      background: white;
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      font-size: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      cursor: pointer;
+    }
+
+    .poi-filter {
+      position: absolute;
+      top: calc(10px + env(safe-area-inset-top));
+      left: 10px;
+      right: 70px;
+      z-index: 1000;
+    }
+
+    .poi-filter select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, var(--teal), var(--orange));
+      padding: calc(20px + env(safe-area-inset-top)) 20px 20px;
+      text-align: center;
+    }
+
+    .header h1 { font-size: 24px; margin-bottom: 5px; }
+    .header p { font-size: 14px; opacity: 0.9; }
+
+    /* Cards */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      padding: 16px;
+    }
+
+    .card {
+      background: var(--slate);
+      border-radius: 12px;
+      padding: 16px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .card:hover { transform: translateY(-2px); background: #334155; }
+    .card:active { transform: scale(0.98); }
+
+    .card-icon { font-size: 32px; margin-bottom: 8px; }
+    .card h3 { font-size: 14px; color: #f8fafc; margin-bottom: 4px; }
+    .card p { font-size: 11px; color: #94a3b8; }
+
+    /* Currency */
+    .currency-section { padding: 20px; }
+
+    .currency-box {
+      background: var(--slate);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .currency-input {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .currency-input input {
+      flex: 1;
+      background: var(--dark);
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 16px;
+      font-size: 24px;
+      color: white;
+      text-align: right;
+    }
+
+    .currency-input span {
+      font-size: 18px;
+      color: #94a3b8;
+      min-width: 50px;
+    }
+
+    .currency-result {
+      background: var(--teal);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .currency-result .amount {
+      font-size: 36px;
+      font-weight: bold;
+    }
+
+    .currency-result .label {
+      font-size: 14px;
+      opacity: 0.8;
+      margin-top: 4px;
+    }
+
+    .rate-info {
+      text-align: center;
+      padding: 12px;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
+    .quick-amounts {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .quick-btn {
+      background: var(--dark);
+      border: 1px solid #334155;
+      color: #e2e8f0;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .quick-btn:hover { border-color: var(--teal); }
+
+    /* Transport */
+    .transport-section { padding: 16px; }
+
+    .transport-card {
+      background: var(--slate);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .transport-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .transport-icon { font-size: 28px; }
+
+    .transport-header h3 {
+      font-size: 16px;
+      color: var(--teal);
+    }
+
+    .transport-info { font-size: 13px; color: #cbd5e1; line-height: 1.6; }
+    .transport-price { color: var(--orange); font-weight: 600; }
+
+    /* Phrases */
+    .phrase-section { padding: 16px; }
+
+    .phrase-card {
+      background: var(--slate);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .phrase-en { font-size: 14px; color: #94a3b8; margin-bottom: 8px; }
+    .phrase-ar { font-size: 20px; color: #f8fafc; direction: rtl; margin-bottom: 4px; }
+    .phrase-phonetic { font-size: 14px; color: var(--teal); font-style: italic; }
+
+    .phrase-category {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--orange);
+      margin: 20px 0 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Info */
+    .info-section { padding: 16px; }
+
+    .info-card {
+      background: var(--slate);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .info-card h3 {
+      font-size: 16px;
+      color: var(--teal);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-list { list-style: none; }
+
+    .info-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid #334155;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .info-list li:last-child { border-bottom: none; }
+
+    .info-value { color: #94a3b8; }
+
+    /* Emergency */
+    .emergency-btn {
+      display: block;
+      background: #dc2626;
+      color: white;
+      text-align: center;
+      padding: 16px;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: 600;
+      text-decoration: none;
+      margin: 16px;
+    }
+
+    /* Search */
+    .search-box {
+      padding: 16px;
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--slate);
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 16px;
+      color: white;
+    }
+
+    .search-input::placeholder { color: #64748b; }
+
+    /* Food Guide */
+    .food-card {
+      background: var(--slate);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .food-header {
+      background: linear-gradient(135deg, var(--teal), #0d9488);
+      padding: 16px;
+    }
+
+    .food-header h3 { font-size: 18px; margin-bottom: 4px; }
+    .food-header p { font-size: 12px; opacity: 0.8; }
+
+    .food-body { padding: 16px; }
+    .food-desc { font-size: 14px; color: #cbd5e1; line-height: 1.6; margin-bottom: 12px; }
+    .food-price { font-size: 13px; color: var(--orange); }
+
+    /* Scrollable content */
+    .scroll-content {
+      max-height: calc(100vh - 160px);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MAP SECTION -->
+  <section id="mapSection" class="section active">
+    <div id="map"></div>
+    <div class="poi-filter">
+      <select id="poiFilter" onchange="filterPOIs()">
+        <option value="all">All Points of Interest</option>
+        <option value="airport">✈️ Airports</option>
+        <option value="bank">🏦 Banks & ATMs</option>
+        <option value="food">🍽️ Restaurants</option>
+        <option value="hotel">🏨 Hotels</option>
+        <option value="sight">🏛️ Tourist Sites</option>
+        <option value="transport">🚌 Transport Hubs</option>
+        <option value="hospital">🏥 Hospitals</option>
+        <option value="embassy">🏛️ Embassies</option>
+      </select>
+    </div>
+    <div class="map-controls">
+      <button class="map-btn" onclick="locateMe()">📍</button>
+      <button class="map-btn" onclick="toggleMapStyle()">🗺️</button>
+    </div>
+  </section>
+
+  <!-- CURRENCY SECTION -->
+  <section id="currencySection" class="section">
+    <div class="header">
+      <h1>💱 Currency</h1>
+      <p>Tunisian Dinar (TND)</p>
+    </div>
+    <div class="currency-section">
+      <div class="currency-box">
+        <div class="currency-input">
+          <span>USD $</span>
+          <input type="number" id="usdInput" value="100" oninput="convertCurrency()">
+        </div>
+        <div class="currency-result">
+          <div class="amount" id="tndResult">310.00</div>
+          <div class="label">Tunisian Dinar (TND)</div>
+        </div>
+      </div>
+
+      <div class="rate-info">
+        1 USD = 3.10 TND (approximate)<br>
+        1 EUR = 3.40 TND (approximate)<br>
+        <small>Update rates before travel</small>
+      </div>
+
+      <div class="quick-amounts">
+        <button class="quick-btn" onclick="setAmount(20)">$20</button>
+        <button class="quick-btn" onclick="setAmount(50)">$50</button>
+        <button class="quick-btn" onclick="setAmount(100)">$100</button>
+        <button class="quick-btn" onclick="setAmount(200)">$200</button>
+        <button class="quick-btn" onclick="setAmount(500)">$500</button>
+      </div>
+
+      <div class="info-card" style="margin-top: 20px;">
+        <h3>💡 Money Tips</h3>
+        <ul class="info-list">
+          <li><span>ATMs</span><span class="info-value">Widely available</span></li>
+          <li><span>Cards accepted</span><span class="info-value">Major hotels/shops</span></li>
+          <li><span>Cash preferred</span><span class="info-value">Markets, taxis, small shops</span></li>
+          <li><span>Tipping</span><span class="info-value">10% restaurants</span></li>
+          <li><span>Bargaining</span><span class="info-value">Expected in souks</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSPORT SECTION -->
+  <section id="transportSection" class="section">
+    <div class="header">
+      <h1>🚌 Transport</h1>
+      <p>Getting around Tunisia</p>
+    </div>
+    <div class="transport-section scroll-content">
+      <div class="transport-card">
+        <div class="transport-header">
+          <span class="transport-icon">✈️</span>
+          <h3>Airports</h3>
+        </div>
+        <div class="transport-info">
+          <strong>Tunis-Carthage (TUN)</strong> - Main international, 8km from center<br>
+          <strong>Enfidha-Hammamet (NBE)</strong> - Charter flights, beach resorts<br>
+          <strong>Monastir (MIR)</strong> - Budget airlines<br>
+          <strong>Djerba-Zarzis (DJE)</strong> - Island access<br><br>
+          <span class="transport-price">Airport taxi to Tunis center: 15-20 TND</span>
+        </div>
+      </div>
+
+      <div class="transport-card">
+        <div class="transport-header">
+          <span class="transport-icon">🚕</span>
+          <h3>Taxis</h3>
+        </div>
+        <div class="transport-info">
+          <strong>Yellow taxis</strong> - Metered, in cities<br>
+          <strong>Louages</strong> - Shared taxis between cities (fixed routes)<br><br>
+          Always confirm meter is running or agree price first<br><br>
+          <span class="transport-price">Short city ride: 3-7 TND<br>Tunis to Sidi Bou Said: 10-15 TND</span>
+        </div>
+      </div>
+
+      <div class="transport-card">
+        <div class="transport-header">
+          <span class="transport-icon">🚌</span>
+          <h3>Buses</h3>
+        </div>
+        <div class="transport-info">
+          <strong>SNTRI</strong> - National bus company, connects all major cities<br>
+          <strong>TCV</strong> - Tunis city buses<br><br>
+          Main station: Gare Routière Bab Saadoun (Tunis)<br><br>
+          <span class="transport-price">Tunis to Sousse: 12-15 TND<br>Tunis to Kairouan: 10 TND</span>
+        </div>
+      </div>
+
+      <div class="transport-card">
+        <div class="transport-header">
+          <span class="transport-icon">🚇</span>
+          <h3>Metro (Tunis)</h3>
+        </div>
+        <div class="transport-info">
+          <strong>TGM</strong> - Light rail: Tunis → La Marsa (via Carthage, Sidi Bou Said)<br>
+          <strong>Metro Léger</strong> - 6 lines in Tunis city<br><br>
+          <span class="transport-price">Single ticket: 0.5-1 TND</span>
+        </div>
+      </div>
+
+      <div class="transport-card">
+        <div class="transport-header">
+          <span class="transport-icon">🚂</span>
+          <h3>Trains (SNCFT)</h3>
+        </div>
+        <div class="transport-info">
+          Main routes from Tunis:<br>
+          • Sousse/Monastir/Mahdia (coast)<br>
+          • Sfax/Gabès (south)<br>
+          • Bizerte (north)<br><br>
+          <span class="transport-price">Tunis to Sousse: 8-15 TND (2nd/1st class)</span>
+        </div>
+      </div>
+
+      <div class="transport-card">
+        <div class="transport-header">
+          <span class="transport-icon">🚗</span>
+          <h3>Car Rental</h3>
+        </div>
+        <div class="transport-info">
+          Available at airports and major cities<br>
+          International license accepted<br>
+          Drive on the <strong>right side</strong><br><br>
+          <span class="transport-price">From 80-150 TND/day</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOD SECTION -->
+  <section id="foodSection" class="section">
+    <div class="header">
+      <h1>🍽️ Food Guide</h1>
+      <p>Tunisian Cuisine</p>
+    </div>
+    <div class="scroll-content" style="padding: 16px;">
+      <div class="food-card">
+        <div class="food-header">
+          <h3>🥘 Couscous</h3>
+          <p>National dish</p>
+        </div>
+        <div class="food-body">
+          <p class="food-desc">Steamed semolina with vegetables, chickpeas, and meat (lamb, chicken, or fish). Often served on Fridays. The broth is spiced with harissa.</p>
+          <p class="food-price">15-30 TND at restaurants</p>
+        </div>
+      </div>
+
+      <div class="food-card">
+        <div class="food-header">
+          <h3>🌶️ Brik</h3>
+          <p>Crispy pastry</p>
+        </div>
+        <div class="food-body">
+          <p class="food-desc">Deep-fried thin pastry filled with egg, tuna, capers, and parsley. Eaten with hands - careful, egg is runny! A must-try street food.</p>
+          <p class="food-price">2-5 TND</p>
+        </div>
+      </div>
+
+      <div class="food-card">
+        <div class="food-header">
+          <h3>🍖 Mechouia</h3>
+          <p>Grilled salad</p>
+        </div>
+        <div class="food-body">
+          <p class="food-desc">Roasted peppers, tomatoes, onions, and garlic mashed together with olive oil, served with tuna and hard-boiled egg. Served as appetizer.</p>
+          <p class="food-price">5-10 TND</p>
+        </div>
+      </div>
+
+      <div class="food-card">
+        <div class="food-header">
+          <h3>🍲 Lablabi</h3>
+          <p>Breakfast soup</p>
+        </div>
+        <div class="food-body">
+          <p class="food-desc">Chickpea soup with crusty bread, olive oil, harissa, garlic, and cumin. Popular breakfast in winter. Very filling and cheap.</p>
+          <p class="food-price">3-6 TND</p>
+        </div>
+      </div>
+
+      <div class="food-card">
+        <div class="food-header">
+          <h3>🫖 Mint Tea</h3>
+          <p>Traditional drink</p>
+        </div>
+        <div class="food-body">
+          <p class="food-desc">Sweet green tea with fresh mint and pine nuts, served in small glasses. Central to social gatherings. Often comes with roasted almonds.</p>
+          <p class="food-price">2-4 TND</p>
+        </div>
+      </div>
+
+      <div class="food-card">
+        <div class="food-header">
+          <h3>🍯 Makroudh</h3>
+          <p>Date pastry</p>
+        </div>
+        <div class="food-body">
+          <p class="food-desc">Semolina cookies filled with date paste, deep-fried and soaked in honey. Specialty of Kairouan. Perfect with coffee.</p>
+          <p class="food-price">1-3 TND per piece</p>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <h3>💡 Dining Tips</h3>
+        <ul class="info-list">
+          <li><span>Lunch</span><span class="info-value">12:00-15:00</span></li>
+          <li><span>Dinner</span><span class="info-value">19:00-22:00</span></li>
+          <li><span>Ramadan</span><span class="info-value">Many places closed daytime</span></li>
+          <li><span>Alcohol</span><span class="info-value">Hotels, licensed restaurants</span></li>
+          <li><span>Water</span><span class="info-value">Drink bottled only</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHRASES SECTION -->
+  <section id="phrasesSection" class="section">
+    <div class="header">
+      <h1>🗣️ Phrases</h1>
+      <p>Arabic & French</p>
+    </div>
+    <div class="phrase-section scroll-content">
+      <p class="phrase-category">Greetings</p>
+
+      <div class="phrase-card">
+        <p class="phrase-en">Hello / Peace be upon you</p>
+        <p class="phrase-ar">السلام عليكم</p>
+        <p class="phrase-phonetic">As-salaam alaykum</p>
+      </div>
+
+      <div class="phrase-card">
+        <p class="phrase-en">Hello (response)</p>
+        <p class="phrase-ar">وعليكم السلام</p>
+        <p class="phrase-phonetic">Wa alaykum as-salaam</p>
+      </div>
+
+      <div class="phrase-card">
+        <p class="phrase-en">Good morning</p>
+        <p class="phrase-ar">صباح الخير</p>
+        <p class="phrase-phonetic">Sbah el-khir</p>
+      </div>
+
+      <div class="phrase-card">
+        <p class="phrase-en">Good evening</p>
+        <p class="phrase-ar">مساء الخير</p>
+        <p class="phrase-phonetic">Msa el-khir</p>
+      </div>
+
+      <div class="phrase-card">
+        <p class="phrase-en">How are you?</p>
+        <p class="phrase-ar">لاباس؟</p>
+        <p class="phrase-phonetic">Labess?</p>
+      </div>
+
+      <p class="phrase-category">Essential</p>
+
+      <div class="phrase-card">
+        <p class="phrase-en">Thank you</p>
+        <p class="phrase-ar">شكراً / عيشك</p>
+        <p class="phrase-phonetic">Shukran / Aishek</p>
+      </div>
+
+      <div class="phrase-card">
+        <p class="phrase-en">Please</p>
+        <p class="phrase-ar">من فضلك</p>
+        <p class="phrase-phonetic">Min fadlik</p>
+      </div>
+
+      <div class="phrase-card">
+        <p class="phrase-en">Yes / No</p>
+        <p class="phrase-ar">أيه / لا</p>
+        <p class="phrase-phonetic">Eyeh / La</p>
+      </div>
+
+      <div class="phrase-card">
+        <p class="phrase-en">Excuse me / Sorry</p>
+        <p class="phrase-ar">سامحني</p>
+        <p class="phrase-phonetic">Samahni</p>
+      </div>
+
+      <p class="phrase-category">Getting Around</p>
+
+      <div class="phrase-card">
+        <p class="phrase-en">Where is...?</p>
+        <p class="phrase-ar">وين...؟</p>
+        <p class="phrase-phonetic">Wein...?</p>
+      </div>
+
+      <div class="phrase-card">
+        <p class="phrase-en">How much?</p>
+        <p class="phrase-ar">بقداش؟</p>
+        <p class="phrase-phonetic">Bkaddesh?</p>
+      </div>
+
+      <div class="phrase-card">
+        <p class="phrase-en">Too expensive</p>
+        <p class="phrase-ar">غالي برشا</p>
+        <p class="phrase-phonetic">Ghali barsha</p>
+      </div>
+
+      <div class="phrase-card">
+        <p class="phrase-en">I don't understand</p>
+        <p class="phrase-ar">ما فهمتش</p>
+        <p class="phrase-phonetic">Ma fhemtesh</p>
+      </div>
+
+      <p class="phrase-category">Numbers</p>
+
+      <div class="phrase-card">
+        <p class="phrase-en">1, 2, 3, 4, 5</p>
+        <p class="phrase-ar">واحد، زوز، ثلاثة، أربعة، خمسة</p>
+        <p class="phrase-phonetic">Wahed, zouz, tletha, arba, khamsa</p>
+      </div>
+
+      <div class="phrase-card">
+        <p class="phrase-en">10, 20, 100</p>
+        <p class="phrase-ar">عشرة، عشرين، مية</p>
+        <p class="phrase-phonetic">Ashra, ashrin, miya</p>
+      </div>
+
+      <p class="phrase-category">French (widely spoken)</p>
+
+      <div class="phrase-card">
+        <p class="phrase-en">Do you speak English?</p>
+        <p class="phrase-ar">Parlez-vous anglais?</p>
+        <p class="phrase-phonetic">Par-lay voo on-glay?</p>
+      </div>
+
+      <div class="phrase-card">
+        <p class="phrase-en">The bill, please</p>
+        <p class="phrase-ar">L'addition, s'il vous plaît</p>
+        <p class="phrase-phonetic">La-dee-syon, seel voo play</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFO SECTION -->
+  <section id="infoSection" class="section">
+    <div class="header">
+      <h1>ℹ️ Travel Info</h1>
+      <p>Essential information</p>
+    </div>
+    <div class="info-section scroll-content">
+      <a href="tel:197" class="emergency-btn">🚨 Emergency: 197 (Police)</a>
+
+      <div class="info-card">
+        <h3>🚨 Emergency Numbers</h3>
+        <ul class="info-list">
+          <li><span>Police</span><span class="info-value">197</span></li>
+          <li><span>Ambulance</span><span class="info-value">190</span></li>
+          <li><span>Fire</span><span class="info-value">198</span></li>
+          <li><span>Tourist Police</span><span class="info-value">71 341 821</span></li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>🏛️ US Embassy Tunis</h3>
+        <ul class="info-list">
+          <li><span>Address</span><span class="info-value">Les Berges du Lac</span></li>
+          <li><span>Phone</span><span class="info-value">+216 71 107 000</span></li>
+          <li><span>Emergency</span><span class="info-value">+216 71 107 000</span></li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>🕐 Practical Info</h3>
+        <ul class="info-list">
+          <li><span>Time Zone</span><span class="info-value">CET (UTC+1)</span></li>
+          <li><span>Electricity</span><span class="info-value">230V, Type C/E plugs</span></li>
+          <li><span>Country Code</span><span class="info-value">+216</span></li>
+          <li><span>Languages</span><span class="info-value">Arabic, French</span></li>
+          <li><span>Weekend</span><span class="info-value">Sat-Sun (some Fri)</span></li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>🏥 Hospitals (Tunis)</h3>
+        <ul class="info-list">
+          <li><span>Clinique Taoufik</span><span class="info-value">71 827 000</span></li>
+          <li><span>Clinique El Manar</span><span class="info-value">71 885 000</span></li>
+          <li><span>Hôpital Charles Nicolle</span><span class="info-value">71 578 000</span></li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>✅ Do's & Don'ts</h3>
+        <ul class="info-list">
+          <li><span>✅ Do</span><span class="info-value">Dress modestly at mosques</span></li>
+          <li><span>✅ Do</span><span class="info-value">Bargain at souks</span></li>
+          <li><span>✅ Do</span><span class="info-value">Ask before photographing</span></li>
+          <li><span>❌ Don't</span><span class="info-value">Drink tap water</span></li>
+          <li><span>❌ Don't</span><span class="info-value">Show affection publicly</span></li>
+          <li><span>❌ Don't</span><span class="info-value">Photograph military/police</span></li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>📱 Connectivity</h3>
+        <ul class="info-list">
+          <li><span>SIM cards</span><span class="info-value">Ooredoo, Orange, Tunisie Telecom</span></li>
+          <li><span>Tourist SIM</span><span class="info-value">~20 TND with data</span></li>
+          <li><span>WiFi</span><span class="info-value">Hotels, cafes common</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- NAVIGATION -->
+  <nav class="nav">
+    <button class="nav-btn active" onclick="showSection('map')">
+      <span>🗺️</span>
+      Map
+    </button>
+    <button class="nav-btn" onclick="showSection('currency')">
+      <span>💱</span>
+      Currency
+    </button>
+    <button class="nav-btn" onclick="showSection('transport')">
+      <span>🚌</span>
+      Transport
+    </button>
+    <button class="nav-btn" onclick="showSection('food')">
+      <span>🍽️</span>
+      Food
+    </button>
+    <button class="nav-btn" onclick="showSection('phrases')">
+      <span>🗣️</span>
+      Phrases
+    </button>
+    <button class="nav-btn" onclick="showSection('info')">
+      <span>ℹ️</span>
+      Info
+    </button>
+  </nav>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // Points of Interest Database
+    const POIs = [
+      // Airports
+      { lat: 36.8510, lng: 10.2272, name: 'Tunis-Carthage Airport (TUN)', type: 'airport', desc: 'Main international airport' },
+      { lat: 36.0758, lng: 10.4386, name: 'Enfidha-Hammamet Airport', type: 'airport', desc: 'Charter flights' },
+      { lat: 35.7580, lng: 10.7547, name: 'Monastir Airport', type: 'airport', desc: 'Budget airlines' },
+      { lat: 33.8750, lng: 10.7756, name: 'Djerba-Zarzis Airport', type: 'airport', desc: 'Island access' },
+
+      // Tourist Sites
+      { lat: 36.8525, lng: 10.3233, name: 'Carthage Ruins', type: 'sight', desc: 'UNESCO - Ancient Phoenician/Roman city' },
+      { lat: 35.7796, lng: 10.8261, name: 'El Jem Amphitheatre', type: 'sight', desc: 'UNESCO - 3rd largest Roman amphitheatre' },
+      { lat: 35.6781, lng: 10.0963, name: 'Kairouan Great Mosque', type: 'sight', desc: 'UNESCO - 4th holiest city in Islam' },
+      { lat: 36.8375, lng: 10.2975, name: 'Sidi Bou Said', type: 'sight', desc: 'Blue & white hilltop village' },
+      { lat: 36.4617, lng: 9.2167, name: 'Dougga', type: 'sight', desc: 'UNESCO - Best preserved Roman town' },
+      { lat: 36.7969, lng: 10.1718, name: 'Bardo Museum', type: 'sight', desc: 'World\'s largest mosaic collection' },
+      { lat: 36.7986, lng: 10.1695, name: 'Medina of Tunis', type: 'sight', desc: 'UNESCO - Historic old city' },
+      { lat: 35.8288, lng: 10.6364, name: 'Medina of Sousse', type: 'sight', desc: 'UNESCO - Early Islamic town' },
+
+      // Banks & ATMs
+      { lat: 36.8002, lng: 10.1860, name: 'Banque de Tunisie', type: 'bank', desc: 'Central Tunis - ATM available' },
+      { lat: 36.8065, lng: 10.1815, name: 'BIAT Bank', type: 'bank', desc: 'Ave Habib Bourguiba' },
+      { lat: 35.8268, lng: 10.6080, name: 'ATM - Sousse Center', type: 'bank', desc: 'Multiple ATMs' },
+
+      // Hotels
+      { lat: 36.8089, lng: 10.1836, name: 'Hotel Africa Tunis', type: 'hotel', desc: '5-star central location' },
+      { lat: 36.8347, lng: 10.2969, name: 'La Villa Bleue', type: 'hotel', desc: 'Sidi Bou Said boutique' },
+      { lat: 35.8419, lng: 10.6089, name: 'Mövenpick Resort Sousse', type: 'hotel', desc: 'Beach resort' },
+      { lat: 33.8408, lng: 10.8575, name: 'Radisson Blu Djerba', type: 'hotel', desc: 'Island resort' },
+
+      // Restaurants
+      { lat: 36.8055, lng: 10.1802, name: 'Dar El Jeld', type: 'food', desc: 'Traditional Tunisian fine dining' },
+      { lat: 36.8373, lng: 10.2968, name: 'Café des Nattes', type: 'food', desc: 'Historic cafe in Sidi Bou Said' },
+      { lat: 36.8012, lng: 10.1798, name: 'Restaurant Essaraya', type: 'food', desc: 'Medina palace restaurant' },
+
+      // Transport Hubs
+      { lat: 36.7922, lng: 10.1350, name: 'Gare Routière Bab Saadoun', type: 'transport', desc: 'Main bus station Tunis' },
+      { lat: 36.7997, lng: 10.1810, name: 'Tunis Marine Station', type: 'transport', desc: 'TGM train to Carthage/Sidi Bou Said' },
+      { lat: 36.7956, lng: 10.1797, name: 'Tunis Central Train Station', type: 'transport', desc: 'SNCFT trains' },
+
+      // Hospitals
+      { lat: 36.8231, lng: 10.1656, name: 'Hôpital Charles Nicolle', type: 'hospital', desc: 'Major public hospital' },
+      { lat: 36.8406, lng: 10.1883, name: 'Clinique Taoufik', type: 'hospital', desc: 'Private hospital' },
+
+      // Embassies
+      { lat: 36.8289, lng: 10.2319, name: 'US Embassy', type: 'embassy', desc: 'Les Berges du Lac' },
+      { lat: 36.8394, lng: 10.1819, name: 'UK Embassy', type: 'embassy', desc: 'Rue du Lac Windermere' },
+    ];
+
+    const ICONS = {
+      airport: '✈️',
+      sight: '🏛️',
+      bank: '🏦',
+      hotel: '🏨',
+      food: '🍽️',
+      transport: '🚌',
+      hospital: '🏥',
+      embassy: '🏛️'
+    };
+
+    // Initialize map
+    let map;
+    let markers = [];
+    let currentFilter = 'all';
+
+    function initMap() {
+      map = L.map('map', {
+        center: [34.5, 9.5],
+        zoom: 7,
+        zoomControl: false
+      });
+
+      L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OSM',
+        maxZoom: 19
+      }).addTo(map);
+
+      addPOIs();
+    }
+
+    function addPOIs() {
+      markers.forEach(m => map.removeLayer(m));
+      markers = [];
+
+      POIs.forEach(poi => {
+        if (currentFilter !== 'all' && poi.type !== currentFilter) return;
+
+        const icon = L.divIcon({
+          className: 'poi-marker',
+          html: `<div style="background:white;padding:6px;border-radius:8px;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,0.3);">${ICONS[poi.type] || '📍'}</div>`,
+          iconSize: [32, 32],
+          iconAnchor: [16, 32]
+        });
+
+        const marker = L.marker([poi.lat, poi.lng], { icon })
+          .addTo(map)
+          .bindPopup(`<strong>${poi.name}</strong><br><small>${poi.desc}</small>`);
+
+        markers.push(marker);
+      });
+    }
+
+    function filterPOIs() {
+      currentFilter = document.getElementById('poiFilter').value;
+      addPOIs();
+    }
+
+    function locateMe() {
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(pos => {
+          map.setView([pos.coords.latitude, pos.coords.longitude], 15);
+          L.marker([pos.coords.latitude, pos.coords.longitude])
+            .addTo(map)
+            .bindPopup('You are here')
+            .openPopup();
+        }, err => {
+          alert('Location access denied. Enable in Settings.');
+        });
+      }
+    }
+
+    function toggleMapStyle() {
+      // Could toggle between map styles
+      alert('Satellite view requires online connection');
+    }
+
+    // Navigation
+    function showSection(name) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+
+      document.getElementById(name + 'Section').classList.add('active');
+      event.target.closest('.nav-btn').classList.add('active');
+
+      if (name === 'map' && map) {
+        setTimeout(() => map.invalidateSize(), 100);
+      }
+    }
+
+    // Currency
+    const USD_TO_TND = 3.10;
+
+    function convertCurrency() {
+      const usd = parseFloat(document.getElementById('usdInput').value) || 0;
+      const tnd = (usd * USD_TO_TND).toFixed(2);
+      document.getElementById('tndResult').textContent = tnd;
+    }
+
+    function setAmount(amt) {
+      document.getElementById('usdInput').value = amt;
+      convertCurrency();
+    }
+
+    // Init
+    document.addEventListener('DOMContentLoaded', initMap);
+  </script>
+</body>
+</html>

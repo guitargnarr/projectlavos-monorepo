@@ -189,7 +189,7 @@ function ProjectCard({ project, showInsight = false }) {
           ))}
         </ul>
         {project.path && (
-          <p className="text-slate-500 text-xs mt-3 font-mono break-all">
+          <p className="text-slate-400 text-xs mt-3 font-mono break-all">
             {project.path}
           </p>
         )}
@@ -274,27 +274,29 @@ export default function Projects() {
         )}
       </header>
 
-      {/* Hero */}
-      <section className="py-12 sm:py-16 px-4 sm:px-6 border-b border-slate-700/50">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-teal-400 to-orange-400 bg-clip-text text-transparent">
-              Systems Map
-            </span>
-          </h1>
-          <p className="text-lg sm:text-xl text-slate-300 mb-4">
-            Hybrid systems: AI where it's strong, deterministic code where it's not.
-          </p>
-          <p className="text-sm sm:text-base text-slate-400 leading-relaxed max-w-3xl">
-            My guitar platform uses Python for music theory because LLMs can't count frets correctly.
-            My security auditor chains 16 AI personas and catches real vulnerabilities - it found a CORS bug in my own production code.
-            I care about tools that actually work, not demos that sound impressive.
-          </p>
-        </div>
-      </section>
+      {/* Main Content */}
+      <main role="main">
+        {/* Hero */}
+        <section className="py-12 sm:py-16 px-4 sm:px-6 border-b border-slate-700/50" aria-labelledby="systems-map-heading">
+          <div className="max-w-4xl mx-auto">
+            <h1 id="systems-map-heading" className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+              <span className="bg-gradient-to-r from-teal-400 to-orange-400 bg-clip-text text-transparent">
+                Systems Map
+              </span>
+            </h1>
+            <p className="text-lg sm:text-xl text-slate-300 mb-4">
+              Hybrid systems: AI where it's strong, deterministic code where it's not.
+            </p>
+            <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-3xl">
+              My guitar platform uses Python for music theory because LLMs can't count frets correctly.
+              My security auditor chains 16 AI personas and catches real vulnerabilities - it found a CORS bug in my own production code.
+              I care about tools that actually work, not demos that sound impressive.
+            </p>
+          </div>
+        </section>
 
-      {/* Content */}
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        {/* Projects */}
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
 
         <Section
           title="Portfolio Core"
@@ -378,7 +380,7 @@ export default function Projects() {
             </div>
           </div>
         </section>
-
+        </div>
       </main>
 
       {/* Footer */}
