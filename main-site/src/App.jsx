@@ -433,6 +433,46 @@ function App() {
       category: "Education",
       specWork: true,
       details: "Modern university website template showcasing higher education web design. Features admissions portal, campus life, academics, and student resources. Go Cards!"
+    },
+    {
+      id: "springhurstendo",
+      title: "Springhurst Endodontics",
+      url: "https://springhurst-endo.vercel.app",
+      preview: "/previews/springhurst-endo.png",
+      ogImage: "/previews/springhurst-endo.png",
+      qrCode: "/qr-codes/springhurst-endo-qr.png",
+      description: "Expert root canal care",
+      altText: "Springhurst Endodontics Louisville root canal specialists Dr. Jolanta Sauer comfortable environment",
+      category: "Medical",
+      specWork: true,
+      details: "5-star rated root canal specialists in Louisville. Led by Dr. Jolanta Sauer, providing the highest standard of endodontic care in a comfortable environment. Book online appointments available."
+    },
+    {
+      id: "dgvservices",
+      title: "dGv Services",
+      url: "https://dgv-services.vercel.app",
+      preview: "/previews/dgv-services.png",
+      ogImage: "/previews/dgv-services.png",
+      qrCode: "/qr-codes/dgv-services-qr.png",
+      description: "Expert medical billing & revenue management",
+      altText: "dGv Services Crestwood Kentucky medical billing healthcare revenue management insurance claims workers compensation",
+      category: "Medical",
+      specWork: true,
+      location: "Crestwood, KY",
+      details: "Medical billing and healthcare revenue management specialists since 2002. 25+ years experience in workers' compensation, auto, and liability insurance claims. HIPAA compliant, certified coders. Serving Kentucky healthcare providers."
+    },
+    {
+      id: "hideawaysaloon",
+      title: "Hideaway Saloon",
+      url: "https://hideaway-saloon.vercel.app",
+      preview: "/previews/hideaway-saloon.png",
+      ogImage: "/og-images/hideaway-saloon-og.png",
+      qrCode: "/qr-codes/hideaway-saloon-qr.png",
+      description: "Louisville's premier video game dive bar",
+      altText: "Hideaway Saloon Louisville Kentucky video game bar arcade games fighting game tournaments dive bar Bardstown Road",
+      category: "Bar",
+      specWork: true,
+      details: "Louisville's original video game dive bar on Bardstown Road. Family-owned since the 1970s, rebranded to a gaming destination in 2015. 1000+ games, weekly fighting game tournaments, cold drinks. Open Mon-Sat 7PM-4AM."
     }
   ];
 
@@ -629,15 +669,22 @@ function App() {
                   </span>
                 ))}
               </div>
-              {/* CTA Button */}
-              <div className="flex justify-center md:justify-start animate-fade-in-delay-3">
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row justify-center md:justify-start gap-3 animate-fade-in-delay-3">
                 <button
                   onClick={scrollToWork}
-                  className="group flex items-center gap-2 px-6 py-3 bg-teal-500 hover:bg-teal-400 text-slate-900 font-semibold rounded-lg transition-all duration-300 hover:shadow-[0_0_20px_rgba(20,184,166,0.4)]"
+                  className="group flex items-center justify-center gap-2 px-6 py-3 bg-teal-500 hover:bg-teal-400 text-slate-900 font-semibold rounded-lg transition-all duration-300 hover:shadow-[0_0_20px_rgba(20,184,166,0.4)]"
                 >
                   See My Work
                   <span className="group-hover:translate-y-1 transition-transform duration-300">↓</span>
                 </button>
+                <a
+                  href="#method"
+                  className="group flex items-center justify-center gap-2 px-6 py-3 border-2 border-teal-500 text-teal-400 hover:bg-teal-500/10 font-semibold rounded-lg transition-all duration-300"
+                >
+                  How I Work
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                </a>
               </div>
             </div>
           </div>
@@ -1008,6 +1055,18 @@ function App() {
           <p className="text-slate-300 leading-relaxed mb-8">
             I've done startups and corporate. Seen both playbooks. Now I'm writing my own.
           </p>
+
+          <a
+            href="https://auriga-chariot.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-teal-400 hover:text-teal-300 transition-colors text-sm group"
+          >
+            <span className="border-b border-teal-400/30 group-hover:border-teal-300/50 transition-colors">
+              On the nature of human-AI collaboration
+            </span>
+            <span className="group-hover:translate-x-1 transition-transform">→</span>
+          </a>
 
         </div>
       </section>

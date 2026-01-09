@@ -105,6 +105,18 @@ const standaloneTools = [
     description: 'Apartment leasing demo SPA for lead capture and unit browsing.',
     tags: ['React', 'Demo'],
   },
+  {
+    title: 'DGV Services',
+    url: 'https://dgv-services.vercel.app',
+    description: 'Medical billing company site with animated counters, parallax effects, glassmorphism UI. Brand color research and advanced Framer Motion animations.',
+    tags: ['React', 'TypeScript', 'Framer Motion', 'Tailwind'],
+  },
+  {
+    title: 'Hideaway Saloon',
+    url: 'https://hideaway-saloon.vercel.app',
+    description: 'Arcade neon-themed demo for Louisville video game dive bar. CRT scanlines, 3D card effects, parallax backgrounds. Family-owned since 1970s, rebranded to gaming bar in 2015.',
+    tags: ['React', 'TypeScript', 'Framer Motion', 'Tailwind v4'],
+  },
 ]
 
 const backendServices = [

@@ -35,6 +35,12 @@
       "url": "https://jobtrack.projectlavos.com",
       "category": "Career",
       "description": "Application tracking system"
+    },
+    {
+      "name": "Threshold Liminal",
+      "url": "https://threshold-liminal.vercel.app",
+      "category": "Creative",
+      "description": "Exploring the spaces between"
     }
   ],
   "specWork": [
@@ -231,12 +237,52 @@
       "location": "Louisville, KY",
       "specWork": true,
       "description": "Premier hair salon experience"
+    },
+    {
+      "name": "Blown Away Bar",
+      "url": "https://blown-away-bar.vercel.app",
+      "category": "Bar",
+      "location": "Louisville, KY",
+      "specWork": true,
+      "description": "Louisville's blow dry and beauty bar"
+    },
+    {
+      "name": "Primary Express Care",
+      "url": "https://primary-express-care.vercel.app",
+      "category": "Medical",
+      "location": "Louisville, KY",
+      "specWork": true,
+      "description": "Walk-in urgent care clinic"
+    },
+    {
+      "name": "Cardinal Uniforms",
+      "url": "https://cardinal-uniforms.vercel.app",
+      "category": "Retail",
+      "location": "Louisville, KY",
+      "specWork": true,
+      "description": "Professional uniforms and workwear"
+    },
+    {
+      "name": "Credit Union Template",
+      "url": "https://credit-union-template-demo.vercel.app",
+      "category": "Financial",
+      "location": "Louisville, KY",
+      "specWork": true,
+      "description": "Modern credit union website template"
+    },
+    {
+      "name": "UofL Demo",
+      "url": "https://uofl-demo.vercel.app",
+      "category": "Education",
+      "location": "Louisville, KY",
+      "specWork": true,
+      "description": "University website template demo"
     }
   ],
   "stats": {
-    "totalProduction": 5,
-    "totalSpecWork": 22,
-    "totalUrls": 30,
+    "totalProduction": 6,
+    "totalSpecWork": 27,
+    "totalUrls": 36,
     "categories": ["Education", "Security", "Career", "Personal", "Retail", "Cafe", "Bar", "Med Spa", "Legal", "Services", "Restaurant", "Youth", "Fitness", "Medical", "Beauty", "Nonprofit", "Entertainment"]
   }
 }
