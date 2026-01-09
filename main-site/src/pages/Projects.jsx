@@ -94,6 +94,12 @@ const workingProjects = [
 
 const standaloneTools = [
   {
+    title: 'Vance & Stovall Optometry',
+    url: 'https://vance-stovall-optometry.vercel.app',
+    description: 'Spec demo for downtown Louisville optometry practice. 3D card effects, parallax scrolling, mobile-responsive. Built to pitch website modernization.',
+    tags: ['React', 'TypeScript', 'Framer Motion', 'Client Demo'],
+  },
+  {
     title: 'ChordGen Pro',
     url: 'https://chordgen-pro.vercel.app',
     description: 'Chord progression generator for songwriting/idea exploration.',

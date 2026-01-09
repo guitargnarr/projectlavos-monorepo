@@ -473,6 +473,71 @@ function App() {
       category: "Bar",
       specWork: true,
       details: "Louisville's original video game dive bar on Bardstown Road. Family-owned since the 1970s, rebranded to a gaming destination in 2015. 1000+ games, weekly fighting game tournaments, cold drinks. Open Mon-Sat 7PM-4AM."
+    },
+    {
+      id: "vancestovall",
+      title: "Vance & Stovall Optometry",
+      url: "https://vance-stovall-optometry.vercel.app",
+      preview: "/previews/vance-stovall-optometry.png",
+      ogImage: "/previews/vance-stovall-optometry.png",
+      qrCode: "/qr-codes/vance-stovall-optometry-qr.png",
+      description: "Clear vision, personal care",
+      altText: "Drs. Vance and Stovall Optometry downtown Louisville Kentucky independent eye care practice comprehensive exams designer eyewear",
+      category: "Medical",
+      specWork: true,
+      details: "Downtown Louisville's trusted independent optometry practice. 40+ years providing comprehensive eye care with a personal touch. Designer eyewear, contact lens fitting, eye disease management. Located near the 2nd Street Bridge."
+    },
+    {
+      id: "dermatologyassociates",
+      title: "Dermatology Associates PSC",
+      url: "https://dermatology-associates-psc.vercel.app",
+      preview: "/previews/dermatology-associates-psc.png",
+      ogImage: "/previews/dermatology-associates-psc.png",
+      qrCode: "/qr-codes/dermatology-associates-psc-qr.png",
+      description: "Expert skin care you can trust",
+      altText: "Dermatology Associates PSC Louisville Kentucky board-certified dermatologists medical surgical cosmetic dermatology skin cancer treatment",
+      category: "Medical",
+      specWork: true,
+      details: "Louisville's trusted dermatology practice with board-certified physicians. Comprehensive skin care including medical dermatology, surgical procedures, and cosmetic treatments. Skin cancer screening and treatment specialists."
+    },
+    {
+      id: "louisvillefamilychiro",
+      title: "Louisville Family Chiropractic",
+      url: "https://louisville-family-chiro.vercel.app",
+      preview: "/previews/louisville-family-chiro.png",
+      ogImage: "/previews/louisville-family-chiro.png",
+      qrCode: "/qr-codes/louisville-family-chiro-qr.png",
+      description: "Whole family wellness care",
+      altText: "Louisville Family Chiropractic Kentucky chiropractor spinal adjustments family wellness care pain relief natural healing",
+      category: "Medical",
+      specWork: true,
+      details: "Family-focused chiropractic care in Louisville. Gentle spinal adjustments for all ages, from infants to seniors. Natural pain relief, wellness care, and preventive treatments to keep your whole family healthy."
+    },
+    {
+      id: "grayfamilydentistry",
+      title: "Gray Family Dentistry",
+      url: "https://gray-family-dentistry.vercel.app",
+      preview: "/previews/gray-family-dentistry.png",
+      ogImage: "/previews/gray-family-dentistry.png",
+      qrCode: "/qr-codes/gray-family-dentistry-qr.png",
+      description: "Smiles for the whole family",
+      altText: "Gray Family Dentistry Louisville Kentucky family dentist cosmetic dentistry cleanings fillings crowns dental implants",
+      category: "Medical",
+      specWork: true,
+      details: "Comprehensive family dentistry serving Louisville. General and cosmetic dental services including cleanings, fillings, crowns, and implants. Creating healthy smiles for patients of all ages in a comfortable environment."
+    },
+    {
+      id: "dermcarepractitioners",
+      title: "DermCARE Practitioners",
+      url: "https://dermcare-practitioners.vercel.app",
+      preview: "/previews/dermcare-practitioners.png",
+      ogImage: "/previews/dermcare-practitioners.png",
+      qrCode: "/qr-codes/dermcare-practitioners-qr.png",
+      description: "Advanced dermatology solutions",
+      altText: "DermCARE Practitioners Louisville Kentucky dermatology clinic advanced skin treatments acne eczema psoriasis cosmetic procedures",
+      category: "Medical",
+      specWork: true,
+      details: "Advanced dermatology care in Louisville. Specializing in medical and cosmetic skin treatments including acne, eczema, psoriasis, and anti-aging procedures. Personalized treatment plans with cutting-edge technology."
     }
   ];
 
