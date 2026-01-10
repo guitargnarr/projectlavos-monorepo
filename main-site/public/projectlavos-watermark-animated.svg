@@ -1,0 +1,101 @@
+<!-- Project Lavos Animated Watermark - Auriga Chariot -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" width="200" height="100">
+  <defs>
+    <style>
+      .chariot-body { fill: none; stroke: #14b8a6; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+      .wheel { fill: none; stroke: #14b8a6; stroke-width: 1.5; animation: spin 3s linear infinite; }
+      .horse { fill: none; stroke: #14b8a6; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+      .horse-left { animation: gallop 0.6s ease-in-out infinite; transform-origin: 45px 65px; }
+      .horse-right { animation: gallop 0.6s ease-in-out infinite 0.3s; transform-origin: 155px 65px; }
+      .reins { fill: none; stroke: #14b8a6; stroke-width: 0.8; opacity: 0.7; }
+      .charioteer { fill: none; stroke: #14b8a6; stroke-width: 1.5; stroke-linecap: round; }
+      .cape { fill: none; stroke: #14b8a6; stroke-width: 1.2; animation: flutter 1.5s ease-in-out infinite; transform-origin: 100px 35px; }
+
+      @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      @keyframes gallop {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        25% { transform: translateY(-3px) rotate(-3deg); }
+        75% { transform: translateY(2px) rotate(2deg); }
+      }
+
+      @keyframes flutter {
+        0%, 100% { transform: skewX(0deg) translateX(0); }
+        50% { transform: skewX(-5deg) translateX(3px); }
+      }
+    </style>
+  </defs>
+
+  <!-- Left Horse -->
+  <g class="horse horse-left">
+    <!-- Body -->
+    <path d="M25 60 Q35 55 45 58 Q50 60 52 65 L50 75 Q48 80 45 82 L42 78 L40 82 Q38 85 35 85 L32 80 L30 85 Q27 87 24 85 L26 78 Q20 75 20 70 Q20 65 25 60" />
+    <!-- Head and neck -->
+    <path d="M25 60 Q22 55 18 52 Q15 50 12 52 Q10 55 12 58 Q15 60 18 58 L22 62" />
+    <!-- Mane -->
+    <path d="M22 55 Q24 50 22 48 M24 56 Q26 52 24 50" />
+    <!-- Front legs (animated) -->
+    <path d="M40 75 L38 90 M42 75 L44 88" />
+    <!-- Back legs (animated) -->
+    <path d="M48 75 L46 90 M50 75 L52 88" />
+  </g>
+
+  <!-- Right Horse -->
+  <g class="horse horse-right">
+    <!-- Body -->
+    <path d="M175 60 Q165 55 155 58 Q150 60 148 65 L150 75 Q152 80 155 82 L158 78 L160 82 Q162 85 165 85 L168 80 L170 85 Q173 87 176 85 L174 78 Q180 75 180 70 Q180 65 175 60" />
+    <!-- Head and neck -->
+    <path d="M175 60 Q178 55 182 52 Q185 50 188 52 Q190 55 188 58 Q185 60 182 58 L178 62" />
+    <!-- Mane -->
+    <path d="M178 55 Q176 50 178 48 M176 56 Q174 52 176 50" />
+    <!-- Front legs -->
+    <path d="M160 75 L162 90 M158 75 L156 88" />
+    <!-- Back legs -->
+    <path d="M152 75 L154 90 M150 75 L148 88" />
+  </g>
+
+  <!-- Chariot Body -->
+  <g class="chariot-body">
+    <!-- Chariot frame -->
+    <path d="M75 70 Q80 65 100 65 Q120 65 125 70 L122 78 Q100 82 78 78 Z" />
+    <!-- Chariot side detail -->
+    <path d="M78 72 Q100 68 122 72" />
+  </g>
+
+  <!-- Wheel with spokes -->
+  <g class="wheel" style="transform-origin: 100px 78px;">
+    <circle cx="100" cy="78" r="12" />
+    <!-- Spokes -->
+    <line x1="100" y1="66" x2="100" y2="90" />
+    <line x1="88" y1="78" x2="112" y2="78" />
+    <line x1="91.5" y1="69.5" x2="108.5" y2="86.5" />
+    <line x1="108.5" y1="69.5" x2="91.5" y2="86.5" />
+    <!-- Hub -->
+    <circle cx="100" cy="78" r="3" />
+  </g>
+
+  <!-- Reins -->
+  <g class="reins">
+    <path d="M52 65 Q70 55 95 50" />
+    <path d="M148 65 Q130 55 105 50" />
+  </g>
+
+  <!-- Charioteer -->
+  <g class="charioteer">
+    <!-- Body -->
+    <path d="M95 50 L95 35 Q100 30 105 35 L105 50" />
+    <!-- Head -->
+    <circle cx="100" cy="28" r="6" />
+    <!-- Arms holding reins -->
+    <path d="M95 42 L85 48 M105 42 L115 48" />
+  </g>
+
+  <!-- Cape (flowing behind) -->
+  <g class="cape">
+    <path d="M100 35 Q95 38 92 45 Q88 55 85 58 Q82 60 78 58" />
+    <path d="M100 35 Q105 40 108 48 Q110 55 108 60" />
+  </g>
+</svg>
