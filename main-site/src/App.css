@@ -1162,6 +1162,326 @@ body {
   font-family: 'Playfair Display', Georgia, serif;
 }
 
+/* ===== 13. HERO AMBIENT VIDEO (CSS-based) ===== */
+
+/* Main hero background container */
+.hero-ambient {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* Art Deco sunburst rays */
+.hero-ambient::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  height: 200%;
+  transform: translate(-50%, -50%);
+  background:
+    repeating-conic-gradient(
+      from 0deg at 50% 50%,
+      transparent 0deg,
+      transparent 8deg,
+      rgba(20, 184, 166, 0.03) 8deg,
+      rgba(20, 184, 166, 0.03) 10deg,
+      transparent 10deg,
+      transparent 18deg
+    );
+  animation: hero-rotate 120s linear infinite;
+  opacity: 0.6;
+}
+
+/* Pulsing geometric grid overlay */
+.hero-ambient::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(0deg, transparent 49%, rgba(20, 184, 166, 0.05) 50%, transparent 51%),
+    linear-gradient(90deg, transparent 49%, rgba(249, 115, 22, 0.03) 50%, transparent 51%);
+  background-size: 60px 60px;
+  animation: grid-pulse 8s ease-in-out infinite;
+}
+
+/* Art Deco fan pattern layer */
+.hero-deco-fan {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-deco-fan::before {
+  content: '';
+  position: absolute;
+  bottom: -50%;
+  left: 50%;
+  width: 150%;
+  height: 150%;
+  transform: translateX(-50%);
+  background:
+    repeating-conic-gradient(
+      from 180deg at 50% 100%,
+      transparent 0deg,
+      rgba(249, 115, 22, 0.04) 3deg,
+      transparent 6deg
+    );
+  animation: fan-breathe 15s ease-in-out infinite;
+}
+
+/* Floating geometric shapes */
+.hero-shapes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-shape {
+  position: absolute;
+  border: 1px solid;
+  opacity: 0.15;
+  animation: shape-float 20s ease-in-out infinite;
+}
+
+.hero-shape:nth-child(1) {
+  top: 10%;
+  left: 5%;
+  width: 80px;
+  height: 80px;
+  border-color: rgba(20, 184, 166, 0.4);
+  border-radius: 50%;
+  animation-delay: 0s;
+  animation-duration: 25s;
+}
+
+.hero-shape:nth-child(2) {
+  top: 20%;
+  right: 10%;
+  width: 60px;
+  height: 60px;
+  border-color: rgba(249, 115, 22, 0.3);
+  transform: rotate(45deg);
+  animation-delay: -5s;
+  animation-duration: 22s;
+}
+
+.hero-shape:nth-child(3) {
+  bottom: 25%;
+  left: 15%;
+  width: 100px;
+  height: 100px;
+  border-color: rgba(20, 184, 166, 0.25);
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  animation-delay: -10s;
+  animation-duration: 28s;
+}
+
+.hero-shape:nth-child(4) {
+  bottom: 15%;
+  right: 20%;
+  width: 50px;
+  height: 50px;
+  border-color: rgba(249, 115, 22, 0.35);
+  border-radius: 50%;
+  animation-delay: -7s;
+  animation-duration: 18s;
+}
+
+/* Horizontal neon scan lines */
+.hero-scanlines {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-scanline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(20, 184, 166, 0.4) 20%,
+    rgba(20, 184, 166, 0.6) 50%,
+    rgba(20, 184, 166, 0.4) 80%,
+    transparent 100%);
+  opacity: 0;
+  animation: scanline-sweep 12s ease-in-out infinite;
+}
+
+.hero-scanline:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.hero-scanline:nth-child(2) {
+  animation-delay: 4s;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(249, 115, 22, 0.3) 20%,
+    rgba(249, 115, 22, 0.5) 50%,
+    rgba(249, 115, 22, 0.3) 80%,
+    transparent 100%);
+}
+
+.hero-scanline:nth-child(3) {
+  animation-delay: 8s;
+}
+
+/* Corner accent decorations */
+.hero-corner {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.hero-corner::before,
+.hero-corner::after {
+  content: '';
+  position: absolute;
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.5), transparent);
+}
+
+.hero-corner--tl {
+  top: 0;
+  left: 0;
+}
+
+.hero-corner--tl::before {
+  top: 20px;
+  left: 20px;
+  width: 40px;
+  height: 2px;
+}
+
+.hero-corner--tl::after {
+  top: 20px;
+  left: 20px;
+  width: 2px;
+  height: 40px;
+}
+
+.hero-corner--br {
+  bottom: 0;
+  right: 0;
+  transform: rotate(180deg);
+}
+
+.hero-corner--br::before {
+  top: 20px;
+  left: 20px;
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.5), transparent);
+}
+
+.hero-corner--br::after {
+  top: 20px;
+  left: 20px;
+  width: 2px;
+  height: 40px;
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.5), transparent);
+}
+
+/* Animations */
+@keyframes hero-rotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes grid-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes fan-breathe {
+  0%, 100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateX(-50%) scale(1.05);
+    opacity: 0.7;
+  }
+}
+
+@keyframes shape-float {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0.15;
+  }
+  25% {
+    transform: translate(20px, -30px) rotate(5deg);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translate(-10px, -50px) rotate(-3deg);
+    opacity: 0.15;
+  }
+  75% {
+    transform: translate(15px, -20px) rotate(3deg);
+    opacity: 0.2;
+  }
+}
+
+@keyframes scanline-sweep {
+  0% {
+    top: -2%;
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.8;
+  }
+  95% {
+    opacity: 0.8;
+  }
+  100% {
+    top: 102%;
+    opacity: 0;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-ambient::before {
+    animation-duration: 180s; /* Slower on mobile for performance */
+  }
+
+  .hero-shapes .hero-shape {
+    opacity: 0.1;
+  }
+
+  .hero-corner {
+    display: none;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .hero-ambient::before,
+  .hero-ambient::after,
+  .hero-deco-fan::before,
+  .hero-shape,
+  .hero-scanline {
+    animation: none;
+  }
+
+  .hero-ambient::before {
+    opacity: 0.3;
+  }
+
+  .hero-ambient::after {
+    opacity: 0.4;
+  }
+}
+
 .font-serif-bold {
   font-family: 'Playfair Display', Georgia, serif;
   font-weight: 700;

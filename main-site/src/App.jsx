@@ -791,8 +791,25 @@ function App() {
 
       <main>
       {/* Hero Section */}
-      <section id="hero" className="min-h-[70vh] flex flex-col justify-center px-6 md:px-12 lg:px-24 pt-24 texture-velvet">
-        <div className="max-w-4xl">
+      <section id="hero" className="relative min-h-[70vh] flex flex-col justify-center px-6 md:px-12 lg:px-24 pt-24 texture-velvet overflow-hidden">
+        {/* Ambient Video Background (CSS-based) */}
+        <div className="hero-ambient" aria-hidden="true">
+          <div className="hero-deco-fan" />
+          <div className="hero-shapes">
+            <div className="hero-shape" />
+            <div className="hero-shape" />
+            <div className="hero-shape" />
+            <div className="hero-shape" />
+          </div>
+          <div className="hero-scanlines">
+            <div className="hero-scanline" />
+            <div className="hero-scanline" />
+            <div className="hero-scanline" />
+          </div>
+          <div className="hero-corner hero-corner--tl" />
+          <div className="hero-corner hero-corner--br" />
+        </div>
+        <div className="max-w-4xl relative z-10">
           <div className="flex flex-col md:flex-row md:items-start gap-8 mb-8">
             <div className="flex flex-col items-center animate-fade-in">
               <img
