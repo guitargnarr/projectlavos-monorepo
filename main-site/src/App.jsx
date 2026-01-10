@@ -698,6 +698,7 @@ function App() {
         </div>
       </nav>
 
+      <main>
       {/* Hero Section */}
       <section id="hero" className="min-h-[70vh] flex flex-col justify-center px-6 md:px-12 lg:px-24 pt-24">
         <div className="max-w-4xl">
@@ -1135,6 +1136,7 @@ function App() {
 
         </div>
       </section>
+      </main>
 
       {/* Footer */}
       <footer id="contact" className="px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800">
