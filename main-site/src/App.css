@@ -729,76 +729,60 @@ body {
 .deco-cap::first-letter {
   float: left;
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 4.5em;
-  line-height: 0.75;
-  padding: 0.05em 0.15em 0.05em 0;
+  font-size: 3em;
+  line-height: 1;
+  padding-right: 0.1em;
   margin-right: 0.05em;
+  margin-top: 0.1em;
   font-weight: 700;
-  color: transparent;
-  background: linear-gradient(135deg, #14b8a6 0%, #2dd4bf 50%, #f97316 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  color: #14b8a6;
+  filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.3));
 }
 
 /* Deco-cap with decorative frame */
 .deco-cap-framed::first-letter {
   float: left;
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 4em;
-  line-height: 0.85;
-  padding: 0.15em 0.2em;
+  font-size: 2.8em;
+  line-height: 1;
+  padding: 0.1em 0.15em;
   margin-right: 0.15em;
-  margin-bottom: 0.05em;
+  margin-top: 0.05em;
   font-weight: 700;
   color: #14b8a6;
   border: 2px solid #14b8a6;
   border-radius: 4px;
-  background: linear-gradient(135deg, rgba(20, 184, 166, 0.1) 0%, rgba(249, 115, 22, 0.05) 100%);
-  box-shadow:
-    inset 1px 1px 2px rgba(255, 255, 255, 0.1),
-    2px 2px 8px rgba(0, 0, 0, 0.3);
+  background: rgba(20, 184, 166, 0.1);
 }
 
 /* Deco-cap with art deco geometric accent */
 .deco-cap-geometric::first-letter {
   float: left;
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 4.5em;
-  line-height: 0.75;
-  padding: 0.1em 0.2em 0.1em 0.1em;
-  margin-right: 0.1em;
+  font-size: 3em;
+  line-height: 1;
+  padding-right: 0.15em;
+  margin-right: 0.05em;
+  margin-top: 0.1em;
   font-weight: 700;
   color: #f97316;
-  background:
-    linear-gradient(135deg, transparent 40%, rgba(20, 184, 166, 0.2) 40%, rgba(20, 184, 166, 0.2) 60%, transparent 60%);
   text-shadow:
     1px 1px 0 #14b8a6,
-    2px 2px 0 rgba(20, 184, 166, 0.5);
+    2px 2px 0 rgba(20, 184, 166, 0.3);
 }
 
 /* Deco-cap with gold/brass metallic effect */
 .deco-cap-brass::first-letter {
   float: left;
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 4.5em;
-  line-height: 0.75;
-  padding: 0.05em 0.15em 0.05em 0;
+  font-size: 3em;
+  line-height: 1;
+  padding-right: 0.1em;
   margin-right: 0.1em;
+  margin-top: 0.1em;
   font-weight: 700;
-  color: transparent;
-  background: linear-gradient(
-    135deg,
-    #d4af37 0%,
-    #f4e4a6 25%,
-    #d4af37 50%,
-    #b8860b 75%,
-    #d4af37 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-  filter: drop-shadow(1px 1px 1px rgba(212, 175, 55, 0.5));
+  color: #d4af37;
+  filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.4));
 }
 
 .text-elegant {
