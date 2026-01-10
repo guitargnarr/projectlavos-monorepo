@@ -123,6 +123,19 @@ function App() {
       details: "A premium med spa on Leesgate Road. Smooth animations, refined interactions, and a booking flow that feels as polished as the services they offer."
     },
     {
+      id: "primary-express-care",
+      title: "Primary Express Care",
+      url: "https://primary-express-care.vercel.app",
+      preview: "/previews/primary-express-care.png",
+      ogImage: "/og-images/primary-express-care-og.png",
+      qrCode: "/qr-codes/primary-express-care-qr.png",
+      description: "Multi-location urgent care & wellness",
+      altText: "Primary Express Care Louisville urgent care two locations Dutchmans Lane Dixie Highway walk-ins welcome",
+      category: "Healthcare",
+      specWork: true,
+      details: "Multi-location urgent care serving Louisville (Dutchmans Lane & Dixie Highway). Walk-ins welcome, open 7 days. Service search, 3-step booking wizard, real-time wait times."
+    },
+    {
       id: "kyfamilylawyer",
       title: "A. Holland Houston",
       url: "https://ky-family-lawyer.vercel.app",

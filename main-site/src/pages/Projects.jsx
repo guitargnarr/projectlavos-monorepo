@@ -94,6 +94,12 @@ const workingProjects = [
 
 const standaloneTools = [
   {
+    title: 'Primary Express Care',
+    url: 'https://primary-express-care.vercel.app',
+    description: 'Multi-location healthcare demo for Louisville urgent care (Dutchmans/Dixie). Service search, 3-step booking wizard, real-time wait times. Tier 3 template.',
+    tags: ['React', 'TypeScript', 'Tailwind v4', 'Tier 3', 'Client Demo'],
+  },
+  {
     title: 'JR Spa & Salon',
     url: 'https://jr-spa-salon.vercel.app',
     description: 'Dark luxury spa demo for JR Spa & Salon for Men (Louisville). Gold accents, elegant typography, service booking interface. Established 1976.',
