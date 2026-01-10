@@ -878,8 +878,12 @@ function App() {
                     const y = (e.clientY - rect.top) / rect.height - 0.5;
                     const inner = e.currentTarget.querySelector('.card-3d-inner');
                     if (inner) {
-                      inner.style.setProperty('--rotateX', `${-y * 10}deg`);
-                      inner.style.setProperty('--rotateY', `${x * 10}deg`);
+                      // Dramatic 20-degree rotation
+                      inner.style.setProperty('--rotateX', `${-y * 20}deg`);
+                      inner.style.setProperty('--rotateY', `${x * 20}deg`);
+                      // Shine position follows mouse
+                      const shineX = ((e.clientX - rect.left) / rect.width) * 200 - 100;
+                      inner.style.setProperty('--shine-x', `${shineX}%`);
                     }
                   }}
                   onMouseLeave={(e) => {
@@ -887,6 +891,7 @@ function App() {
                     if (inner) {
                       inner.style.setProperty('--rotateX', '0deg');
                       inner.style.setProperty('--rotateY', '0deg');
+                      inner.style.setProperty('--shine-x', '-100%');
                     }
                   }}
                 >

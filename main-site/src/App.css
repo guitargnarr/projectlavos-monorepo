@@ -672,26 +672,58 @@ body {
   letter-spacing: 0.01em;
 }
 
-/* 4. 3D Card Hover Effect */
+/* 4. 3D Card Hover Effect - Dramatic Version */
 .card-3d {
-  perspective: 1000px;
-}
-
-.card-3d-inner {
-  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+  perspective: 800px;
   transform-style: preserve-3d;
 }
 
-.card-3d:hover .card-3d-inner {
-  transform: rotateX(var(--rotateX, 0deg)) rotateY(var(--rotateY, 0deg)) scale(1.02);
-  box-shadow:
-    0 25px 50px -12px rgba(0, 0, 0, 0.4),
-    0 0 30px rgba(20, 184, 166, 0.15);
+.card-3d-inner {
+  transition: transform 0.15s cubic-bezier(0.23, 1, 0.32, 1),
+              box-shadow 0.2s ease-out;
+  transform-style: preserve-3d;
+  will-change: transform;
+  position: relative;
 }
 
-/* Fallback for non-JS: simple tilt on hover */
+/* Animated shine/glare effect */
+.card-3d-inner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.1) 45%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.1) 55%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 10;
+  transform: translateX(var(--shine-x, -100%));
+}
+
+.card-3d:hover .card-3d-inner::after {
+  opacity: 1;
+  transform: translateX(var(--shine-x, 0%));
+}
+
+.card-3d:hover .card-3d-inner {
+  transform: rotateX(var(--rotateX, 0deg)) rotateY(var(--rotateY, 0deg)) scale(1.05) translateZ(20px);
+  box-shadow:
+    0 35px 60px -15px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(20, 184, 166, 0.25),
+    0 0 80px rgba(20, 184, 166, 0.1),
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
+}
+
+/* Fallback for non-JS: dramatic tilt on hover */
 .card-3d:hover .card-3d-inner:not([style*="--rotateX"]) {
-  transform: perspective(1000px) rotateX(-2deg) rotateY(2deg) scale(1.02);
+  transform: perspective(800px) rotateX(-5deg) rotateY(5deg) scale(1.05) translateZ(20px);
 }
 
 /* Section glow divider bonus */
