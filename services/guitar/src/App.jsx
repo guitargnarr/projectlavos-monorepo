@@ -35,23 +35,19 @@ function Footer() {
   return (
     <footer className="bg-slate-900/50 border-t border-slate-800/50 mt-16">
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-4">
-            <img
-              src="https://projectlavos.com/previews/auriga-chariot.png"
-              alt="Project Lavos - Auriga Chariot"
-              className="w-12 h-12 object-contain opacity-60 hover:opacity-100 transition-opacity"
-            />
-            <div className="text-left">
-              <p className="text-slate-500 text-xs font-semibold tracking-wider uppercase">Project Lavos</p>
-              <p className="text-slate-600 text-xs">Est. 2024</p>
-            </div>
-          </div>
-          <div className="text-center sm:text-right">
-            <p className="text-slate-400 text-xs">&copy; {new Date().getFullYear()} Matthew Scott. Built with purpose.</p>
+        <div className="flex flex-col items-center gap-4">
+          {/* Auriga Watermark */}
+          <img
+            src="https://projectlavos.com/projectlavos-watermark-teal.svg"
+            alt="Project Lavos"
+            className="w-32 h-16 object-contain opacity-50 hover:opacity-80 transition-opacity"
+          />
+          {/* Copyright and legal */}
+          <div className="text-center">
+            <p className="text-slate-500 text-xs">&copy; {new Date().getFullYear()} Matthew Scott</p>
             <a
               href="https://projectlavos.com/privacy"
-              className="text-slate-500 hover:text-teal-400 text-xs transition-colors"
+              className="text-slate-600 hover:text-teal-400 text-xs transition-colors"
               target="_blank"
               rel="noopener noreferrer"
             >

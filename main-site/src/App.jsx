@@ -1365,15 +1365,12 @@ function App() {
           </div>
           {/* Footer bottom with centered watermark */}
           <div className="mt-16 pt-8 border-t border-slate-800/50 flex flex-col items-center gap-4">
-            {/* Animated Auriga Watermark */}
-            <object
-              type="image/svg+xml"
-              data="/projectlavos-watermark-animated.svg"
-              aria-label="Project Lavos"
-              className="w-32 h-16 opacity-60 hover:opacity-90 transition-opacity pointer-events-none"
-            >
-              <img src="/projectlavos-watermark-teal.svg" alt="Project Lavos" className="w-32 h-16" />
-            </object>
+            {/* Auriga Watermark */}
+            <img
+              src="/projectlavos-watermark-teal.svg"
+              alt="Project Lavos"
+              className="w-32 h-16 object-contain opacity-50 hover:opacity-80 transition-opacity"
+            />
             {/* Copyright and legal */}
             <div className="text-center">
               <p className="text-slate-500 text-xs">
