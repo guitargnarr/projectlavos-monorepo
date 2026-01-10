@@ -1172,73 +1172,108 @@ body {
   z-index: 0;
 }
 
-/* Smoke/dust image overlay - primary visual effect */
-.hero-smoke {
-  position: absolute;
-  inset: 0;
-  background-image: url('https://images.unsplash.com/photo-1511447333015-45b65e60f6d5?w=1920&q=80');
-  background-size: cover;
-  background-position: center;
-  opacity: 0.25;
-  mix-blend-mode: screen;
-  animation: smoke-drift 30s ease-in-out infinite;
-}
-
-/* Secondary smoke layer for depth */
-.hero-smoke-secondary {
-  position: absolute;
-  inset: -20%;
-  background-image: url('https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=1920&q=80');
-  background-size: cover;
-  background-position: center;
-  opacity: 0.15;
-  mix-blend-mode: overlay;
-  animation: smoke-drift-reverse 45s ease-in-out infinite;
-  filter: blur(2px);
-}
-
-/* Teal/orange color wash over smoke */
-.hero-color-wash {
+/* Dark gradient base layer */
+.hero-gradient-base {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(20, 184, 166, 0.3), transparent 60%),
-    radial-gradient(ellipse 70% 50% at 80% 70%, rgba(249, 115, 22, 0.2), transparent 50%),
-    radial-gradient(ellipse 100% 80% at 50% 100%, rgba(15, 23, 42, 0.8), transparent 70%);
-  animation: color-pulse 12s ease-in-out infinite;
+    radial-gradient(ellipse 120% 80% at 50% 120%, rgba(15, 23, 42, 0.95), transparent 70%),
+    radial-gradient(ellipse 80% 60% at 0% 0%, rgba(15, 23, 42, 0.7), transparent 50%),
+    radial-gradient(ellipse 80% 60% at 100% 0%, rgba(15, 23, 42, 0.7), transparent 50%);
 }
 
-@keyframes smoke-drift {
-  0%, 100% {
-    transform: scale(1) translate(0, 0);
-  }
-  25% {
-    transform: scale(1.05) translate(2%, -1%);
-  }
-  50% {
-    transform: scale(1.1) translate(-1%, 2%);
-  }
-  75% {
-    transform: scale(1.05) translate(-2%, -1%);
-  }
+/* Floating orb - Teal primary (large, top-left) */
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0;
+  animation: orb-appear 2s ease-out forwards;
 }
 
-@keyframes smoke-drift-reverse {
-  0%, 100% {
-    transform: scale(1.1) translate(0, 0) rotate(0deg);
-  }
-  50% {
-    transform: scale(1.2) translate(3%, 2%) rotate(2deg);
-  }
+.hero-orb--teal-1 {
+  width: 500px;
+  height: 500px;
+  top: -15%;
+  left: -10%;
+  background: radial-gradient(circle, rgba(20, 184, 166, 0.5) 0%, rgba(20, 184, 166, 0.2) 40%, transparent 70%);
+  animation: orb-appear 2s ease-out forwards, orb-float-1 20s ease-in-out infinite 2s;
 }
 
-@keyframes color-pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.8;
-  }
+/* Floating orb - Orange accent (medium, right) */
+.hero-orb--orange {
+  width: 350px;
+  height: 350px;
+  top: 10%;
+  right: -5%;
+  background: radial-gradient(circle, rgba(249, 115, 22, 0.4) 0%, rgba(249, 115, 22, 0.15) 40%, transparent 70%);
+  animation: orb-appear 2s ease-out 0.3s forwards, orb-float-2 25s ease-in-out infinite 2.3s;
+}
+
+/* Floating orb - Teal secondary (medium, bottom-center) */
+.hero-orb--teal-2 {
+  width: 400px;
+  height: 400px;
+  bottom: -20%;
+  left: 30%;
+  background: radial-gradient(circle, rgba(20, 184, 166, 0.35) 0%, rgba(20, 184, 166, 0.1) 40%, transparent 70%);
+  animation: orb-appear 2s ease-out 0.6s forwards, orb-float-3 22s ease-in-out infinite 2.6s;
+}
+
+/* Floating orb - Small teal accent (top-right) */
+.hero-orb--teal-3 {
+  width: 200px;
+  height: 200px;
+  top: 20%;
+  right: 25%;
+  background: radial-gradient(circle, rgba(20, 184, 166, 0.45) 0%, rgba(20, 184, 166, 0.15) 40%, transparent 70%);
+  animation: orb-appear 2s ease-out 0.9s forwards, orb-float-4 18s ease-in-out infinite 2.9s;
+}
+
+/* Floating orb - Small orange accent (bottom-left) */
+.hero-orb--orange-2 {
+  width: 250px;
+  height: 250px;
+  bottom: 10%;
+  left: 5%;
+  background: radial-gradient(circle, rgba(249, 115, 22, 0.35) 0%, rgba(249, 115, 22, 0.1) 40%, transparent 70%);
+  animation: orb-appear 2s ease-out 1.2s forwards, orb-float-5 28s ease-in-out infinite 3.2s;
+}
+
+@keyframes orb-appear {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes orb-float-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(30px, 20px) scale(1.05); }
+  50% { transform: translate(-20px, 40px) scale(0.95); }
+  75% { transform: translate(15px, -10px) scale(1.02); }
+}
+
+@keyframes orb-float-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-25px, 30px) scale(1.08); }
+  66% { transform: translate(20px, -20px) scale(0.92); }
+}
+
+@keyframes orb-float-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, -30px) scale(1.1); }
+}
+
+@keyframes orb-float-4 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(-15px, 25px) scale(1.15); }
+  50% { transform: translate(25px, 10px) scale(0.9); }
+  75% { transform: translate(-10px, -20px) scale(1.05); }
+}
+
+@keyframes orb-float-5 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(20px, -25px) scale(1.1); }
+  66% { transform: translate(-30px, 15px) scale(0.95); }
 }
 
 /* Art Deco sunburst rays - more visible */

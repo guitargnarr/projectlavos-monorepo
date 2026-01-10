@@ -794,10 +794,14 @@ function App() {
       <section id="hero" className="relative min-h-[70vh] flex flex-col justify-center px-6 md:px-12 lg:px-24 pt-24 texture-velvet overflow-hidden">
         {/* Ambient Video Background (CSS-based) */}
         <div className="hero-ambient" aria-hidden="true">
-          {/* Smoke/dust image layers */}
-          <div className="hero-smoke" />
-          <div className="hero-smoke-secondary" />
-          <div className="hero-color-wash" />
+          {/* Dark gradient base */}
+          <div className="hero-gradient-base" />
+          {/* Floating orbs */}
+          <div className="hero-orb hero-orb--teal-1" />
+          <div className="hero-orb hero-orb--orange" />
+          <div className="hero-orb hero-orb--teal-2" />
+          <div className="hero-orb hero-orb--teal-3" />
+          <div className="hero-orb hero-orb--orange-2" />
           {/* Geometric overlays */}
           <div className="hero-deco-fan" />
           <div className="hero-shapes">
