@@ -781,10 +781,10 @@ function App() {
         <div className="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
           <span className="text-teal-400 font-semibold text-sm">MS</span>
           <div className="flex gap-6 text-xs text-slate-400">
-            <a href="#louisville" className="hover:text-teal-400 transition-colors">Louisville</a>
-            <a href="#work" className="hover:text-teal-400 transition-colors">Work</a>
-            <a href="#method" className="hover:text-teal-400 transition-colors">Method</a>
-            <a href="#contact" className="hover:text-teal-400 transition-colors">Contact</a>
+            <a href="#louisville" className="link-vintage-center">Louisville</a>
+            <a href="#work" className="link-vintage-center">Work</a>
+            <a href="#method" className="link-vintage-center">Method</a>
+            <a href="#contact" className="link-vintage-center">Contact</a>
           </div>
         </div>
       </nav>
@@ -830,14 +830,14 @@ function App() {
               <div className="flex flex-col sm:flex-row justify-center md:justify-start gap-3 animate-fade-in-delay-3">
                 <button
                   onClick={scrollToWork}
-                  className="group flex items-center justify-center gap-2 px-6 py-3 bg-teal-500 hover:bg-teal-400 text-slate-900 font-semibold rounded-lg transition-all duration-300 hover:shadow-[0_0_20px_rgba(20,184,166,0.4)]"
+                  className="btn-tactile group flex items-center justify-center gap-2 px-6 py-3 bg-teal-500 hover:bg-teal-400 text-slate-900 font-semibold rounded-lg transition-all duration-300"
                 >
                   See My Work
                   <span className="group-hover:translate-y-1 transition-transform duration-300">↓</span>
                 </button>
                 <a
                   href="#method"
-                  className="group flex items-center justify-center gap-2 px-6 py-3 border-2 border-teal-500 text-teal-400 hover:bg-teal-500/10 font-semibold rounded-lg transition-all duration-300"
+                  className="btn-tactile group flex items-center justify-center gap-2 px-6 py-3 border-2 border-teal-500 text-teal-400 hover:bg-teal-500/10 font-semibold rounded-lg transition-all duration-300"
                 >
                   How I Work
                   <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
@@ -851,10 +851,10 @@ function App() {
       {/* Louisville Section */}
       <section
         id="louisville"
-        className={`px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800 transition-all duration-700 spotlight-warm section-glow ${visibleSections.louisville ? 'opacity-100 translate-y-0 in-view' : 'opacity-0 translate-y-8'}`}
+        className={`px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800 transition-all duration-700 spotlight-warm section-glow-full ${visibleSections.louisville ? 'opacity-100 translate-y-0 in-view' : 'opacity-0 translate-y-8'}`}
       >
         <div className="max-w-6xl">
-          <h2 className="text-2xl md:text-3xl font-semibold text-white mb-2">
+          <h2 className="text-2xl md:text-3xl font-semibold text-white mb-2 neon-text">
             Louisville
           </h2>
           <p className="text-slate-400 mb-4">
@@ -865,25 +865,24 @@ function App() {
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 transition-all duration-300">
-            {localClients.map((client) => {
+            {localClients.map((client, index) => {
               const isClientExpanded = expandedClient === client.id;
+              const isAboveFold = index < 9; // First 9 cards load eagerly
 
               return (
                 <div
                   key={client.id}
-                  className={`card-3d ${isClientExpanded ? 'sm:col-span-2 lg:col-span-3 row-span-2' : ''}`}
+                  className={`card-subtle-3d card-expandable card-click-hint ${isClientExpanded ? 'sm:col-span-2 lg:col-span-3 row-span-2 expanded' : ''}`}
                   onMouseMove={(e) => {
+                    if (isClientExpanded) return; // Don't tilt when expanded
                     const rect = e.currentTarget.getBoundingClientRect();
                     const x = (e.clientX - rect.left) / rect.width - 0.5;
                     const y = (e.clientY - rect.top) / rect.height - 0.5;
                     const inner = e.currentTarget.querySelector('.card-3d-inner');
                     if (inner) {
-                      // Dramatic 20-degree rotation
-                      inner.style.setProperty('--rotateX', `${-y * 20}deg`);
-                      inner.style.setProperty('--rotateY', `${x * 20}deg`);
-                      // Shine position follows mouse
-                      const shineX = ((e.clientX - rect.left) / rect.width) * 200 - 100;
-                      inner.style.setProperty('--shine-x', `${shineX}%`);
+                      // Subtle 8-degree rotation
+                      inner.style.setProperty('--rotateX', `${-y * 8}deg`);
+                      inner.style.setProperty('--rotateY', `${x * 8}deg`);
                     }
                   }}
                   onMouseLeave={(e) => {
@@ -891,34 +890,42 @@ function App() {
                     if (inner) {
                       inner.style.setProperty('--rotateX', '0deg');
                       inner.style.setProperty('--rotateY', '0deg');
-                      inner.style.setProperty('--shine-x', '-100%');
                     }
                   }}
                 >
                 <div
                   onClick={() => setExpandedClient(isClientExpanded ? null : client.id)}
                   className={`
-                    card-3d-inner og-card group cursor-pointer rounded-lg overflow-hidden bg-slate-800/50 border border-slate-700/50 hover:border-teal-500/30 transition-all duration-300 ease-in-out texture-glass
+                    card-3d-inner card-press og-card group cursor-pointer rounded-lg overflow-hidden bg-slate-800/50 border border-slate-700/50 hover:border-teal-500/30 transition-all duration-300 ease-in-out texture-glass
                     ${expandedClient && !isClientExpanded ? 'opacity-60 scale-95' : 'opacity-100 scale-100'}
                   `}
                 >
-                  {/* Client Preview Image */}
+                  {/* Client Preview Image with Skeleton Loader */}
                   {(() => {
                     const activeVersion = client.versions?.[activeClientVersion[client.id] ?? 0];
                     const displayPreview = isClientExpanded && activeVersion ? activeVersion.preview : client.preview;
                     return (
-                      <div className={`overflow-hidden bg-slate-800 transition-all duration-300 ${isClientExpanded ? 'aspect-[16/6]' : 'aspect-[1200/630]'}`}>
+                      <div className={`image-container overflow-hidden bg-slate-800 transition-all duration-300 ${isClientExpanded ? 'aspect-[16/6]' : 'aspect-[1200/630]'}`}>
+                        {/* Skeleton shimmer loader */}
+                        <div className="skeleton skeleton-loader absolute inset-0" />
                         <img
                           src={displayPreview}
                           alt={client.altText || `${client.title} - ${client.description} - Louisville local business website`}
-                          className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
-                          loading="lazy"
+                          className="w-full h-full object-cover object-center transition-all duration-300 group-hover:scale-105 relative z-10"
+                          loading={isAboveFold ? "eager" : "lazy"}
+                          onLoad={(e) => {
+                            e.target.classList.add('loaded');
+                            const skeleton = e.target.previousSibling;
+                            if (skeleton) skeleton.style.opacity = '0';
+                          }}
                           onError={(e) => {
                             e.target.style.display = 'none';
+                            const skeleton = e.target.previousSibling;
+                            if (skeleton) skeleton.style.opacity = '0';
                             e.target.nextSibling.style.display = 'flex';
                           }}
                         />
-                        <div className="hidden w-full h-full items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900">
+                        <div className="hidden w-full h-full items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 absolute inset-0">
                           <span className="text-4xl font-bold text-teal-500/20">{client.title.charAt(0)}</span>
                         </div>
                       </div>
@@ -1106,10 +1113,10 @@ function App() {
       <section
         ref={workSectionRef}
         id="work"
-        className={`px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800 transition-all duration-700 spotlight-warm section-glow ${visibleSections.work ? 'opacity-100 translate-y-0 in-view' : 'opacity-0 translate-y-8'}`}
+        className={`px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800 transition-all duration-700 spotlight-warm section-glow-full ${visibleSections.work ? 'opacity-100 translate-y-0 in-view' : 'opacity-0 translate-y-8'}`}
       >
         <div className="max-w-6xl">
-          <h2 className="text-2xl md:text-3xl font-semibold text-white mb-4">
+          <h2 className="text-2xl md:text-3xl font-semibold text-white mb-4 neon-text-orange">
             The Work
           </h2>
           <p className="text-slate-400 mb-8">
@@ -1117,23 +1124,24 @@ function App() {
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 transition-all duration-300">
-            {projects.map((project) => {
+            {projects.map((project, index) => {
               const isExpanded = expandedProject === project.id;
+              const isAboveFold = index < 6; // First 6 Work cards load eagerly
 
               return (
                 <div
                   key={project.id}
-                  className={`card-3d ${isExpanded ? 'sm:col-span-2 lg:col-span-3 row-span-2' : ''}`}
+                  className={`card-subtle-3d card-expandable card-click-hint ${isExpanded ? 'sm:col-span-2 lg:col-span-3 row-span-2 expanded' : ''}`}
                   onMouseMove={(e) => {
+                    if (isExpanded) return; // Don't tilt when expanded
                     const rect = e.currentTarget.getBoundingClientRect();
                     const x = (e.clientX - rect.left) / rect.width - 0.5;
                     const y = (e.clientY - rect.top) / rect.height - 0.5;
                     const inner = e.currentTarget.querySelector('.card-3d-inner');
                     if (inner) {
-                      inner.style.setProperty('--rotateX', `${-y * 20}deg`);
-                      inner.style.setProperty('--rotateY', `${x * 20}deg`);
-                      const shineX = ((e.clientX - rect.left) / rect.width) * 200 - 100;
-                      inner.style.setProperty('--shine-x', `${shineX}%`);
+                      // Subtle 8-degree rotation
+                      inner.style.setProperty('--rotateX', `${-y * 8}deg`);
+                      inner.style.setProperty('--rotateY', `${x * 8}deg`);
                     }
                   }}
                   onMouseLeave={(e) => {
@@ -1141,30 +1149,38 @@ function App() {
                     if (inner) {
                       inner.style.setProperty('--rotateX', '0deg');
                       inner.style.setProperty('--rotateY', '0deg');
-                      inner.style.setProperty('--shine-x', '-100%');
                     }
                   }}
                 >
                 <div
                   onClick={(e) => handleCardClick(e, project.id)}
                   className={`
-                    card-3d-inner og-card group cursor-pointer rounded-lg overflow-hidden bg-slate-800/50 border border-slate-700/50 hover:border-teal-500/30 transition-all duration-300 ease-in-out texture-glass
+                    card-3d-inner card-press og-card group cursor-pointer rounded-lg overflow-hidden bg-slate-800/50 border border-slate-700/50 hover:border-teal-500/30 transition-all duration-300 ease-in-out texture-glass
                     ${expandedProject && !isExpanded ? 'opacity-60 scale-95' : 'opacity-100 scale-100'}
                   `}
                 >
-                  {/* Preview Image */}
-                  <div className={`overflow-hidden bg-slate-800 transition-all duration-300 ${isExpanded ? 'aspect-[16/6]' : 'aspect-[1200/630]'}`}>
+                  {/* Preview Image with Skeleton Loader */}
+                  <div className={`image-container overflow-hidden bg-slate-800 transition-all duration-300 ${isExpanded ? 'aspect-[16/6]' : 'aspect-[1200/630]'}`}>
+                    {/* Skeleton shimmer loader */}
+                    <div className="skeleton skeleton-loader absolute inset-0" />
                     <img
                       src={project.preview}
                       alt={project.altText || `${project.title} - ${project.description}`}
-                      className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
-                      loading="lazy"
+                      className="w-full h-full object-cover object-top transition-all duration-300 group-hover:scale-105 relative z-10"
+                      loading={isAboveFold ? "eager" : "lazy"}
+                      onLoad={(e) => {
+                        e.target.classList.add('loaded');
+                        const skeleton = e.target.previousSibling;
+                        if (skeleton) skeleton.style.opacity = '0';
+                      }}
                       onError={(e) => {
                         e.target.style.display = 'none';
+                        const skeleton = e.target.previousSibling;
+                        if (skeleton) skeleton.style.opacity = '0';
                         e.target.nextSibling.style.display = 'flex';
                       }}
                     />
-                    <div className="hidden w-full h-full items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900">
+                    <div className="hidden w-full h-full items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 absolute inset-0">
                       <span className="text-4xl font-bold text-teal-500/20">{project.title.charAt(0)}</span>
                     </div>
                   </div>
@@ -1240,10 +1256,10 @@ function App() {
       {/* The Method Section */}
       <section
         id="method"
-        className={`px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800 transition-all duration-700 ${visibleSections.method ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+        className={`px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800 transition-all duration-700 spotlight-warm section-glow-full ${visibleSections.method ? 'opacity-100 translate-y-0 in-view' : 'opacity-0 translate-y-8'}`}
       >
         <div className="max-w-4xl">
-          <h2 className="text-2xl md:text-3xl font-semibold text-white mb-8">
+          <h2 className="text-2xl md:text-3xl font-semibold text-white mb-8 neon-text">
             The Method
           </h2>
 

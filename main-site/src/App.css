@@ -631,17 +631,31 @@ body {
 .spotlight-warm::before {
   content: '';
   position: absolute;
-  top: -50%;
+  top: -30%;
   left: 50%;
   transform: translateX(-50%);
-  width: 150%;
-  height: 100%;
-  background: radial-gradient(ellipse at 50% 0%,
-    rgba(20, 184, 166, 0.12) 0%,
-    rgba(249, 115, 22, 0.06) 30%,
-    transparent 70%);
+  width: 200%;
+  height: 120%;
+  background: radial-gradient(ellipse at 50% 20%,
+    rgba(20, 184, 166, 0.15) 0%,
+    rgba(20, 184, 166, 0.08) 20%,
+    rgba(249, 115, 22, 0.04) 40%,
+    transparent 65%);
   opacity: 0;
   transition: opacity 1.2s ease-out;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Soft edge vignette to prevent hard cutoffs */
+.spotlight-warm::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center,
+    transparent 40%,
+    rgba(15, 23, 42, 0.3) 80%,
+    rgba(15, 23, 42, 0.6) 100%);
   pointer-events: none;
   z-index: 0;
 }
@@ -653,6 +667,51 @@ body {
 .spotlight-warm > * {
   position: relative;
   z-index: 1;
+}
+
+/* 2b. Image Skeleton Loader */
+.skeleton-loader {
+  background: linear-gradient(
+    90deg,
+    rgba(30, 41, 59, 0.8) 0%,
+    rgba(51, 65, 85, 0.8) 50%,
+    rgba(30, 41, 59, 0.8) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Image container with loading state */
+.image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-container img {
+  transition: opacity 0.3s ease;
+}
+
+.image-container img.loading {
+  opacity: 0;
+}
+
+.image-container img.loaded {
+  opacity: 1;
+}
+
+.image-container .skeleton {
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image-container img.loaded + .skeleton {
+  opacity: 0;
 }
 
 /* 3. Drop Cap Typography */
@@ -743,4 +802,294 @@ body {
     rgba(20, 184, 166, 0.4),
     rgba(249, 115, 22, 0.3),
     transparent);
+}
+
+/* 5. Card Expand Animation - Click to reveal */
+.card-expandable {
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card-expandable.expanded {
+  animation: card-expand 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes card-expand {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(0.98);
+  }
+  60% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Reduced 3D tilt on hover for better UX - subtle hint, not main interaction */
+.card-subtle-3d {
+  perspective: 1000px;
+}
+
+.card-subtle-3d .card-3d-inner {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-subtle-3d:hover .card-3d-inner {
+  transform: rotateX(var(--rotateX, -2deg)) rotateY(var(--rotateY, 2deg)) scale(1.02);
+  box-shadow:
+    0 15px 30px -10px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(20, 184, 166, 0.15);
+}
+
+/* Click indicator pulse */
+.card-click-hint::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(20, 184, 166, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.card-click-hint:active::before {
+  animation: click-ripple 0.4s ease-out forwards;
+}
+
+@keyframes click-ripple {
+  0% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2);
+  }
+}
+
+/* 6. Tactile Button Press Effect */
+.btn-tactile {
+  position: relative;
+  transition: all 0.15s ease;
+  transform-style: preserve-3d;
+}
+
+.btn-tactile:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 20px rgba(20, 184, 166, 0.3),
+    0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-tactile:active {
+  transform: translateY(1px);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.3),
+    inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.05s ease;
+}
+
+/* 7. Card Press Effect - Inset shadow on active */
+.card-press {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card-press:active {
+  transform: scale(0.98);
+  box-shadow:
+    inset 0 3px 8px rgba(0, 0, 0, 0.3),
+    inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* 8. Section Glow Dividers - Top and bottom */
+.section-glow-full {
+  position: relative;
+}
+
+.section-glow-full::before,
+.section-glow-full::after {
+  content: '';
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  height: 1px;
+}
+
+.section-glow-full::before {
+  top: 0;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(20, 184, 166, 0.2),
+    rgba(249, 115, 22, 0.15),
+    transparent);
+}
+
+.section-glow-full::after {
+  bottom: 0;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(249, 115, 22, 0.2),
+    rgba(20, 184, 166, 0.15),
+    transparent);
+}
+
+/* 9. Neon Text Effect - Flickering glow */
+.neon-text {
+  color: #14b8a6;
+  text-shadow:
+    0 0 5px rgba(20, 184, 166, 0.5),
+    0 0 10px rgba(20, 184, 166, 0.4),
+    0 0 20px rgba(20, 184, 166, 0.3),
+    0 0 40px rgba(20, 184, 166, 0.2);
+  animation: neon-flicker 3s ease-in-out infinite;
+}
+
+.neon-text-orange {
+  color: #f97316;
+  text-shadow:
+    0 0 5px rgba(249, 115, 22, 0.5),
+    0 0 10px rgba(249, 115, 22, 0.4),
+    0 0 20px rgba(249, 115, 22, 0.3),
+    0 0 40px rgba(249, 115, 22, 0.2);
+  animation: neon-flicker 3s ease-in-out infinite;
+}
+
+@keyframes neon-flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.8; }
+  94% { opacity: 1; }
+  96% { opacity: 0.9; }
+  97% { opacity: 1; }
+}
+
+/* 10. Additional Textures */
+
+/* Wood grain texture */
+.texture-wood {
+  position: relative;
+}
+
+.texture-wood::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 2px,
+    rgba(139, 90, 43, 0.03) 2px,
+    rgba(139, 90, 43, 0.03) 4px
+  );
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 1;
+}
+
+/* Brass/metallic texture */
+.texture-brass {
+  position: relative;
+}
+
+.texture-brass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 175, 55, 0.05) 0%,
+    transparent 40%,
+    transparent 60%,
+    rgba(212, 175, 55, 0.08) 100%
+  );
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 1;
+}
+
+/* Velvet texture - soft gradient */
+.texture-velvet {
+  position: relative;
+}
+
+.texture-velvet::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 30% 20%,
+    rgba(75, 0, 130, 0.08) 0%,
+    transparent 50%
+  ),
+  radial-gradient(
+    ellipse at 70% 80%,
+    rgba(128, 0, 128, 0.05) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 1;
+}
+
+/* 11. Vintage Link Hover - Underline reveal */
+.link-vintage {
+  position: relative;
+  text-decoration: none;
+  color: #14b8a6;
+  transition: color 0.3s ease;
+}
+
+.link-vintage::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #14b8a6, #f97316);
+  transition: width 0.3s ease;
+}
+
+.link-vintage:hover {
+  color: #2dd4bf;
+}
+
+.link-vintage:hover::after {
+  width: 100%;
+}
+
+/* Variant: center-out underline */
+.link-vintage-center {
+  position: relative;
+  text-decoration: none;
+  color: #14b8a6;
+  transition: color 0.3s ease;
+}
+
+.link-vintage-center::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #f97316, #14b8a6, #f97316);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.link-vintage-center:hover {
+  color: #2dd4bf;
+}
+
+.link-vintage-center:hover::after {
+  width: 100%;
 }
