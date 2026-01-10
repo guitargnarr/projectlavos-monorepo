@@ -851,7 +851,7 @@ function App() {
       {/* Louisville Section */}
       <section
         id="louisville"
-        className={`px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800 transition-all duration-700 ${visibleSections.louisville ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+        className={`px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800 transition-all duration-700 spotlight-warm section-glow ${visibleSections.louisville ? 'opacity-100 translate-y-0 in-view' : 'opacity-0 translate-y-8'}`}
       >
         <div className="max-w-6xl">
           <h2 className="text-2xl md:text-3xl font-semibold text-white mb-2">
@@ -871,10 +871,12 @@ function App() {
               return (
                 <div
                   key={client.id}
+                  className={`card-3d ${isClientExpanded ? 'sm:col-span-2 lg:col-span-3 row-span-2' : ''}`}
+                >
+                <div
                   onClick={() => setExpandedClient(isClientExpanded ? null : client.id)}
                   className={`
-                    og-card group cursor-pointer rounded-lg overflow-hidden bg-slate-800/50 border border-slate-700/50 hover:border-teal-500/30 transition-all duration-300 ease-in-out
-                    ${isClientExpanded ? 'sm:col-span-2 lg:col-span-3 row-span-2' : ''}
+                    card-3d-inner og-card group cursor-pointer rounded-lg overflow-hidden bg-slate-800/50 border border-slate-700/50 hover:border-teal-500/30 transition-all duration-300 ease-in-out texture-glass
                     ${expandedClient && !isClientExpanded ? 'opacity-60 scale-95' : 'opacity-100 scale-100'}
                   `}
                 >
@@ -1066,6 +1068,7 @@ function App() {
                     )}
                   </div>
                 </div>
+                </div>
               );
             })}
           </div>
@@ -1199,7 +1202,7 @@ function App() {
             The Method
           </h2>
 
-          <p className="text-slate-300 leading-relaxed mb-6">
+          <p className="text-slate-300 leading-relaxed mb-6 drop-cap">
             I synthesize. Regulations, technical systems, tangled processes—I turn them
             into maps people actually use. Not reports that collect dust. Views that drive decisions.
           </p>

@@ -141,6 +141,12 @@ const standaloneTools = [
     description: 'Arcade neon-themed demo for Louisville video game dive bar. CRT scanlines, 3D card effects, parallax backgrounds. Family-owned since 1970s, rebranded to gaming bar in 2015.',
     tags: ['React', 'TypeScript', 'Framer Motion', 'Tailwind v4'],
   },
+  {
+    title: "Sophia's Rugs",
+    url: 'https://sophias-rugs.vercel.app',
+    description: 'Tier 3 e-commerce demo for Louisville rug shop. Oriental, area, and outdoor rugs plus professional cleaning, repair, and appraisal services. Shopping cart, search/filter, lightbox gallery.',
+    tags: ['React', 'TypeScript', 'Framer Motion', 'Tier 3', 'Client Demo'],
+  },
 ]
 
 const backendServices = [
