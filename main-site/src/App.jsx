@@ -1363,28 +1363,22 @@ function App() {
               LinkedIn
             </a>
           </div>
-          {/* Footer bottom with logo and links */}
-          <div className="mt-16 pt-8 border-t border-slate-800/50 flex flex-col sm:flex-row items-center justify-between gap-6">
-            {/* Auriga Chariot Logo - Official Project Lavos insignia */}
-            <div className="flex items-center gap-4">
-              <img
-                src="/previews/auriga-chariot.png"
-                alt="Project Lavos - Auriga Chariot"
-                className="w-16 h-16 object-contain opacity-60 hover:opacity-100 transition-opacity"
-              />
-              <div className="text-left">
-                <p className="text-slate-500 text-xs font-semibold tracking-wider uppercase">Project Lavos</p>
-                <p className="text-slate-600 text-xs">Est. 2024</p>
-              </div>
-            </div>
+          {/* Footer bottom with centered watermark */}
+          <div className="mt-16 pt-8 border-t border-slate-800/50 flex flex-col items-center gap-4">
+            {/* Centered Auriga Watermark */}
+            <img
+              src="/projectlavos-watermark-teal.svg"
+              alt="Project Lavos"
+              className="w-24 h-12 object-contain opacity-40 hover:opacity-70 transition-opacity"
+            />
             {/* Copyright and legal */}
-            <div className="text-center sm:text-right">
-              <p className="text-slate-400 text-xs">
-                © {new Date().getFullYear()} Matthew Scott. Built with purpose.
+            <div className="text-center">
+              <p className="text-slate-500 text-xs">
+                © {new Date().getFullYear()} Matthew Scott
               </p>
               <a
                 href="/privacy"
-                className="text-slate-500 hover:text-teal-400 text-xs transition-colors"
+                className="text-slate-600 hover:text-teal-400 text-xs transition-colors"
               >
                 Privacy Policy
               </a>
