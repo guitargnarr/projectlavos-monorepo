@@ -708,7 +708,7 @@ function App() {
                 alt="Matthew Scott - Web Developer and Consultant based in Louisville, Kentucky"
                 className="headshot w-40 h-40 md:w-48 md:h-48 rounded-full border-2 border-teal-500/30 object-cover shadow-[0_0_40px_rgba(20,184,166,0.25)]"
               />
-              <p className="text-sm text-slate-500 mt-3 text-center">
+              <p className="text-sm text-slate-400 mt-3 text-center">
                 Louisville, KY
               </p>
             </div>
@@ -768,7 +768,7 @@ function App() {
           <p className="text-slate-400 mb-4">
             Louisville first. Every local business deserves to be found online—not just the ones with marketing budgets.
           </p>
-          <p className="text-xs text-slate-500 mb-8 italic">
+          <p className="text-xs text-slate-400 mb-8 italic">
             Note: Projects marked "Spec Work" were built to demonstrate capability while solidifying my business model. Fable & Flow is paid client work.
           </p>
 
@@ -833,7 +833,7 @@ function App() {
                         <p className={`text-xs text-slate-400 ${isClientExpanded ? '' : 'truncate'}`}>{client.description}</p>
                       </div>
                       <div className="flex items-center gap-2 flex-shrink-0">
-                        <span className="text-xs text-teal-400/70 bg-teal-500/10 px-2 py-0.5 rounded whitespace-nowrap">
+                        <span className="text-xs text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded whitespace-nowrap">
                           {client.category}
                         </span>
                         <span className={`text-teal-400 text-xs transition-transform duration-200 flex-shrink-0 ${isClientExpanded ? 'rotate-180' : ''}`}>
@@ -978,9 +978,9 @@ function App() {
             })}
           </div>
 
-          <p className="text-slate-500 text-sm mt-8 text-center">
+          <p className="text-slate-400 text-sm mt-8 text-center">
             Are you a Louisville business looking to establish or improve your online presence?{' '}
-            <a href="mailto:matthewdscott7@gmail.com" className="text-teal-400 hover:text-teal-300 transition-colors">Let's talk.</a>
+            <a href="mailto:matthewdscott7@gmail.com" className="text-teal-400 hover:text-teal-300 transition-colors underline underline-offset-2">Let's talk.</a>
           </p>
         </div>
       </section>
@@ -1038,7 +1038,7 @@ function App() {
                         <p className={`text-xs text-slate-400 ${isExpanded ? '' : 'truncate'}`}>{project.description}</p>
                       </div>
                       <div className="flex items-center gap-2 flex-shrink-0">
-                        <span className="text-xs text-teal-400/70 bg-teal-500/10 px-2 py-0.5 rounded whitespace-nowrap">
+                        <span className="text-xs text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded whitespace-nowrap">
                           {project.category}
                         </span>
                         <span className={`text-teal-400 text-xs transition-transform duration-200 flex-shrink-0 ${isExpanded ? 'rotate-180' : ''}`}>
@@ -1172,7 +1172,7 @@ function App() {
               LinkedIn
             </a>
           </div>
-          <p className="text-slate-600 text-xs mt-12">
+          <p className="text-slate-400 text-xs mt-12">
             © {new Date().getFullYear()} Matthew Scott. Built with purpose.
           </p>
         </div>
