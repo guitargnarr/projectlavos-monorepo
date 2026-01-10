@@ -538,6 +538,32 @@ function App() {
       category: "Medical",
       specWork: true,
       details: "Advanced dermatology care in Louisville. Specializing in medical and cosmetic skin treatments including acne, eczema, psoriasis, and anti-aging procedures. Personalized treatment plans with cutting-edge technology."
+    },
+    {
+      id: "jrspasalon",
+      title: "JR Spa & Salon",
+      url: "https://jr-spa-salon.vercel.app",
+      preview: "/previews/jr-spa-salon.png",
+      ogImage: "/og-images/jr-spa-salon-og.png",
+      qrCode: "/qr-codes/jr-spa-salon-qr.png",
+      description: "Louisville's premier men's grooming since 1976",
+      altText: "JR Spa and Salon for Men Louisville Kentucky luxury grooming spa haircuts massage facials since 1976",
+      category: "Spa",
+      specWork: true,
+      details: "Dark luxury aesthetic for Louisville's premier men's spa, established 1976. Gold accents, elegant typography, service booking interface. A refined digital presence matching their 48-year legacy."
+    },
+    {
+      id: "playthingstoyshoppe",
+      title: "Playthings Toy Shoppe",
+      url: "https://playthings-toy-shoppe.vercel.app",
+      preview: "/previews/playthings-toy-shoppe.png",
+      ogImage: "/og-images/playthings-toy-shoppe-og.png",
+      qrCode: "/qr-codes/playthings-toy-shoppe-qr.png",
+      description: "Louisville's family-owned toy store since 2001",
+      altText: "Playthings Toy Shoppe Louisville St Matthews Westport Village family-owned toy store LEGO Jellycat since 2001",
+      category: "Retail",
+      specWork: true,
+      details: "Playful design for Louisville's beloved family toy store. 2 locations (St. Matthews & Westport Village), colorful animations, brand showcase. Fredoka + Nunito fonts capture the fun, family-friendly spirit."
     }
   ];
 

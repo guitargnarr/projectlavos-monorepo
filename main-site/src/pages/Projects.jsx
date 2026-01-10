@@ -94,6 +94,18 @@ const workingProjects = [
 
 const standaloneTools = [
   {
+    title: 'JR Spa & Salon',
+    url: 'https://jr-spa-salon.vercel.app',
+    description: 'Dark luxury spa demo for JR Spa & Salon for Men (Louisville). Gold accents, elegant typography, service booking interface. Established 1976.',
+    tags: ['React', 'TypeScript', 'Tailwind v4', 'Client Demo'],
+  },
+  {
+    title: 'Playthings Toy Shoppe',
+    url: 'https://playthings-toy-shoppe.vercel.app',
+    description: 'Playful toy store demo for Louisville\'s family-owned shop (since 2001). Colorful animations, 2 locations, brand showcase. Fredoka + Nunito fonts.',
+    tags: ['React', 'TypeScript', 'Tailwind v4', 'Framer Motion', 'Client Demo'],
+  },
+  {
     title: 'Vance & Stovall Optometry',
     url: 'https://vance-stovall-optometry.vercel.app',
     description: 'Spec demo for downtown Louisville optometry practice. 3D card effects, parallax scrolling, mobile-responsive. Built to pitch website modernization.',
