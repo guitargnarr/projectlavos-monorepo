@@ -791,7 +791,7 @@ function App() {
 
       <main>
       {/* Hero Section */}
-      <section id="hero" className="min-h-[70vh] flex flex-col justify-center px-6 md:px-12 lg:px-24 pt-24">
+      <section id="hero" className="min-h-[70vh] flex flex-col justify-center px-6 md:px-12 lg:px-24 pt-24 texture-velvet">
         <div className="max-w-4xl">
           <div className="flex flex-col md:flex-row md:items-start gap-8 mb-8">
             <div className="flex flex-col items-center animate-fade-in">
@@ -1256,7 +1256,7 @@ function App() {
       {/* The Method Section */}
       <section
         id="method"
-        className={`px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800 transition-all duration-700 spotlight-warm section-glow-full ${visibleSections.method ? 'opacity-100 translate-y-0 in-view' : 'opacity-0 translate-y-8'}`}
+        className={`px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800 transition-all duration-700 spotlight-warm section-glow-full texture-wood ${visibleSections.method ? 'opacity-100 translate-y-0 in-view' : 'opacity-0 translate-y-8'}`}
       >
         <div className="max-w-4xl">
           <h2 className="text-2xl md:text-3xl font-semibold text-white mb-8 neon-text">
@@ -1294,7 +1294,7 @@ function App() {
       </main>
 
       {/* Footer */}
-      <footer id="contact" className="px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800">
+      <footer id="contact" className="px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800 texture-brass">
         <div className="max-w-4xl">
           <h2 className="text-2xl md:text-3xl font-semibold text-white mb-4">
             Let's Build Something
