@@ -1093,3 +1093,26 @@ body {
 .link-vintage-center:hover::after {
   width: 100%;
 }
+
+/* 12. Serif Accent Font - Playfair Display for headings */
+.font-serif {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-serif-bold {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+}
+
+/* Serif headings with vintage styling */
+.heading-serif {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* Italic accent for special emphasis */
+.font-serif-italic {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+}

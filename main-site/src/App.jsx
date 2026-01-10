@@ -805,7 +805,7 @@ function App() {
               </p>
             </div>
             <div className="flex-1">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-white mb-4 sm:mb-6 animate-fade-in-delay-1 text-center md:text-left">
+              <h1 className="heading-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-white mb-4 sm:mb-6 animate-fade-in-delay-1 text-center md:text-left">
                 MATTHEW SCOTT
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl text-slate-300 leading-relaxed mb-4 sm:mb-6 animate-fade-in-delay-2 text-center md:text-left">
@@ -854,7 +854,7 @@ function App() {
         className={`px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800 transition-all duration-700 spotlight-warm section-glow-full ${visibleSections.louisville ? 'opacity-100 translate-y-0 in-view' : 'opacity-0 translate-y-8'}`}
       >
         <div className="max-w-6xl">
-          <h2 className="text-2xl md:text-3xl font-semibold text-white mb-2 neon-text">
+          <h2 className="heading-serif text-2xl md:text-3xl font-semibold text-white mb-2 neon-text">
             Louisville
           </h2>
           <p className="text-slate-400 mb-4">
@@ -1116,7 +1116,7 @@ function App() {
         className={`px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800 transition-all duration-700 spotlight-warm section-glow-full ${visibleSections.work ? 'opacity-100 translate-y-0 in-view' : 'opacity-0 translate-y-8'}`}
       >
         <div className="max-w-6xl">
-          <h2 className="text-2xl md:text-3xl font-semibold text-white mb-4 neon-text-orange">
+          <h2 className="heading-serif text-2xl md:text-3xl font-semibold text-white mb-4 neon-text-orange">
             The Work
           </h2>
           <p className="text-slate-400 mb-8">
@@ -1259,7 +1259,7 @@ function App() {
         className={`px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800 transition-all duration-700 spotlight-warm section-glow-full texture-wood ${visibleSections.method ? 'opacity-100 translate-y-0 in-view' : 'opacity-0 translate-y-8'}`}
       >
         <div className="max-w-4xl">
-          <h2 className="text-2xl md:text-3xl font-semibold text-white mb-8 neon-text">
+          <h2 className="heading-serif text-2xl md:text-3xl font-semibold text-white mb-8 neon-text">
             The Method
           </h2>
 
@@ -1296,7 +1296,7 @@ function App() {
       {/* Footer */}
       <footer id="contact" className="px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800 texture-brass">
         <div className="max-w-4xl">
-          <h2 className="text-2xl md:text-3xl font-semibold text-white mb-4">
+          <h2 className="heading-serif text-2xl md:text-3xl font-semibold text-white mb-4 neon-text">
             Let's Build Something
           </h2>
           <p className="text-slate-400 mb-2">
