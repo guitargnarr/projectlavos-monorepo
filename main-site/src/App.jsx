@@ -564,6 +564,71 @@ function App() {
       category: "Retail",
       specWork: true,
       details: "Playful design for Louisville's beloved family toy store. 2 locations (St. Matthews & Westport Village), colorful animations, brand showcase. Fredoka + Nunito fonts capture the fun, family-friendly spirit."
+    },
+    {
+      id: "halseyflats",
+      title: "Halsey Flats",
+      url: "https://halsey-flats.vercel.app",
+      preview: "/previews/halsey-flats.png",
+      ogImage: "/og-images/halsey-flats-og.png",
+      qrCode: "/qr-codes/halsey-flats-qr.png",
+      description: "Elevated living in St. Matthews",
+      altText: "Halsey Flats luxury apartments St Matthews Louisville Kentucky 2-4 bedroom floor plans pool fitness center amenities",
+      category: "Real Estate",
+      specWork: true,
+      details: "Tier 3 demo for St. Matthews luxury apartments. 5 floor plans ($1,195-$1,795/mo), 3D card hover effects, tour scheduling, amenities showcase, neighborhood guide. Modern React + Framer Motion with parallax hero."
+    },
+    {
+      id: "sophiasrugs",
+      title: "Sophia's Rugs",
+      url: "https://sophias-rugs.vercel.app",
+      preview: "/previews/sophias-rugs.png",
+      ogImage: "/og-images/sophias-rugs-og.png",
+      qrCode: "/qr-codes/sophias-rugs-qr.png",
+      description: "Exquisite rugs & expert care since 1998",
+      altText: "Sophia's Rugs Louisville Kentucky Oriental area outdoor rugs professional cleaning repair appraisal services",
+      category: "Retail",
+      specWork: true,
+      details: "Tier 3 e-commerce demo for Louisville's premier rug destination. Oriental, area, and outdoor rugs plus professional cleaning, repair, stain removal, and appraisal services. Shopping cart, search/filter, lightbox gallery, 3D card effects."
+    },
+    {
+      id: "genesisdiamonds",
+      title: "Genesis Diamonds",
+      url: "https://genesis-diamonds.vercel.app",
+      preview: "/previews/genesis-diamonds.png",
+      ogImage: "/og-images/genesis-diamonds-og.png",
+      qrCode: "/qr-codes/genesis-diamonds-qr.png",
+      description: "Louisville's premier jeweler since 2005",
+      altText: "Genesis Diamonds Louisville Kentucky GIA certified diamonds engagement rings luxury watches Tacori Verragio",
+      category: "Jewelry",
+      specWork: true,
+      details: "Tier 4 ultra-luxury demo for Louisville's premier diamond destination. AI Oracle concierge, user authentication, GIA-certified diamonds, luxury watches (Rolex, Patek Philippe). Best Price Guarantee, 120% Lifetime Upgrade. Obsidian/gold theme for UHNW clientele."
+    },
+    {
+      id: "mallardcrossing",
+      title: "Mallard Crossing",
+      url: "https://mallard-crossing.vercel.app",
+      preview: "/previews/mallard-crossing.png",
+      ogImage: "/og-images/mallard-crossing-og.png",
+      qrCode: "/qr-codes/mallard-crossing-qr.png",
+      description: "Estate living in St. Matthews, Louisville",
+      altText: "Mallard Crossing apartments St Matthews Louisville KY luxury apartments estate living pet friendly",
+      category: "Real Estate",
+      specWork: true,
+      details: "Tier 4 ultra-luxury demo for 600-unit apartment community in St. Matthews. AI Oracle leasing concierge, resident authentication with tier system, 6 floor plans (duck-themed names), tour scheduling. Forest green/copper estate theme for upscale renters."
+    },
+    {
+      id: "headlinersmusichall",
+      title: "Headliners Music Hall",
+      url: "https://headliners-louisville.vercel.app",
+      preview: "/previews/headliners-music-hall.png",
+      ogImage: "/og-images/headliners-music-hall-og.png",
+      qrCode: "/qr-codes/headliners-music-hall-qr.png",
+      description: "Louisville's legendary music venue since 1939",
+      altText: "Headliners Music Hall Louisville Kentucky live music venue concerts speakeasy prohibition era murals 1939",
+      category: "Entertainment",
+      specWork: true,
+      details: "Art Deco aesthetic for Louisville's legendary live music venue, built during Prohibition in 1939. Original murals by National Distillers, film grain overlays, ambient sound toggle, period typography. 85+ years of unforgettable nights on Baxter Ave."
     }
   ];
 
