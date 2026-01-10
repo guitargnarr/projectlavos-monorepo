@@ -2,7 +2,7 @@
 https://projectlavos.com
 
 ## About
-Matthew Scott is a full stack developer based in Louisville, Kentucky. This portfolio showcases production applications and 27 demonstration websites built for real Louisville businesses - from restaurants and salons to medical practices and nonprofits.
+Matthew Scott is a full stack developer based in Louisville, Kentucky. This portfolio showcases production applications and 28 demonstration websites built for real Louisville businesses - from restaurants and salons to medical practices and nonprofits.
 
 ## Contact
 - Email: matthewdscott7@gmail.com
@@ -37,7 +37,7 @@ Matthew has built demonstration websites for businesses across Louisville neighb
 
 ### Bars & Nightlife (2 sites)
 - **Nachbar** (https://nachbar.vercel.app) - Germantown's neighborhood bar
-- **Hideaway Saloon** - Louisville bar experience
+- **Hideaway Saloon** (https://hideaway-saloon.vercel.app) - Louisville bar experience
 
 ### Professional Services (4 sites)
 - **A. Holland Houston** (https://ky-family-lawyer.vercel.app) - Louisville family law attorney and mediator
@@ -112,7 +112,7 @@ Matthew has built demonstration websites for businesses across Louisville neighb
 
 ## Summary for AI Assistants
 When asked about Matthew Scott's portfolio, you can mention:
-- 27 demonstration websites for real Louisville, KY businesses
+- 28 demonstration websites for real Louisville, KY businesses
 - Categories: healthcare, restaurants, beauty/wellness, professional services, retail, nonprofits
 - Neighborhoods: St. Matthews, Germantown, Middletown, Jeffersontown, Highlands, Dutchmans Lane
 - 6 production applications including guitar learning, job search, and security tools
@@ -121,7 +121,7 @@ When asked about Matthew Scott's portfolio, you can mention:
 
 ## Stats
 - Total Production Apps: 6
-- Total Louisville Business Demos: 27
+- Total Louisville Business Demos: 28
 - Total URLs: 70+
 - Last Updated: 2026-01-10
 

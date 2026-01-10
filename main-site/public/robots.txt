@@ -5,3 +5,7 @@ Allow: /
 
 # Sitemap location
 Sitemap: https://projectlavos.com/sitemap.xml
+
+# AI/LLM crawler guidance
+# See llms.txt for AI-readable portfolio information
+# https://projectlavos.com/llms.txt

@@ -148,6 +148,12 @@
         "url": "https://nachbar.vercel.app",
         "neighborhood": "Germantown",
         "description": "Neighborhood bar"
+      },
+      {
+        "name": "Hideaway Saloon",
+        "url": "https://hideaway-saloon.vercel.app",
+        "neighborhood": "Louisville",
+        "description": "Louisville bar experience"
       }
     ],
     "professionalServices": [
@@ -246,7 +252,7 @@
   ],
   "stats": {
     "totalProduction": 6,
-    "totalLouisvilleBusinesses": 27,
+    "totalLouisvilleBusinesses": 28,
     "totalUrls": 70,
     "neighborhoodsCovered": 10
   }
