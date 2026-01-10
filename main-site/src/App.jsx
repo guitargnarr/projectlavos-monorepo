@@ -872,6 +872,23 @@ function App() {
                 <div
                   key={client.id}
                   className={`card-3d ${isClientExpanded ? 'sm:col-span-2 lg:col-span-3 row-span-2' : ''}`}
+                  onMouseMove={(e) => {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const x = (e.clientX - rect.left) / rect.width - 0.5;
+                    const y = (e.clientY - rect.top) / rect.height - 0.5;
+                    const inner = e.currentTarget.querySelector('.card-3d-inner');
+                    if (inner) {
+                      inner.style.setProperty('--rotateX', `${-y * 10}deg`);
+                      inner.style.setProperty('--rotateY', `${x * 10}deg`);
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    const inner = e.currentTarget.querySelector('.card-3d-inner');
+                    if (inner) {
+                      inner.style.setProperty('--rotateX', '0deg');
+                      inner.style.setProperty('--rotateY', '0deg');
+                    }
+                  }}
                 >
                 <div
                   onClick={() => setExpandedClient(isClientExpanded ? null : client.id)}
