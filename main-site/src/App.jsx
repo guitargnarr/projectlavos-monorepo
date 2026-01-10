@@ -1123,10 +1123,32 @@ function App() {
               return (
                 <div
                   key={project.id}
+                  className={`card-3d ${isExpanded ? 'sm:col-span-2 lg:col-span-3 row-span-2' : ''}`}
+                  onMouseMove={(e) => {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const x = (e.clientX - rect.left) / rect.width - 0.5;
+                    const y = (e.clientY - rect.top) / rect.height - 0.5;
+                    const inner = e.currentTarget.querySelector('.card-3d-inner');
+                    if (inner) {
+                      inner.style.setProperty('--rotateX', `${-y * 20}deg`);
+                      inner.style.setProperty('--rotateY', `${x * 20}deg`);
+                      const shineX = ((e.clientX - rect.left) / rect.width) * 200 - 100;
+                      inner.style.setProperty('--shine-x', `${shineX}%`);
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    const inner = e.currentTarget.querySelector('.card-3d-inner');
+                    if (inner) {
+                      inner.style.setProperty('--rotateX', '0deg');
+                      inner.style.setProperty('--rotateY', '0deg');
+                      inner.style.setProperty('--shine-x', '-100%');
+                    }
+                  }}
+                >
+                <div
                   onClick={(e) => handleCardClick(e, project.id)}
                   className={`
-                    og-card group cursor-pointer rounded-lg overflow-hidden bg-slate-800/50 border border-slate-700/50 hover:border-teal-500/30 transition-all duration-300 ease-in-out
-                    ${isExpanded ? 'sm:col-span-2 lg:col-span-3 row-span-2' : ''}
+                    card-3d-inner og-card group cursor-pointer rounded-lg overflow-hidden bg-slate-800/50 border border-slate-700/50 hover:border-teal-500/30 transition-all duration-300 ease-in-out texture-glass
                     ${expandedProject && !isExpanded ? 'opacity-60 scale-95' : 'opacity-100 scale-100'}
                   `}
                 >
@@ -1207,6 +1229,7 @@ function App() {
                       </div>
                     )}
                   </div>
+                </div>
                 </div>
               );
             })}
