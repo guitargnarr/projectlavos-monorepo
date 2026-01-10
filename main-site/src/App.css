@@ -1182,6 +1182,27 @@ body {
     radial-gradient(ellipse 80% 60% at 100% 0%, rgba(15, 23, 42, 0.7), transparent 50%);
 }
 
+/* Project Lavos Watermark */
+.hero-watermark {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 300px;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@media (min-width: 768px) {
+  .hero-watermark {
+    width: 800px;
+    height: 400px;
+    opacity: 0.12;
+  }
+}
+
 /* Floating orb - Teal primary (large, top-left) */
 .hero-orb {
   position: absolute;

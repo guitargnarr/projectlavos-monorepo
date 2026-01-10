@@ -796,6 +796,14 @@ function App() {
         <div className="hero-ambient" aria-hidden="true">
           {/* Dark gradient base */}
           <div className="hero-gradient-base" />
+          {/* Project Lavos Watermark */}
+          <div className="hero-watermark">
+            <img
+              src="/projectlavos-watermark-white.svg"
+              alt=""
+              className="w-full h-full object-contain"
+            />
+          </div>
           {/* Floating orbs */}
           <div className="hero-orb hero-orb--teal-1" />
           <div className="hero-orb hero-orb--orange" />
