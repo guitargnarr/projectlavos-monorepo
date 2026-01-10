@@ -708,10 +708,13 @@ body {
   position: absolute;
   inset: 0;
   transition: opacity 0.3s ease;
+  z-index: 5;
 }
 
-.image-container img.loaded + .skeleton {
+/* Hide skeleton when image is loaded - use :has() for parent-based selection */
+.image-container:has(img.loaded) .skeleton {
   opacity: 0;
+  pointer-events: none;
 }
 
 /* 3. Drop Cap Typography */
