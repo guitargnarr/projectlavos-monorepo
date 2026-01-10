@@ -1106,7 +1106,7 @@ function App() {
       <section
         ref={workSectionRef}
         id="work"
-        className={`px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800 transition-all duration-700 ${visibleSections.work ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+        className={`px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800 transition-all duration-700 spotlight-warm section-glow ${visibleSections.work ? 'opacity-100 translate-y-0 in-view' : 'opacity-0 translate-y-8'}`}
       >
         <div className="max-w-6xl">
           <h2 className="text-2xl md:text-3xl font-semibold text-white mb-4">
