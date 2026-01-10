@@ -7,12 +7,14 @@ function App() {
   return (
     <div className="app">
       <Hero />
-      <StatsSection />
-      <Demos />
-      <SocialProof />
-      <ServicesAndPricing />
-      <ContactForm />
-      <About />
+      <main>
+        <StatsSection />
+        <Demos />
+        <SocialProof />
+        <ServicesAndPricing />
+        <ContactForm />
+        <About />
+      </main>
       <Footer />
     </div>
   )
@@ -48,7 +50,7 @@ function Hero() {
           <div className="flex flex-col sm:flex-row gap-4">
             <a
               href="https://demos.projectlavos.com"
-              className="bg-lavos-orange text-white font-bold py-4 px-8 border-3 border-lavos-black shadow-brutal hover:-translate-y-1 hover:shadow-brutal-lg transition-all text-center no-underline"
+              className="bg-lavos-orange text-slate-900 font-bold py-4 px-8 border-3 border-lavos-black shadow-brutal hover:-translate-y-1 hover:shadow-brutal-lg transition-all text-center no-underline"
             >
               Try Free Demos
             </a>
@@ -162,8 +164,9 @@ function StatsSection() {
 }
 
 function StatCard({ number, label, icon, bgColor }) {
+  const textColor = bgColor === 'bg-lavos-blue' ? 'text-white' : 'text-slate-900'
   return (
-    <div className={`${bgColor} text-white p-6 border-3 border-lavos-black shadow-brutal-sm hover:-translate-y-1 hover:shadow-brutal transition-all duration-200`}>
+    <div className={`${bgColor} ${textColor} p-6 border-3 border-lavos-black shadow-brutal-sm hover:-translate-y-1 hover:shadow-brutal transition-all duration-200`}>
       <div className="text-4xl mb-3">{icon}</div>
       <div className="text-3xl font-bold mb-2">{number}</div>
       <div className="text-sm font-semibold uppercase tracking-wide">{label}</div>
@@ -243,7 +246,7 @@ function SentimentDemo() {
 
       <button
         onClick={loadSampleReview}
-        className="mb-4 bg-lavos-green text-white px-4 py-2 border-2 border-lavos-black shadow-brutal-sm font-bold text-sm hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200"
+        className="mb-4 bg-lavos-green text-slate-900 px-4 py-2 border-2 border-lavos-black shadow-brutal-sm font-bold text-sm hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200"
       >
         💡 Try Louisville Restaurant Review
       </button>
@@ -351,7 +354,7 @@ function LeadScoringDemo() {
 
       <button
         onClick={loadSampleData}
-        className="mb-4 bg-lavos-green text-white px-4 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold text-sm hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 min-h-[44px]"
+        className="mb-4 bg-lavos-green text-slate-900 px-4 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold text-sm hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 min-h-[44px]"
       >
         💡 Try Sample Lead
       </button>
@@ -397,7 +400,7 @@ function LeadScoringDemo() {
       <button
         onClick={scoreLead}
         disabled={loading || !lead.name || !lead.email}
-        className="bg-lavos-orange text-white px-6 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-brutal-sm"
+        className="bg-lavos-orange text-slate-900 px-6 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-brutal-sm"
       >
         {loading ? (
           <>
@@ -489,7 +492,7 @@ function PhishingDemo() {
 
       <button
         onClick={loadSamplePhishing}
-        className="mb-4 bg-lavos-green text-white px-4 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold text-sm hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 min-h-[44px]"
+        className="mb-4 bg-lavos-green text-slate-900 px-4 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold text-sm hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 min-h-[44px]"
       >
         💡 Try Phishing Example
       </button>
@@ -603,10 +606,12 @@ function SocialProof() {
 
         {/* Testimonial Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {testimonials.map((testimonial, index) => (
+          {testimonials.map((testimonial, index) => {
+            const textColor = testimonial.bg === 'bg-lavos-blue' ? 'text-white' : 'text-slate-900'
+            return (
             <div
               key={index}
-              className={`${testimonial.bg} text-white p-6 border-3 border-lavos-black shadow-brutal hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200 transform ${index % 2 === 0 ? 'rotate-1' : '-rotate-1'}`}
+              className={`${testimonial.bg} ${textColor} p-6 border-3 border-lavos-black shadow-brutal hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200 transform ${index % 2 === 0 ? 'rotate-1' : '-rotate-1'}`}
             >
               {/* Quote Icon */}
               <div className="text-5xl font-bold opacity-50 mb-3">"</div>
@@ -617,10 +622,10 @@ function SocialProof() {
               </p>
 
               {/* Author Info */}
-              <div className="border-t-2 border-white/30 pt-4">
+              <div className="border-t-2 border-current/30 pt-4">
                 <p className="font-bold text-lg">{testimonial.author}</p>
-                <p className="text-sm opacity-90">{testimonial.role}</p>
-                <p className="text-xs opacity-75 mt-1 font-semibold">{testimonial.industry}</p>
+                <p className="text-sm">{testimonial.role}</p>
+                <p className="text-xs mt-1 font-semibold">{testimonial.industry}</p>
               </div>
 
               {/* Authenticity Badge */}
@@ -628,7 +633,8 @@ function SocialProof() {
                 ✓ Verified Client
               </div>
             </div>
-          ))}
+          )})}
+
         </div>
 
         {/* Social Proof Footer */}
@@ -689,7 +695,7 @@ function ServicesAndPricing() {
               href="https://calendly.com/matthewdscott7/ai-assessment"
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full text-center bg-lavos-orange text-white px-6 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 no-underline"
+              className="block w-full text-center bg-lavos-orange text-slate-900 px-6 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 no-underline"
             >
               Book Now
             </a>
@@ -761,7 +767,7 @@ function ServicesAndPricing() {
               href="https://calendly.com/matthewdscott7/ai-assessment"
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full text-center bg-lavos-green text-white px-6 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 no-underline"
+              className="block w-full text-center bg-lavos-green text-slate-900 px-6 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 no-underline"
             >
               Get Started
             </a>
@@ -910,7 +916,7 @@ function ContactForm() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-lavos-orange text-white px-8 py-4 border-3 border-lavos-black shadow-brutal font-black text-lg hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-brutal"
+              className="w-full bg-lavos-orange text-slate-900 px-8 py-4 border-3 border-lavos-black shadow-brutal font-black text-lg hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-brutal"
             >
               {loading ? (
                 <>

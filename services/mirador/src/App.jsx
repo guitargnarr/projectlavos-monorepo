@@ -273,7 +273,7 @@ curl http://localhost:5001/api/health`
           </p>
 
           <div className="bg-slate-900 rounded-xl p-6 md:p-8 overflow-x-auto mb-12 relative">
-            <span className="absolute top-2 right-2 text-xs text-slate-500 md:hidden">Scroll to view</span>
+            <span className="absolute top-2 right-2 text-xs text-slate-400 md:hidden">Scroll to view</span>
             <pre className="text-xs sm:text-sm md:text-base text-slate-300 leading-relaxed" role="img" aria-label="Architecture diagram showing flow from User Query through Conductor Agent, Message Bus, Persona Chains, Meta-Cognitive Layer, to Ollama runtime">
 {`User Query
     │
@@ -418,7 +418,7 @@ curl http://localhost:5001/api/health`
             />
           </div>
 
-          <p className="text-slate-500 text-center mt-8 text-sm">
+          <p className="text-slate-400 text-center mt-8 text-sm">
             Personality data shapes which specialists activate and how they frame recommendations
           </p>
         </div>
@@ -497,23 +497,23 @@ curl http://localhost:5001/api/health`
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                 <div className="bg-slate-800 rounded-lg p-4">
                   <div className="text-2xl font-bold text-teal-400">{apiStatus.personas_loaded}</div>
-                  <div className="text-slate-500 text-sm">Personas</div>
+                  <div className="text-slate-400 text-sm">Personas</div>
                 </div>
                 <div className="bg-slate-800 rounded-lg p-4">
                   <div className="text-2xl font-bold text-teal-400">{apiStatus.chains_available}</div>
-                  <div className="text-slate-500 text-sm">Chains</div>
+                  <div className="text-slate-400 text-sm">Chains</div>
                 </div>
                 <div className="bg-slate-800 rounded-lg p-4">
                   <div className="text-2xl font-bold text-teal-400">v{apiStatus.version}</div>
-                  <div className="text-slate-500 text-sm">Version</div>
+                  <div className="text-slate-400 text-sm">Version</div>
                 </div>
                 <div className="bg-slate-800 rounded-lg p-4">
                   <div className="text-2xl font-bold text-orange-400">Demo</div>
-                  <div className="text-slate-500 text-sm">Mode</div>
+                  <div className="text-slate-400 text-sm">Mode</div>
                 </div>
               </div>
             )}
-            <div className="mt-4 text-sm text-slate-500">
+            <div className="mt-4 text-sm text-slate-400">
               <a href={API_URL} target="_blank" rel="noopener noreferrer" className="text-teal-400 hover:text-teal-300">
                 {API_URL}
               </a>
@@ -525,8 +525,9 @@ curl http://localhost:5001/api/health`
             <h3 className="text-lg font-semibold mb-4">Try a Chain</h3>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm text-slate-400 mb-2">Select Chain</label>
+                <label htmlFor="chain-select" className="block text-sm text-slate-400 mb-2">Select Chain</label>
                 <select
+                  id="chain-select"
                   value={selectedChain}
                   onChange={(e) => setSelectedChain(e.target.value)}
                   className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-white focus:border-teal-500 focus:outline-none"
@@ -571,12 +572,12 @@ curl http://localhost:5001/api/health`
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
                       <span className="text-teal-400 font-semibold">{demoResult.chain}</span>
-                      <span className="text-slate-500">|</span>
+                      <span className="text-slate-400">|</span>
                       <span className="text-slate-400">{demoResult.accuracy} accuracy</span>
                     </div>
                     <div className="text-sm text-slate-300">
                       <p className="mb-2">{demoResult.description}</p>
-                      <p className="text-slate-500">Execution flow:</p>
+                      <p className="text-slate-400">Execution flow:</p>
                       <ol className="list-decimal list-inside space-y-1 mt-2">
                         {demoResult.steps?.map((step, i) => (
                           <li key={i} className="text-slate-400">
@@ -586,7 +587,7 @@ curl http://localhost:5001/api/health`
                         ))}
                       </ol>
                     </div>
-                    <p className="text-xs text-slate-500 mt-4 italic">
+                    <p className="text-xs text-slate-400 mt-4 italic">
                       {demoResult.note}
                     </p>
                   </div>
@@ -625,14 +626,14 @@ curl http://localhost:5001/api/health`
           <p className="text-slate-400 mb-2">
             Matthew Scott
           </p>
-          <p className="text-slate-500">
+          <p className="text-slate-400">
             Part of the{' '}
             <a href="https://projectlavos.com" className="text-teal-400 hover:text-teal-300">
               Project Lavos
             </a>
             {' '}portfolio
           </p>
-          <p className="text-slate-600 text-sm mt-2">
+          <p className="text-slate-400 text-sm mt-2">
             MIT License
           </p>
         </div>
@@ -686,7 +687,7 @@ function OceanTrait({ trait, description, value }) {
     <div className="bg-slate-800 rounded-lg p-4">
       <div className="flex justify-between items-center mb-2">
         <span className="font-semibold text-teal-400">{trait}</span>
-        <span className="text-slate-500 text-sm">{value}%</span>
+        <span className="text-slate-400 text-sm">{value}%</span>
       </div>
       <div className="h-2 bg-slate-700 rounded-full mb-2">
         <div
@@ -706,7 +707,7 @@ function VerifiedRow({ claim, evidence }) {
         <span className="mr-2">&#10003;</span>
         {claim}
       </span>
-      <span className="text-slate-500 md:ml-auto text-sm">{evidence}</span>
+      <span className="text-slate-400 md:ml-auto text-sm">{evidence}</span>
     </div>
   )
 }

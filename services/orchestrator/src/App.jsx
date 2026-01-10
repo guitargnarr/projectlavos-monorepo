@@ -185,7 +185,7 @@ function App() {
         <div className="text-center bg-slate-800 p-8 rounded-xl border border-red-500/50">
           <p className="text-red-400 text-xl mb-2">Connection Error</p>
           <p className="text-slate-400">{error}</p>
-          <p className="text-slate-500 text-sm mt-4">Mirador API may be warming up (free tier). Try again in 30 seconds.</p>
+          <p className="text-slate-400 text-sm mt-4">Mirador API may be warming up (free tier). Try again in 30 seconds.</p>
           <button
             onClick={() => window.location.reload()}
             className="mt-4 px-4 py-2 bg-teal-500 hover:bg-teal-400 rounded-lg transition-colors"
@@ -238,7 +238,7 @@ function App() {
               onClick={() => setActiveTab(tab)}
               className={`px-4 py-2 rounded-lg capitalize transition-colors ${
                 activeTab === tab
-                  ? 'bg-teal-500 text-white'
+                  ? 'bg-teal-500 text-slate-900 font-medium'
                   : 'text-slate-400 hover:text-white hover:bg-slate-700'
               }`}
             >
@@ -272,7 +272,7 @@ function App() {
                 </div>
 
                 {workflow.length === 0 ? (
-                  <div className="text-center py-8 text-slate-500">
+                  <div className="text-center py-8 text-slate-400">
                     <p>Add personas from the right panel to build your workflow</p>
                     <p className="text-sm mt-2">Or load a pre-built chain from the Chains tab</p>
                   </div>
@@ -286,11 +286,11 @@ function App() {
                         <div className="flex-1 bg-slate-900 rounded-lg p-3 flex items-center justify-between group">
                           <div>
                             <span className="text-white font-medium">{persona.id}</span>
-                            <span className="text-slate-500 text-sm ml-2">({persona.model})</span>
+                            <span className="text-slate-400 text-sm ml-2">({persona.model})</span>
                           </div>
                           <button
                             onClick={() => removeFromWorkflow(index)}
-                            className="text-slate-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
+                            className="text-slate-400 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
                           >
                             ✕
                           </button>
@@ -328,7 +328,7 @@ function App() {
                   <div className="flex items-center gap-2 mb-2">
                     <span>{CATEGORY_CONFIG[category]?.icon || '📦'}</span>
                     <span className="text-slate-300 font-medium capitalize">{category}</span>
-                    <span className="text-slate-500 text-sm">({categoryPersonas.length})</span>
+                    <span className="text-slate-400 text-sm">({categoryPersonas.length})</span>
                   </div>
                   <div className="space-y-2">
                     {categoryPersonas.map(persona => (
@@ -341,7 +341,7 @@ function App() {
                         <div className="text-white text-sm font-medium group-hover:text-teal-400 transition-colors">
                           {persona.id}
                         </div>
-                        <div className="text-slate-500 text-xs mt-1">{persona.description}</div>
+                        <div className="text-slate-400 text-xs mt-1">{persona.description}</div>
                       </button>
                     ))}
                   </div>
@@ -361,7 +361,7 @@ function App() {
                 <h3 className="text-lg font-semibold text-white mb-2">{chain.id.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</h3>
                 <p className="text-slate-400 text-sm mb-4">{chain.description}</p>
                 <div className="flex items-center justify-between">
-                  <div className="text-slate-500 text-sm">
+                  <div className="text-slate-400 text-sm">
                     {chain.persona_count} personas • {chain.accuracy}
                   </div>
                   <button
@@ -408,7 +408,7 @@ function App() {
                       <div className="flex items-center gap-3">
                         <span className="text-teal-400 font-mono">Step {index + 1}</span>
                         <span className="text-white font-medium">{result.persona}</span>
-                        <span className="text-slate-500 text-sm">{result.description}</span>
+                        <span className="text-slate-400 text-sm">{result.description}</span>
                       </div>
                       <span className={`text-sm ${
                         result.status === 'running' ? 'text-teal-400' :
@@ -422,7 +422,7 @@ function App() {
                     </div>
 
                     <div className="mb-3">
-                      <div className="text-slate-500 text-xs uppercase mb-1">Input</div>
+                      <div className="text-slate-400 text-xs uppercase mb-1">Input</div>
                       <div className="bg-slate-900 rounded-lg p-3 text-slate-300 text-sm max-h-24 overflow-y-auto">
                         {result.input.length > 300 ? result.input.substring(0, 300) + '...' : result.input}
                       </div>
@@ -430,7 +430,7 @@ function App() {
 
                     {result.output && (
                       <div>
-                        <div className="text-slate-500 text-xs uppercase mb-1">Output</div>
+                        <div className="text-slate-400 text-xs uppercase mb-1">Output</div>
                         <div className="bg-slate-900 rounded-lg p-3 text-slate-300 text-sm max-h-48 overflow-y-auto whitespace-pre-wrap">
                           {result.output}
                         </div>
@@ -452,7 +452,7 @@ function App() {
       </div>
 
       {/* Footer */}
-      <footer className="max-w-7xl mx-auto mt-12 text-center text-slate-500 text-sm">
+      <footer className="max-w-7xl mx-auto mt-12 text-center text-slate-400 text-sm">
         <p>Powered by <a href="https://mirador.projectlavos.com" className="text-teal-400 hover:text-teal-300">Mirador API</a> • Built with React</p>
         <p className="mt-1">Part of <a href="https://projectlavos.com" className="text-orange-400 hover:text-orange-300">Project Lavos</a></p>
       </footer>

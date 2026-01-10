@@ -38,12 +38,14 @@ function App() {
   return (
     <div className="app">
       <Hero />
-      <StatsSection />
-      <FeaturedProjects />
-      <Demos />
-      <ServicesAndPricing />
-      <ContactForm />
-      <About />
+      <main>
+        <StatsSection />
+        <FeaturedProjects />
+        <Demos />
+        <ServicesAndPricing />
+        <ContactForm />
+        <About />
+      </main>
       <Footer />
     </div>
   )
@@ -85,7 +87,7 @@ function Hero() {
             href="https://calendly.com/matthewdscott7/ai-assessment"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-lavos-orange text-white px-8 py-4 border-3 border-lavos-black shadow-brutal font-black text-lg hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200 no-underline"
+            className="bg-lavos-orange text-slate-900 px-8 py-4 border-3 border-lavos-black shadow-brutal font-black text-lg hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200 no-underline"
           >
             Book Your Free 1-Hour AI Assessment →
           </a>
@@ -428,7 +430,7 @@ function SentimentDemo() {
 
       <button
         onClick={loadSampleReview}
-        className="mb-4 bg-lavos-green text-white px-4 py-2 border-2 border-lavos-black shadow-brutal-sm font-bold text-sm hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200"
+        className="mb-4 bg-lavos-green text-slate-900 px-4 py-2 border-2 border-lavos-black shadow-brutal-sm font-bold text-sm hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200"
       >
         💡 Try Louisville Restaurant Review
       </button>
@@ -536,7 +538,7 @@ function LeadScoringDemo() {
 
       <button
         onClick={loadSampleData}
-        className="mb-4 bg-lavos-green text-white px-4 py-2 border-2 border-lavos-black shadow-brutal-sm font-bold text-sm hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200"
+        className="mb-4 bg-lavos-green text-slate-900 px-4 py-2 border-2 border-lavos-black shadow-brutal-sm font-bold text-sm hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200"
       >
         💡 Try Sample Lead
       </button>
@@ -582,7 +584,7 @@ function LeadScoringDemo() {
       <button
         onClick={scoreLead}
         disabled={loading || !lead.name || !lead.email}
-        className="bg-lavos-orange text-white px-6 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-brutal-sm"
+        className="bg-lavos-orange text-slate-900 px-6 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-brutal-sm"
       >
         {loading ? (
           <>
@@ -674,7 +676,7 @@ function PhishingDemo() {
 
       <button
         onClick={loadSamplePhishing}
-        className="mb-4 bg-lavos-green text-white px-4 py-2 border-2 border-lavos-black shadow-brutal-sm font-bold text-sm hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200"
+        className="mb-4 bg-lavos-green text-slate-900 px-4 py-2 border-2 border-lavos-black shadow-brutal-sm font-bold text-sm hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200"
       >
         💡 Try Phishing Example
       </button>
@@ -853,7 +855,7 @@ function RestaurantAnalyzer() {
       <button
         onClick={handleAnalyze}
         disabled={!selectedRestaurant || loading}
-        className="w-full bg-lavos-orange text-white font-bold py-4 px-6 border-3 border-lavos-black shadow-brutal-sm hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-brutal-sm"
+        className="w-full bg-lavos-orange text-slate-900 font-bold py-4 px-6 border-3 border-lavos-black shadow-brutal-sm hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-brutal-sm"
       >
         {loading ? (
           <>
@@ -971,7 +973,7 @@ function RestaurantAnalyzer() {
           </div>
 
           {/* Call to Action */}
-          <div className="bg-lavos-orange text-white border-3 border-lavos-black shadow-brutal-sm p-6 text-center">
+          <div className="bg-lavos-orange text-slate-900 border-3 border-lavos-black shadow-brutal-sm p-6 text-center">
             <p className="text-lg font-bold mb-2">Want this analysis for YOUR restaurant?</p>
             <p className="mb-4 text-white/90">I can analyze any Louisville restaurant's reviews and provide actionable insights.</p>
             <a
@@ -1118,7 +1120,7 @@ John Smith`,
       <div className="mb-6 flex flex-wrap gap-2">
         <button
           onClick={() => loadSampleEmail('good')}
-          className="px-4 py-2 bg-lavos-green text-white font-bold border-2 border-lavos-black shadow-brutal-sm hover:translate-y-[-2px] transition-all"
+          className="px-4 py-2 bg-lavos-green text-slate-900 font-bold border-2 border-lavos-black shadow-brutal-sm hover:translate-y-[-2px] transition-all"
         >
           Load Good Example
         </button>
@@ -1253,7 +1255,7 @@ John Smith`,
 
           {/* Strengths */}
           {analysis.strengths && analysis.strengths.length > 0 && (
-            <div className="bg-lavos-green text-white border-3 border-lavos-black shadow-brutal-sm p-6">
+            <div className="bg-lavos-green text-slate-900 border-3 border-lavos-black shadow-brutal-sm p-6">
               <h4 className="text-xl font-bold mb-3 flex items-center gap-2">
                 <span>✅</span> Strengths
               </h4>
@@ -1270,7 +1272,7 @@ John Smith`,
 
           {/* Improvements */}
           {analysis.improvements && analysis.improvements.length > 0 && (
-            <div className="bg-lavos-orange text-white border-3 border-lavos-black shadow-brutal-sm p-6">
+            <div className="bg-lavos-orange text-slate-900 border-3 border-lavos-black shadow-brutal-sm p-6">
               <h4 className="text-xl font-bold mb-3 flex items-center gap-2">
                 <span>🔧</span> Improvements Needed
               </h4>
@@ -1354,7 +1356,7 @@ function ServicesAndPricing() {
               href="https://calendly.com/matthewdscott7/ai-assessment"
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full text-center bg-lavos-orange text-white px-6 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 no-underline"
+              className="block w-full text-center bg-lavos-orange text-slate-900 px-6 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 no-underline"
             >
               Book Now
             </a>
@@ -1426,7 +1428,7 @@ function ServicesAndPricing() {
               href="https://calendly.com/matthewdscott7/ai-assessment"
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full text-center bg-lavos-green text-white px-6 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 no-underline"
+              className="block w-full text-center bg-lavos-green text-slate-900 px-6 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 no-underline"
             >
               Get Started
             </a>
@@ -1575,7 +1577,7 @@ function ContactForm() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-lavos-orange text-white px-8 py-4 border-3 border-lavos-black shadow-brutal font-black text-lg hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-brutal"
+              className="w-full bg-lavos-orange text-slate-900 px-8 py-4 border-3 border-lavos-black shadow-brutal font-black text-lg hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-brutal"
             >
               {loading ? (
                 <>
@@ -1589,7 +1591,7 @@ function ContactForm() {
             </button>
 
             {submitted && (
-              <div className="bg-lavos-green text-white px-6 py-4 border-2 border-lavos-black shadow-brutal-sm font-bold text-center">
+              <div className="bg-lavos-green text-slate-900 px-6 py-4 border-2 border-lavos-black shadow-brutal-sm font-bold text-center">
                 ✓ Thanks! I'll respond within 24 hours.
               </div>
             )}
