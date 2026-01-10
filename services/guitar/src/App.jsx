@@ -37,11 +37,13 @@ function Footer() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="flex flex-col items-center gap-4">
           {/* Auriga Watermark */}
-          <img
-            src="https://projectlavos.com/projectlavos-watermark-teal.svg"
-            alt="Project Lavos"
-            className="w-32 h-16 object-contain opacity-50 hover:opacity-80 transition-opacity"
-          />
+          <a href="https://projectlavos.com" aria-label="Project Lavos">
+            <img
+              src="https://projectlavos.com/projectlavos-watermark-teal.svg"
+              alt="Project Lavos"
+              className="w-32 h-16 object-contain opacity-50 hover:opacity-80 transition-opacity"
+            />
+          </a>
           {/* Copyright and legal */}
           <div className="text-center">
             <p className="text-slate-500 text-xs">&copy; {new Date().getFullYear()} Matthew Scott</p>

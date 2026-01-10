@@ -1366,11 +1366,13 @@ function App() {
           {/* Footer bottom with centered watermark */}
           <div className="mt-16 pt-8 border-t border-slate-800/50 flex flex-col items-center gap-4">
             {/* Auriga Watermark */}
-            <img
-              src="/projectlavos-watermark-teal.svg"
-              alt="Project Lavos"
-              className="w-32 h-16 object-contain opacity-50 hover:opacity-80 transition-opacity"
-            />
+            <a href="https://projectlavos.com" aria-label="Project Lavos">
+              <img
+                src="/projectlavos-watermark-teal.svg"
+                alt="Project Lavos"
+                className="w-32 h-16 object-contain opacity-50 hover:opacity-80 transition-opacity"
+              />
+            </a>
             {/* Copyright and legal */}
             <div className="text-center">
               <p className="text-slate-500 text-xs">
