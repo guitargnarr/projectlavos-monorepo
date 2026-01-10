@@ -779,7 +779,7 @@ function App() {
       {/* Fixed Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-sm border-b border-slate-800/50">
         <div className="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
-          <span className="text-teal-400 font-semibold text-sm">MS</span>
+          <a href="#hero" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="text-teal-400 font-semibold text-sm hover:text-teal-300 transition-colors cursor-pointer">MS</a>
           <div className="flex gap-6 text-xs text-slate-400">
             <a href="#louisville" className="link-vintage-center">Louisville</a>
             <a href="#work" className="link-vintage-center">Work</a>
@@ -1355,9 +1355,33 @@ function App() {
               LinkedIn
             </a>
           </div>
-          <p className="text-slate-400 text-xs mt-12">
-            © {new Date().getFullYear()} Matthew Scott. Built with purpose.
-          </p>
+          {/* Footer bottom with logo and links */}
+          <div className="mt-16 pt-8 border-t border-slate-800/50 flex flex-col sm:flex-row items-center justify-between gap-6">
+            {/* Auriga Chariot Logo - Official Project Lavos insignia */}
+            <div className="flex items-center gap-4">
+              <img
+                src="/previews/auriga-chariot.png"
+                alt="Project Lavos - Auriga Chariot"
+                className="w-16 h-16 object-contain opacity-60 hover:opacity-100 transition-opacity"
+              />
+              <div className="text-left">
+                <p className="text-slate-500 text-xs font-semibold tracking-wider uppercase">Project Lavos</p>
+                <p className="text-slate-600 text-xs">Est. 2024</p>
+              </div>
+            </div>
+            {/* Copyright and legal */}
+            <div className="text-center sm:text-right">
+              <p className="text-slate-400 text-xs">
+                © {new Date().getFullYear()} Matthew Scott. Built with purpose.
+              </p>
+              <a
+                href="/privacy"
+                className="text-slate-500 hover:text-teal-400 text-xs transition-colors"
+              >
+                Privacy Policy
+              </a>
+            </div>
+          </div>
         </div>
       </footer>
       <Analytics />
