@@ -396,19 +396,6 @@ function App() {
       details: "Louisville's premier blow dry and beauty bar. Expert blowouts, styling, and makeup for any occasion. Walk in gorgeous, walk out blown away."
     },
     {
-      id: "primaryexpresscare",
-      title: "Primary Express Care",
-      url: "https://primary-express-care.vercel.app",
-      preview: "/previews/primary-express-care.png",
-      ogImage: "/previews/primary-express-care.png",
-      qrCode: "/qr-codes/primary-express-care-qr.png",
-      description: "Walk-in urgent care clinic",
-      altText: "Primary Express Care Louisville walk-in urgent care clinic medical services no appointment needed",
-      category: "Medical",
-      specWork: true,
-      details: "Louisville's trusted walk-in urgent care clinic. No appointment needed for quality medical care. Serving the community with compassionate, efficient healthcare."
-    },
-    {
       id: "cardinaluniforms",
       title: "Cardinal Uniforms",
       url: "https://cardinal-uniforms.vercel.app",

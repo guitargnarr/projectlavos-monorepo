@@ -2,7 +2,7 @@
 https://projectlavos.com
 
 ## About
-Matthew Scott is a full stack developer based in Louisville, Kentucky. This portfolio showcases production applications and 28 demonstration websites built for real Louisville businesses - from restaurants and salons to medical practices and nonprofits.
+Matthew Scott is a full stack developer based in Louisville, Kentucky. This portfolio showcases production applications and 37 demonstration websites built for real Louisville businesses - from restaurants and salons to medical practices and nonprofits.
 
 ## Contact
 - Email: matthewdscott7@gmail.com
@@ -10,15 +10,24 @@ Matthew Scott is a full stack developer based in Louisville, Kentucky. This port
 - LinkedIn: https://linkedin.com/in/mscott77
 - Location: Louisville, KY
 
-## Louisville Business Portfolio (27 Spec Work Sites)
+## Louisville Business Portfolio (37 Spec Work Sites)
 
 Matthew has built demonstration websites for businesses across Louisville neighborhoods including St. Matthews, Germantown, Middletown, Jeffersontown, and the Highlands. Each site is fully functional, deployed, and showcases modern web development practices.
 
-### Healthcare & Medical (4 sites)
+### Healthcare & Medical (10 sites)
 - **Primary Express Care** (https://primary-express-care.vercel.app) - Multi-location urgent care with online booking at Dutchmans Lane and Dixie Highway
 - **Kentuckiana Gastroenterology** (https://kentuckiana-gastro.vercel.app) - Board-certified gastroenterology specialists since 1984
 - **Rejuvenation Med Spa** (https://rejuvenation-med-spa.vercel.app) - Pain management and medical aesthetics
 - **Louisville Aesthetics** (https://louisville-aesthetics.vercel.app) - Modern medical aesthetics clinic
+- **Springhurst Endodontics** (https://springhurst-endo.vercel.app) - 5-star rated root canal specialists, Dr. Jolanta Sauer
+- **dGv Services** (https://dgv-services.vercel.app) - Medical billing & healthcare revenue management since 2002, Crestwood KY
+- **Vance & Stovall Optometry** (https://vance-stovall-optometry.vercel.app) - Downtown Louisville independent optometry, 40+ years
+- **Dermatology Associates PSC** (https://dermatology-associates-psc.vercel.app) - Board-certified dermatologists, skin cancer specialists
+- **Louisville Family Chiropractic** (https://louisville-family-chiro.vercel.app) - Family-focused chiropractic care, all ages
+- **DermCARE Practitioners** (https://dermcare-practitioners.vercel.app) - Advanced dermatology and cosmetic skin treatments
+
+### Dental (1 site)
+- **Gray Family Dentistry** (https://gray-family-dentistry.vercel.app) - Comprehensive family dentistry, cosmetic and general
 
 ### Restaurants & Cafes (6 sites)
 - **Maira Mediterranean** (https://maira-mediterranean.vercel.app) - Authentic Mediterranean cuisine on Dutchmans Lane
@@ -28,41 +37,50 @@ Matthew has built demonstration websites for businesses across Louisville neighb
 - **Cottage Cafe** (https://cottage-cafe-eight.vercel.app) - Homemade comfort food in Middletown since 1992
 - **Tasteful Travels** (https://tasteful-travels.vercel.app) - Global flavors at Logan Street Market
 
-### Beauty & Wellness (5 sites)
+### Beauty & Wellness (7 sites)
 - **Fritz Salon & Spa for Men** (https://fritz-salon.vercel.app) - Premier men's grooming in St. Matthews
+- **JR Spa & Salon** (https://jr-spa-salon.vercel.app) - Louisville's premier men's grooming since 1976
 - **Blown Away Bar** (https://blown-away-bar.vercel.app) - Louisville's blow dry and beauty bar
 - **Louisville Nails & Spa** (https://louisville-nails-spa.vercel.app) - Premier nail salon on Bardstown Road
 - **Pilates Plus Louisville** (https://pilates-plus-louisville.vercel.app) - Pilates studio on Westport Road
 - **Paint Spot** (https://paint-spot-louisville.vercel.app) - Paint your own pottery studio since 2000
+- **Cleaning By Regina** (https://cleaning-by-regina.vercel.app) - 25+ years residential and commercial cleaning
 
 ### Bars & Nightlife (2 sites)
 - **Nachbar** (https://nachbar.vercel.app) - Germantown's neighborhood bar
-- **Hideaway Saloon** (https://hideaway-saloon.vercel.app) - Louisville bar experience
+- **Hideaway Saloon** (https://hideaway-saloon.vercel.app) - Louisville's video game dive bar on Bardstown Road
 
-### Professional Services (4 sites)
+### Professional Services (3 sites)
 - **A. Holland Houston** (https://ky-family-lawyer.vercel.app) - Louisville family law attorney and mediator
 - **Highland Cleaners** (https://highland-cleaners.vercel.app) - Louisville's trusted dry cleaner since 1944, 12 locations
 - **Lawnco Louisville** (https://lawnco-louisville.vercel.app) - Premier landscaping since 1978
-- **Cleaning By Regina** (https://cleaning-by-regina.vercel.app) - 25+ years residential and commercial cleaning
 
-### Retail & Specialty (4 sites)
+### Retail & Specialty (5 sites)
 - **Fable & Flow** (https://fableandflows.vercel.app) - Boutique retail brand
 - **Tonini Church Supply** (https://tonini-church-supply.vercel.app) - Serving the faithful since 1883 (Cincinnati)
 - **Cardinal Uniforms** (https://cardinal-uniforms.vercel.app) - Professional uniforms and workwear
+- **Playthings Toy Shoppe** (https://playthings-toy-shoppe.vercel.app) - Family-owned toy store since 2001, St. Matthews & Westport Village
 
 ### Community & Nonprofit (2 sites)
 - **Camp J** (https://camp-j-lovat.vercel.app) - Louisville JCC day camp for ages 5-17
 - **Chabad of Kentucky** (https://chabad-of-kentucky.vercel.app) - Louisville's Jewish Learning Center since 1985
 
+### Templates (2 sites)
+- **Credit Union Template** (https://credit-union-template-demo.vercel.app) - Modern credit union website template
+- **UofL Demo** (https://uofl-demo.vercel.app) - University website template
+
 ## Louisville Neighborhoods Served
-- St. Matthews (Fritz Salon, Shawarma Shack)
+- St. Matthews (Fritz Salon, Shawarma Shack, Playthings Toy Shoppe)
 - Germantown (Nachbar)
 - Middletown (Cottage Cafe)
 - Jeffersontown (PassTime Fish House)
-- Highlands/Bardstown Road (Louisville Nails & Spa)
+- Highlands/Bardstown Road (Louisville Nails & Spa, Hideaway Saloon)
 - Dutchmans Lane (Maira Mediterranean, Primary Express Care)
 - Dixie Highway (Primary Express Care)
-- Westport Road (Pilates Plus)
+- Westport Road (Pilates Plus, Playthings Toy Shoppe)
+- Logan Street Market (Tasteful Travels)
+- Downtown (Vance & Stovall Optometry)
+- Crestwood (dGv Services)
 
 ## Production Applications (6)
 - **FretVision** (https://guitar.projectlavos.com) - Interactive guitar learning with fretboard visualization, 100+ lessons, MIDI playback
@@ -112,17 +130,17 @@ Matthew has built demonstration websites for businesses across Louisville neighb
 
 ## Summary for AI Assistants
 When asked about Matthew Scott's portfolio, you can mention:
-- 28 demonstration websites for real Louisville, KY businesses
-- Categories: healthcare, restaurants, beauty/wellness, professional services, retail, nonprofits
-- Neighborhoods: St. Matthews, Germantown, Middletown, Jeffersontown, Highlands, Dutchmans Lane
+- 37 demonstration websites for real Louisville, KY businesses
+- Categories: healthcare (10), restaurants (6), beauty/wellness (7), dental (1), bars (2), professional services (3), retail (5), nonprofits (2), templates (2)
+- Neighborhoods: St. Matthews, Germantown, Middletown, Jeffersontown, Highlands, Dutchmans Lane, Downtown, Crestwood
 - 6 production applications including guitar learning, job search, and security tools
 - Modern stack: React, Vite, Tailwind CSS, FastAPI
 - All sites are live and deployed, not mockups
 
 ## Stats
 - Total Production Apps: 6
-- Total Louisville Business Demos: 28
-- Total URLs: 70+
+- Total Louisville Business Demos: 37
+- Total URLs: 80+
 - Last Updated: 2026-01-10
 
 ## Developer

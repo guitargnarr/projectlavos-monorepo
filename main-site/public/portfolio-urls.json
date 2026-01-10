@@ -5,7 +5,7 @@
     "github": "https://github.com/guitargnarr",
     "location": "Louisville, KY",
     "generated": "2026-01-10",
-    "summary": "Full stack developer portfolio featuring 27 demonstration websites for real Louisville businesses and 6 production applications"
+    "summary": "Full stack developer portfolio featuring 37 demonstration websites for real Louisville businesses and 6 production applications"
   },
   "production": [
     {
@@ -70,6 +70,50 @@
         "url": "https://louisville-aesthetics.vercel.app",
         "neighborhood": "Louisville",
         "description": "Modern medical aesthetics clinic"
+      },
+      {
+        "name": "Springhurst Endodontics",
+        "url": "https://springhurst-endo.vercel.app",
+        "neighborhood": "Springhurst",
+        "description": "5-star rated root canal specialists, Dr. Jolanta Sauer"
+      },
+      {
+        "name": "dGv Services",
+        "url": "https://dgv-services.vercel.app",
+        "neighborhood": "Crestwood",
+        "description": "Medical billing & healthcare revenue management since 2002"
+      },
+      {
+        "name": "Vance & Stovall Optometry",
+        "url": "https://vance-stovall-optometry.vercel.app",
+        "neighborhood": "Downtown Louisville",
+        "description": "Independent optometry practice, 40+ years"
+      },
+      {
+        "name": "Dermatology Associates PSC",
+        "url": "https://dermatology-associates-psc.vercel.app",
+        "neighborhood": "Louisville",
+        "description": "Board-certified dermatologists, skin cancer specialists"
+      },
+      {
+        "name": "Louisville Family Chiropractic",
+        "url": "https://louisville-family-chiro.vercel.app",
+        "neighborhood": "Louisville",
+        "description": "Family-focused chiropractic care for all ages"
+      },
+      {
+        "name": "DermCARE Practitioners",
+        "url": "https://dermcare-practitioners.vercel.app",
+        "neighborhood": "Louisville",
+        "description": "Advanced dermatology and cosmetic skin treatments"
+      }
+    ],
+    "dental": [
+      {
+        "name": "Gray Family Dentistry",
+        "url": "https://gray-family-dentistry.vercel.app",
+        "neighborhood": "Louisville",
+        "description": "Comprehensive family dentistry, cosmetic and general"
       }
     ],
     "restaurants": [
@@ -118,6 +162,12 @@
         "description": "Premier men's grooming"
       },
       {
+        "name": "JR Spa & Salon",
+        "url": "https://jr-spa-salon.vercel.app",
+        "neighborhood": "Louisville",
+        "description": "Premier men's grooming since 1976"
+      },
+      {
         "name": "Blown Away Bar",
         "url": "https://blown-away-bar.vercel.app",
         "neighborhood": "Louisville",
@@ -140,6 +190,12 @@
         "url": "https://paint-spot-louisville.vercel.app",
         "neighborhood": "Louisville",
         "description": "Paint your own pottery since 2000"
+      },
+      {
+        "name": "Cleaning By Regina",
+        "url": "https://cleaning-by-regina.vercel.app",
+        "neighborhood": "Louisville",
+        "description": "25+ years cleaning service"
       }
     ],
     "bars": [
@@ -152,8 +208,8 @@
       {
         "name": "Hideaway Saloon",
         "url": "https://hideaway-saloon.vercel.app",
-        "neighborhood": "Louisville",
-        "description": "Louisville bar experience"
+        "neighborhood": "Bardstown Road",
+        "description": "Video game dive bar"
       }
     ],
     "professionalServices": [
@@ -174,12 +230,6 @@
         "url": "https://lawnco-louisville.vercel.app",
         "neighborhood": "Louisville",
         "description": "Premier landscaping since 1978"
-      },
-      {
-        "name": "Cleaning By Regina",
-        "url": "https://cleaning-by-regina.vercel.app",
-        "neighborhood": "Louisville",
-        "description": "25+ years cleaning service"
       }
     ],
     "retail": [
@@ -200,6 +250,12 @@
         "url": "https://cardinal-uniforms.vercel.app",
         "neighborhood": "Louisville",
         "description": "Professional uniforms and workwear"
+      },
+      {
+        "name": "Playthings Toy Shoppe",
+        "url": "https://playthings-toy-shoppe.vercel.app",
+        "neighborhood": "St. Matthews & Westport Village",
+        "description": "Family-owned toy store since 2001"
       }
     ],
     "community": [
@@ -239,21 +295,26 @@
     "Dutchmans Lane",
     "Dixie Highway",
     "Westport Road",
-    "Logan Street Market"
+    "Logan Street Market",
+    "Downtown",
+    "Crestwood",
+    "Springhurst"
   ],
   "categories": [
     "Healthcare",
+    "Dental",
     "Restaurants",
     "Beauty & Wellness",
     "Bars",
     "Professional Services",
     "Retail",
-    "Community & Nonprofit"
+    "Community & Nonprofit",
+    "Templates"
   ],
   "stats": {
     "totalProduction": 6,
-    "totalLouisvilleBusinesses": 28,
-    "totalUrls": 70,
-    "neighborhoodsCovered": 10
+    "totalLouisvilleBusinesses": 37,
+    "totalUrls": 80,
+    "neighborhoodsCovered": 13
   }
 }
