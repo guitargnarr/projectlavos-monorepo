@@ -857,7 +857,7 @@ function App() {
           <h2 className="heading-serif text-2xl md:text-3xl font-semibold text-white mb-2 neon-text">
             Louisville
           </h2>
-          <p className="text-slate-400 mb-4">
+          <p className="text-slate-400 mb-4 deco-cap">
             Louisville first. Every local business deserves to be found online—not just the ones with marketing budgets.
           </p>
           <p className="text-xs text-slate-400 mb-8 italic">
@@ -1119,7 +1119,7 @@ function App() {
           <h2 className="heading-serif text-2xl md:text-3xl font-semibold text-white mb-4 neon-text-orange">
             The Work
           </h2>
-          <p className="text-slate-400 mb-8">
+          <p className="text-slate-400 mb-8 deco-cap-geometric">
             Live. Deployed. In production. Click to see for yourself.
           </p>
 
@@ -1263,7 +1263,7 @@ function App() {
             The Method
           </h2>
 
-          <p className="text-slate-300 leading-relaxed mb-6 drop-cap">
+          <p className="text-slate-300 leading-relaxed mb-6 deco-cap-brass">
             I synthesize. Regulations, technical systems, tangled processes—I turn them
             into maps people actually use. Not reports that collect dust. Views that drive decisions.
           </p>
@@ -1299,7 +1299,7 @@ function App() {
           <h2 className="heading-serif text-2xl md:text-3xl font-semibold text-white mb-4 neon-text">
             Let's Build Something
           </h2>
-          <p className="text-slate-400 mb-2">
+          <p className="text-slate-400 mb-2 deco-cap-framed">
             Have a complex problem that needs untangling? A system that should exist but doesn't?
           </p>
           <p className="text-slate-400 mb-8">
