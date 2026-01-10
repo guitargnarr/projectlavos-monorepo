@@ -31,12 +31,45 @@ function PageLoader() {
   );
 }
 
+function Footer() {
+  return (
+    <footer className="bg-slate-900/50 border-t border-slate-800/50 mt-16">
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <img
+              src="https://projectlavos.com/previews/auriga-chariot.png"
+              alt="Project Lavos - Auriga Chariot"
+              className="w-12 h-12 object-contain opacity-60 hover:opacity-100 transition-opacity"
+            />
+            <div className="text-left">
+              <p className="text-slate-500 text-xs font-semibold tracking-wider uppercase">Project Lavos</p>
+              <p className="text-slate-600 text-xs">Est. 2024</p>
+            </div>
+          </div>
+          <div className="text-center sm:text-right">
+            <p className="text-slate-400 text-xs">&copy; {new Date().getFullYear()} Matthew Scott. Built with purpose.</p>
+            <a
+              href="https://projectlavos.com/privacy"
+              className="text-slate-500 hover:text-teal-400 text-xs transition-colors"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Privacy Policy
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gray-900 text-gray-100">
+      <div className="min-h-screen bg-gray-900 text-gray-100 flex flex-col">
         <Navigation />
-        <main role="main">
+        <main role="main" className="flex-grow">
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<Home />} />
@@ -55,6 +88,7 @@ function App() {
             </Routes>
           </Suspense>
         </main>
+        <Footer />
         <Analytics />
         <SpeedInsights />
       </div>
