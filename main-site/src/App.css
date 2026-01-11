@@ -1211,10 +1211,10 @@ body {
 }
 
 @keyframes chariot-flicker {
-  0%, 100% { opacity: 0.08; }
-  50% { opacity: 0.12; }
-  52% { opacity: 0.06; }
-  54% { opacity: 0.12; }
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.4; }
+  52% { opacity: 0.2; }
+  54% { opacity: 0.4; }
 }
 
 /* Phases 1-4: Powering up with scale increase */
@@ -1222,10 +1222,10 @@ body {
   transition: all 0.4s ease-out;
 }
 
-.chariot-phase-1 { opacity: 0.15; transform: translate(-50%, -50%) scale(1.05); }
-.chariot-phase-2 { opacity: 0.2; transform: translate(-50%, -50%) scale(1.1); }
-.chariot-phase-3 { opacity: 0.3; transform: translate(-50%, -50%) scale(1.15); }
-.chariot-phase-4 { opacity: 0.4; transform: translate(-50%, -50%) scale(1.2); }
+.chariot-phase-1 { opacity: 0.4; transform: scale(1.05); }
+.chariot-phase-2 { opacity: 0.5; transform: scale(1.1); }
+.chariot-phase-3 { opacity: 0.6; transform: scale(1.15); }
+.chariot-phase-4 { opacity: 0.7; transform: scale(1.2); }
 
 /* Sparks during powering */
 .chariot-sparks {
@@ -1265,8 +1265,9 @@ body {
 
 /* Phase 5: Orbiting ring */
 .chariot-orbiting {
-  opacity: 0.5;
-  transform: translate(-50%, -50%) scale(1.3);
+  opacity: 0.8;
+  transform: scale(1.3);
+  position: relative;
 }
 
 .chariot-orbiting::after {
@@ -1274,9 +1275,9 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 120%;
-  height: 120%;
-  border: 2px solid rgba(249, 115, 22, 0.5);
+  width: 150%;
+  height: 150%;
+  border: 2px solid rgba(249, 115, 22, 0.6);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   animation: orbit-ring 1s linear infinite;
@@ -1289,9 +1290,10 @@ body {
 
 /* Phase 6: Grinding - shake and expand */
 .chariot-grinding {
-  opacity: 0.6;
-  transform: translate(-50%, -50%) scale(1.4);
+  opacity: 0.9;
+  transform: scale(1.4);
   animation: chariot-grind 0.1s linear infinite;
+  position: relative;
 }
 
 .chariot-grinding::before {
@@ -1299,18 +1301,18 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 150%;
-  height: 150%;
-  background: radial-gradient(circle, rgba(249, 115, 22, 0.3) 0%, transparent 70%);
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(249, 115, 22, 0.4) 0%, transparent 70%);
   transform: translate(-50%, -50%);
   animation: grind-pulse 0.2s ease-in-out infinite;
 }
 
 @keyframes chariot-grind {
-  0%, 100% { transform: translate(-50%, -50%) scale(1.4); }
-  25% { transform: translate(calc(-50% - 3px), calc(-50% + 2px)) scale(1.4); }
-  50% { transform: translate(calc(-50% + 3px), calc(-50% - 2px)) scale(1.4); }
-  75% { transform: translate(calc(-50% - 2px), calc(-50% - 3px)) scale(1.4); }
+  0%, 100% { transform: scale(1.4); }
+  25% { transform: scale(1.4) translate(-3px, 2px); }
+  50% { transform: scale(1.4) translate(3px, -2px); }
+  75% { transform: scale(1.4) translate(-2px, -3px); }
 }
 
 @keyframes grind-pulse {
@@ -1320,8 +1322,8 @@ body {
 
 /* Phase 7: Branded - settled and expanded */
 .chariot-branded {
-  opacity: 0.25;
-  transform: translate(-50%, -50%) scale(1.5);
+  opacity: 1;
+  transform: scale(1.5);
   transition: all 0.8s ease-out;
 }
 
@@ -1820,13 +1822,15 @@ body {
   }
 }
 
-/* Reduced motion preference */
+/* Reduced motion preference - WCAG 2.1 AA compliance */
 @media (prefers-reduced-motion: reduce) {
+  /* Hero ambient animations */
   .hero-ambient::before,
   .hero-ambient::after,
   .hero-deco-fan::before,
   .hero-shape,
-  .hero-scanline {
+  .hero-scanline,
+  .hero-orb {
     animation: none;
   }
 
@@ -1836,6 +1840,65 @@ body {
 
   .hero-ambient::after {
     opacity: 0.4;
+  }
+
+  /* Chariot branding sequence - disable all animations */
+  .chariot-flicker,
+  .chariot-grinding,
+  .chariot-orbiting,
+  .chariot-powering {
+    animation: none;
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .chariot-orbiting::after,
+  .chariot-grinding::before {
+    animation: none;
+    display: none;
+  }
+
+  .chariot-sparks,
+  .spark {
+    display: none;
+  }
+
+  /* Ambient background orbs */
+  .ambient-bg::before,
+  .ambient-bg::after,
+  .ambient-bg .orb-3 {
+    animation: none;
+  }
+
+  /* Floating particles */
+  .particle {
+    animation: none;
+    display: none;
+  }
+
+  /* Card animations */
+  .card-expandable,
+  .card-3d-inner,
+  .card-subtle-3d .card-3d-inner {
+    transition: none;
+  }
+
+  /* Neon text flicker */
+  .neon-text,
+  .neon-text-orange {
+    animation: none;
+  }
+
+  /* Float and pulse animations */
+  .animate-float,
+  .animate-pulse-glow {
+    animation: none;
+  }
+
+  /* Skeleton loaders - keep static */
+  .skeleton-loader {
+    animation: none;
+    background: rgba(30, 41, 59, 0.8);
   }
 }
 

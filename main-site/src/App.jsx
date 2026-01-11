@@ -9,7 +9,40 @@ function App() {
     work: true,
     method: true
   });
+  const [showStickyCTA, setShowStickyCTA] = useState(false);
   const workSectionRef = useRef(null);
+  const louisvilleSectionRef = useRef(null);
+
+  // Branding sequence state (0=idle/flicker, 1-4=powering, 5=orbit, 6=grinding, 7=branded)
+  const [brandingPhase, setBrandingPhase] = useState(0);
+
+  // Auto-trigger branding sequence after 3 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (brandingPhase === 0) {
+        // Start powering sequence
+        let phase = 1;
+        const interval = setInterval(() => {
+          setBrandingPhase(phase);
+          phase++;
+          if (phase > 5) clearInterval(interval);
+        }, 400);
+      }
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Auto-advance: orbit → grind → branded
+  useEffect(() => {
+    if (brandingPhase === 5) {
+      const timer = setTimeout(() => setBrandingPhase(6), 2000);
+      return () => clearTimeout(timer);
+    }
+    if (brandingPhase === 6) {
+      const timer = setTimeout(() => setBrandingPhase(7), 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [brandingPhase]);
 
   // Scroll animation observer
   useEffect(() => {
@@ -27,6 +60,24 @@ function App() {
     document.querySelectorAll('section[id]').forEach((section) => {
       observer.observe(section);
     });
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Sticky CTA observer - show when Louisville section is in view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          setShowStickyCTA(entry.isIntersecting);
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (louisvilleSectionRef.current) {
+      observer.observe(louisvilleSectionRef.current);
+    }
 
     return () => observer.disconnect();
   }, []);
@@ -618,6 +669,19 @@ function App() {
       details: "Tier 4 ultra-luxury demo for 600-unit apartment community in St. Matthews. AI Oracle leasing concierge, resident authentication with tier system, 6 floor plans (duck-themed names), tour scheduling. Forest green/copper estate theme for upscale renters."
     },
     {
+      id: "springsstonyvbrook",
+      title: "The Springs at Stony Brook",
+      url: "https://springs-stony-brook.vercel.app",
+      preview: "/previews/springs-stony-brook.png",
+      ogImage: "/og-images/springs-stony-brook-og.png",
+      qrCode: "/qr-codes/springs-stony-brook-qr.png",
+      description: "Where Family Comes To Live",
+      altText: "The Springs at Stony Brook senior living Louisville Kentucky Trilogy Health Services Independent Living Personal Care Memory Care Skilled Services",
+      category: "Healthcare",
+      specWork: true,
+      details: "Premium senior living demo for Louisville Trilogy Health Services community. Official purple/gold Trilogy branding. Four levels of care: Independent Living, Personal Care, Memory Care (Best Friends Approach), and Skilled Services. U.S. News Best Senior Living award badges."
+    },
+    {
       id: "headlinersmusichall",
       title: "Headliners Music Hall",
       url: "https://headliners-louisville.vercel.app",
@@ -794,6 +858,24 @@ function App() {
         <div className="particle" />
         <div className="particle" />
       </div>
+
+      {/* Sticky CTA - appears when Louisville section is in view */}
+      <div
+        className={`fixed bottom-6 right-6 z-50 transition-all duration-300 ${
+          showStickyCTA ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
+        }`}
+      >
+        <a
+          href="sms:+15023450525?body=Hey%20Matthew%2C%20I%20saw%20your%20portfolio%20and%20I%27m%20interested%20in%20discussing%20a%20website%20for%20my%20business."
+          className="flex items-center gap-2 px-5 py-3 bg-teal-500 hover:bg-teal-400 text-slate-900 text-sm font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+          Text me your site
+        </a>
+      </div>
+
       <main>
       {/* Hero Section - No header, chariot below content */}
       <section
@@ -831,8 +913,11 @@ function App() {
           </div>
 
           {/* Tagline */}
-          <p className="text-sm sm:text-base text-slate-400 leading-relaxed mb-8 max-w-md mx-auto font-light">
+          <p className="text-sm sm:text-base text-slate-400 leading-relaxed mb-2 max-w-md mx-auto font-light">
             I untangle complexity.<br />Then I make it useful.
+          </p>
+          <p className="text-xs text-slate-500 mb-8 max-w-md mx-auto">
+            Building websites for Louisville businesses. Local-first, always.
           </p>
 
           {/* CTAs */}
@@ -851,13 +936,27 @@ function App() {
             </a>
           </div>
 
-          {/* Chariot Logo - BELOW content */}
-          <div className="chariot-logo mb-12">
+          {/* Chariot Logo - BELOW content, with grinding animation */}
+          <div className={`chariot-logo mb-12 relative ${
+            brandingPhase === 0 ? 'chariot-flicker' :
+            brandingPhase === 5 ? 'chariot-orbiting' :
+            brandingPhase === 6 ? 'chariot-grinding' :
+            brandingPhase === 7 ? 'chariot-branded' :
+            `chariot-powering chariot-phase-${brandingPhase}`
+          }`}>
             <img
               src="/projectlavos-watermark-white.svg"
               alt="Project Lavos"
-              className="w-48 h-24 md:w-64 md:h-32 object-contain opacity-20 hover:opacity-30 transition-opacity duration-500"
+              className="w-48 h-24 md:w-64 md:h-32 object-contain"
             />
+            {/* Sparks during powering */}
+            {brandingPhase >= 1 && brandingPhase <= 4 && (
+              <div className="chariot-sparks">
+                {[...Array(12)].map((_, i) => (
+                  <div key={i} className="spark" style={{ '--spark-angle': `${i * 30}deg` }} />
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
@@ -877,6 +976,7 @@ function App() {
 
       {/* Louisville Section */}
       <section
+        ref={louisvilleSectionRef}
         id="louisville"
         className={`px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800 transition-all duration-700 spotlight-warm section-glow-full ${visibleSections.louisville ? 'opacity-100 translate-y-0 in-view' : 'opacity-0 translate-y-8'}`}
       >
@@ -888,7 +988,7 @@ function App() {
             Louisville first. Every local business deserves to be found online—not just the ones with marketing budgets.
           </p>
           <p className="text-xs text-slate-400 mb-8 italic">
-            Note: Projects marked "Spec Work" were built to demonstrate capability while solidifying my business model. Fable & Flow is paid client work.
+            Note: Projects marked "Spec Work" were built from real Louisville businesses' public information to demonstrate capability—not paid engagements. Fable & Flow is paid client work.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 transition-all duration-300">
@@ -1131,7 +1231,7 @@ function App() {
 
           <p className="text-slate-400 text-sm mt-8 text-center">
             Are you a Louisville business looking to establish or improve your online presence?{' '}
-            <a href="mailto:matthewdscott7@gmail.com" className="text-teal-400 hover:text-teal-300 transition-colors underline underline-offset-2">Let's talk.</a>
+            <a href="sms:+15023450525?body=Hey%20Matthew%2C%20I%20saw%20your%20portfolio%20and%20I%27m%20interested%20in%20discussing%20a%20website%20for%20my%20business." className="text-teal-400 hover:text-teal-300 transition-colors underline underline-offset-2">Let's talk.</a>
           </p>
         </div>
       </section>
@@ -1146,7 +1246,7 @@ function App() {
           <h2 className="heading-serif text-2xl md:text-3xl font-semibold text-white mb-4 neon-text-orange">
             The Work
           </h2>
-          <p className="text-slate-400 mb-2 deco-cap-geometric">
+          <p className="text-slate-400 mb-2">
             Live. Deployed. In production. Click to see for yourself.
           </p>
           <p className="text-slate-500 text-sm mb-8">
@@ -1397,7 +1497,7 @@ function App() {
             The Method
           </h2>
 
-          <p className="text-slate-300 leading-relaxed mb-6 deco-cap-brass">
+          <p className="text-slate-300 leading-relaxed mb-6">
             I synthesize. Regulations, technical systems, tangled processes—I turn them
             into maps people actually use. Not reports that collect dust. Views that drive decisions.
           </p>
