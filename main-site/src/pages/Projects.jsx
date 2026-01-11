@@ -153,6 +153,18 @@ const standaloneTools = [
     description: 'Premium senior living demo for Louisville Trilogy Health Services community. Independent Living, Personal Care, Memory Care, and Skilled Services. Official Trilogy purple/gold branding.',
     tags: ['React', 'TypeScript', 'Framer Motion', 'Trilogy Brand', 'Client Demo'],
   },
+  {
+    title: 'Dr. Forrest S. Kuhn, MD',
+    url: 'https://kuhn-allergy.vercel.app',
+    description: 'Medical practice demo for Louisville allergist & asthma specialist. 30+ years experience, 16 conditions treated, appointment booking, insurance info. Professional medical blue palette.',
+    tags: ['React', 'TypeScript', 'Framer Motion', 'Tier 4', 'Client Demo'],
+  },
+  {
+    title: 'Clater Jewelers',
+    url: 'https://clater-jewelers.vercel.app',
+    description: 'Luxury jewelry store demo for Louisville\'s premier jeweler since 1949. Direct diamond importers, custom designs, 75+ years of excellence. Navy/gold palette with 3D card effects.',
+    tags: ['React', 'TypeScript', 'Framer Motion', 'Tier 4', 'Client Demo'],
+  },
 ]
 
 const backendServices = [
