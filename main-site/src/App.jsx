@@ -984,7 +984,7 @@ function App() {
           <h2 className="heading-serif text-2xl md:text-3xl font-semibold text-white mb-2 neon-text">
             Louisville
           </h2>
-          <p className="text-slate-400 mb-4 deco-cap">
+          <p className="text-slate-400 mb-4">
             Louisville first. Every local business deserves to be found online—not just the ones with marketing budgets.
           </p>
           <p className="text-xs text-slate-400 mb-8 italic">
@@ -1533,7 +1533,7 @@ function App() {
           <h2 className="heading-serif text-2xl md:text-3xl font-semibold text-white mb-4 neon-text">
             Let's Build Something
           </h2>
-          <p className="text-slate-400 mb-2 deco-cap-framed">
+          <p className="text-slate-400 mb-2">
             Have a complex problem that needs untangling? A system that should exist but doesn't?
           </p>
           <p className="text-slate-400 mb-8">
