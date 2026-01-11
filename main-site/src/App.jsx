@@ -11,7 +11,6 @@ function App() {
   });
   const [showStickyCTA, setShowStickyCTA] = useState(false);
   const workSectionRef = useRef(null);
-  const louisvilleSectionRef = useRef(null);
 
   // Branding sequence state (0=idle/flicker, 1-4=powering, 5=orbit, 6=grinding, 7=branded)
   const [brandingPhase, setBrandingPhase] = useState(0);
@@ -975,7 +974,6 @@ function App() {
 
       {/* Louisville Section */}
       <section
-        ref={louisvilleSectionRef}
         id="louisville"
         className={`px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800 transition-all duration-700 spotlight-warm section-glow-full ${visibleSections.louisville ? 'opacity-100 translate-y-0 in-view' : 'opacity-0 translate-y-8'}`}
       >
