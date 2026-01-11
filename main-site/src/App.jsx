@@ -64,22 +64,21 @@ function App() {
     return () => observer.disconnect();
   }, []);
 
-  // Sticky CTA observer - show when Louisville section is in view
+  // Sticky CTA - show when scrolled to Louisville section
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          setShowStickyCTA(entry.isIntersecting);
-        });
-      },
-      { threshold: 0.1 }
-    );
+    const handleScroll = () => {
+      const louisville = document.getElementById('louisville');
+      if (louisville) {
+        const rect = louisville.getBoundingClientRect();
+        const inView = rect.top < window.innerHeight && rect.bottom > 0;
+        setShowStickyCTA(inView);
+      }
+    };
 
-    if (louisvilleSectionRef.current) {
-      observer.observe(louisvilleSectionRef.current);
-    }
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check initial position
 
-    return () => observer.disconnect();
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scrollToWork = () => {
