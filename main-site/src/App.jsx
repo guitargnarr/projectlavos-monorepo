@@ -367,6 +367,19 @@ function App() {
       details: "Board-certified gastroenterology specialists serving Louisville since 1984. Colonoscopy, endoscopy, ERCP, and comprehensive digestive health care at their state-of-the-art surgery center."
     },
     {
+      id: "kuhnallergy",
+      title: "Dr. Forrest S. Kuhn, MD",
+      url: "https://kuhn-allergy.vercel.app",
+      preview: "/previews/kuhn-allergy.png",
+      ogImage: "/previews/kuhn-allergy.png",
+      qrCode: "/qr-codes/kuhn-allergy-qr.png",
+      description: "Louisville's trusted allergy & asthma specialist",
+      altText: "Dr. Forrest S. Kuhn MD Louisville allergist asthma specialist board certified 30 years experience Dupont Square",
+      category: "Medical",
+      specWork: true,
+      details: "Board-certified allergist with 30+ years experience at Dupont Square. Specializes in seasonal allergies, food allergies, asthma management, insect allergies, drug reactions, and skin allergy testing. Accepting new patients, most insurance accepted."
+    },
+    {
       id: "louisvillenailsspa",
       title: "Louisville Nails & Spa",
       url: "https://louisville-nails-spa.vercel.app",
@@ -691,6 +704,19 @@ function App() {
       category: "Entertainment",
       specWork: true,
       details: "Art Deco aesthetic for Louisville's legendary live music venue, built during Prohibition in 1939. Original murals by National Distillers, film grain overlays, ambient sound toggle, period typography. 85+ years of unforgettable nights on Baxter Ave."
+    },
+    {
+      id: "claterjewelers",
+      title: "Clater Jewelers",
+      url: "https://clater-jewelers.vercel.app",
+      preview: "/previews/clater-jewelers.png",
+      ogImage: "/previews/clater-jewelers.png",
+      qrCode: "/qr-codes/clater-jewelers-qr.png",
+      description: "Where Louisville finds forever since 1949",
+      altText: "Clater Jewelers Louisville Kentucky premier jeweler since 1949 direct diamond importers custom designs engagement rings",
+      category: "Retail",
+      specWork: true,
+      details: "Louisville's premier jeweler since 1949. Direct diamond importers, custom designs, and 75+ years of excellence. Navy/gold palette with 3D card effects. GIA certified, 5.0 Google rating, family owned."
     }
   ];
 
