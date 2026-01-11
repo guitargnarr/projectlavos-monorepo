@@ -794,109 +794,84 @@ function App() {
         <div className="particle" />
         <div className="particle" />
       </div>
-      {/* Fixed Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-sm border-b border-slate-800/50">
-        <div className="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
-          <a href="#hero" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="text-teal-400 font-semibold text-sm hover:text-teal-300 transition-colors cursor-pointer">MS</a>
-          <div className="flex gap-6 text-xs text-slate-400">
-            <a href="#louisville" className="link-vintage-center">Louisville</a>
-            <a href="#work" className="link-vintage-center">Work</a>
-            <a href="#method" className="link-vintage-center">Method</a>
-            <a href="#contact" className="link-vintage-center">Contact</a>
-          </div>
-        </div>
-      </nav>
-
       <main>
-      {/* Hero Section */}
-      <section id="hero" className="relative min-h-[70vh] flex flex-col justify-center px-6 md:px-12 lg:px-24 pt-24 texture-velvet overflow-hidden">
-        {/* Ambient Video Background (CSS-based) */}
+      {/* Hero Section - No header, chariot below content */}
+      <section
+        id="hero"
+        className="relative min-h-[100svh] flex flex-col items-center justify-center px-6 md:px-12 lg:px-24 py-12 texture-velvet overflow-hidden"
+      >
+        {/* Ambient Background */}
         <div className="hero-ambient" aria-hidden="true">
-          {/* Dark gradient base */}
           <div className="hero-gradient-base" />
-          {/* Project Lavos Watermark */}
-          <div className="hero-watermark">
-            <img
-              src="/projectlavos-watermark-white.svg"
-              alt=""
-              className="w-full h-full object-contain"
-            />
-          </div>
-          {/* Floating orbs */}
           <div className="hero-orb hero-orb--teal-1" />
-          <div className="hero-orb hero-orb--orange" />
           <div className="hero-orb hero-orb--teal-2" />
           <div className="hero-orb hero-orb--teal-3" />
-          <div className="hero-orb hero-orb--orange-2" />
-          {/* Geometric overlays */}
-          <div className="hero-deco-fan" />
-          <div className="hero-shapes">
-            <div className="hero-shape" />
-            <div className="hero-shape" />
-            <div className="hero-shape" />
-            <div className="hero-shape" />
-          </div>
-          <div className="hero-scanlines">
-            <div className="hero-scanline" />
-            <div className="hero-scanline" />
-            <div className="hero-scanline" />
-          </div>
-          <div className="hero-corner hero-corner--tl" />
-          <div className="hero-corner hero-corner--br" />
         </div>
-        <div className="max-w-4xl relative z-10">
-          <div className="flex flex-col md:flex-row md:items-start gap-8 mb-8">
-            <div className="flex flex-col items-center animate-fade-in">
-              <img
-                src="/headshot.png"
-                alt="Matthew Scott - Web Developer and Consultant based in Louisville, Kentucky"
-                className="headshot w-40 h-40 md:w-48 md:h-48 rounded-full border-2 border-teal-500/30 object-cover shadow-[0_0_40px_rgba(20,184,166,0.25)]"
-              />
-              <p className="text-sm text-slate-400 mt-3 text-center">
-                Louisville, KY
-              </p>
-            </div>
-            <div className="flex-1">
-              <h1 className="heading-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-white mb-4 sm:mb-6 animate-fade-in-delay-1 text-center md:text-left">
-                MATTHEW SCOTT
-              </h1>
-              <p className="text-lg sm:text-xl md:text-2xl text-slate-300 leading-relaxed mb-4 sm:mb-6 animate-fade-in-delay-2 text-center md:text-left">
-                I untangle complexity. Then I make it useful.
-              </p>
-              {/* Operating Principles with tooltips */}
-              <div className="flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-2 md:gap-x-6 animate-fade-in-delay-3 mb-8">
-                {principles.map((principle, idx) => (
-                  <span
-                    key={idx}
-                    className="principle-tag text-xs sm:text-sm text-teal-400 whitespace-nowrap cursor-help relative group"
-                    title={principle.tooltip}
-                  >
-                    {principle.text}
-                    <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-slate-800 text-slate-300 text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-normal w-48 text-center border border-slate-700 shadow-lg z-10">
-                      {principle.tooltip}
-                    </span>
-                  </span>
-                ))}
-              </div>
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row justify-center md:justify-start gap-3 animate-fade-in-delay-3">
-                <button
-                  onClick={scrollToWork}
-                  className="btn-tactile group flex items-center justify-center gap-2 px-6 py-3 bg-teal-500 hover:bg-teal-400 text-slate-900 font-semibold rounded-lg transition-all duration-300"
-                >
-                  See My Work
-                  <span className="group-hover:translate-y-1 transition-transform duration-300">↓</span>
-                </button>
-                <a
-                  href="#method"
-                  className="btn-tactile group flex items-center justify-center gap-2 px-6 py-3 border-2 border-teal-500 text-teal-400 hover:bg-teal-500/10 font-semibold rounded-lg transition-all duration-300"
-                >
-                  How I Work
-                  <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-                </a>
-              </div>
-            </div>
+
+        {/* Centered Content */}
+        <div className="max-w-2xl mx-auto relative z-10 text-center flex flex-col items-center">
+          {/* Profile */}
+          <div className="flex flex-col items-center animate-fade-in mb-6">
+            <img
+              src="/headshot.png"
+              alt="Matthew Scott - Web Developer and Consultant based in Louisville, Kentucky"
+              className="headshot w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-full border border-slate-600/50 object-cover"
+            />
+            <p className="text-[10px] text-slate-500 mt-3 font-sans tracking-[0.3em] uppercase">
+              Louisville, KY
+            </p>
           </div>
+
+          {/* Name */}
+          <div className="relative mb-6">
+            <div className="w-8 h-px bg-gradient-to-r from-transparent via-teal-500 to-transparent mx-auto mb-4" />
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-light text-white tracking-[0.2em] uppercase">
+              MATTHEW SCOTT
+            </h1>
+          </div>
+
+          {/* Tagline */}
+          <p className="text-sm sm:text-base text-slate-400 leading-relaxed mb-8 max-w-md mx-auto font-light">
+            I untangle complexity.<br />Then I make it useful.
+          </p>
+
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row justify-center gap-3 mb-12">
+            <button
+              onClick={scrollToWork}
+              className="btn-tactile group flex items-center justify-center gap-2 px-5 py-2.5 bg-transparent border border-slate-600 text-slate-300 hover:border-teal-500 hover:text-teal-400 text-xs tracking-wider uppercase transition-all duration-300"
+            >
+              See My Work
+            </button>
+            <a
+              href="#method"
+              className="btn-tactile group flex items-center justify-center gap-2 px-5 py-2.5 bg-transparent border border-slate-600 text-slate-300 hover:border-teal-500 hover:text-teal-400 text-xs tracking-wider uppercase transition-all duration-300"
+            >
+              How I Work
+            </a>
+          </div>
+
+          {/* Chariot Logo - BELOW content */}
+          <div className="chariot-logo mb-12">
+            <img
+              src="/projectlavos-watermark-white.svg"
+              alt="Project Lavos"
+              className="w-48 h-24 md:w-64 md:h-32 object-contain opacity-20 hover:opacity-30 transition-opacity duration-500"
+            />
+          </div>
+        </div>
+
+        {/* Principles - Footer of hero, horizontal */}
+        <div className="absolute bottom-8 left-0 right-0 flex justify-center gap-x-8 text-[10px] tracking-widest uppercase">
+          {principles.map((principle, idx) => (
+            <span
+              key={idx}
+              className="principle-tag text-slate-500 hover:text-teal-400 cursor-help transition-colors duration-300"
+              title={principle.tooltip}
+            >
+              {principle.text}
+            </span>
+          ))}
         </div>
       </section>
 

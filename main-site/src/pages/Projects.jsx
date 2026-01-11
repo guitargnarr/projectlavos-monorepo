@@ -147,6 +147,12 @@ const standaloneTools = [
     description: 'Tier 3 e-commerce demo for Louisville rug shop. Oriental, area, and outdoor rugs plus professional cleaning, repair, and appraisal services. Shopping cart, search/filter, lightbox gallery.',
     tags: ['React', 'TypeScript', 'Framer Motion', 'Tier 3', 'Client Demo'],
   },
+  {
+    title: 'The Springs at Stony Brook',
+    url: 'https://springs-stony-brook.vercel.app',
+    description: 'Premium senior living demo for Louisville Trilogy Health Services community. Independent Living, Personal Care, Memory Care, and Skilled Services. Official Trilogy purple/gold branding.',
+    tags: ['React', 'TypeScript', 'Framer Motion', 'Trilogy Brand', 'Client Demo'],
+  },
 ]
 
 const backendServices = [
