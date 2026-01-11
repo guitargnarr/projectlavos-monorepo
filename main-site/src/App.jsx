@@ -635,16 +635,18 @@ function App() {
   const [expandedClient, setExpandedClient] = useState(null);
   const [activeClientVersion, setActiveClientVersion] = useState({});
 
-  const projects = [
+  // Practical Apps - career/productivity focused
+  const practicalProjects = [
     {
       id: "fretvision",
       title: "FretVision",
       url: "https://guitar.projectlavos.com",
       preview: "/previews/guitar.png",
       ogImage: "/og-images/guitar-og.png",
-      description: "Interactive fretboard, lessons, MIDI playback",
+      description: "Learn guitar scales visually with interactive lessons",
       altText: "FretVision guitar learning app showing interactive fretboard visualization with scale patterns and MIDI playback controls",
       category: "Education",
+      tech: ["React", "Python", "MIDI", "Canvas"],
       details: "Guitar learning apps exist, but none combine fretboard visualization, tab playback, and riff generation in one place. The riff generator uses deterministic Python for music theory—LLMs can't count frets accurately."
     },
     {
@@ -653,9 +655,10 @@ function App() {
       url: "https://phishguard.projectlavos.com",
       preview: "/previews/phishguard.png",
       ogImage: "/og-images/phishguard-og.png",
-      description: "Sentiment analysis NLP for anti-phishing",
+      description: "Detect phishing emails before they fool your team",
       altText: "PhishGuard email security tool analyzing suspicious email content for phishing indicators using sentiment analysis",
       category: "Security",
+      tech: ["React", "NLP", "Python", "FastAPI"],
       details: "Phishing attacks exploit human psychology, not just technical vulnerabilities. PhishGuard analyzes email sentiment patterns to flag manipulation tactics before they reach the inbox."
     },
     {
@@ -664,21 +667,11 @@ function App() {
       url: "https://jobs.projectlavos.com",
       preview: "/previews/jobs.png",
       ogImage: "/og-images/jobs-og.png",
-      description: "Job market analysis & resume tailoring",
+      description: "See which Louisville companies are actually hiring",
       altText: "Vantage job market analytics dashboard showing Louisville KY employment trends and company hiring patterns",
       category: "Career",
+      tech: ["React", "PostgreSQL", "Python", "Vercel"],
       details: "Job boards show listings. Vantage shows patterns—which companies are hiring, what skills are trending locally, and how to position yourself. Built for Louisville first."
-    },
-    {
-      id: "ourjourney",
-      title: "OurJourney",
-      url: "https://ourjourney.projectlavos.com",
-      preview: "/previews/ourjourney.png",
-      ogImage: "/og-images/ourjourney-og.png",
-      description: "Private space for couples to catalog experiences",
-      altText: "OurJourney couple experience tracker app showing shared memories and private journal entries",
-      category: "Personal",
-      details: "Social media makes sharing performative. OurJourney is the opposite—a private space for two people to document what matters to them, without an audience."
     },
     {
       id: "jobtrack",
@@ -686,10 +679,27 @@ function App() {
       url: "https://jobtrack.projectlavos.com",
       preview: "/previews/jobtrack.png",
       ogImage: "/og-images/jobtrack-og.png",
-      description: "Application tracking system",
+      description: "Track applications and never miss a follow-up",
       altText: "JobTrack application tracking dashboard showing job applications, response rates, and interview pipeline",
       category: "Career",
+      tech: ["React", "Supabase", "TypeScript"],
       details: "Spreadsheets work until they don't. JobTrack adds structure to the job search grind—tracking applications, follow-ups, and outcomes in one place."
+    }
+  ];
+
+  // Experimental/Conceptual - Jungian depth psychology explorations
+  const experimentalProjects = [
+    {
+      id: "ourjourney",
+      title: "OurJourney",
+      url: "https://ourjourney.projectlavos.com",
+      preview: "/previews/ourjourney.png",
+      ogImage: "/og-images/ourjourney-og.png",
+      description: "A private space for two people to document what matters",
+      altText: "OurJourney couple experience tracker app showing shared memories and private journal entries",
+      category: "Personal",
+      tech: ["React", "Supabase", "Vercel"],
+      details: "Social media makes sharing performative. OurJourney is the opposite—a private space for two people to document what matters to them, without an audience."
     },
     {
       id: "psyche",
@@ -697,9 +707,10 @@ function App() {
       url: "https://psyche-jung.vercel.app",
       preview: "/previews/psyche-jung.png",
       ogImage: "/previews/psyche-jung.png",
-      description: "A Jungian exploration hub",
+      description: "Four portals into Jungian depth psychology",
       altText: "Psyche Jungian exploration hub - four portals into depths of understanding: soul, shadow, archetype, and synthesis",
-      category: "Creative",
+      category: "Conceptual",
+      tech: ["React", "Framer Motion"],
       details: "Four portals into the depths of understanding. Soul, shadow, archetype, and synthesis. The hub connecting explorations of Jungian depth psychology."
     },
     {
@@ -708,9 +719,10 @@ function App() {
       url: "https://threshold-liminal.vercel.app",
       preview: "/previews/threshold-liminal.png",
       ogImage: "/previews/threshold-liminal.png",
-      description: "Liminal spaces",
+      description: "An exploration of liminal spaces and transformation",
       altText: "Threshold Liminal creative digital experience exploring liminal spaces and transitional moments",
-      category: "Jungian",
+      category: "Conceptual",
+      tech: ["React", "CSS Animation"],
       details: "The in-between places where transformation happens. Neither here nor there, but becoming. An exploration of liminal spaces—the thresholds between states."
     },
     {
@@ -719,9 +731,10 @@ function App() {
       url: "https://umbra-shadow.vercel.app",
       preview: "/previews/umbra-shadow.png",
       ogImage: "/previews/umbra-shadow.png",
-      description: "Shadow integration",
+      description: "Exploring shadow work and integration",
       altText: "Umbra shadow integration exploring the rejected parts of ourselves that hold our greatest power",
-      category: "Jungian",
+      category: "Conceptual",
+      tech: ["React", "Canvas"],
       details: "The rejected parts of ourselves that hold our greatest power. What we deny, we cannot transform. An exploration of shadow work and integration."
     },
     {
@@ -730,9 +743,10 @@ function App() {
       url: "https://forma-archetypes.vercel.app",
       preview: "/previews/forma-archetypes.png",
       ogImage: "/previews/forma-archetypes.png",
-      description: "Archetypal patterns",
+      description: "Universal figures written into the collective unconscious",
       altText: "Forma archetypal patterns exploring universal figures and collective unconscious through interactive design",
-      category: "Jungian",
+      category: "Conceptual",
+      tech: ["React", "SVG Animation"],
       details: "Universal figures that live in all of us. Hero, Shadow, Sage, Lover, Trickster, Mother. Patterns older than memory, written into the collective unconscious."
     },
     {
@@ -741,12 +755,16 @@ function App() {
       url: "https://auriga-chariot.vercel.app",
       preview: "/previews/auriga-chariot.png",
       ogImage: "/previews/auriga-chariot.png",
-      description: "The Charioteer",
+      description: "Human-AI collaboration through Plato's chariot metaphor",
       altText: "Auriga the charioteer exploring human-AI collaboration through Plato's chariot metaphor",
-      category: "Jungian",
+      category: "Conceptual",
+      tech: ["React", "Framer Motion"],
       details: "The synthesis of human and AI collaboration. The charioteer holds the reins. The horses provide the power. Neither is complete alone. A philosophical exploration of orchestrated partnership."
     }
   ];
+
+  // Combined for backward compatibility
+  const projects = [...practicalProjects, ...experimentalProjects];
 
   const handleCardClick = (e, projectId) => {
     e.preventDefault();
@@ -1153,12 +1171,116 @@ function App() {
           <h2 className="heading-serif text-2xl md:text-3xl font-semibold text-white mb-4 neon-text-orange">
             The Work
           </h2>
-          <p className="text-slate-400 mb-8 deco-cap-geometric">
+          <p className="text-slate-400 mb-2 deco-cap-geometric">
             Live. Deployed. In production. Click to see for yourself.
           </p>
+          <p className="text-slate-500 text-sm mb-8">
+            Complex systems built to solve real problems—the same thinking I bring to client work.
+          </p>
 
+          {/* Practical Apps */}
+          <h3 className="text-lg font-medium text-teal-400 mb-4 flex items-center gap-2">
+            <span className="w-2 h-2 bg-teal-400 rounded-full"></span>
+            Practical Apps
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 transition-all duration-300 mb-12">
+            {practicalProjects.map((project, index) => {
+              const isExpanded = expandedProject === project.id;
+              const isAboveFold = true;
+
+              return (
+                <div
+                  key={project.id}
+                  className={`card-subtle-3d card-expandable card-click-hint ${isExpanded ? 'sm:col-span-2 lg:col-span-4 row-span-2 expanded' : ''}`}
+                  onMouseMove={(e) => {
+                    if (isExpanded) return;
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const x = (e.clientX - rect.left) / rect.width - 0.5;
+                    const y = (e.clientY - rect.top) / rect.height - 0.5;
+                    const inner = e.currentTarget.querySelector('.card-3d-inner');
+                    if (inner) {
+                      inner.style.setProperty('--rotateX', `${-y * 8}deg`);
+                      inner.style.setProperty('--rotateY', `${x * 8}deg`);
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    const inner = e.currentTarget.querySelector('.card-3d-inner');
+                    if (inner) {
+                      inner.style.setProperty('--rotateX', '0deg');
+                      inner.style.setProperty('--rotateY', '0deg');
+                    }
+                  }}
+                >
+                <div
+                  onClick={(e) => handleCardClick(e, project.id)}
+                  className={`
+                    card-3d-inner card-press og-card group cursor-pointer rounded-lg overflow-hidden bg-slate-800/50 border border-slate-700/50 hover:border-teal-500/30 transition-all duration-300 ease-in-out texture-glass
+                    ${expandedProject && !isExpanded ? 'opacity-60 scale-95' : 'opacity-100 scale-100'}
+                  `}
+                >
+                  <div className={`image-container overflow-hidden bg-slate-800 transition-all duration-300 ${isExpanded ? 'aspect-[16/6]' : 'aspect-[1200/630]'}`}>
+                    <div className="skeleton skeleton-loader absolute inset-0" />
+                    <img
+                      src={project.preview}
+                      alt={project.altText || `${project.title} - ${project.description}`}
+                      className="w-full h-full object-cover object-top transition-all duration-300 group-hover:scale-105 relative z-10"
+                      loading={isAboveFold ? "eager" : "lazy"}
+                      onLoad={(e) => {
+                        e.target.classList.add('loaded');
+                        const skeleton = e.target.previousSibling;
+                        if (skeleton) skeleton.style.opacity = '0';
+                      }}
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        const skeleton = e.target.previousSibling;
+                        if (skeleton) skeleton.style.opacity = '0';
+                      }}
+                    />
+                  </div>
+                  <div className="p-4">
+                    <div className="flex justify-between items-start mb-2">
+                      <div className="flex-1">
+                        <h3 className="text-sm font-semibold text-white mb-1">{project.title}</h3>
+                        <p className={`text-xs text-slate-400 ${isExpanded ? '' : 'truncate'}`}>{project.description}</p>
+                      </div>
+                      <span className={`text-teal-400 text-xs transition-transform duration-200 flex-shrink-0 ${isExpanded ? 'rotate-180' : ''}`}>
+                        {isExpanded ? '▲' : '▼'}
+                      </span>
+                    </div>
+                    {/* Tech Stack Badges */}
+                    {project.tech && (
+                      <div className="flex flex-wrap gap-1 mt-2">
+                        {project.tech.slice(0, 3).map((t) => (
+                          <span key={t} className="text-[10px] text-slate-500 bg-slate-700/50 px-1.5 py-0.5 rounded">{t}</span>
+                        ))}
+                      </div>
+                    )}
+                    {isExpanded && (
+                      <div className="mt-4 pt-4 border-t border-slate-700 animate-fade-in">
+                        <p className="text-sm text-slate-300 mb-4">{project.details}</p>
+                        <button
+                          onClick={(e) => handleVisitSite(e, project.url)}
+                          className="inline-flex items-center gap-2 text-sm text-teal-400 hover:text-teal-300 transition-colors"
+                        >
+                          Visit Site <span className="text-xs">→</span>
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Conceptual/Experimental */}
+          <h3 className="text-lg font-medium text-orange-400 mb-4 flex items-center gap-2">
+            <span className="w-2 h-2 bg-orange-400 rounded-full"></span>
+            Conceptual Explorations
+            <span className="text-xs text-slate-500 font-normal ml-2">Jungian depth psychology</span>
+          </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 transition-all duration-300">
-            {projects.map((project, index) => {
+            {experimentalProjects.map((project, index) => {
               const isExpanded = expandedProject === project.id;
               const isAboveFold = index < 6; // First 6 Work cards load eagerly
 
@@ -1226,15 +1348,18 @@ function App() {
                         <h3 className="text-sm font-semibold text-white mb-1">{project.title}</h3>
                         <p className={`text-xs text-slate-400 ${isExpanded ? '' : 'truncate'}`}>{project.description}</p>
                       </div>
-                      <div className="flex items-center gap-2 flex-shrink-0">
-                        <span className="text-xs text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded whitespace-nowrap">
-                          {project.category}
-                        </span>
-                        <span className={`text-teal-400 text-xs transition-transform duration-200 flex-shrink-0 ${isExpanded ? 'rotate-180' : ''}`}>
-                          {isExpanded ? '▲' : '▼'}
-                        </span>
-                      </div>
+                      <span className={`text-orange-400 text-xs transition-transform duration-200 flex-shrink-0 ${isExpanded ? 'rotate-180' : ''}`}>
+                        {isExpanded ? '▲' : '▼'}
+                      </span>
                     </div>
+                    {/* Tech Stack Badges */}
+                    {project.tech && (
+                      <div className="flex flex-wrap gap-1 mt-2">
+                        {project.tech.map((t) => (
+                          <span key={t} className="text-[10px] text-slate-500 bg-slate-700/50 px-1.5 py-0.5 rounded">{t}</span>
+                        ))}
+                      </div>
+                    )}
 
                     {/* Expanded Content */}
                     {isExpanded && (
