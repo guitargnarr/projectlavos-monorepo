@@ -12,37 +12,6 @@ function App() {
   const [showStickyCTA, setShowStickyCTA] = useState(false);
   const workSectionRef = useRef(null);
 
-  // Branding sequence state (0=idle/flicker, 1-4=powering, 5=orbit, 6=grinding, 7=branded)
-  const [brandingPhase, setBrandingPhase] = useState(0);
-
-  // Auto-trigger branding sequence after 3 seconds
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (brandingPhase === 0) {
-        // Start powering sequence
-        let phase = 1;
-        const interval = setInterval(() => {
-          setBrandingPhase(phase);
-          phase++;
-          if (phase > 5) clearInterval(interval);
-        }, 400);
-      }
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Auto-advance: orbit → grind → branded
-  useEffect(() => {
-    if (brandingPhase === 5) {
-      const timer = setTimeout(() => setBrandingPhase(6), 2000);
-      return () => clearTimeout(timer);
-    }
-    if (brandingPhase === 6) {
-      const timer = setTimeout(() => setBrandingPhase(7), 2000);
-      return () => clearTimeout(timer);
-    }
-  }, [brandingPhase]);
-
   // Scroll animation observer
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -93,18 +62,84 @@ function App() {
 
   // Local Louisville client projects
   const localClients = [
+    // Priority 1-13: Best showcase sites
     {
-      id: "fableflow",
-      title: "Fable & Flow",
-      url: "https://fableandflows.vercel.app",
-      preview: "/previews/fableflow.png",
-      ogImage: "/og-images/fableflow-og.png",
-      qrCode: "/qr-codes/fableflow-qr.png",
-      description: "Boutique retail brand presence",
-      altText: "Fable & Flow Louisville boutique retail website featuring curated home goods and unique local finds",
-      category: "Retail",
-      specWork: false, // Paid client work
-      details: "A curated boutique bringing unique finds to Louisville. Built a clean, modern storefront that reflects the brand's personality and makes discovery easy."
+      id: "fritzsalon",
+      title: "Fritz Salon",
+      url: "https://fritz-salon.vercel.app",
+      preview: "/previews/fritz-salon.png",
+      ogImage: "/previews/fritz-salon.png",
+      qrCode: "/qr-codes/fritz-salon-qr.png",
+      description: "Premier hair salon experience",
+      altText: "Fritz Salon Louisville premier hair salon styling coloring treatments professional stylists",
+      category: "Beauty",
+      specWork: true,
+      details: "Premier hair salon in Louisville offering expert styling, coloring, and treatments. Professional stylists dedicated to helping you look and feel your best."
+    },
+    {
+      id: "hideawaysaloon",
+      title: "Hideaway Saloon",
+      url: "https://hideaway-saloon.vercel.app",
+      preview: "/previews/hideaway-saloon.png",
+      ogImage: "/og-images/hideaway-saloon-og.png",
+      qrCode: "/qr-codes/hideaway-saloon-qr.png",
+      description: "Louisville's premier video game dive bar",
+      altText: "Hideaway Saloon Louisville Kentucky video game bar arcade games fighting game tournaments dive bar Bardstown Road",
+      category: "Bar",
+      specWork: true,
+      details: "Louisville's original video game dive bar on Bardstown Road. Family-owned since the 1970s, rebranded to a gaming destination in 2015. 1000+ games, weekly fighting game tournaments, cold drinks. Open Mon-Sat 7PM-4AM."
+    },
+    {
+      id: "headlinersmusichall",
+      title: "Headliners Music Hall",
+      url: "https://headliners-louisville.vercel.app",
+      preview: "/previews/headliners-music-hall.png",
+      ogImage: "/og-images/headliners-music-hall-og.png",
+      qrCode: "/qr-codes/headliners-music-hall-qr.png",
+      description: "Louisville's legendary music venue since 1939",
+      altText: "Headliners Music Hall Louisville Kentucky live music venue concerts speakeasy prohibition era murals 1939",
+      category: "Entertainment",
+      specWork: true,
+      details: "Art Deco aesthetic for Louisville's legendary live music venue, built during Prohibition in 1939. Original murals by National Distillers, film grain overlays, ambient sound toggle, period typography. 85+ years of unforgettable nights on Baxter Ave."
+    },
+    {
+      id: "louisvilleaesthetics",
+      title: "Louisville Aesthetics",
+      url: "https://louisville-aesthetics.vercel.app",
+      preview: "/previews/louisville-aesthetics.png",
+      ogImage: "/og-images/louisville-aesthetics-og.png",
+      qrCode: "/qr-codes/louisville-aesthetics-qr.png",
+      description: "Modern medical aesthetics clinic",
+      altText: "Louisville Aesthetics Med Spa Leesgate Road premium medical aesthetics services",
+      category: "Med Spa",
+      specWork: true,
+      details: "A premium med spa on Leesgate Road. Smooth animations, refined interactions, and a booking flow that feels as polished as the services they offer."
+    },
+    {
+      id: "dupontpediatric",
+      title: "Dupont Pediatric Dentistry",
+      url: "https://dupont-pediatric-dentistry.vercel.app",
+      preview: "/previews/dupont-pediatric-dentistry.png",
+      ogImage: "/og-images/dupont-pediatric-dentistry-og.png",
+      qrCode: "/qr-codes/dupont-pediatric-dentistry-qr.png",
+      description: "Louisville's kid-friendly dental office",
+      altText: "Dupont Pediatric Dentistry Louisville Kentucky Dr Jenna Dr Schulten board certified pediatric dentists kids dental care",
+      category: "Medical",
+      specWork: true,
+      details: "Tier 4 demo for Louisville's trusted pediatric dental practice. Dr. Jenna & Dr. Schulten, board-certified pediatric dentists. Parent portal, admin dashboard, 3-step booking wizard, toast notifications. Purple/violet kid-friendly branding. Serving Louisville families since the practice's founding."
+    },
+    {
+      id: "genesisdiamonds",
+      title: "Genesis Diamonds",
+      url: "https://genesis-diamonds.vercel.app",
+      preview: "/previews/genesis-diamonds.png",
+      ogImage: "/og-images/genesis-diamonds-og.png",
+      qrCode: "/qr-codes/genesis-diamonds-qr.png",
+      description: "Louisville's premier jeweler since 2005",
+      altText: "Genesis Diamonds Louisville Kentucky GIA certified diamonds engagement rings luxury watches Tacori Verragio",
+      category: "Jewelry",
+      specWork: true,
+      details: "Tier 4 ultra-luxury demo for Louisville's premier diamond destination. AI Oracle concierge, user authentication, GIA-certified diamonds, luxury watches (Rolex, Patek Philippe). Best Price Guarantee, 120% Lifetime Upgrade. Obsidian/gold theme for UHNW clientele."
     },
     {
       id: "jwcafe",
@@ -116,7 +151,7 @@ function App() {
       description: "Local cafe & bakery digital storefront",
       altText: "JW Cafe and Bakery Louisville website showing menu, hours, and location for neighborhood coffee shop",
       category: "Cafe",
-      specWork: true, // Spec work - business model in development
+      specWork: true,
       details: "A neighborhood cafe and bakery serving Louisville. Created an inviting online presence with menu, hours, and location—everything customers need at a glance."
     },
     {
@@ -133,6 +168,85 @@ function App() {
       details: "A Louisville institution since 1992. Homemade soups, fresh sandwiches, and desserts like grandmother used to make—all served in a charming 100-year-old yellow cottage in Middletown."
     },
     {
+      id: "campj",
+      title: "Camp J",
+      url: "https://camp-j-lovat.vercel.app",
+      preview: "/previews/camp-j.png",
+      ogImage: "/previews/camp-j.png",
+      qrCode: "/qr-codes/camp-j-qr.png",
+      description: "Where adventures begin & friendships last",
+      altText: "Camp J Louisville Jewish Community Center day camp summer spring fall winter programs ages 5-17",
+      category: "Youth",
+      specWork: true,
+      details: "Louisville's premier Jewish Community Center day camp. Summer, spring, fall, and winter programs for ages 5-17. Swimming, sports, arts, STEM, and more. Open to all faiths."
+    },
+    {
+      id: "springsstonyvbrook",
+      title: "The Springs at Stony Brook",
+      url: "https://springs-stony-brook.vercel.app",
+      preview: "/previews/springs-stony-brook.png",
+      ogImage: "/og-images/springs-stony-brook-og.png",
+      qrCode: "/qr-codes/springs-stony-brook-qr.png",
+      description: "Where Family Comes To Live",
+      altText: "The Springs at Stony Brook senior living Louisville Kentucky Trilogy Health Services Independent Living Personal Care Memory Care Skilled Services",
+      category: "Healthcare",
+      specWork: true,
+      details: "Premium senior living demo for Louisville Trilogy Health Services community. Official purple/gold Trilogy branding. Four levels of care: Independent Living, Personal Care, Memory Care (Best Friends Approach), and Skilled Services. U.S. News Best Senior Living award badges."
+    },
+    {
+      id: "pilatespluslouisville",
+      title: "Pilates Plus Louisville",
+      url: "https://pilates-plus-louisville.vercel.app",
+      preview: "/previews/pilates-plus-louisville.png",
+      ogImage: "/previews/pilates-plus-louisville.png",
+      qrCode: "/qr-codes/pilates-plus-louisville-qr.png",
+      description: "Transform your body with Pilates",
+      altText: "Pilates Plus Louisville Westport Road fitness studio classes schedule booking instructors",
+      category: "Fitness",
+      specWork: true,
+      details: "Louisville's premier Pilates studio on Westport Road. Expert instructors, flexible class schedules, and a welcoming community. Build strength, improve flexibility, find your balance."
+    },
+    {
+      id: "shawarmashack",
+      title: "Shawarma Shack",
+      url: "https://shawarma-shack.vercel.app",
+      preview: "/previews/shawarma-shack.png",
+      ogImage: "/previews/shawarma-shack.png",
+      qrCode: "/qr-codes/shawarma-shack-qr.png",
+      description: "Authentic Middle Eastern flavors",
+      altText: "Shawarma Shack St Matthews Louisville build your own shawarma bowls wraps Middle Eastern food",
+      category: "Restaurant",
+      specWork: true,
+      details: "Build-your-own shawarma coming to St. Matthews. Fresh ingredients, bold spices, recipes passed down through generations. Chipotle-style service for authentic Middle Eastern cuisine. Opening 2025."
+    },
+    {
+      id: "blownawaybar",
+      title: "Blown Away Bar",
+      url: "https://blown-away-bar.vercel.app",
+      preview: "/previews/blown-away-bar.png",
+      ogImage: "/previews/blown-away-bar.png",
+      qrCode: "/qr-codes/blown-away-bar-qr.png",
+      description: "Louisville's blow dry and beauty bar",
+      altText: "Blown Away Bar Louisville blow dry bar beauty styling blowouts makeup special occasions",
+      category: "Beauty",
+      specWork: true,
+      details: "Louisville's premier blow dry and beauty bar. Expert blowouts, styling, and makeup for any occasion. Walk in gorgeous, walk out blown away."
+    },
+    // Remaining sites
+    {
+      id: "fableflow",
+      title: "Fable & Flow",
+      url: "https://fableandflows.vercel.app",
+      preview: "/previews/fableflow.png",
+      ogImage: "/og-images/fableflow-og.png",
+      qrCode: "/qr-codes/fableflow-qr.png",
+      description: "Boutique retail brand presence",
+      altText: "Fable & Flow Louisville boutique retail website featuring curated home goods and unique local finds",
+      category: "Retail",
+      specWork: false,
+      details: "A curated boutique bringing unique finds to Louisville. Built a clean, modern storefront that reflects the brand's personality and makes discovery easy."
+    },
+    {
       id: "nachbar",
       title: "Nachbar",
       url: "https://nachbar.vercel.app",
@@ -142,7 +256,7 @@ function App() {
       description: "Germantown's neighborhood bar",
       altText: "Nachbar Germantown Louisville neighborhood bar website featuring German and Belgian beers, live music schedule",
       category: "Bar",
-      specWork: true, // Spec work - business model in development
+      specWork: true,
       details: "Louisville's beloved dive bar since 2007. German & Belgian beers, live music, two dog-friendly patios. Built a site that captures the vibe and keeps regulars informed."
     },
     {
@@ -157,19 +271,6 @@ function App() {
       category: "Med Spa",
       specWork: true,
       details: "Pain management meets medical aesthetics. Dr. Labatia brings 30+ years of expertise to Louisville's East End. Clean, trust-forward design for a practice that deserves to be found."
-    },
-    {
-      id: "louisvilleaesthetics",
-      title: "Louisville Aesthetics",
-      url: "https://louisville-aesthetics.vercel.app",
-      preview: "/previews/louisville-aesthetics.png",
-      ogImage: "/og-images/louisville-aesthetics-og.png",
-      qrCode: "/qr-codes/louisville-aesthetics-qr.png",
-      description: "Modern medical aesthetics clinic",
-      altText: "Louisville Aesthetics Med Spa Leesgate Road premium medical aesthetics services",
-      category: "Med Spa",
-      specWork: true,
-      details: "A premium med spa on Leesgate Road. Smooth animations, refined interactions, and a booking flow that feels as polished as the services they offer."
     },
     {
       id: "primary-express-care",
@@ -302,32 +403,6 @@ function App() {
       details: "Five generations of the Tonini family providing quality church goods, vestments, and sacred art to parishes throughout the Midwest. 142 years of service, 18,000+ products."
     },
     {
-      id: "campj",
-      title: "Camp J",
-      url: "https://camp-j-lovat.vercel.app",
-      preview: "/previews/camp-j.png",
-      ogImage: "/previews/camp-j.png",
-      qrCode: "/qr-codes/camp-j-qr.png",
-      description: "Where adventures begin & friendships last",
-      altText: "Camp J Louisville Jewish Community Center day camp summer spring fall winter programs ages 5-17",
-      category: "Youth",
-      specWork: true,
-      details: "Louisville's premier Jewish Community Center day camp. Summer, spring, fall, and winter programs for ages 5-17. Swimming, sports, arts, STEM, and more. Open to all faiths."
-    },
-    {
-      id: "shawarmashack",
-      title: "Shawarma Shack",
-      url: "https://shawarma-shack.vercel.app",
-      preview: "/previews/shawarma-shack.png",
-      ogImage: "/previews/shawarma-shack.png",
-      qrCode: "/qr-codes/shawarma-shack-qr.png",
-      description: "Authentic Middle Eastern flavors",
-      altText: "Shawarma Shack St Matthews Louisville build your own shawarma bowls wraps Middle Eastern food",
-      category: "Restaurant",
-      specWork: true,
-      details: "Build-your-own shawarma coming to St. Matthews. Fresh ingredients, bold spices, recipes passed down through generations. Chipotle-style service for authentic Middle Eastern cuisine. Opening 2025."
-    },
-    {
       id: "tastefultravels",
       title: "Tasteful Travels",
       url: "https://tasteful-travels.vercel.app",
@@ -339,19 +414,6 @@ function App() {
       category: "Retail",
       specWork: true,
       details: "An inspirational pantry shop at Logan Street Market. Kentucky Proud products alongside globally sourced specialty foods from Mediterranean, Asian, European, and American traditions."
-    },
-    {
-      id: "pilatespluslouisville",
-      title: "Pilates Plus Louisville",
-      url: "https://pilates-plus-louisville.vercel.app",
-      preview: "/previews/pilates-plus-louisville.png",
-      ogImage: "/previews/pilates-plus-louisville.png",
-      qrCode: "/qr-codes/pilates-plus-louisville-qr.png",
-      description: "Transform your body with Pilates",
-      altText: "Pilates Plus Louisville Westport Road fitness studio classes schedule booking instructors",
-      category: "Fitness",
-      specWork: true,
-      details: "Louisville's premier Pilates studio on Westport Road. Expert instructors, flexible class schedules, and a welcoming community. Build strength, improve flexibility, find your balance."
     },
     {
       id: "kentuckianagastro",
@@ -432,32 +494,6 @@ function App() {
       details: "Authentic Mediterranean cuisine in Louisville. Fresh ingredients, family recipes, and warm hospitality. Experience the flavors of the Mediterranean."
     },
     {
-      id: "fritzsalon",
-      title: "Fritz Salon",
-      url: "https://fritz-salon.vercel.app",
-      preview: "/previews/fritz-salon.png",
-      ogImage: "/previews/fritz-salon.png",
-      qrCode: "/qr-codes/fritz-salon-qr.png",
-      description: "Premier hair salon experience",
-      altText: "Fritz Salon Louisville premier hair salon styling coloring treatments professional stylists",
-      category: "Beauty",
-      specWork: true,
-      details: "Premier hair salon in Louisville offering expert styling, coloring, and treatments. Professional stylists dedicated to helping you look and feel your best."
-    },
-    {
-      id: "blownawaybar",
-      title: "Blown Away Bar",
-      url: "https://blown-away-bar.vercel.app",
-      preview: "/previews/blown-away-bar.png",
-      ogImage: "/previews/blown-away-bar.png",
-      qrCode: "/qr-codes/blown-away-bar-qr.png",
-      description: "Louisville's blow dry and beauty bar",
-      altText: "Blown Away Bar Louisville blow dry bar beauty styling blowouts makeup special occasions",
-      category: "Beauty",
-      specWork: true,
-      details: "Louisville's premier blow dry and beauty bar. Expert blowouts, styling, and makeup for any occasion. Walk in gorgeous, walk out blown away."
-    },
-    {
       id: "cardinaluniforms",
       title: "Cardinal Uniforms",
       url: "https://cardinal-uniforms.vercel.app",
@@ -522,19 +558,6 @@ function App() {
       specWork: true,
       location: "Crestwood, KY",
       details: "Medical billing and healthcare revenue management specialists since 2002. 25+ years experience in workers' compensation, auto, and liability insurance claims. HIPAA compliant, certified coders. Serving Kentucky healthcare providers."
-    },
-    {
-      id: "hideawaysaloon",
-      title: "Hideaway Saloon",
-      url: "https://hideaway-saloon.vercel.app",
-      preview: "/previews/hideaway-saloon.png",
-      ogImage: "/og-images/hideaway-saloon-og.png",
-      qrCode: "/qr-codes/hideaway-saloon-qr.png",
-      description: "Louisville's premier video game dive bar",
-      altText: "Hideaway Saloon Louisville Kentucky video game bar arcade games fighting game tournaments dive bar Bardstown Road",
-      category: "Bar",
-      specWork: true,
-      details: "Louisville's original video game dive bar on Bardstown Road. Family-owned since the 1970s, rebranded to a gaming destination in 2015. 1000+ games, weekly fighting game tournaments, cold drinks. Open Mon-Sat 7PM-4AM."
     },
     {
       id: "vancestovall",
@@ -654,19 +677,6 @@ function App() {
       details: "Tier 3 e-commerce demo for Louisville's premier rug destination. Oriental, area, and outdoor rugs plus professional cleaning, repair, stain removal, and appraisal services. Shopping cart, search/filter, lightbox gallery, 3D card effects."
     },
     {
-      id: "genesisdiamonds",
-      title: "Genesis Diamonds",
-      url: "https://genesis-diamonds.vercel.app",
-      preview: "/previews/genesis-diamonds.png",
-      ogImage: "/og-images/genesis-diamonds-og.png",
-      qrCode: "/qr-codes/genesis-diamonds-qr.png",
-      description: "Louisville's premier jeweler since 2005",
-      altText: "Genesis Diamonds Louisville Kentucky GIA certified diamonds engagement rings luxury watches Tacori Verragio",
-      category: "Jewelry",
-      specWork: true,
-      details: "Tier 4 ultra-luxury demo for Louisville's premier diamond destination. AI Oracle concierge, user authentication, GIA-certified diamonds, luxury watches (Rolex, Patek Philippe). Best Price Guarantee, 120% Lifetime Upgrade. Obsidian/gold theme for UHNW clientele."
-    },
-    {
       id: "mallardcrossing",
       title: "Mallard Crossing",
       url: "https://mallard-crossing.vercel.app",
@@ -680,32 +690,6 @@ function App() {
       details: "Tier 4 ultra-luxury demo for 600-unit apartment community in St. Matthews. AI Oracle leasing concierge, resident authentication with tier system, 6 floor plans (duck-themed names), tour scheduling. Forest green/copper estate theme for upscale renters."
     },
     {
-      id: "springsstonyvbrook",
-      title: "The Springs at Stony Brook",
-      url: "https://springs-stony-brook.vercel.app",
-      preview: "/previews/springs-stony-brook.png",
-      ogImage: "/og-images/springs-stony-brook-og.png",
-      qrCode: "/qr-codes/springs-stony-brook-qr.png",
-      description: "Where Family Comes To Live",
-      altText: "The Springs at Stony Brook senior living Louisville Kentucky Trilogy Health Services Independent Living Personal Care Memory Care Skilled Services",
-      category: "Healthcare",
-      specWork: true,
-      details: "Premium senior living demo for Louisville Trilogy Health Services community. Official purple/gold Trilogy branding. Four levels of care: Independent Living, Personal Care, Memory Care (Best Friends Approach), and Skilled Services. U.S. News Best Senior Living award badges."
-    },
-    {
-      id: "headlinersmusichall",
-      title: "Headliners Music Hall",
-      url: "https://headliners-louisville.vercel.app",
-      preview: "/previews/headliners-music-hall.png",
-      ogImage: "/og-images/headliners-music-hall-og.png",
-      qrCode: "/qr-codes/headliners-music-hall-qr.png",
-      description: "Louisville's legendary music venue since 1939",
-      altText: "Headliners Music Hall Louisville Kentucky live music venue concerts speakeasy prohibition era murals 1939",
-      category: "Entertainment",
-      specWork: true,
-      details: "Art Deco aesthetic for Louisville's legendary live music venue, built during Prohibition in 1939. Original murals by National Distillers, film grain overlays, ambient sound toggle, period typography. 85+ years of unforgettable nights on Baxter Ave."
-    },
-    {
       id: "claterjewelers",
       title: "Clater Jewelers",
       url: "https://clater-jewelers.vercel.app",
@@ -717,6 +701,45 @@ function App() {
       category: "Retail",
       specWork: true,
       details: "Louisville's premier jeweler since 1949. Direct diamond importers, custom designs, and 75+ years of excellence. Navy/gold palette with 3D card effects. GIA certified, 5.0 Google rating, family owned."
+    },
+    {
+      id: "schwartzbankruptcy",
+      title: "Schwartz Bankruptcy Law Center",
+      url: "https://schwartz-bankruptcy.vercel.app",
+      preview: "/previews/schwartz-bankruptcy.png",
+      ogImage: "/previews/schwartz-bankruptcy.png",
+      qrCode: "/qr-codes/schwartz-bankruptcy-qr.png",
+      description: "Your fresh start begins here",
+      altText: "Schwartz Bankruptcy Law Center Louisville Kentucky Richard A. Schwartz bankruptcy attorney Chapter 7 Chapter 13 debt relief",
+      category: "Legal",
+      specWork: true,
+      details: "Louisville's trusted bankruptcy attorney with 25+ years experience. Richard A. Schwartz handles Chapter 7, Chapter 13, and business bankruptcy. Platinum Client Champion 2023, AV Preeminent rated. Two locations: Louisville & New Albany. Free consultation."
+    },
+    {
+      id: "affinitydental",
+      title: "Affinity Dental",
+      url: "https://affinity-dental.vercel.app",
+      preview: "/previews/affinity-dental.png",
+      ogImage: "/previews/affinity-dental.png",
+      qrCode: "/qr-codes/affinity-dental-qr.png",
+      description: "Louisville's 5-star rated dental practice",
+      altText: "Affinity Dental Louisville Kentucky Dr Shannon Vickery DMD 23 years experience general cosmetic dentistry Invisalign implants",
+      category: "Medical",
+      specWork: true,
+      details: "Tier 4 demo for Louisville's top-rated dental practice. Dr. Shannon Vickery with 23+ years experience. Patient portal, admin dashboard, 3-step booking wizard, toast notifications. $99 new patient special. Orange brand palette matching their existing identity."
+    },
+    {
+      id: "jbhdental",
+      title: "JBH Dental",
+      url: "https://jbh-dental.vercel.app",
+      preview: "/previews/jbh-dental.png",
+      ogImage: "/og-images/jbh-dental-og.png",
+      qrCode: "/qr-codes/jbh-dental-qr.png",
+      description: "Trust your smile to experience",
+      altText: "JBH Dental Louisville Kentucky Dr James B Howell DMD 27 years experience family dentistry St Matthews Dutchmans Lane",
+      category: "Medical",
+      specWork: true,
+      details: "Tier 4 demo for trusted Louisville family dentist. Dr. James B. Howell, DMD with 27+ years of experience since 1998. Patient portal, admin dashboard, 3-step booking wizard, toast notifications. Sage green brand palette. Located on Dutchmans Lane in St. Matthews area."
     }
   ];
 
@@ -960,27 +983,13 @@ function App() {
             </a>
           </div>
 
-          {/* Chariot Logo - BELOW content, with grinding animation */}
-          <div className={`chariot-logo mb-12 relative ${
-            brandingPhase === 0 ? 'chariot-flicker' :
-            brandingPhase === 5 ? 'chariot-orbiting' :
-            brandingPhase === 6 ? 'chariot-grinding' :
-            brandingPhase === 7 ? 'chariot-branded' :
-            `chariot-powering chariot-phase-${brandingPhase}`
-          }`}>
+          {/* Chariot Logo */}
+          <div className="chariot-logo mb-12">
             <img
               src="/projectlavos-watermark-white.svg"
               alt="Project Lavos"
-              className="w-48 h-24 md:w-64 md:h-32 object-contain"
+              className="w-48 h-24 md:w-64 md:h-32 object-contain opacity-85"
             />
-            {/* Sparks during powering */}
-            {brandingPhase >= 1 && brandingPhase <= 4 && (
-              <div className="chariot-sparks">
-                {[...Array(12)].map((_, i) => (
-                  <div key={i} className="spark" style={{ '--spark-angle': `${i * 30}deg` }} />
-                ))}
-              </div>
-            )}
           </div>
         </div>
 
