@@ -9,7 +9,6 @@ function App() {
     work: true,
     method: true
   });
-  const [showStickyCTA, setShowStickyCTA] = useState(false);
   const workSectionRef = useRef(null);
 
   // Scroll animation observer
@@ -30,23 +29,6 @@ function App() {
     });
 
     return () => observer.disconnect();
-  }, []);
-
-  // Sticky CTA - show when scrolled to Louisville section
-  useEffect(() => {
-    const handleScroll = () => {
-      const louisville = document.getElementById('louisville');
-      if (louisville) {
-        const rect = louisville.getBoundingClientRect();
-        const inView = rect.top < window.innerHeight && rect.bottom > 0;
-        setShowStickyCTA(inView);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Check initial position
-
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scrollToWork = () => {
@@ -220,6 +202,19 @@ function App() {
       details: "Build-your-own shawarma coming to St. Matthews. Fresh ingredients, bold spices, recipes passed down through generations. Chipotle-style service for authentic Middle Eastern cuisine. Opening 2025."
     },
     {
+      id: "northlimecoffee",
+      title: "North Lime Coffee & Donuts",
+      url: "https://north-lime-coffee.vercel.app",
+      preview: "/previews/north-lime-coffee.png",
+      ogImage: "/previews/north-lime-coffee.png",
+      qrCode: "/qr-codes/north-lime-coffee-qr.png",
+      description: "Parliament of Owls coffee & donuts",
+      altText: "North Lime Coffee and Donuts Louisville Lexington Kentucky Parliament of Owls membership coffee subscriptions rotating donut menu",
+      category: "Cafe",
+      specWork: true,
+      details: "Louisville & Lexington's beloved donut shop with Parliament of Owls membership, fresh-roasted coffee subscriptions, rotating donut schedule, and merchandise. Interactive donut quiz, CSS animations, code splitting. 268KB optimized bundle."
+    },
+    {
       id: "blownawaybar",
       title: "Blown Away Bar",
       url: "https://blown-away-bar.vercel.app",
@@ -258,6 +253,19 @@ function App() {
       category: "Bar",
       specWork: true,
       details: "Louisville's beloved dive bar since 2007. German & Belgian beers, live music, two dog-friendly patios. Built a site that captures the vibe and keeps regulars informed."
+    },
+    {
+      id: "copperbarrelbrewing",
+      title: "Copper Barrel Brewing",
+      url: "https://copper-barrel-brewing.vercel.app",
+      preview: "/previews/copper-barrel-brewing.png",
+      ogImage: "/og-images/copper-barrel-brewing-og.png",
+      qrCode: "/qr-codes/copper-barrel-brewing-qr.png",
+      description: "Louisville craft brewery & taproom",
+      altText: "Copper Barrel Brewing Louisville Kentucky craft brewery taproom local beers on tap fresh brews",
+      category: "Brewery",
+      specWork: true,
+      details: "Louisville's craft brewery featuring small-batch beers brewed on-site. Full taproom experience with rotating taps, events calendar, and online shop for merchandise."
     },
     {
       id: "rejuvenation",
@@ -740,6 +748,19 @@ function App() {
       category: "Medical",
       specWork: true,
       details: "Tier 4 demo for trusted Louisville family dentist. Dr. James B. Howell, DMD with 27+ years of experience since 1998. Patient portal, admin dashboard, 3-step booking wizard, toast notifications. Sage green brand palette. Located on Dutchmans Lane in St. Matthews area."
+    },
+    {
+      id: "tomdrexler",
+      title: "Tom Drexler",
+      url: "https://tom-drexler.vercel.app",
+      preview: "/previews/tom-drexler.png",
+      ogImage: "/previews/tom-drexler.png",
+      qrCode: "/qr-codes/tom-drexler-qr.png",
+      description: "Louisville's Red Carpet Treatment Since 1982",
+      altText: "Tom Drexler Plumbing Air Electric Louisville Kentucky HVAC plumbing electrical drain sewer bathroom remodeling 200+ service trucks 4th generation master plumber",
+      category: "Services",
+      specWork: true,
+      details: "Tier 2 demo for Louisville's premier home services company. 4th generation Master Plumber. HVAC, Plumbing, Electrical, Drain & Sewer, Bathroom Remodeling. 200+ service trucks serving Louisville Metro & Southern Indiana. 24/7 Emergency Service. Red/white/blue patriotic branding."
     }
   ];
 
@@ -906,23 +927,6 @@ function App() {
         <div className="particle" />
       </div>
 
-      {/* Sticky CTA - appears when Louisville section is in view */}
-      <div
-        className={`fixed bottom-6 right-6 z-50 transition-all duration-300 ${
-          showStickyCTA ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
-        }`}
-      >
-        <a
-          href="sms:+15023450525?body=Hey%20Matthew%2C%20I%20saw%20your%20portfolio%20and%20I%27m%20interested%20in%20discussing%20a%20website%20for%20my%20business."
-          className="flex items-center gap-2 px-5 py-3 bg-teal-500 hover:bg-teal-400 text-slate-900 text-sm font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-          </svg>
-          Text me your site
-        </a>
-      </div>
-
       <main>
       {/* Hero Section - No header, chariot below content */}
       <section
@@ -954,17 +958,17 @@ function App() {
           {/* Name */}
           <div className="relative mb-6">
             <div className="w-8 h-px bg-gradient-to-r from-transparent via-teal-500 to-transparent mx-auto mb-4" />
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-light text-white tracking-[0.2em] uppercase">
-              MATTHEW SCOTT
+            <h1 className="heading-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-white tracking-[0.04em]">
+              Matthew Scott
             </h1>
           </div>
 
           {/* Tagline */}
           <p className="text-sm sm:text-base text-slate-400 leading-relaxed mb-2 max-w-md mx-auto font-light">
-            I untangle complexity.<br />Then I make it useful.
+            I untangle complexity. Then I make it useful.
           </p>
           <p className="text-xs text-slate-500 mb-8 max-w-md mx-auto">
-            Building websites for Louisville businesses. Local-first, always.
+            Louisville websites. AI systems. Working software.
           </p>
 
           {/* CTAs */}
@@ -1017,10 +1021,10 @@ function App() {
             Louisville
           </h2>
           <p className="text-slate-400 mb-4">
-            Louisville first. Every local business deserves to be found online—not just the ones with marketing budgets.
+            51 sites you can visit. Live. Deployed. Working.
           </p>
-          <p className="text-xs text-slate-400 mb-8 italic">
-            Note: Projects marked "Spec Work" were built from real Louisville businesses' public information to demonstrate capability—not paid engagements. Fable & Flow is paid client work.
+          <p className="text-xs text-slate-500 mb-8">
+            Spec work built from public info. Not pitches. Proof.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 transition-all duration-300">
@@ -1278,11 +1282,8 @@ function App() {
           <h2 className="heading-serif text-2xl md:text-3xl font-semibold text-white mb-4 neon-text-orange">
             The Work
           </h2>
-          <p className="text-slate-400 mb-2">
-            Live. Deployed. In production. Click to see for yourself.
-          </p>
-          <p className="text-slate-500 text-sm mb-8">
-            Complex systems built to solve real problems—the same thinking I bring to client work.
+          <p className="text-slate-400 mb-8">
+            Tools that solve problems. Click to see for yourself.
           </p>
 
           {/* Practical Apps */}
@@ -1525,32 +1526,42 @@ function App() {
         className={`px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800 transition-all duration-700 spotlight-warm section-glow-full texture-wood ${visibleSections.method ? 'opacity-100 translate-y-0 in-view' : 'opacity-0 translate-y-8'}`}
       >
         <div className="max-w-4xl">
-          <h2 className="heading-serif text-2xl md:text-3xl font-semibold text-white mb-8 neon-text">
+          <h2 className="heading-serif text-2xl md:text-3xl font-semibold text-white mb-3 neon-text">
             The Method
           </h2>
-
-          <p className="text-slate-300 leading-relaxed mb-6">
-            I synthesize. Regulations, technical systems, tangled processes—I turn them
-            into maps people actually use. Not reports that collect dust. Views that drive decisions.
+          <p className="text-slate-400 mb-8 max-w-2xl">
+            Nine years translating federal healthcare regulations into working systems. Now I apply that rigor to your problems.
           </p>
 
-          <p className="text-slate-300 leading-relaxed mb-6">
-            The method: get inside the problem, find what's actually happening—not what
-            everyone assumes—and build something that proves the insight works.
-          </p>
+          <div className="space-y-6 mb-8">
+            <div className="border-l-2 border-teal-400 pl-6">
+              <h3 className="font-bold text-white">Truth over theater</h3>
+              <p className="text-slate-400">No aspirational claims. Only what can be shown and proven.</p>
+            </div>
+            <div className="border-l-2 border-teal-400 pl-6">
+              <h3 className="font-bold text-white">Guardrails over vibes</h3>
+              <p className="text-slate-400">AI where it's strong. Deterministic logic where it fails.</p>
+            </div>
+            <div className="border-l-2 border-teal-400 pl-6">
+              <h3 className="font-bold text-white">Zero-trust by default</h3>
+              <p className="text-slate-400">Verification matters more than confidence.</p>
+            </div>
+            <div className="border-l-2 border-teal-400 pl-6">
+              <h3 className="font-bold text-white">Human impact first</h3>
+              <p className="text-slate-400">Quality isn't abstract. It affects real people.</p>
+            </div>
+          </div>
 
-          <p className="text-slate-300 leading-relaxed mb-8">
-            I've done startups and corporate. Seen both playbooks. Now I'm writing my own.
+          <p className="text-slate-500 text-sm mb-6">
+            I work at the seams where disciplines don't connect—translating between technical and business realms, extracting methods so they become repeatable.
           </p>
 
           <a
-            href="https://auriga-chariot.vercel.app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="mailto:matthewdscott7@gmail.com"
             className="inline-flex items-center gap-2 text-teal-400 hover:text-teal-300 transition-colors text-sm group"
           >
             <span className="border-b border-teal-400/30 group-hover:border-teal-300/50 transition-colors">
-              On the nature of human-AI collaboration
+              Let's talk
             </span>
             <span className="group-hover:translate-x-1 transition-transform">→</span>
           </a>
@@ -1563,13 +1574,13 @@ function App() {
       <footer id="contact" className="px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800 texture-brass">
         <div className="max-w-4xl">
           <h2 className="heading-serif text-2xl md:text-3xl font-semibold text-white mb-4 neon-text">
-            Let's Build Something
+            Let's Build
           </h2>
           <p className="text-slate-400 mb-2">
-            Have a complex problem that needs untangling? A system that should exist but doesn't?
+            If you recognize the work, reach out.
           </p>
-          <p className="text-slate-400 mb-8">
-            <span className="text-teal-400">Taking specific problems.</span> Not general retainers.
+          <p className="text-slate-500 mb-8">
+            If you need convincing, I'm not for you.
           </p>
           <div className="flex flex-col sm:flex-row flex-wrap gap-4 sm:gap-6">
             <a
@@ -1593,6 +1604,12 @@ function App() {
               className="footer-link text-teal-400 hover:text-teal-300 transition-colors text-sm sm:text-base"
             >
               LinkedIn
+            </a>
+            <a
+              href="/manifesto"
+              className="footer-link text-orange-400 hover:text-orange-300 transition-colors text-sm sm:text-base"
+            >
+              The Manifesto
             </a>
           </div>
           {/* Footer bottom with centered watermark */}
