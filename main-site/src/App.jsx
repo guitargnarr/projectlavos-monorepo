@@ -268,6 +268,19 @@ function App() {
       details: "Louisville's craft brewery featuring small-batch beers brewed on-site. Full taproom experience with rotating taps, events calendar, and online shop for merchandise."
     },
     {
+      id: "crushcore-pt",
+      title: "CrushCORE",
+      url: "https://crushcore-pt.vercel.app",
+      preview: "/previews/crushcore-pt.png",
+      ogImage: "/og-images/crushcore-pt-og.png",
+      qrCode: "/qr-codes/crushcore-pt-qr.png",
+      description: "Orthopedic & pelvic health physical therapy",
+      altText: "CrushCORE Louisville Kentucky physical therapy Dr Jaclyn Crush orthopedic pelvic health cash-based PT",
+      category: "Healthcare",
+      specWork: true,
+      details: "Cash-based physical therapy practice specializing in orthopedic and pelvic health. Dr. Jaclyn Crush, PT, DPT offers personalized one-on-one care including telehealth and home visits."
+    },
+    {
       id: "rejuvenation",
       title: "Rejuvenation Med Spa",
       url: "https://rejuvenation-med-spa.vercel.app",

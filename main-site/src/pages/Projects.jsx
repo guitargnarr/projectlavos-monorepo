@@ -165,6 +165,18 @@ const standaloneTools = [
     description: 'Luxury jewelry store demo for Louisville\'s premier jeweler since 1949. Direct diamond importers, custom designs, 75+ years of excellence. Navy/gold palette with 3D card effects.',
     tags: ['React', 'TypeScript', 'Framer Motion', 'Tier 4', 'Client Demo'],
   },
+  {
+    title: 'North Lime Coffee & Donuts',
+    url: 'https://north-lime-coffee.vercel.app',
+    description: 'Demo for Louisville/Lexington donut shop featuring Parliament of Owls membership, coffee subscriptions, rotating donut schedule, and interactive donut quiz. CSS animations, code splitting, 268KB bundle.',
+    tags: ['React', 'TypeScript', 'Tailwind', 'Code Splitting', 'Client Demo'],
+  },
+  {
+    title: 'Tom Drexler Plumbing, Air & Electric',
+    url: 'https://tom-drexler.vercel.app',
+    description: "Louisville's Red Carpet Treatment Since 1982. 4th generation Master Plumber. HVAC, Plumbing, Electrical, Drain & Sewer, Bathroom Remodeling. 200+ service trucks, 24/7 Emergency Service.",
+    tags: ['React', 'TypeScript', 'Framer Motion', 'Tier 2', 'Client Demo'],
+  },
 ]
 
 const backendServices = [
