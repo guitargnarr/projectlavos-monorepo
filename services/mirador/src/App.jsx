@@ -144,7 +144,7 @@ curl http://localhost:5001/api/health`
             30 specialized personas. One conductor. An AI system that monitors, optimizes, and governs itself.
           </p>
           <p className="text-lg text-slate-300 max-w-2xl mx-auto mb-4">
-            30,000+ lines of Python. 49 Ollama models. 100% local execution.
+            ~35,000 lines of Python. 51 Ollama models. 100% local execution.
           </p>
           <div className="flex flex-wrap justify-center gap-4 text-sm text-slate-400 mb-12">
             <span className="flex items-center gap-2">
@@ -257,8 +257,8 @@ curl http://localhost:5001/api/health`
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <StatCard number="30" label="Specialized Personas" />
-            <StatCard number="49" label="Ollama Models Installed" />
-            <StatCard number="30K+" label="Lines of Python" />
+            <StatCard number="51" label="Ollama Models Installed" />
+            <StatCard number="35K" label="Lines of Python" />
             <StatCard number="100%" label="Local Execution" />
           </div>
         </div>
@@ -435,9 +435,9 @@ curl http://localhost:5001/api/health`
           <div className="space-y-4">
             <VerifiedRow claim="30 specialized personas" evidence="30 personas defined in API, verified via /api/personas endpoint" />
             <VerifiedRow claim="Conductor-based orchestration" evidence="ConductorAgent class in conductor.py" />
-            <VerifiedRow claim="Bidirectional communication" evidence="MessageBus class (25,567 lines)" />
+            <VerifiedRow claim="Bidirectional communication" evidence="MessageBus class (711 lines)" />
             <VerifiedRow claim="OCEAN personality integration" evidence="46 files reference Big Five traits" />
-            <VerifiedRow claim="Local execution" evidence="49 Ollama models currently installed" />
+            <VerifiedRow claim="Local execution" evidence="51 Ollama models currently installed" />
             <VerifiedRow claim="SQLite persistence" evidence="3 database files for session/state" />
             <VerifiedRow claim="Webhook infrastructure" evidence="WebhookHandler class with event dispatch" />
           </div>
