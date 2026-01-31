@@ -783,6 +783,19 @@ function App() {
   // Practical Apps - career/productivity focused
   const practicalProjects = [
     {
+      id: "ibanistatools",
+      title: "Ibanista Tools",
+      url: "https://ibanista-tools.vercel.app",
+      preview: "/previews/ibanista-tools-preview.png",
+      ogImage: "/og-images/ibanista-tools-og.png",
+      qrCode: "/qr-codes/ibanista-tools-qr.png",
+      description: "UK-France relocation calculator and region finder",
+      altText: "Ibanista Tools UK France relocation budget calculator region finder quiz for British expatriates",
+      category: "Client",
+      tech: ["React", "TypeScript", "Tailwind", "FastAPI"],
+      details: "Full-stack relocation toolkit for Ibanista (UK-France relocation specialists). Features interactive budget calculator with real cost data, region finder quiz matching lifestyle preferences to French departments, email capture with SQLite persistence, and admin dashboard. React/TypeScript frontend on Vercel, FastAPI backend on Render."
+    },
+    {
       id: "fretvision",
       title: "FretVision",
       url: "https://guitar.projectlavos.com",
