@@ -1093,10 +1093,36 @@ function App() {
             })}
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 transition-all duration-300">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 transition-all duration-300">
             {filteredClients.map((client, index) => {
               const isClientExpanded = expandedClient === client.id;
               const isAboveFold = index < 9; // First 9 cards load eagerly
+              const categoryAccent = {
+                'Healthcare': 'border-t-2 border-t-emerald-500/50',
+                'Medical': 'border-t-2 border-t-emerald-500/50',
+                'Dental': 'border-t-2 border-t-emerald-500/50',
+                'Beauty': 'border-t-2 border-t-pink-500/50',
+                'Beauty & Spa': 'border-t-2 border-t-pink-500/50',
+                'Spa': 'border-t-2 border-t-pink-500/50',
+                'Food & Drink': 'border-t-2 border-t-amber-500/50',
+                'Food': 'border-t-2 border-t-amber-500/50',
+                'Cafe': 'border-t-2 border-t-amber-500/50',
+                'Restaurant': 'border-t-2 border-t-amber-500/50',
+                'Retail': 'border-t-2 border-t-blue-400/50',
+                'Jewelry': 'border-t-2 border-t-blue-400/50',
+                'Entertainment': 'border-t-2 border-t-purple-500/50',
+                'Nightlife': 'border-t-2 border-t-purple-500/50',
+                'Real Estate': 'border-t-2 border-t-cyan-400/50',
+                'Apartments': 'border-t-2 border-t-cyan-400/50',
+                'Professional': 'border-t-2 border-t-slate-400/50',
+                'Legal': 'border-t-2 border-t-slate-400/50',
+                'Finance': 'border-t-2 border-t-slate-400/50',
+                'Cleaning': 'border-t-2 border-t-sky-400/50',
+                'Fitness': 'border-t-2 border-t-rose-400/50',
+                'Wellness': 'border-t-2 border-t-rose-400/50',
+                'Education': 'border-t-2 border-t-indigo-400/50',
+                'Conceptual': 'border-t-2 border-t-violet-400/50',
+              }[client.category] || 'border-t-2 border-t-teal-500/30';
 
               return (
                 <div
@@ -1125,16 +1151,17 @@ function App() {
                 <div
                   onClick={() => setExpandedClient(isClientExpanded ? null : client.id)}
                   className={`
-                    card-3d-inner card-press og-card group cursor-pointer rounded-lg overflow-hidden bg-slate-800/50 border border-slate-700/50 hover:border-teal-500/30 transition-all duration-300 ease-in-out texture-glass
+                    card-3d-inner card-press og-card group cursor-pointer rounded-lg overflow-hidden bg-slate-800/50 border border-slate-700/50 transition-all duration-300 ease-in-out texture-glass
+                    ${categoryAccent}
                     ${expandedClient && !isClientExpanded ? 'opacity-60 scale-95' : 'opacity-100 scale-100'}
                   `}
                 >
-                  {/* Client Preview Image with Skeleton Loader */}
+                  {/* Client Preview Image with Skeleton Loader + Title Overlay */}
                   {(() => {
                     const activeVersion = client.versions?.[activeClientVersion[client.id] ?? 0];
                     const displayPreview = isClientExpanded && activeVersion ? activeVersion.preview : client.preview;
                     return (
-                      <div className={`image-container overflow-hidden bg-slate-800 transition-all duration-300 ${isClientExpanded ? 'aspect-[16/6]' : 'aspect-video sm:aspect-[1200/630]'}`}>
+                      <div className={`image-container overflow-hidden bg-slate-800 transition-all duration-300 ${isClientExpanded ? 'aspect-[16/6]' : 'aspect-[16/9]'}`}>
                         {/* Skeleton shimmer loader */}
                         <div className="skeleton skeleton-loader absolute inset-0" />
                         <img
@@ -1157,46 +1184,49 @@ function App() {
                         <div className="hidden w-full h-full items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 absolute inset-0">
                           <span className="text-4xl font-bold text-teal-500/20">{client.title.charAt(0)}</span>
                         </div>
+                        {/* Title overlay on image gradient */}
+                        <div className="card-title-overlay">
+                          <div className="flex items-center gap-2">
+                            <h3 className="text-base font-semibold text-white drop-shadow-lg">{client.title}</h3>
+                            <span className="text-[10px] text-teal-300 bg-teal-500/20 px-1.5 py-0.5 rounded backdrop-blur-sm whitespace-nowrap">
+                              {client.category}
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     );
                   })()}
 
                   {/* Client Info */}
-                  <div className="p-4">
-                    <div className="flex justify-between items-start mb-2">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <h3 className="text-sm font-semibold text-white">{client.title}</h3>
+                  <div className="px-4 py-3">
+                    <div className="flex justify-between items-start gap-2">
+                      <div className="flex-1 min-w-0">
+                        <p className={`text-sm text-slate-300 leading-relaxed ${isClientExpanded ? '' : 'line-clamp-2'}`}>{client.description}</p>
+                        <div className="flex items-center gap-2 mt-2">
                           {client.location && (
-                            <span className="text-[10px] text-slate-400 bg-slate-700/50 px-1.5 py-0.5 rounded">
+                            <span className="text-[10px] text-slate-500 bg-slate-700/40 px-1.5 py-0.5 rounded">
                               {client.location}
                             </span>
                           )}
                           {client.specWork ? (
-                            <span className="text-[10px] text-orange-400/80 bg-orange-500/10 px-1.5 py-0.5 rounded border border-orange-500/20">
+                            <span className="text-[10px] text-orange-400/70">
                               Spec Work
                             </span>
                           ) : (
-                            <span className="text-[10px] text-green-400/80 bg-green-500/10 px-1.5 py-0.5 rounded border border-green-500/20">
+                            <span className="text-[10px] text-green-400/70">
                               Client
                             </span>
                           )}
                         </div>
-                        <p className={`text-xs text-slate-400 ${isClientExpanded ? '' : 'line-clamp-2'}`}>{client.description}</p>
                       </div>
-                      <div className="flex items-center gap-2 flex-shrink-0">
-                        <span className="text-xs text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded whitespace-nowrap">
-                          {client.category}
-                        </span>
-                        <span
-                          className={`text-teal-400 transition-transform duration-200 flex-shrink-0 ${isClientExpanded ? 'rotate-180' : ''}`}
-                          title={isClientExpanded ? 'Click to collapse' : 'Click to expand'}
-                        >
-                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="inline-block">
-                            <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
-                        </span>
-                      </div>
+                      <span
+                        className={`text-teal-400/70 transition-transform duration-200 flex-shrink-0 mt-1 ${isClientExpanded ? 'rotate-180' : ''}`}
+                        title={isClientExpanded ? 'Click to collapse' : 'Click to expand'}
+                      >
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="inline-block">
+                          <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </span>
                     </div>
 
                     {/* Expanded Content */}

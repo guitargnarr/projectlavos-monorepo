@@ -673,9 +673,9 @@ body {
 .skeleton-loader {
   background: linear-gradient(
     90deg,
-    rgba(30, 41, 59, 0.8) 0%,
-    rgba(51, 65, 85, 0.8) 50%,
-    rgba(30, 41, 59, 0.8) 100%
+    rgba(51, 65, 85, 0.6) 0%,
+    rgba(71, 85, 105, 0.45) 50%,
+    rgba(51, 65, 85, 0.6) 100%
   );
   background-size: 200% 100%;
   animation: skeleton-shimmer 1.5s ease-in-out infinite;
@@ -690,6 +690,19 @@ body {
 .image-container {
   position: relative;
   overflow: hidden;
+}
+
+/* Gradient fade from image into card body - editorial bleed effect */
+.image-container::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to top, rgba(30,41,59,0.9) 0%, rgba(30,41,59,0.4) 40%, transparent 100%);
+  z-index: 6;
+  pointer-events: none;
 }
 
 .image-container img {
@@ -714,6 +727,17 @@ body {
 /* Hide skeleton when image is loaded - use :has() for parent-based selection */
 .image-container:has(img.loaded) .skeleton {
   opacity: 0;
+  pointer-events: none;
+}
+
+/* Card title overlay - sits inside the image gradient fade */
+.card-title-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  z-index: 7;
   pointer-events: none;
 }
 
@@ -902,9 +926,11 @@ body {
 
 .card-subtle-3d:hover .card-3d-inner {
   transform: rotateX(var(--rotateX, -2deg)) rotateY(var(--rotateY, 2deg)) scale(1.02);
+  border-color: rgba(20, 184, 166, 0.45);
   box-shadow:
-    0 15px 30px -10px rgba(0, 0, 0, 0.4),
-    0 0 20px rgba(20, 184, 166, 0.15);
+    0 20px 40px -12px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(20, 184, 166, 0.18),
+    0 1px 0 rgba(20, 184, 166, 0.25);
 }
 
 /* Click indicator pulse */
