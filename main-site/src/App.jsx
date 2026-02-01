@@ -779,6 +779,25 @@ function App() {
 
   const [expandedClient, setExpandedClient] = useState(null);
   const [activeClientVersion, setActiveClientVersion] = useState({});
+  const [clientFilter, setClientFilter] = useState('All');
+
+  // Category grouping for filter tabs
+  const categoryGroups = {
+    'All': null,
+    'Healthcare': ['Medical', 'Healthcare', 'Fitness'],
+    'Beauty & Spa': ['Beauty', 'Med Spa', 'Spa'],
+    'Food & Drink': ['Cafe', 'Restaurant', 'Bar', 'Brewery'],
+    'Retail': ['Retail', 'Jewelry'],
+    'Entertainment': ['Entertainment', 'Youth', 'Nonprofit'],
+    'Services': ['Services'],
+    'Legal & Finance': ['Legal', 'Financial'],
+    'Real Estate': ['Real Estate'],
+    'Education': ['Education'],
+  };
+
+  const filteredClients = clientFilter === 'All'
+    ? localClients
+    : localClients.filter(c => categoryGroups[clientFilter]?.includes(c.category));
 
   // Practical Apps - career/productivity focused
   const practicalProjects = [
@@ -1040,21 +1059,42 @@ function App() {
       {/* Louisville Section */}
       <section
         id="louisville"
-        className={`px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800 transition-all duration-700 spotlight-warm section-glow-full ${visibleSections.louisville ? 'opacity-100 translate-y-0 in-view' : 'opacity-0 translate-y-8'}`}
+        className={`px-6 md:px-12 lg:px-24 py-20 border-t border-slate-800 transition-all duration-700 spotlight-warm section-glow-full ${visibleSections.louisville ? 'opacity-100 translate-y-0 in-view' : 'opacity-0 translate-y-8'}`}
       >
         <div className="max-w-6xl">
-          <h2 className="heading-serif text-2xl md:text-3xl font-semibold text-white mb-2 neon-text">
+          <h2 className="heading-serif text-3xl md:text-4xl font-semibold text-white mb-2 neon-text">
             Louisville
           </h2>
           <p className="text-slate-400 mb-4">
             51 sites you can visit. Live. Deployed. Working.
           </p>
-          <p className="text-xs text-slate-500 mb-8">
+          <p className="text-xs text-slate-500 mb-6">
             Spec work built from public info. Not pitches. Proof.
           </p>
 
+          {/* Category Filter Tabs */}
+          <div className="flex gap-2 overflow-x-auto pb-4 mb-6 scrollbar-hide -mx-2 px-2" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}>
+            {Object.keys(categoryGroups).map((group) => {
+              const count = group === 'All' ? localClients.length : localClients.filter(c => categoryGroups[group]?.includes(c.category)).length;
+              if (count === 0 && group !== 'All') return null;
+              return (
+                <button
+                  key={group}
+                  onClick={() => { setClientFilter(group); setExpandedClient(null); }}
+                  className={`flex-shrink-0 px-3 py-1.5 text-xs font-medium rounded-full transition-all duration-200 whitespace-nowrap ${
+                    clientFilter === group
+                      ? 'bg-teal-500 text-slate-900'
+                      : 'bg-teal-500/10 text-teal-400 hover:bg-teal-500/20 border border-teal-500/20'
+                  }`}
+                >
+                  {group} <span className="ml-1 opacity-70">{count}</span>
+                </button>
+              );
+            })}
+          </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 transition-all duration-300">
-            {localClients.map((client, index) => {
+            {filteredClients.map((client, index) => {
               const isClientExpanded = expandedClient === client.id;
               const isAboveFold = index < 9; // First 9 cards load eagerly
 
@@ -1094,7 +1134,7 @@ function App() {
                     const activeVersion = client.versions?.[activeClientVersion[client.id] ?? 0];
                     const displayPreview = isClientExpanded && activeVersion ? activeVersion.preview : client.preview;
                     return (
-                      <div className={`image-container overflow-hidden bg-slate-800 transition-all duration-300 ${isClientExpanded ? 'aspect-[16/6]' : 'aspect-[1200/630]'}`}>
+                      <div className={`image-container overflow-hidden bg-slate-800 transition-all duration-300 ${isClientExpanded ? 'aspect-[16/6]' : 'aspect-video sm:aspect-[1200/630]'}`}>
                         {/* Skeleton shimmer loader */}
                         <div className="skeleton skeleton-loader absolute inset-0" />
                         <img
@@ -1142,14 +1182,19 @@ function App() {
                             </span>
                           )}
                         </div>
-                        <p className={`text-xs text-slate-400 ${isClientExpanded ? '' : 'truncate'}`}>{client.description}</p>
+                        <p className={`text-xs text-slate-400 ${isClientExpanded ? '' : 'line-clamp-2'}`}>{client.description}</p>
                       </div>
                       <div className="flex items-center gap-2 flex-shrink-0">
                         <span className="text-xs text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded whitespace-nowrap">
                           {client.category}
                         </span>
-                        <span className={`text-teal-400 text-xs transition-transform duration-200 flex-shrink-0 ${isClientExpanded ? 'rotate-180' : ''}`}>
-                          {isClientExpanded ? '▲' : '▼'}
+                        <span
+                          className={`text-teal-400 transition-transform duration-200 flex-shrink-0 ${isClientExpanded ? 'rotate-180' : ''}`}
+                          title={isClientExpanded ? 'Click to collapse' : 'Click to expand'}
+                        >
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="inline-block">
+                            <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
                         </span>
                       </div>
                     </div>
@@ -1352,7 +1397,7 @@ function App() {
                     ${expandedProject && !isExpanded ? 'opacity-60 scale-95' : 'opacity-100 scale-100'}
                   `}
                 >
-                  <div className={`image-container overflow-hidden bg-slate-800 transition-all duration-300 ${isExpanded ? 'aspect-[16/6]' : 'aspect-[1200/630]'}`}>
+                  <div className={`image-container overflow-hidden bg-slate-800 transition-all duration-300 ${isExpanded ? 'aspect-[16/6]' : 'aspect-video sm:aspect-[1200/630]'}`}>
                     <div className="skeleton skeleton-loader absolute inset-0" />
                     <img
                       src={project.preview}
@@ -1375,10 +1420,15 @@ function App() {
                     <div className="flex justify-between items-start mb-2">
                       <div className="flex-1">
                         <h3 className="text-sm font-semibold text-white mb-1">{project.title}</h3>
-                        <p className={`text-xs text-slate-400 ${isExpanded ? '' : 'truncate'}`}>{project.description}</p>
+                        <p className={`text-xs text-slate-400 ${isExpanded ? '' : 'line-clamp-2'}`}>{project.description}</p>
                       </div>
-                      <span className={`text-teal-400 text-xs transition-transform duration-200 flex-shrink-0 ${isExpanded ? 'rotate-180' : ''}`}>
-                        {isExpanded ? '▲' : '▼'}
+                      <span
+                        className={`text-teal-400 transition-transform duration-200 flex-shrink-0 ${isExpanded ? 'rotate-180' : ''}`}
+                        title={isExpanded ? 'Click to collapse' : 'Click to expand'}
+                      >
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="inline-block">
+                          <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
                       </span>
                     </div>
                     {/* Tech Stack Badges */}
@@ -1406,6 +1456,8 @@ function App() {
               );
             })}
           </div>
+
+          <div className="border-t border-slate-700/30 mb-12"></div>
 
           {/* Conceptual/Experimental */}
           <h3 className="text-lg font-medium text-orange-400 mb-4 flex items-center gap-2">
@@ -1480,10 +1532,15 @@ function App() {
                     <div className="flex justify-between items-start mb-2">
                       <div className="flex-1">
                         <h3 className="text-sm font-semibold text-white mb-1">{project.title}</h3>
-                        <p className={`text-xs text-slate-400 ${isExpanded ? '' : 'truncate'}`}>{project.description}</p>
+                        <p className={`text-xs text-slate-400 ${isExpanded ? '' : 'line-clamp-2'}`}>{project.description}</p>
                       </div>
-                      <span className={`text-orange-400 text-xs transition-transform duration-200 flex-shrink-0 ${isExpanded ? 'rotate-180' : ''}`}>
-                        {isExpanded ? '▲' : '▼'}
+                      <span
+                        className={`text-orange-400 transition-transform duration-200 flex-shrink-0 ${isExpanded ? 'rotate-180' : ''}`}
+                        title={isExpanded ? 'Click to collapse' : 'Click to expand'}
+                      >
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="inline-block">
+                          <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
                       </span>
                     </div>
                     {/* Tech Stack Badges */}
