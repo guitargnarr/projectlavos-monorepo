@@ -171,7 +171,7 @@ function App() {
       qrCode: "/qr-codes/springs-stony-brook-qr.png",
       description: "Where Family Comes To Live",
       altText: "The Springs at Stony Brook senior living Louisville Kentucky Trilogy Health Services Independent Living Personal Care Memory Care Skilled Services",
-      category: "Healthcare",
+      category: "Senior Living",
       specWork: true,
       details: "Premium senior living demo for Louisville Trilogy Health Services community. Official purple/gold Trilogy branding. Four levels of care: Independent Living, Personal Care, Memory Care (Best Friends Approach), and Skilled Services. U.S. News Best Senior Living award badges."
     },
@@ -1122,6 +1122,18 @@ function App() {
                 'Wellness': 'border-t-2 border-t-rose-400/50',
                 'Education': 'border-t-2 border-t-indigo-400/50',
                 'Conceptual': 'border-t-2 border-t-violet-400/50',
+                'Services': 'border-t-2 border-t-slate-400/50',
+                'Senior Living': 'border-t-2 border-t-emerald-400/50',
+                'Brewery': 'border-t-2 border-t-amber-600/50',
+                'Bar': 'border-t-2 border-t-purple-500/50',
+                'Financial': 'border-t-2 border-t-slate-400/50',
+                'Nonprofit': 'border-t-2 border-t-indigo-400/50',
+                'Security': 'border-t-2 border-t-red-500/50',
+                'Career': 'border-t-2 border-t-teal-400/50',
+                'Personal': 'border-t-2 border-t-pink-400/50',
+                'Client': 'border-t-2 border-t-teal-400/50',
+                'Med Spa': 'border-t-2 border-t-pink-500/50',
+                'Youth': 'border-t-2 border-t-orange-400/50',
               }[client.category] || 'border-t-2 border-t-teal-500/30';
 
               return (
