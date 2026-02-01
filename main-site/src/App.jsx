@@ -851,16 +851,16 @@ function App() {
       details: "Job boards show listings. Vantage shows patterns—which companies are hiring, what skills are trending locally, and how to position yourself. Built for Louisville first."
     },
     {
-      id: "jobtrack",
-      title: "JobTrack",
+      id: "jobway",
+      title: "Jobway",
       url: "https://jobtrack.projectlavos.com",
-      preview: "/previews/jobtrack.png",
-      ogImage: "/og-images/jobtrack-og.png",
-      description: "Track applications and never miss a follow-up",
-      altText: "JobTrack application tracking dashboard showing job applications, response rates, and interview pipeline",
+      preview: "/previews/jobway.png",
+      ogImage: "/og-images/jobway-og.png",
+      description: "AI-powered job search command center with Gmail integration",
+      altText: "Jobway dashboard showing job tracking, ATS optimization scores, email scanning, and follow-up scheduling",
       category: "Career",
-      tech: ["React", "Supabase", "TypeScript"],
-      details: "Spreadsheets work until they don't. JobTrack adds structure to the job search grind—tracking applications, follow-ups, and outcomes in one place."
+      tech: ["React", "FastAPI", "spaCy", "Gmail API"],
+      details: "Full-stack job search automation. Gmail OAuth scans your inbox for responses, NLP-powered ATS optimizer scores resumes against job descriptions, smart follow-up scheduling, and analytics dashboard. Not a template—actual automation."
     }
   ];
 
