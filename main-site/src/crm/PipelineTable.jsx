@@ -10,13 +10,45 @@ const STATUS_COLORS = {
   lost: 'bg-red-600',
 };
 
-const PRIORITY_COLORS = {
-  hot: 'text-red-400',
-  warm: 'text-orange-400',
-  cold: 'text-slate-400',
+const PRIORITY_ORDER = { hot: 0, warm: 1, cold: 2 };
+
+const PRIORITY_BADGE = {
+  hot: 'bg-red-500/20 text-red-400 border border-red-500/30',
+  warm: 'bg-orange-500/20 text-orange-400 border border-orange-500/30',
+  cold: 'bg-slate-500/20 text-slate-500 border border-slate-600/30',
 };
 
 const STATUSES = ['prospect', 'contacted', 'responded', 'meeting', 'closed', 'lost'];
+
+function getLastEventDate(biz) {
+  if (!biz.events || biz.events.length === 0) return null;
+  const sorted = [...biz.events].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  return new Date(sorted[0].created_at);
+}
+
+function daysSince(date) {
+  if (!date) return null;
+  const diff = Date.now() - date.getTime();
+  return Math.floor(diff / (1000 * 60 * 60 * 24));
+}
+
+function daysAgoLabel(days) {
+  if (days === null) return 'Never';
+  if (days === 0) return 'Today';
+  if (days === 1) return '1d ago';
+  if (days < 7) return `${days}d ago`;
+  if (days < 30) return `${Math.floor(days / 7)}w ago`;
+  return `${Math.floor(days / 30)}mo ago`;
+}
+
+function daysAgoColor(days) {
+  if (days === null) return 'text-red-400';
+  if (days <= 3) return 'text-green-400';
+  if (days <= 7) return 'text-teal-400';
+  if (days <= 14) return 'text-yellow-400';
+  if (days <= 30) return 'text-orange-400';
+  return 'text-red-400';
+}
 
 export default function PipelineTable({
   businesses,
@@ -28,13 +60,15 @@ export default function PipelineTable({
   onEmail,
 }) {
   const [expandedId, setExpandedId] = useState(null);
-  const [sortKey, setSortKey] = useState('updated_at');
-  const [sortAsc, setSortAsc] = useState(false);
+  const [sortKey, setSortKey] = useState('priority');
+  const [sortAsc, setSortAsc] = useState(true);
   const [filterStatus, setFilterStatus] = useState('');
+  const [filterPriority, setFilterPriority] = useState('');
   const [search, setSearch] = useState('');
 
   const filtered = businesses
     .filter((b) => !filterStatus || b.status === filterStatus)
+    .filter((b) => !filterPriority || b.priority === filterPriority)
     .filter(
       (b) =>
         !search ||
@@ -42,6 +76,20 @@ export default function PipelineTable({
         b.category.toLowerCase().includes(search.toLowerCase())
     )
     .sort((a, b) => {
+      if (sortKey === 'priority') {
+        const pa = PRIORITY_ORDER[a.priority] ?? 3;
+        const pb = PRIORITY_ORDER[b.priority] ?? 3;
+        if (pa !== pb) return sortAsc ? pa - pb : pb - pa;
+        // Secondary sort by updated_at desc
+        return new Date(b.updated_at) - new Date(a.updated_at);
+      }
+      if (sortKey === 'last_contact') {
+        const da = getLastEventDate(a);
+        const db = getLastEventDate(b);
+        const ta = da ? da.getTime() : 0;
+        const tb = db ? db.getTime() : 0;
+        return sortAsc ? tb - ta : ta - tb;
+      }
       let va = a[sortKey];
       let vb = b[sortKey];
       if (typeof va === 'string') va = va.toLowerCase();
@@ -64,6 +112,12 @@ export default function PipelineTable({
     await onUpdate(biz.id, { status: newStatus });
   };
 
+  const priorityCounts = {
+    hot: businesses.filter((b) => b.priority === 'hot').length,
+    warm: businesses.filter((b) => b.priority === 'warm').length,
+    cold: businesses.filter((b) => b.priority === 'cold').length,
+  };
+
   const SortHeader = ({ label, field, className = '' }) => (
     <th
       className={`px-3 py-2 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider cursor-pointer hover:text-white select-none ${className}`}
@@ -81,7 +135,7 @@ export default function PipelineTable({
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search businesses..."
-          className="flex-1 min-w-[200px] px-3 py-2 bg-slate-800 border border-slate-600 rounded text-sm text-white placeholder-slate-500"
+          className="flex-1 min-w-[180px] px-3 py-2 bg-slate-800 border border-slate-600 rounded text-sm text-white placeholder-slate-500"
         />
         <select
           value={filterStatus}
@@ -98,6 +152,50 @@ export default function PipelineTable({
         <span className="text-slate-500 text-sm">{filtered.length} results</span>
       </div>
 
+      {/* Priority quick-filter pills */}
+      <div className="flex items-center gap-2 px-4 py-2.5 border-b border-slate-700/50">
+        <button
+          onClick={() => setFilterPriority('')}
+          className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+            filterPriority === ''
+              ? 'bg-slate-600 text-white'
+              : 'bg-slate-800 text-slate-400 hover:text-white'
+          }`}
+        >
+          All ({businesses.length})
+        </button>
+        <button
+          onClick={() => setFilterPriority(filterPriority === 'hot' ? '' : 'hot')}
+          className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+            filterPriority === 'hot'
+              ? 'bg-red-500/30 text-red-300 border border-red-500/40'
+              : 'bg-slate-800 text-red-400 hover:bg-red-500/20'
+          }`}
+        >
+          Hot ({priorityCounts.hot})
+        </button>
+        <button
+          onClick={() => setFilterPriority(filterPriority === 'warm' ? '' : 'warm')}
+          className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+            filterPriority === 'warm'
+              ? 'bg-orange-500/30 text-orange-300 border border-orange-500/40'
+              : 'bg-slate-800 text-orange-400 hover:bg-orange-500/20'
+          }`}
+        >
+          Warm ({priorityCounts.warm})
+        </button>
+        <button
+          onClick={() => setFilterPriority(filterPriority === 'cold' ? '' : 'cold')}
+          className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+            filterPriority === 'cold'
+              ? 'bg-slate-500/30 text-slate-300 border border-slate-500/40'
+              : 'bg-slate-800 text-slate-400 hover:bg-slate-500/20'
+          }`}
+        >
+          Cold ({priorityCounts.cold})
+        </button>
+      </div>
+
       {/* Table */}
       <div className="overflow-x-auto">
         <table className="w-full">
@@ -107,7 +205,7 @@ export default function PipelineTable({
               <SortHeader label="Category" field="category" className="hidden md:table-cell" />
               <SortHeader label="Priority" field="priority" />
               <SortHeader label="Status" field="status" />
-              <SortHeader label="Updated" field="updated_at" className="hidden lg:table-cell" />
+              <SortHeader label="Activity" field="last_contact" className="hidden lg:table-cell" />
               <th className="px-3 py-2 text-right text-xs font-semibold text-slate-400 uppercase tracking-wider">
                 Actions
               </th>
@@ -143,10 +241,12 @@ export default function PipelineTable({
 function TableRow({ biz, expanded, onToggle, onStatusChange, onEdit, onDelete, onAddEvent, onRefresh, onEmail }) {
   const [detail, setDetail] = useState(null);
 
+  const lastEvent = getLastEventDate(biz);
+  const days = daysSince(lastEvent);
+
   const handleExpand = async () => {
     onToggle();
     if (!expanded && !detail) {
-      // Will be loaded by parent or already available
       setDetail(biz);
     }
   };
@@ -175,7 +275,7 @@ function TableRow({ biz, expanded, onToggle, onStatusChange, onEdit, onDelete, o
           {biz.category}
         </td>
         <td className="px-3 py-3">
-          <span className={`text-sm font-medium ${PRIORITY_COLORS[biz.priority] || 'text-slate-400'}`}>
+          <span className={`inline-block px-2 py-0.5 rounded text-xs font-semibold uppercase tracking-wide ${PRIORITY_BADGE[biz.priority] || 'bg-slate-700 text-slate-400'}`}>
             {biz.priority}
           </span>
         </td>
@@ -192,8 +292,10 @@ function TableRow({ biz, expanded, onToggle, onStatusChange, onEdit, onDelete, o
             ))}
           </select>
         </td>
-        <td className="px-3 py-3 text-slate-500 text-xs hidden lg:table-cell">
-          {new Date(biz.updated_at).toLocaleDateString()}
+        <td className="px-3 py-3 hidden lg:table-cell">
+          <span className={`text-xs font-medium ${daysAgoColor(days)}`}>
+            {daysAgoLabel(days)}
+          </span>
         </td>
         <td className="px-3 py-3 text-right" onClick={(e) => e.stopPropagation()}>
           <button

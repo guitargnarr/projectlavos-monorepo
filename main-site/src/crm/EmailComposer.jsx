@@ -75,22 +75,105 @@ function getTemplateType(biz) {
   return 'enhancement';
 }
 
+function deriveFeatures(biz) {
+  const cat = (biz.category || '').toLowerCase();
+  const prop = (biz.demo_value_prop || '').toLowerCase();
+  const notes = (biz.notes || '').toLowerCase();
+
+  // Category-specific feature suggestions
+  const categoryFeatures = {
+    healthcare: ['Online appointment booking with availability calendar', 'Patient portal with secure form submissions'],
+    medical: ['Online appointment booking with availability calendar', 'Patient portal with secure form submissions'],
+    dental: ['Online appointment booking with availability calendar', 'Patient portal with insurance information'],
+    restaurant: ['Online menu with photos and descriptions', 'Reservation system with real-time availability'],
+    'food & beverage': ['Online menu with photos and descriptions', 'Online ordering for pickup or delivery'],
+    cafe: ['Full menu with daily specials section', 'Online ordering for pickup'],
+    salon: ['Online booking with service selection', 'Gallery showcasing your stylists\' work'],
+    spa: ['Online booking with service menu and pricing', 'Gallery of treatments and facilities'],
+    retail: ['Product showcase with categories and search', 'Shopping cart with secure checkout'],
+    jewelry: ['High-resolution product gallery with zoom', 'Custom design request form'],
+    entertainment: ['Event calendar with ticket purchasing', 'Photo and video gallery'],
+    'real estate': ['Interactive property listings with filters', 'Virtual tour scheduling and contact forms'],
+    legal: ['Practice area pages with clear explanations', 'Secure client intake forms'],
+    financial: ['Service overview with clear pricing tiers', 'Secure document upload portal'],
+  };
+
+  // Check for category match
+  for (const [key, features] of Object.entries(categoryFeatures)) {
+    if (cat.includes(key) || prop.includes(key) || notes.includes(key)) {
+      return features;
+    }
+  }
+
+  // Derive from value prop if available
+  if (biz.demo_value_prop) {
+    const vp = biz.demo_value_prop;
+    if (vp.includes('booking') || vp.includes('appointment')) {
+      return ['Online booking system with calendar integration', 'Automated confirmation and reminder emails'];
+    }
+    if (vp.includes('menu') || vp.includes('food')) {
+      return ['Digital menu with photos and pricing', 'Online ordering for takeout'];
+    }
+    if (vp.includes('gallery') || vp.includes('portfolio')) {
+      return ['Professional photo gallery with lightbox', 'Before/after showcases'];
+    }
+  }
+
+  // Generic fallback
+  return ['Mobile-responsive design that looks great on any device', 'Modern layout with clear calls to action'];
+}
+
+function deriveIssue(biz) {
+  const q = biz.website_quality || 0;
+  const platform = (biz.platform || '').toLowerCase();
+  const notes = (biz.notes || '').toLowerCase();
+
+  if (platform.includes('wix')) return 'Built on Wix with limited customization and slow load times';
+  if (platform.includes('squarespace')) return 'Squarespace template that looks similar to competitors';
+  if (platform.includes('wordpress')) return 'WordPress site with outdated theme and slow performance';
+  if (platform.includes('facebook')) return 'Relying on Facebook page instead of a proper website';
+  if (platform.includes('google')) return 'Only a Google Business listing - no dedicated website';
+  if (notes.includes('slow')) return 'Slow loading times that drive visitors away';
+  if (notes.includes('mobile') || notes.includes('responsive')) return 'Not optimized for mobile devices';
+  if (q <= 1) return 'The site looks outdated and is difficult to navigate on mobile';
+  if (q === 2) return 'The design feels dated and doesn\'t reflect the quality of your business';
+  return 'The current design could better showcase what makes your business special';
+}
+
+function deriveImprovements(biz) {
+  const q = biz.website_quality || 0;
+  const platform = (biz.platform || '').toLowerCase();
+
+  if (q <= 1 || platform.includes('facebook') || platform.includes('google')) {
+    return ['Professional design that builds trust with new customers', 'Fast-loading pages optimized for Google search'];
+  }
+  if (q === 2) {
+    return ['Clean, modern design with faster load times', 'Mobile-first layout that works perfectly on phones'];
+  }
+  return ['Refreshed visual design with modern typography', 'Improved mobile experience and faster page speed'];
+}
+
 function fillTemplate(template, biz) {
   let subject = template.subject;
   let body = template.body;
+
+  const features = deriveFeatures(biz);
+  const improvements = deriveImprovements(biz);
+  const issue = deriveIssue(biz);
+
   const replacements = {
     '{Business}': biz.name || '',
     '{Owner}': biz.contact_name || 'there',
     '{Demo URL}': biz.demo_url || '',
     '{current website}': biz.existing_website || '',
     '{search term}': `${biz.category?.toLowerCase() || 'business'} Louisville`,
-    '{specific issue}': 'The design feels dated and isn\'t mobile-friendly',
-    '{Feature 1}': 'Mobile-responsive design that looks great on any device',
-    '{Feature 2}': 'Modern layout with clear calls to action',
-    '{Improvement 1}': 'Clean, modern design with faster load times',
-    '{Improvement 2}': 'Mobile-first layout that works on every device',
-    '{Enhancement 1}': 'Refreshed visual design with modern typography',
-    '{Enhancement 2}': 'Improved mobile experience and page speed',
+    '{specific issue}': issue,
+    '{Feature 1}': features[0],
+    '{Feature 2}': features[1],
+    '{Improvement 1}': improvements[0],
+    '{Improvement 2}': improvements[1],
+    '{Enhancement 1}': improvements[0],
+    '{Enhancement 2}': improvements[1],
   };
   for (const [key, value] of Object.entries(replacements)) {
     subject = subject.replaceAll(key, value);
@@ -121,7 +204,7 @@ export default function EmailComposer({ biz, onClose }) {
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800">
           <div>
             <h2 className="text-white font-semibold">Compose Email</h2>
-            <p className="text-slate-500 text-xs">{biz.name}</p>
+            <p className="text-slate-500 text-xs">{biz.name} - {biz.category}</p>
           </div>
           <button onClick={onClose} className="text-slate-500 hover:text-white text-lg">&times;</button>
         </div>
