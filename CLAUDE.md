@@ -63,5 +63,13 @@ Changes requiring human verification before claiming done:
 - **Playbook:** @~/.claude/reference/parallel-development-playbook.md
 - **Key:** Test each PR's build before merging to catch conflict markers
 
+## CRM Dashboard (projectlavos.com/dashboard)
+- **Access:** Charioteer logo in footer -> passphrase auth
+- **Backend:** outreach-api-miha.onrender.com (FastAPI + Neon PostgreSQL)
+- **Frontend:** main-site/src/crm/ (lazy-loaded at /dashboard)
+- **Data:** 43 Louisville businesses (16 hot, 6 warm, 21 cold)
+- **Post-deploy sync:** After deploying a new client demo site AND adding it to projectlavos.com, POST to `/sync` endpoint with new business data
+- **Deploy with env var:** `VITE_OUTREACH_API_URL=https://outreach-api-miha.onrender.com vercel build --prod && vercel deploy --prebuilt --prod --yes`
+
 ## Documentation References
 - Anthropic workflows: @~/.claude/archive/WORKFLOWS.md
