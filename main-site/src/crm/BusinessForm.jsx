@@ -25,6 +25,9 @@ export default function BusinessForm({ business, onSave, onClose }) {
     contact_email: '',
     contact_phone: '',
     contact_role: '',
+    contact_linkedin: '',
+    address: '',
+    platform: '',
     demo_value_prop: '',
     notes: '',
   });
@@ -44,6 +47,9 @@ export default function BusinessForm({ business, onSave, onClose }) {
         contact_email: business.contact_email || '',
         contact_phone: business.contact_phone || '',
         contact_role: business.contact_role || '',
+        contact_linkedin: business.contact_linkedin || '',
+        address: business.address || '',
+        platform: business.platform || '',
         demo_value_prop: business.demo_value_prop || '',
         notes: business.notes || '',
       });
@@ -120,6 +126,9 @@ export default function BusinessForm({ business, onSave, onClose }) {
             <input value={form.contact_email} onChange={set('contact_email')} placeholder="Email" className="px-3 py-2 bg-slate-800 border border-slate-600 rounded text-sm text-white placeholder-slate-500" />
             <input value={form.contact_phone} onChange={set('contact_phone')} placeholder="Phone" className="px-3 py-2 bg-slate-800 border border-slate-600 rounded text-sm text-white placeholder-slate-500" />
           </div>
+          <input value={form.contact_linkedin} onChange={set('contact_linkedin')} placeholder="LinkedIn URL" className="w-full px-3 py-2 bg-slate-800 border border-slate-600 rounded text-sm text-white placeholder-slate-500" />
+          <input value={form.address} onChange={set('address')} placeholder="Address" className="w-full px-3 py-2 bg-slate-800 border border-slate-600 rounded text-sm text-white placeholder-slate-500" />
+          <input value={form.platform} onChange={set('platform')} placeholder="Platform (e.g. WordPress, Squarespace)" className="w-full px-3 py-2 bg-slate-800 border border-slate-600 rounded text-sm text-white placeholder-slate-500" />
 
           {/* Value prop + notes */}
           <textarea value={form.demo_value_prop} onChange={set('demo_value_prop')} placeholder="Demo Value Proposition" rows={2} className="w-full px-3 py-2 bg-slate-800 border border-slate-600 rounded text-sm text-white placeholder-slate-500 resize-none" />
