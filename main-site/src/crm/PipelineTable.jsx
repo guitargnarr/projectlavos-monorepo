@@ -247,6 +247,21 @@ function ExpandedRow({ biz, onAddEvent, onRefresh }) {
             <span className="text-white">{biz.contact_phone}</span>
           </div>
         )}
+        {biz.contact_linkedin && (
+          <div>
+            <span className="text-slate-500">LinkedIn:</span>{' '}
+            <a href={biz.contact_linkedin.startsWith('http') ? biz.contact_linkedin : `https://${biz.contact_linkedin}`}
+              target="_blank" rel="noopener noreferrer" className="text-teal-400 hover:underline">
+              {biz.contact_linkedin}
+            </a>
+          </div>
+        )}
+        {biz.address && (
+          <div>
+            <span className="text-slate-500">Address:</span>{' '}
+            <span className="text-white">{biz.address}</span>
+          </div>
+        )}
         {biz.existing_website && (
           <div>
             <span className="text-slate-500">Current site:</span>{' '}
@@ -261,6 +276,12 @@ function ExpandedRow({ biz, onAddEvent, onRefresh }) {
             {biz.website_quality > 0 && (
               <span className="text-slate-500 ml-1">({biz.website_quality}/5)</span>
             )}
+          </div>
+        )}
+        {biz.platform && (
+          <div>
+            <span className="text-slate-500">Platform:</span>{' '}
+            <span className="text-white">{biz.platform}</span>
           </div>
         )}
         {biz.demo_value_prop && (
