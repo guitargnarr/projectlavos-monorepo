@@ -25,6 +25,7 @@ export default function PipelineTable({
   onEdit,
   onAddEvent,
   onRefresh,
+  onEmail,
 }) {
   const [expandedId, setExpandedId] = useState(null);
   const [sortKey, setSortKey] = useState('updated_at');
@@ -124,6 +125,7 @@ export default function PipelineTable({
                 onDelete={onDelete}
                 onAddEvent={onAddEvent}
                 onRefresh={onRefresh}
+                onEmail={onEmail}
               />
             ))}
           </tbody>
@@ -138,7 +140,7 @@ export default function PipelineTable({
   );
 }
 
-function TableRow({ biz, expanded, onToggle, onStatusChange, onEdit, onDelete, onAddEvent, onRefresh }) {
+function TableRow({ biz, expanded, onToggle, onStatusChange, onEdit, onDelete, onAddEvent, onRefresh, onEmail }) {
   const [detail, setDetail] = useState(null);
 
   const handleExpand = async () => {
@@ -194,6 +196,12 @@ function TableRow({ biz, expanded, onToggle, onStatusChange, onEdit, onDelete, o
           {new Date(biz.updated_at).toLocaleDateString()}
         </td>
         <td className="px-3 py-3 text-right" onClick={(e) => e.stopPropagation()}>
+          <button
+            onClick={() => onEmail(biz)}
+            className="text-slate-400 hover:text-cyan-400 text-xs mr-2"
+          >
+            Mail
+          </button>
           <button
             onClick={() => onEdit(biz)}
             className="text-slate-400 hover:text-teal-400 text-xs mr-2"

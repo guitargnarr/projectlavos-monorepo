@@ -3,12 +3,9 @@ import { useAuth } from './useAuth';
 import { useApi } from './useApi';
 import { endpoints } from './api';
 import AuthModal from './AuthModal';
-import StatCard from './StatCard';
-import FunnelChart from './FunnelChart';
-import DonutChart from './DonutChart';
-import ActivityChart from './ActivityChart';
 import PipelineTable from './PipelineTable';
 import BusinessForm from './BusinessForm';
+import EmailComposer from './EmailComposer';
 
 export default function Dashboard() {
   const { token, isAuthenticated, loading: authLoading, login, logout } = useAuth();
@@ -18,6 +15,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [editBiz, setEditBiz] = useState(null);
   const [showAddForm, setShowAddForm] = useState(false);
+  const [emailBiz, setEmailBiz] = useState(null);
 
   const fetchData = useCallback(async () => {
     if (!token) return;
@@ -27,12 +25,10 @@ export default function Dashboard() {
         request(endpoints.businesses),
         request(endpoints.metrics),
       ]);
-      // Fetch events for each business (lazy - only first page)
       const bizWithEvents = await Promise.all(
         bizList.map(async (b) => {
           try {
-            const detail = await request(endpoints.business(b.id));
-            return detail;
+            return await request(endpoints.business(b.id));
           } catch {
             return { ...b, events: [] };
           }
@@ -48,16 +44,11 @@ export default function Dashboard() {
   }, [token, request]);
 
   useEffect(() => {
-    if (isAuthenticated) {
-      fetchData();
-    }
+    if (isAuthenticated) fetchData();
   }, [isAuthenticated, fetchData]);
 
   const handleUpdate = async (id, data) => {
-    await request(endpoints.business(id), {
-      method: 'PUT',
-      body: JSON.stringify(data),
-    });
+    await request(endpoints.business(id), { method: 'PUT', body: JSON.stringify(data) });
     fetchData();
   };
 
@@ -68,15 +59,9 @@ export default function Dashboard() {
 
   const handleSave = async (data) => {
     if (editBiz) {
-      await request(endpoints.business(editBiz.id), {
-        method: 'PUT',
-        body: JSON.stringify(data),
-      });
+      await request(endpoints.business(editBiz.id), { method: 'PUT', body: JSON.stringify(data) });
     } else {
-      await request(endpoints.businesses, {
-        method: 'POST',
-        body: JSON.stringify(data),
-      });
+      await request(endpoints.businesses, { method: 'POST', body: JSON.stringify(data) });
     }
     setEditBiz(null);
     setShowAddForm(false);
@@ -84,10 +69,7 @@ export default function Dashboard() {
   };
 
   const handleAddEvent = async (bizId, eventData) => {
-    await request(endpoints.events(bizId), {
-      method: 'POST',
-      body: JSON.stringify(eventData),
-    });
+    await request(endpoints.events(bizId), { method: 'POST', body: JSON.stringify(eventData) });
     fetchData();
   };
 
@@ -102,7 +84,6 @@ export default function Dashboard() {
     URL.revokeObjectURL(url);
   };
 
-  // Auth loading state
   if (authLoading) {
     return (
       <div className="min-h-screen bg-slate-950 flex items-center justify-center">
@@ -111,7 +92,6 @@ export default function Dashboard() {
     );
   }
 
-  // Not authenticated - show auth modal
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-slate-950">
@@ -120,111 +100,76 @@ export default function Dashboard() {
     );
   }
 
+  const hot = metrics?.by_priority?.hot || 0;
+  const warm = metrics?.by_priority?.warm || 0;
+  const contacted = (metrics?.by_status?.contacted || 0) + (metrics?.by_status?.responded || 0) + (metrics?.by_status?.meeting || 0);
+  const closed = metrics?.by_status?.closed || 0;
+  const total = metrics?.total || 0;
+
   return (
     <div className="min-h-screen bg-slate-950 text-white">
-      {/* Top bar */}
-      <header className="border-b border-slate-800 px-6 py-4 flex items-center justify-between">
-        <div>
-          <h1 className="text-xl font-semibold text-white">
-            Outreach Command Center
-          </h1>
-          <p className="text-slate-500 text-sm">Client pipeline management</p>
-        </div>
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => setShowAddForm(true)}
-            className="px-4 py-2 bg-teal-600 hover:bg-teal-500 text-white text-sm font-medium rounded transition-colors"
-          >
-            + Add Business
-          </button>
-          <button
-            onClick={handleExport}
-            className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-300 text-sm rounded transition-colors"
-          >
-            Export CSV
-          </button>
-          <button
-            onClick={logout}
-            className="px-4 py-2 text-slate-500 hover:text-red-400 text-sm transition-colors"
-          >
-            Logout
-          </button>
+      {/* Header */}
+      <header className="border-b border-slate-800/60 px-6 py-5">
+        <div className="max-w-5xl mx-auto flex items-center justify-between">
+          <div>
+            <h1 className="text-lg font-semibold text-white tracking-tight">Outreach</h1>
+            <p className="text-slate-600 text-xs mt-0.5">
+              {total} businesses &middot; {hot} hot &middot; {contacted} in pipeline &middot; {closed} closed
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setShowAddForm(true)}
+              className="px-3.5 py-1.5 bg-teal-600 hover:bg-teal-500 text-white text-sm font-medium rounded-lg transition-colors"
+            >
+              Add
+            </button>
+            <button
+              onClick={handleExport}
+              className="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-400 text-sm rounded-lg transition-colors"
+            >
+              Export
+            </button>
+            <button
+              onClick={logout}
+              className="px-3 py-1.5 text-slate-600 hover:text-red-400 text-sm transition-colors"
+            >
+              Out
+            </button>
+          </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-6 py-6 space-y-6">
+      <main className="max-w-5xl mx-auto px-6 py-5">
         {loading ? (
           <div className="flex items-center justify-center py-20">
             <div className="animate-spin w-8 h-8 border-2 border-teal-500 border-t-transparent rounded-full" />
           </div>
         ) : (
-          <>
-            {/* Stat cards */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              <StatCard
-                label="Total Businesses"
-                value={metrics?.total || 0}
-                sub={`${metrics?.by_priority?.hot || 0} hot`}
-                color="teal"
-              />
-              <StatCard
-                label="Active Outreach"
-                value={metrics?.active_outreach || 0}
-                sub="contacted + responded + meeting"
-                color="orange"
-              />
-              <StatCard
-                label="Response Rate"
-                value={`${metrics?.response_rate || 0}%`}
-                sub="of contacted businesses"
-                color="blue"
-              />
-              <StatCard
-                label="Meetings Set"
-                value={metrics?.meetings_set || 0}
-                sub={`${metrics?.total_events || 0} total events`}
-                color="green"
-              />
-            </div>
-
-            {/* Charts row */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-              <FunnelChart data={metrics?.by_status || {}} />
-              <DonutChart
-                data={metrics?.by_category || {}}
-                title="By Category"
-              />
-              <DonutChart
-                data={metrics?.by_priority || {}}
-                title="By Priority"
-              />
-            </div>
-
-            {/* Activity chart */}
-            <ActivityChart data={metrics?.weekly_activity || {}} />
-
-            {/* Pipeline table */}
-            <PipelineTable
-              businesses={businesses}
-              onUpdate={handleUpdate}
-              onDelete={handleDelete}
-              onEdit={(biz) => setEditBiz(biz)}
-              onAddEvent={handleAddEvent}
-              onRefresh={fetchData}
-            />
-          </>
+          <PipelineTable
+            businesses={businesses}
+            onUpdate={handleUpdate}
+            onDelete={handleDelete}
+            onEdit={(biz) => setEditBiz(biz)}
+            onAddEvent={handleAddEvent}
+            onRefresh={fetchData}
+            onEmail={(biz) => setEmailBiz(biz)}
+          />
         )}
       </main>
 
-      {/* Business form modal */}
       {(showAddForm || editBiz) && (
         <BusinessForm
           business={editBiz}
           onSave={handleSave}
-          onClose={() => {
-            setEditBiz(null);
-            setShowAddForm(false);
-          }}
+          onClose={() => { setEditBiz(null); setShowAddForm(false); }}
+        />
+      )}
+
+      {emailBiz && (
+        <EmailComposer
+          biz={emailBiz}
+          onClose={() => setEmailBiz(null)}
         />
       )}
     </div>
