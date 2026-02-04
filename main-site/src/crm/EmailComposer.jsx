@@ -1,6 +1,178 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
-const TEMPLATES = {
+function buildEmail(biz) {
+  // Fall back to 'there' for generic/non-name contacts
+  const rawName = biz.contact_name || '';
+  const genericPatterns = /\b(ownership|management|staff|unidentified)\b/i;
+  const name = (rawName && !genericPatterns.test(rawName)) ? rawName : 'there';
+  const bizName = biz.name || '';
+  const demoUrl = biz.demo_url || '';
+  const existingUrl = biz.existing_website || '';
+  const notes = biz.notes || '';
+  const dvp = biz.demo_value_prop || '';
+  const q = biz.website_quality || 0;
+  const platform = (biz.platform || '').toLowerCase();
+
+  // Extract DVP as a single clean summary (first meaningful sentence)
+  // and separate feature list items
+  const dvpClean = dvp.replace(/\s+/g, ' ').trim();
+  const dvpFeatures = [];
+  // Look for feature-like phrases (capitalized items after commas in the DVP)
+  const featureMatch = dvpClean.match(/with (.+)/i);
+  if (featureMatch) {
+    const featurePart = featureMatch[1];
+    // Split on commas but keep phrases that belong together
+    featurePart.split(',').forEach((f) => {
+      const cleaned = f.replace(/\.$/, '').trim();
+      if (cleaned.length > 5 && cleaned.length < 80) {
+        // Capitalize first letter
+        dvpFeatures.push(cleaned.charAt(0).toUpperCase() + cleaned.slice(1));
+      }
+    });
+  }
+  // Use first 3 features max
+  const features = dvpFeatures.slice(0, 3);
+
+  // Extract the best hook from notes
+  // Prefer Pitch:-prefixed content (written to be prospect-facing)
+  // Then fall back to keyword-matched sentences from general notes
+  let hook = '';
+  // First pass: extract full Pitch: content from raw notes (before sentence splitting)
+  const pitchMatch = notes.match(/Pitch:\s*['"]?(.+?)['"]?\s*$/im);
+  if (pitchMatch) {
+    hook = pitchMatch[1].trim();
+  }
+
+  const notesSentences = notes
+    .split(/(?<=[.!])\s+/)
+    .map((s) => s.trim())
+    .filter((s) => s.length > 15);
+  // Fallback: if no Pitch: content, find a keyword-matched sentence
+  if (!hook) {
+    const pitchKeywords = [
+      'potential clients', 'clients research', 'customers', 'first impression',
+      'comparing', 'looking online', 'need professional', 'searching',
+      'competitive', 'booking', 'visibility', 'trust'
+    ];
+    for (const sentence of notesSentences) {
+      const lower = sentence.toLowerCase();
+      if (pitchKeywords.some((kw) => lower.includes(kw))) {
+        hook = sentence.replace(/^['"]|['"]$/g, '');
+        break;
+      }
+    }
+  }
+  // Discard hooks that are internal notes, not prospect-facing
+  if (hook) {
+    const internalPrefixes = /^(pitch angle:|show the demo|approach:|strategy:|note:)/i;
+    const hasPlaceholder = /\$[A-Z]/;
+    if (internalPrefixes.test(hook.trim()) || hasPlaceholder.test(hook)) {
+      hook = '';
+    }
+  }
+  // Soften internal-sounding language into conversational tone
+  if (hook) {
+    hook = hook
+      // Strip stray quotes anywhere in the hook
+      .replace(/['']/g, '')
+      // "X NEED Y" -> "A strong Y makes a real difference for X"
+      .replace(/(\w[\w\s]+?) NEED (\w[\w\s]+?)(?:\s*[-–—]\s*)/i, (_, who, what) =>
+        `A strong ${what.trim().toLowerCase()} makes a real difference for ${who.trim().toLowerCase()} - `)
+      // Remove clinical all-caps emphasis
+      .replace(/\b[A-Z]{4,}\b/g, (w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+      // "clients research X extensively" -> "people research X carefully"
+      .replace(/clients research/gi, 'people research')
+      // "before calling" -> "before reaching out"
+      .replace(/before calling/gi, 'before reaching out')
+      // "Trust signals are everything" -> softer version
+      .replace(/trust signals are everything/gi, 'trust and credibility matter')
+      // Clean up any double spaces
+      .replace(/\s{2,}/g, ' ')
+      .trim();
+  }
+
+  // Build platform-aware issue description
+  let siteIssue = '';
+  if (platform.includes('wix')) siteIssue = 'loads slowly and limits what you can do with it';
+  else if (platform.includes('squarespace')) siteIssue = 'uses a template that looks similar to competitors';
+  else if (platform.includes('wordpress')) siteIssue = 'could use a speed and design refresh';
+  else if (platform.includes('facebook') || platform.includes('google')) siteIssue = 'means you\'re relying on social media instead of your own site';
+  else if (q <= 1) siteIssue = 'doesn\'t reflect the quality of what you actually do';
+  else if (q <= 2) siteIssue = 'could be working a lot harder for you';
+
+  // Determine template type - treat junk existing_website values as no website
+  const existingIsReal = existingUrl && !existingUrl.toLowerCase().includes('verify') && !existingUrl.toLowerCase().includes('none') && existingUrl.includes('.');
+  let templateType = 'no_website';
+  if (existingIsReal && q <= 2) templateType = 'outdated_website';
+  else if (existingIsReal) templateType = 'enhancement';
+
+  // Build personalized subject line
+  let subject = '';
+  if (templateType === 'no_website') {
+    subject = `I built ${bizName} a website - take a look`;
+  } else if (templateType === 'outdated_website') {
+    subject = `${bizName} deserves a website that matches your reputation`;
+  } else {
+    subject = `A modern refresh for ${bizName}'s online presence`;
+  }
+
+  // Build the body
+  let body = `Hi ${name},\n\n`;
+
+  if (templateType === 'no_website') {
+    body += `I'm a web developer based in Louisville, and I noticed ${bizName} doesn't have a dedicated website yet. So I went ahead and built one for you.\n\n`;
+    body += `Take a look: ${demoUrl}\n\n`;
+    if (hook) {
+      body += `${hook}\n\n`;
+    } else {
+      body += `A professional site helps new customers find you and builds trust before they even walk through the door.\n\n`;
+    }
+    if (features.length > 0) {
+      body += `Here's what I included:\n`;
+      for (const f of features) body += `- ${f}\n`;
+      body += '\n';
+    }
+  } else if (templateType === 'outdated_website') {
+    body += `I'm a web developer in Louisville, and I came across ${bizName} while looking at local businesses. You clearly run a great operation`;
+    if (siteIssue) {
+      body += `, but your current website ${siteIssue}.\n\n`;
+    } else {
+      body += `, but I think your website could be doing more for you.\n\n`;
+    }
+    if (hook) {
+      body += `${hook}\n\n`;
+    }
+    body += `I built a modern alternative: ${demoUrl}\n\n`;
+    if (features.length > 0) {
+      body += `What's different:\n`;
+      for (const f of features) body += `- ${f}\n`;
+      body += '\n';
+    }
+  } else {
+    body += `I'm a Louisville-based web developer, and I came across ${bizName} while researching local businesses. Your site does a lot right, but I noticed a few areas where it could convert more visitors into customers.\n\n`;
+    body += `I built a concept that addresses those gaps: ${demoUrl}\n\n`;
+    if (hook) {
+      body += `${hook}\n\n`;
+    }
+    if (features.length > 0) {
+      body += `Key improvements:\n`;
+      for (const f of features) body += `- ${f}\n`;
+      body += '\n';
+    }
+  }
+
+  body += `This is yours to preview, no strings attached. If you like what you see, I can have it live on your own domain within a week.\n\n`;
+  body += `Worth a 15-minute look? Just reply to this email and I'll walk you through it.\n\n`;
+  body += `Matthew Scott\nWeb Developer - Louisville, KY\nmatthewdscott7@gmail.com | projectlavos.com`;
+
+  // Flag emails that lack personalization - these shouldn't be sent as-is
+  const needsResearch = !hook && features.length === 0;
+
+  return { subject, body, templateType, needsResearch };
+}
+
+// Quick generic templates as fallback when user wants a different angle
+const ALT_TEMPLATES = {
   no_website: {
     label: 'No Website',
     subject: 'I built {Business} a website - take a look',
@@ -10,14 +182,11 @@ I'm a web developer based in Louisville, and I noticed {Business} doesn't curren
 
 Take a look: {Demo URL}
 
-I searched "{search term}" and {Business} didn't come up - which means potential customers can't find you online. This demo includes:
+This demo includes mobile-friendly design, clear calls to action, and everything a customer needs to find and contact you.
 
-- {Feature 1}
-- {Feature 2}
+This is yours to preview, no strings attached. If you like it, I can have it live on your own domain within a week.
 
-This is yours to preview, no strings attached. If you like it, I can get it live with a custom domain for a very reasonable rate.
-
-Happy to chat anytime.
+Worth a 15-minute look? Just reply to this email and I'll walk you through it.
 
 Matthew Scott
 Web Developer - Louisville, KY
@@ -32,16 +201,11 @@ I'm a web developer in Louisville, and I came across {current website}. You clea
 
 I took the liberty of building a modern alternative: {Demo URL}
 
-A few things I noticed on your current site:
-- {specific issue}
-
-The new version includes:
-- {Improvement 1}
-- {Improvement 2}
+The new version is faster, mobile-friendly, and designed to convert visitors into customers.
 
 I'm not trying to sell you anything complicated. Just a better online presence that matches the quality of what you actually do.
 
-Would love to show you a quick walkthrough.
+Worth a 15-minute look? Just reply to this email and I'll walk you through it.
 
 Matthew Scott
 Web Developer - Louisville, KY
@@ -52,15 +216,13 @@ matthewdscott7@gmail.com | projectlavos.com`,
     subject: 'A modern refresh for {Business}\'s website',
     body: `Hi {Owner},
 
-I'm a Louisville-based web developer, and I was impressed by what {Business} is doing. Your current site works, but I think there's room to make it really stand out.
+I'm a Louisville-based web developer, and I came across {Business} while researching local businesses. Your site does a lot right, but I noticed a few areas where it could convert more visitors into customers.
 
-I put together a concept: {Demo URL}
+I built a concept that addresses those gaps: {Demo URL}
 
-A couple enhancements I had in mind:
-- {Enhancement 1}
-- {Enhancement 2}
+This is yours to preview, no strings attached. If you like it, I can have it live on your own domain within a week.
 
-This is just a preview to show what's possible. No pressure at all - if it sparks any ideas, I'd be happy to discuss.
+Worth a 15-minute look? Just reply to this email and I'll walk you through it.
 
 Matthew Scott
 Web Developer - Louisville, KY
@@ -68,112 +230,14 @@ matthewdscott7@gmail.com | projectlavos.com`,
   },
 };
 
-function getTemplateType(biz) {
-  const q = biz.website_quality || 0;
-  if (!biz.existing_website || biz.existing_website.trim() === '') return 'no_website';
-  if (q <= 2) return 'outdated_website';
-  return 'enhancement';
-}
-
-function deriveFeatures(biz) {
-  const cat = (biz.category || '').toLowerCase();
-  const prop = (biz.demo_value_prop || '').toLowerCase();
-  const notes = (biz.notes || '').toLowerCase();
-
-  // Category-specific feature suggestions
-  const categoryFeatures = {
-    healthcare: ['Online appointment booking with availability calendar', 'Patient portal with secure form submissions'],
-    medical: ['Online appointment booking with availability calendar', 'Patient portal with secure form submissions'],
-    dental: ['Online appointment booking with availability calendar', 'Patient portal with insurance information'],
-    restaurant: ['Online menu with photos and descriptions', 'Reservation system with real-time availability'],
-    'food & beverage': ['Online menu with photos and descriptions', 'Online ordering for pickup or delivery'],
-    cafe: ['Full menu with daily specials section', 'Online ordering for pickup'],
-    salon: ['Online booking with service selection', 'Gallery showcasing your stylists\' work'],
-    spa: ['Online booking with service menu and pricing', 'Gallery of treatments and facilities'],
-    retail: ['Product showcase with categories and search', 'Shopping cart with secure checkout'],
-    jewelry: ['High-resolution product gallery with zoom', 'Custom design request form'],
-    entertainment: ['Event calendar with ticket purchasing', 'Photo and video gallery'],
-    'real estate': ['Interactive property listings with filters', 'Virtual tour scheduling and contact forms'],
-    legal: ['Practice area pages with clear explanations', 'Secure client intake forms'],
-    financial: ['Service overview with clear pricing tiers', 'Secure document upload portal'],
-  };
-
-  // Check for category match
-  for (const [key, features] of Object.entries(categoryFeatures)) {
-    if (cat.includes(key) || prop.includes(key) || notes.includes(key)) {
-      return features;
-    }
-  }
-
-  // Derive from value prop if available
-  if (biz.demo_value_prop) {
-    const vp = biz.demo_value_prop;
-    if (vp.includes('booking') || vp.includes('appointment')) {
-      return ['Online booking system with calendar integration', 'Automated confirmation and reminder emails'];
-    }
-    if (vp.includes('menu') || vp.includes('food')) {
-      return ['Digital menu with photos and pricing', 'Online ordering for takeout'];
-    }
-    if (vp.includes('gallery') || vp.includes('portfolio')) {
-      return ['Professional photo gallery with lightbox', 'Before/after showcases'];
-    }
-  }
-
-  // Generic fallback
-  return ['Mobile-responsive design that looks great on any device', 'Modern layout with clear calls to action'];
-}
-
-function deriveIssue(biz) {
-  const q = biz.website_quality || 0;
-  const platform = (biz.platform || '').toLowerCase();
-  const notes = (biz.notes || '').toLowerCase();
-
-  if (platform.includes('wix')) return 'Built on Wix with limited customization and slow load times';
-  if (platform.includes('squarespace')) return 'Squarespace template that looks similar to competitors';
-  if (platform.includes('wordpress')) return 'WordPress site with outdated theme and slow performance';
-  if (platform.includes('facebook')) return 'Relying on Facebook page instead of a proper website';
-  if (platform.includes('google')) return 'Only a Google Business listing - no dedicated website';
-  if (notes.includes('slow')) return 'Slow loading times that drive visitors away';
-  if (notes.includes('mobile') || notes.includes('responsive')) return 'Not optimized for mobile devices';
-  if (q <= 1) return 'The site looks outdated and is difficult to navigate on mobile';
-  if (q === 2) return 'The design feels dated and doesn\'t reflect the quality of your business';
-  return 'The current design could better showcase what makes your business special';
-}
-
-function deriveImprovements(biz) {
-  const q = biz.website_quality || 0;
-  const platform = (biz.platform || '').toLowerCase();
-
-  if (q <= 1 || platform.includes('facebook') || platform.includes('google')) {
-    return ['Professional design that builds trust with new customers', 'Fast-loading pages optimized for Google search'];
-  }
-  if (q === 2) {
-    return ['Clean, modern design with faster load times', 'Mobile-first layout that works perfectly on phones'];
-  }
-  return ['Refreshed visual design with modern typography', 'Improved mobile experience and faster page speed'];
-}
-
-function fillTemplate(template, biz) {
+function fillGenericTemplate(template, biz) {
   let subject = template.subject;
   let body = template.body;
-
-  const features = deriveFeatures(biz);
-  const improvements = deriveImprovements(biz);
-  const issue = deriveIssue(biz);
-
   const replacements = {
     '{Business}': biz.name || '',
     '{Owner}': biz.contact_name || 'there',
     '{Demo URL}': biz.demo_url || '',
     '{current website}': biz.existing_website || '',
-    '{search term}': `${biz.category?.toLowerCase() || 'business'} Louisville`,
-    '{specific issue}': issue,
-    '{Feature 1}': features[0],
-    '{Feature 2}': features[1],
-    '{Improvement 1}': improvements[0],
-    '{Improvement 2}': improvements[1],
-    '{Enhancement 1}': improvements[0],
-    '{Enhancement 2}': improvements[1],
   };
   for (const [key, value] of Object.entries(replacements)) {
     subject = subject.replaceAll(key, value);
@@ -183,11 +247,17 @@ function fillTemplate(template, biz) {
 }
 
 export default function EmailComposer({ biz, onClose }) {
-  const templateType = getTemplateType(biz);
-  const [activeType, setActiveType] = useState(templateType);
-  const template = TEMPLATES[activeType];
-  const { subject, body } = fillTemplate(template, biz);
+  const [mode, setMode] = useState('smart'); // 'smart' or 'generic'
+  const smart = useMemo(() => buildEmail(biz), [biz]);
+  const [genericType, setGenericType] = useState(smart.templateType);
   const [copied, setCopied] = useState(null);
+
+  const generic = useMemo(
+    () => fillGenericTemplate(ALT_TEMPLATES[genericType], biz),
+    [biz, genericType]
+  );
+
+  const { subject, body, needsResearch } = mode === 'smart' ? smart : { ...generic, needsResearch: false };
 
   const handleCopy = async (text, field) => {
     await navigator.clipboard.writeText(text);
@@ -209,22 +279,60 @@ export default function EmailComposer({ biz, onClose }) {
           <button onClick={onClose} className="text-slate-500 hover:text-white text-lg">&times;</button>
         </div>
 
-        {/* Template selector */}
-        <div className="flex gap-1 px-6 pt-4">
-          {Object.entries(TEMPLATES).map(([key, t]) => (
+        {/* Mode toggle + template selector */}
+        <div className="flex items-center gap-3 px-6 pt-4">
+          <div className="flex gap-1 bg-slate-800 rounded-lg p-0.5">
             <button
-              key={key}
-              onClick={() => setActiveType(key)}
+              onClick={() => setMode('smart')}
               className={`px-3 py-1.5 rounded text-xs font-medium transition-colors ${
-                activeType === key
-                  ? 'bg-teal-600 text-white'
-                  : 'bg-slate-800 text-slate-400 hover:text-white'
+                mode === 'smart' ? 'bg-teal-600 text-white' : 'text-slate-400 hover:text-white'
               }`}
             >
-              {t.label}
+              Personalized
             </button>
-          ))}
+            <button
+              onClick={() => setMode('generic')}
+              className={`px-3 py-1.5 rounded text-xs font-medium transition-colors ${
+                mode === 'generic' ? 'bg-teal-600 text-white' : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              Generic
+            </button>
+          </div>
+
+          {mode === 'generic' && (
+            <div className="flex gap-1">
+              {Object.entries(ALT_TEMPLATES).map(([key, t]) => (
+                <button
+                  key={key}
+                  onClick={() => setGenericType(key)}
+                  className={`px-2.5 py-1.5 rounded text-xs font-medium transition-colors ${
+                    genericType === key
+                      ? 'bg-slate-700 text-white'
+                      : 'text-slate-500 hover:text-slate-300'
+                  }`}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {mode === 'smart' && (biz.notes || biz.demo_value_prop) && (
+            <span className="text-xs text-teal-500 ml-auto">Uses research intel</span>
+          )}
+          {mode === 'smart' && !biz.notes && !biz.demo_value_prop && (
+            <span className="text-xs text-orange-400 ml-auto">No research data - using defaults</span>
+          )}
         </div>
+
+        {/* Needs research warning */}
+        {mode === 'smart' && needsResearch && (
+          <div className="mx-6 mt-3 px-4 py-3 bg-orange-500/10 border border-orange-500/30 rounded-lg">
+            <p className="text-orange-400 text-xs font-medium">Needs research before sending</p>
+            <p className="text-orange-400/70 text-xs mt-1">This email has no personalized hook or feature bullets. It reads generic and will likely be deleted. Add notes or a demo_value_prop to this business first.</p>
+          </div>
+        )}
 
         {/* Content */}
         <div className="flex-1 overflow-y-auto px-6 py-4 space-y-3">

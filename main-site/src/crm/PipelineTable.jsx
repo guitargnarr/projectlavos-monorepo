@@ -202,7 +202,8 @@ export default function PipelineTable({
           <thead>
             <tr className="border-b border-slate-700">
               <SortHeader label="Business" field="name" />
-              <SortHeader label="Category" field="category" className="hidden md:table-cell" />
+              <SortHeader label="Contact" field="contact_name" />
+              <SortHeader label="Category" field="category" className="hidden lg:table-cell" />
               <SortHeader label="Priority" field="priority" />
               <SortHeader label="Status" field="status" />
               <SortHeader label="Activity" field="last_contact" className="hidden lg:table-cell" />
@@ -271,7 +272,33 @@ function TableRow({ biz, expanded, onToggle, onStatusChange, onEdit, onDelete, o
             </a>
           )}
         </td>
-        <td className="px-3 py-3 text-slate-400 text-sm hidden md:table-cell">
+        <td className="px-3 py-3 text-sm max-w-[200px]">
+          {biz.contact_name && (
+            <div className="text-white text-xs truncate">{biz.contact_name}</div>
+          )}
+          {biz.contact_email && (
+            <button
+              className="text-teal-400 text-xs hover:underline hover:text-teal-300 truncate block text-left max-w-full"
+              onClick={(e) => { e.stopPropagation(); onEmail(biz); }}
+              title="Compose email"
+            >
+              {biz.contact_email}
+            </button>
+          )}
+          {biz.contact_phone && (
+            <a
+              href={`tel:${biz.contact_phone.replace(/[^\d+]/g, '')}`}
+              className="text-slate-400 text-xs hover:text-white truncate block"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {biz.contact_phone}
+            </a>
+          )}
+          {!biz.contact_name && !biz.contact_email && !biz.contact_phone && (
+            <span className="text-slate-600 text-xs">--</span>
+          )}
+        </td>
+        <td className="px-3 py-3 text-slate-400 text-sm hidden lg:table-cell">
           {biz.category}
         </td>
         <td className="px-3 py-3">
@@ -298,31 +325,36 @@ function TableRow({ biz, expanded, onToggle, onStatusChange, onEdit, onDelete, o
           </span>
         </td>
         <td className="px-3 py-3 text-right" onClick={(e) => e.stopPropagation()}>
-          <button
-            onClick={() => onEmail(biz)}
-            className="text-slate-400 hover:text-cyan-400 text-xs mr-2"
-          >
-            Mail
-          </button>
-          <button
-            onClick={() => onEdit(biz)}
-            className="text-slate-400 hover:text-teal-400 text-xs mr-2"
-          >
-            Edit
-          </button>
-          <button
-            onClick={() => {
-              if (confirm(`Delete ${biz.name}?`)) onDelete(biz.id);
-            }}
-            className="text-slate-400 hover:text-red-400 text-xs"
-          >
-            Del
-          </button>
+          <div className="flex items-center justify-end gap-1">
+            <button
+              onClick={() => onEmail(biz)}
+              className="px-2 py-1 rounded bg-cyan-900/40 text-cyan-400 hover:bg-cyan-800/60 hover:text-cyan-300 text-xs font-medium transition-colors"
+              title="Compose email"
+            >
+              Mail
+            </button>
+            <button
+              onClick={() => onEdit(biz)}
+              className="px-2 py-1 rounded bg-slate-800/60 text-slate-400 hover:bg-slate-700 hover:text-teal-400 text-xs font-medium transition-colors"
+              title="Edit business"
+            >
+              Edit
+            </button>
+            <button
+              onClick={() => {
+                if (confirm(`Delete ${biz.name}?`)) onDelete(biz.id);
+              }}
+              className="px-2 py-1 rounded bg-slate-800/60 text-slate-500 hover:bg-red-900/40 hover:text-red-400 text-xs font-medium transition-colors"
+              title="Delete business"
+            >
+              Del
+            </button>
+          </div>
         </td>
       </tr>
       {expanded && (
         <tr>
-          <td colSpan={6} className="px-4 py-3 bg-slate-850">
+          <td colSpan={7} className="px-4 py-3 bg-slate-850">
             <ExpandedRow biz={biz} onAddEvent={onAddEvent} onRefresh={onRefresh} />
           </td>
         </tr>
