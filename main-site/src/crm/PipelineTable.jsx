@@ -73,7 +73,8 @@ export default function PipelineTable({
       (b) =>
         !search ||
         b.name.toLowerCase().includes(search.toLowerCase()) ||
-        b.category.toLowerCase().includes(search.toLowerCase())
+        b.category.toLowerCase().includes(search.toLowerCase()) ||
+        b.status.toLowerCase().includes(search.toLowerCase())
     )
     .sort((a, b) => {
       if (sortKey === 'priority') {
@@ -202,8 +203,6 @@ export default function PipelineTable({
           <thead>
             <tr className="border-b border-slate-700">
               <SortHeader label="Business" field="name" />
-              <SortHeader label="Contact" field="contact_name" />
-              <SortHeader label="Category" field="category" className="hidden lg:table-cell" />
               <SortHeader label="Priority" field="priority" />
               <SortHeader label="Status" field="status" />
               <SortHeader label="Activity" field="last_contact" className="hidden lg:table-cell" />
@@ -260,46 +259,28 @@ function TableRow({ biz, expanded, onToggle, onStatusChange, onEdit, onDelete, o
       >
         <td className="px-3 py-3">
           <div className="text-white text-sm font-medium">{biz.name}</div>
-          {biz.demo_url && (
-            <a
-              href={biz.demo_url.startsWith('http') ? biz.demo_url : `https://${biz.demo_url}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-teal-400 text-xs hover:underline"
-              onClick={(e) => e.stopPropagation()}
-            >
-              demo
-            </a>
-          )}
-        </td>
-        <td className="px-3 py-3 text-sm max-w-[200px]">
-          {biz.contact_name && (
-            <div className="text-white text-xs truncate">{biz.contact_name}</div>
-          )}
-          {biz.contact_email && (
-            <button
-              className="text-teal-400 text-xs hover:underline hover:text-teal-300 truncate block text-left max-w-full"
-              onClick={(e) => { e.stopPropagation(); onEmail(biz); }}
-              title="Compose email"
-            >
-              {biz.contact_email}
-            </button>
-          )}
-          {biz.contact_phone && (
-            <a
-              href={`tel:${biz.contact_phone.replace(/[^\d+]/g, '')}`}
-              className="text-slate-400 text-xs hover:text-white truncate block"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {biz.contact_phone}
-            </a>
-          )}
-          {!biz.contact_name && !biz.contact_email && !biz.contact_phone && (
-            <span className="text-slate-600 text-xs">--</span>
-          )}
-        </td>
-        <td className="px-3 py-3 text-slate-400 text-sm hidden lg:table-cell">
-          {biz.category}
+          <div className="flex items-center gap-2 mt-0.5">
+            {biz.contact_email ? (
+              <button
+                className="text-teal-400 text-xs hover:underline hover:text-teal-300 truncate text-left"
+                onClick={(e) => { e.stopPropagation(); onEmail(biz); }}
+                title="Compose email"
+              >
+                {biz.contact_email}
+              </button>
+            ) : biz.demo_url ? (
+              <a
+                href={biz.demo_url.startsWith('http') ? biz.demo_url : `https://${biz.demo_url}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-teal-400 text-xs hover:underline"
+                onClick={(e) => e.stopPropagation()}
+              >
+                demo
+              </a>
+            ) : null}
+            <span className="text-slate-600 text-[10px]">{biz.category}</span>
+          </div>
         </td>
         <td className="px-3 py-3">
           <span className={`inline-block px-2 py-0.5 rounded text-xs font-semibold uppercase tracking-wide ${PRIORITY_BADGE[biz.priority] || 'bg-slate-700 text-slate-400'}`}>
@@ -354,7 +335,7 @@ function TableRow({ biz, expanded, onToggle, onStatusChange, onEdit, onDelete, o
       </tr>
       {expanded && (
         <tr>
-          <td colSpan={7} className="px-4 py-3 bg-slate-850">
+          <td colSpan={5} className="px-4 py-3 bg-slate-850">
             <ExpandedRow biz={biz} onAddEvent={onAddEvent} onRefresh={onRefresh} />
           </td>
         </tr>

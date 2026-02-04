@@ -780,6 +780,7 @@ function App() {
   const [expandedClient, setExpandedClient] = useState(null);
   const [activeClientVersion, setActiveClientVersion] = useState({});
   const [clientFilter, setClientFilter] = useState('All');
+  const [showAllClients, setShowAllClients] = useState(false);
 
   // Category grouping for filter tabs
   const categoryGroups = {
@@ -795,9 +796,14 @@ function App() {
     'Education': ['Education'],
   };
 
-  const filteredClients = clientFilter === 'All'
+  const allFilteredClients = clientFilter === 'All'
     ? localClients
     : localClients.filter(c => categoryGroups[clientFilter]?.includes(c.category));
+  const INITIAL_CLIENT_COUNT = 9;
+  const filteredClients = showAllClients || clientFilter !== 'All'
+    ? allFilteredClients
+    : allFilteredClients.slice(0, INITIAL_CLIENT_COUNT);
+  const hasMoreClients = clientFilter === 'All' && !showAllClients && allFilteredClients.length > INITIAL_CLIENT_COUNT;
 
   // Practical Apps - career/productivity focused
   const practicalProjects = [
@@ -1377,6 +1383,17 @@ function App() {
               );
             })}
           </div>
+
+          {hasMoreClients && (
+            <div className="flex justify-center mt-6">
+              <button
+                onClick={() => setShowAllClients(true)}
+                className="px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-medium rounded-lg transition-colors border border-slate-700"
+              >
+                Show all {allFilteredClients.length} sites
+              </button>
+            </div>
+          )}
 
           <p className="text-slate-400 text-sm mt-8 text-center">
             Are you a Louisville business looking to establish or improve your online presence?{' '}

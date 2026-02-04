@@ -254,6 +254,7 @@ export default function EmailComposer({ biz, onClose }) {
   const [copied, setCopied] = useState(null);
   const [sendState, setSendState] = useState('idle'); // idle | confirm | sending | sent | error
   const [sendError, setSendError] = useState('');
+  const [showMore, setShowMore] = useState(false);
 
   const generic = useMemo(
     () => fillGenericTemplate(ALT_TEMPLATES[genericType], biz),
@@ -440,7 +441,7 @@ export default function EmailComposer({ biz, onClose }) {
 
         {/* Actions */}
         <div className="flex items-center gap-3 px-6 py-4 border-t border-slate-800">
-          {canSend && (
+          {canSend ? (
             <button
               onClick={handleSend}
               disabled={sendState === 'sending'}
@@ -449,26 +450,46 @@ export default function EmailComposer({ biz, onClose }) {
               {sendState === 'sending' && (
                 <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               )}
-              {sendState === 'sending' ? 'Sending...' : 'Send Email'}
+              {sendState === 'sending' ? 'Sending...' : sendState === 'confirm' ? `Send to ${biz.contact_email}?` : 'Send Email'}
+            </button>
+          ) : (
+            <button
+              onClick={() => handleCopy(`Subject: ${subject}\n\n${body}`, 'all')}
+              className="px-5 py-2 bg-teal-600 hover:bg-teal-500 text-white text-sm font-medium rounded transition-colors"
+            >
+              {copied === 'all' ? 'Copied' : 'Copy All'}
             </button>
           )}
-          {biz.contact_email && (
-            <a
-              href={mailtoUrl}
-              className="px-5 py-2 bg-slate-700 hover:bg-slate-600 text-slate-300 text-sm rounded transition-colors"
+          {/* More dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setShowMore(!showMore)}
+              className="px-3 py-2 bg-slate-700 hover:bg-slate-600 text-slate-300 text-sm rounded transition-colors"
             >
-              Open in Mail
-            </a>
-          )}
-          <button
-            onClick={() => handleCopy(`Subject: ${subject}\n\n${body}`, 'all')}
-            className="px-5 py-2 bg-slate-700 hover:bg-slate-600 text-slate-300 text-sm rounded transition-colors"
-          >
-            {copied === 'all' ? 'Copied' : 'Copy All'}
-          </button>
-          <button onClick={onClose} className="ml-auto text-slate-500 hover:text-white text-sm">
-            Close
-          </button>
+              More
+            </button>
+            {showMore && (
+              <div className="absolute bottom-full mb-1 left-0 bg-slate-700 rounded-lg shadow-xl border border-slate-600 overflow-hidden min-w-[140px] z-10">
+                {canSend && (
+                  <button
+                    onClick={() => { handleCopy(`Subject: ${subject}\n\n${body}`, 'all'); setShowMore(false); }}
+                    className="w-full px-4 py-2 text-left text-sm text-slate-300 hover:bg-slate-600 transition-colors"
+                  >
+                    {copied === 'all' ? 'Copied' : 'Copy All'}
+                  </button>
+                )}
+                {biz.contact_email && (
+                  <a
+                    href={mailtoUrl}
+                    className="block px-4 py-2 text-sm text-slate-300 hover:bg-slate-600 transition-colors"
+                    onClick={() => setShowMore(false)}
+                  >
+                    Open in Mail
+                  </a>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
