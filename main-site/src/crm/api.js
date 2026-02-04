@@ -9,6 +9,7 @@ export const endpoints = {
   metrics: `${API_BASE}/metrics`,
   sync: `${API_BASE}/sync`,
   exportCsv: `${API_BASE}/export/csv`,
+  sendEmail: (id) => `${API_BASE}/businesses/${id}/send-email`,
 };
 
 export default API_BASE;

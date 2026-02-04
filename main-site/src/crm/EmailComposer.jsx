@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { endpoints } from './api';
 
 function buildEmail(biz) {
   // Fall back to 'there' for generic/non-name contacts
@@ -251,6 +252,8 @@ export default function EmailComposer({ biz, onClose }) {
   const smart = useMemo(() => buildEmail(biz), [biz]);
   const [genericType, setGenericType] = useState(smart.templateType);
   const [copied, setCopied] = useState(null);
+  const [sendState, setSendState] = useState('idle'); // idle | confirm | sending | sent | error
+  const [sendError, setSendError] = useState('');
 
   const generic = useMemo(
     () => fillGenericTemplate(ALT_TEMPLATES[genericType], biz),
@@ -258,6 +261,43 @@ export default function EmailComposer({ biz, onClose }) {
   );
 
   const { subject, body, needsResearch } = mode === 'smart' ? smart : { ...generic, needsResearch: false };
+
+  const canSend = biz.contact_email && !needsResearch && sendState !== 'sending' && sendState !== 'sent';
+
+  const handleSend = async () => {
+    if (sendState === 'idle') {
+      setSendState('confirm');
+      return;
+    }
+    if (sendState !== 'confirm') return;
+
+    setSendState('sending');
+    setSendError('');
+    const token = localStorage.getItem('outreach_token');
+    try {
+      const res = await fetch(endpoints.sendEmail(biz.id), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          subject,
+          body,
+          to_email: biz.contact_email,
+        }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.detail || `HTTP ${res.status}`);
+      }
+      setSendState('sent');
+      setTimeout(() => onClose(), 2000);
+    } catch (e) {
+      setSendError(e.message);
+      setSendState('error');
+    }
+  };
 
   const handleCopy = async (text, field) => {
     await navigator.clipboard.writeText(text);
@@ -370,14 +410,54 @@ export default function EmailComposer({ biz, onClose }) {
           </div>
         </div>
 
+        {/* Send confirmation / success / error bar */}
+        {sendState === 'confirm' && (
+          <div className="mx-6 mt-0 mb-0 px-4 py-3 bg-teal-500/10 border border-teal-500/30 rounded-lg flex items-center justify-between">
+            <p className="text-teal-400 text-xs">Send to <span className="font-medium">{biz.contact_email}</span>?</p>
+            <div className="flex gap-2">
+              <button onClick={handleSend} className="px-3 py-1 bg-teal-600 hover:bg-teal-500 text-white text-xs font-medium rounded transition-colors">
+                Confirm Send
+              </button>
+              <button onClick={() => setSendState('idle')} className="px-3 py-1 text-slate-400 hover:text-white text-xs transition-colors">
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
+        {sendState === 'sent' && (
+          <div className="mx-6 mt-0 mb-0 px-4 py-3 bg-green-500/10 border border-green-500/30 rounded-lg">
+            <p className="text-green-400 text-xs font-medium">Email sent successfully. Closing...</p>
+          </div>
+        )}
+        {sendState === 'error' && (
+          <div className="mx-6 mt-0 mb-0 px-4 py-3 bg-red-500/10 border border-red-500/30 rounded-lg flex items-center justify-between">
+            <p className="text-red-400 text-xs">Failed: {sendError}</p>
+            <button onClick={() => { setSendState('confirm'); }} className="px-3 py-1 text-red-400 hover:text-red-300 text-xs font-medium transition-colors">
+              Retry
+            </button>
+          </div>
+        )}
+
         {/* Actions */}
         <div className="flex items-center gap-3 px-6 py-4 border-t border-slate-800">
+          {canSend && (
+            <button
+              onClick={handleSend}
+              disabled={sendState === 'sending'}
+              className="px-5 py-2 bg-teal-600 hover:bg-teal-500 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-medium rounded transition-colors flex items-center gap-2"
+            >
+              {sendState === 'sending' && (
+                <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              )}
+              {sendState === 'sending' ? 'Sending...' : 'Send Email'}
+            </button>
+          )}
           {biz.contact_email && (
             <a
               href={mailtoUrl}
-              className="px-5 py-2 bg-teal-600 hover:bg-teal-500 text-white text-sm font-medium rounded transition-colors"
+              className="px-5 py-2 bg-slate-700 hover:bg-slate-600 text-slate-300 text-sm rounded transition-colors"
             >
-              Open in Email
+              Open in Mail
             </a>
           )}
           <button
