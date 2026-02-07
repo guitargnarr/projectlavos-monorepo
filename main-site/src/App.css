@@ -2,6 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ===== ELITE FRONTEND DESIGN SYSTEM (Feb 2026) ===== */
+/* Ported from portfolio-website - Architectural Noir palette option */
+
+:root {
+  /* Void palette (Architectural Noir) */
+  --color-void: #050505;
+  --color-surface: #0a0a0a;
+  --color-border: #1a1a1a;
+  --color-border-hover: #2a2a2a;
+  --color-text-warm: #f5f0eb;
+  --color-text-secondary: #8a8580;
+  --color-text-muted: #4a4540;
+  --color-amber: #c8956c;
+  --color-amber-bright: #e8b08a;
+  --color-amber-glow: rgba(200, 149, 108, 0.15);
+
+  /* Document color taxonomy */
+  --doc-engineering: #c8956c;
+  --doc-analysis: #14b8a6;
+  --doc-proposal: #2a4a7f;
+  --doc-casestudy: #f5f0eb;
+  --doc-research: #64748b;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -13,6 +37,207 @@ body {
   line-height: 1.6;
   color: #333;
   background: #f5f5f5;
+}
+
+/* Display serif for headlines */
+.heading-display {
+  font-family: 'Instrument Serif', 'Playfair Display', Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+
+/* Italic accent for highlighted words */
+.accent-italic {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  color: var(--color-amber);
+}
+
+/* Amber accent utilities */
+.text-amber-accent { color: var(--color-amber); }
+.text-amber-bright { color: var(--color-amber-bright); }
+.bg-amber-glow { background-color: var(--color-amber-glow); }
+.border-amber-accent { border-color: var(--color-amber); }
+
+/* Glass card pattern (refined) */
+.card-glass-elite {
+  background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+  border: 1px solid var(--color-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-glass-elite:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-border-hover);
+  box-shadow: 0 20px 60px -20px rgba(0,0,0,0.7), 0 0 40px var(--color-amber-glow);
+}
+
+/* Luminous accent line */
+.accent-line-amber {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-amber), transparent);
+  opacity: 0.6;
+}
+
+/* Film grain noise overlay */
+.noise-overlay-elite {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* ===== HERO ENTRANCE ANIMATIONS (Page Load) ===== */
+/* These fire once on page load, creating a cinematic reveal */
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes lineExpand {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes subtlePulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.8; }
+}
+
+/* Hero staggered entrance - fires on page load */
+.hero-animate-1 {
+  animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+.hero-animate-2 {
+  animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+}
+.hero-animate-3 {
+  animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+}
+.hero-animate-4 {
+  animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
+}
+.hero-animate-5 {
+  animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.0s both;
+}
+.hero-animate-6 {
+  animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.2s both;
+}
+
+/* Accent line that expands from center */
+.hero-line-expand {
+  transform-origin: center;
+  animation: lineExpand 1s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+}
+
+/* Principles fade in last (subtle) */
+.hero-principles-fade {
+  animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 1.4s both;
+}
+
+/* General stagger classes for reuse */
+.animate-stagger-1 { animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both; }
+.animate-stagger-2 { animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both; }
+.animate-stagger-3 { animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both; }
+.animate-stagger-4 { animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both; }
+.animate-stagger-5 { animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both; }
+
+/* ===== SECTION ENTRANCE ANIMATIONS (Scroll-triggered) ===== */
+/* These work with the existing IntersectionObserver visibility system */
+
+.section-heading-animate {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.section-heading-animate.in-view,
+.in-view .section-heading-animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered children within visible sections */
+.section-stagger-1 {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s,
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+}
+.section-stagger-2 {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s,
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+}
+.section-stagger-3 {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s,
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+}
+
+.in-view .section-stagger-1,
+.in-view .section-stagger-2,
+.in-view .section-stagger-3 {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Eyebrow label style (uppercase, tracked) */
+.eyebrow-label {
+  font-family: 'DM Sans', 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* Document type accent bars */
+.doc-bar-engineering { border-bottom: 3px solid var(--doc-engineering); }
+.doc-bar-analysis { border-bottom: 3px solid var(--doc-analysis); }
+.doc-bar-proposal { border-bottom: 3px solid var(--doc-proposal); }
+.doc-bar-casestudy { border-bottom: 3px solid var(--doc-casestudy); }
+.doc-bar-research { border-bottom: 3px solid var(--doc-research); }
+
+/* Method section principles styling */
+.method-principle {
+  padding: 1rem;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(51, 65, 85, 0.3);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.method-principle:hover {
+  background: rgba(15, 23, 42, 0.6);
+  border-color: rgba(51, 65, 85, 0.5);
+  transform: translateY(-2px);
 }
 
 .app {
