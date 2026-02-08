@@ -3,14 +3,16 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import App from './App.jsx'
 import Manifesto from './pages/Manifesto.jsx'
+import ErrorBoundary from './components/ErrorBoundary.jsx'
 import './App.css'
 
 const Dashboard = lazy(() => import('./crm/Dashboard.jsx'))
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <Routes>
         <Route path="/" element={<App />} />
         <Route path="/manifesto" element={<Manifesto />} />
         <Route path="/dashboard" element={
@@ -18,7 +20,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Dashboard />
           </Suspense>
         } />
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </ErrorBoundary>
   </React.StrictMode>,
 )
