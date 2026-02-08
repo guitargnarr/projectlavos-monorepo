@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Analytics } from '@vercel/analytics/react';
+import AnimatedCharioteer from './components/AnimatedCharioteer';
 
 function App() {
   const [expandedProject, setExpandedProject] = useState(null);
@@ -35,11 +36,19 @@ function App() {
     workSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  // Smooth scroll to any section by ID
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   const principles = [
-    { text: "Substance first", tooltip: "Clear results over impressive pitches" },
-    { text: "Built to last", tooltip: "Good systems outlast good intentions" },
-    { text: "Measure twice", tooltip: "Test the work, then ship it" },
-    { text: "People over tech", tooltip: "Technology works for people, not the other way around" }
+    { text: "Show, don't tell", tooltip: "Working software over impressive pitches" },
+    { text: "Simple scales", tooltip: "Complexity is easy. Clarity takes work." },
+    { text: "Test the seams", tooltip: "Systems fail where they connect" },
+    { text: "Tools serve people", tooltip: "Technology works for humans, not the reverse" }
   ];
 
   // Local Louisville client projects
@@ -811,7 +820,7 @@ function App() {
       id: "ibanistatools",
       title: "Ibanista Tools",
       url: "https://ibanista-tools.vercel.app",
-      preview: "/previews/ibanista-tools-preview.png",
+      preview: "/og-images/ibanista-tools-og.png",
       ogImage: "/og-images/ibanista-tools-og.png",
       qrCode: "/qr-codes/ibanista-tools-qr.png",
       description: "UK-France relocation calculator and region finder",
@@ -824,8 +833,8 @@ function App() {
       id: "fretvision",
       title: "FretVision",
       url: "https://guitar.projectlavos.com",
-      preview: "/previews/guitar.png",
-      ogImage: "/og-images/guitar-og.png",
+      preview: "/og-images/fretvision-og.png",
+      ogImage: "/og-images/fretvision-og.png",
       description: "Learn guitar scales visually with interactive lessons",
       altText: "FretVision guitar learning app showing interactive fretboard visualization with scale patterns and MIDI playback controls",
       category: "Education",
@@ -836,7 +845,7 @@ function App() {
       id: "phishguard",
       title: "PhishGuard",
       url: "https://phishguard.projectlavos.com",
-      preview: "/previews/phishguard.png",
+      preview: "/og-images/phishguard-og.png",
       ogImage: "/og-images/phishguard-og.png",
       description: "Detect phishing emails before they fool your team",
       altText: "PhishGuard email security tool analyzing suspicious email content for phishing indicators using sentiment analysis",
@@ -845,22 +854,10 @@ function App() {
       details: "Phishing attacks exploit human psychology, not just technical vulnerabilities. PhishGuard analyzes email sentiment patterns to flag manipulation tactics before they reach the inbox."
     },
     {
-      id: "vantage",
-      title: "Vantage",
-      url: "https://jobs.projectlavos.com",
-      preview: "/previews/jobs.png",
-      ogImage: "/og-images/jobs-og.png",
-      description: "See which Louisville companies are actually hiring",
-      altText: "Vantage job market analytics dashboard showing Louisville KY employment trends and company hiring patterns",
-      category: "Career",
-      tech: ["React", "PostgreSQL", "Python", "Vercel"],
-      details: "Job boards show listings. Vantage shows patterns—which companies are hiring, what skills are trending locally, and how to position yourself. Built for Louisville first."
-    },
-    {
       id: "jobway",
       title: "Jobway",
       url: "https://jobtrack.projectlavos.com",
-      preview: "/previews/jobway.png",
+      preview: "/og-images/jobway-og.png",
       ogImage: "/og-images/jobway-og.png",
       description: "AI-powered job search command center with Gmail integration",
       altText: "Jobway dashboard showing job tracking, ATS optimization scores, email scanning, and follow-up scheduling",
@@ -876,7 +873,7 @@ function App() {
       id: "ourjourney",
       title: "OurJourney",
       url: "https://ourjourney.projectlavos.com",
-      preview: "/previews/ourjourney.png",
+      preview: "/og-images/ourjourney-og.png",
       ogImage: "/og-images/ourjourney-og.png",
       description: "A private space for two people to document what matters",
       altText: "OurJourney couple experience tracker app showing shared memories and private journal entries",
@@ -994,62 +991,75 @@ function App() {
 
         {/* Centered Content */}
         <div className="max-w-2xl mx-auto relative z-10 text-center flex flex-col items-center">
-          {/* Profile */}
-          <div className="flex flex-col items-center animate-fade-in mb-6">
+          {/* Profile - First to appear */}
+          <div className="flex flex-col items-center mb-6 hero-animate-1">
             <img
               src="/headshot.png"
               alt="Matthew Scott - Web Developer and Consultant based in Louisville, Kentucky"
               className="headshot w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-full border border-slate-600/50 object-cover"
             />
-            <p className="text-[10px] text-slate-500 mt-3 font-sans tracking-[0.3em] uppercase">
+            <p className="text-xs sm:text-sm text-slate-500 mt-3 font-sans tracking-[0.25em] uppercase">
               Louisville, KY
             </p>
           </div>
 
-          {/* Name */}
-          <div className="relative mb-6">
-            <div className="w-8 h-px bg-gradient-to-r from-transparent via-teal-500 to-transparent mx-auto mb-4" />
-            <h1 className="heading-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-white tracking-[0.04em]">
+          {/* Name - Dramatic entrance - INCREASED SIZE */}
+          <div className="relative mb-6 hero-animate-2">
+            <div className="w-8 h-px bg-gradient-to-r from-transparent via-teal-500 to-transparent mx-auto mb-4 hero-line-expand" />
+            <h1 className="heading-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white tracking-[-0.02em]">
               Matthew Scott
             </h1>
           </div>
 
-          {/* Tagline */}
-          <p className="text-sm sm:text-base text-slate-400 leading-relaxed mb-2 max-w-md mx-auto font-light">
-            I untangle complexity. Then I make it useful.
+          {/* Tagline - Follows name - INCREASED SIZE */}
+          <p className="text-base sm:text-lg md:text-xl text-slate-400 leading-relaxed mb-3 max-w-lg mx-auto font-light hero-animate-3">
+            <span className="accent-italic">Complexity,</span> untangled.
           </p>
-          <p className="text-xs text-slate-500 mb-8 max-w-md mx-auto">
-            Louisville websites. AI systems. Working software.
+          <p className="text-sm sm:text-base text-slate-500 mb-10 max-w-lg mx-auto hero-animate-4">
+            Turning ambiguity into systems that actually ship.
           </p>
 
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row justify-center gap-3 mb-12">
+          {/* CTAs - Refined aesthetic with smooth transitions */}
+          <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8 hero-animate-5">
             <button
               onClick={scrollToWork}
-              className="btn-tactile group flex items-center justify-center gap-2 px-5 py-2.5 bg-transparent border border-slate-600 text-slate-300 hover:border-teal-500 hover:text-teal-400 text-xs tracking-wider uppercase transition-all duration-300"
+              className="group relative flex items-center justify-center gap-3 px-8 py-3.5 text-sm tracking-[0.15em] uppercase transition-all duration-500 ease-out
+                bg-gradient-to-r from-teal-500/10 to-teal-600/5
+                border border-teal-500/40 hover:border-teal-400/80
+                text-teal-300 hover:text-teal-200
+                hover:shadow-[0_0_30px_-5px_rgba(20,184,166,0.3)]
+                hover:scale-[1.02] active:scale-[0.98]"
             >
-              See My Work
+              <span className="relative z-10">See My Work</span>
+              <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+              <div className="absolute inset-0 bg-gradient-to-r from-teal-500/0 via-teal-500/5 to-teal-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </button>
-            <a
-              href="#method"
-              className="btn-tactile group flex items-center justify-center gap-2 px-5 py-2.5 bg-transparent border border-slate-600 text-slate-300 hover:border-teal-500 hover:text-teal-400 text-xs tracking-wider uppercase transition-all duration-300"
+            <button
+              onClick={() => scrollToSection('method')}
+              className="group relative flex items-center justify-center gap-3 px-8 py-3.5 text-sm tracking-[0.15em] uppercase transition-all duration-500 ease-out
+                bg-transparent
+                border border-slate-600/60 hover:border-slate-500/80
+                text-slate-400 hover:text-slate-300
+                hover:shadow-[0_0_20px_-5px_rgba(148,163,184,0.15)]
+                hover:scale-[1.02] active:scale-[0.98]"
             >
-              How I Work
-            </a>
-          </div>
-
-          {/* Chariot Logo */}
-          <div className="chariot-logo mb-12">
-            <img
-              src="/projectlavos-watermark-white.svg"
-              alt="Project Lavos"
-              className="w-48 h-24 md:w-64 md:h-32 object-contain opacity-85"
-            />
+              <span className="relative z-10">How I Work</span>
+              <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </button>
           </div>
         </div>
 
-        {/* Principles - Footer of hero, horizontal */}
-        <div className="absolute bottom-8 left-0 right-0 flex justify-center gap-x-8 text-[10px] tracking-widest uppercase">
+        {/* Chariot Logo - Moved to bottom of hero as visual footer element */}
+        <div className="absolute bottom-20 sm:bottom-24 left-0 right-0 flex justify-center hero-animate-6">
+          <AnimatedCharioteer className="w-64 h-32 sm:w-72 sm:h-36 md:w-80 md:h-40 opacity-85" />
+        </div>
+
+        {/* Principles - Footer of hero, below chariot */}
+        <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-x-6 sm:gap-x-8 text-[10px] sm:text-[11px] tracking-widest uppercase hero-principles-fade">
           {principles.map((principle, idx) => (
             <span
               key={idx}
@@ -1065,16 +1075,16 @@ function App() {
       {/* Louisville Section */}
       <section
         id="louisville"
-        className={`px-6 md:px-12 lg:px-24 py-20 border-t border-slate-800 transition-all duration-700 spotlight-warm section-glow-full ${visibleSections.louisville ? 'opacity-100 translate-y-0 in-view' : 'opacity-0 translate-y-8'}`}
+        className={`px-4 md:px-8 lg:px-16 py-16 border-t border-slate-800 transition-all duration-700 spotlight-warm section-glow-full ${visibleSections.louisville ? 'opacity-100 translate-y-0 in-view' : 'opacity-0 translate-y-8'}`}
       >
-        <div className="max-w-6xl">
-          <h2 className="heading-serif text-3xl md:text-4xl font-semibold text-white mb-2 neon-text">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="heading-display text-3xl md:text-4xl text-white mb-2 neon-text tracking-[-0.02em] section-heading-animate">
             Louisville
           </h2>
-          <p className="text-slate-400 mb-4">
-            51 sites you can visit. Live. Deployed. Working.
+          <p className="text-slate-400 mb-4 section-stagger-1">
+            51 sites you can visit. <span className="accent-italic">Live.</span> Deployed. Working.
           </p>
-          <p className="text-xs text-slate-500 mb-6">
+          <p className="text-xs text-slate-500 mb-6 section-stagger-2">
             Spec work built from public info. Not pitches. Proof.
           </p>
 
@@ -1099,10 +1109,9 @@ function App() {
             })}
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 transition-all duration-300">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 transition-all duration-300">
             {filteredClients.map((client, index) => {
-              const isClientExpanded = expandedClient === client.id;
-              const isAboveFold = index < 9; // First 9 cards load eagerly
+              const isAboveFold = index < 10; // First 10 cards load eagerly
               const categoryAccent = {
                 'Healthcare': 'border-t-2 border-t-emerald-500/50',
                 'Medical': 'border-t-2 border-t-emerald-500/50',
@@ -1145,17 +1154,15 @@ function App() {
               return (
                 <div
                   key={client.id}
-                  className={`card-subtle-3d card-expandable card-click-hint ${isClientExpanded ? 'sm:col-span-2 lg:col-span-3 row-span-2 expanded' : ''}`}
+                  className="card-subtle-3d group relative"
                   onMouseMove={(e) => {
-                    if (isClientExpanded) return; // Don't tilt when expanded
                     const rect = e.currentTarget.getBoundingClientRect();
                     const x = (e.clientX - rect.left) / rect.width - 0.5;
                     const y = (e.clientY - rect.top) / rect.height - 0.5;
                     const inner = e.currentTarget.querySelector('.card-3d-inner');
                     if (inner) {
-                      // Subtle 8-degree rotation
-                      inner.style.setProperty('--rotateX', `${-y * 8}deg`);
-                      inner.style.setProperty('--rotateY', `${x * 8}deg`);
+                      inner.style.setProperty('--rotateX', `${-y * 6}deg`);
+                      inner.style.setProperty('--rotateY', `${x * 6}deg`);
                     }
                   }}
                   onMouseLeave={(e) => {
@@ -1166,219 +1173,52 @@ function App() {
                     }
                   }}
                 >
-                <div
-                  onClick={() => setExpandedClient(isClientExpanded ? null : client.id)}
-                  className={`
-                    card-3d-inner card-press og-card group cursor-pointer rounded-lg overflow-hidden bg-slate-800/50 border border-slate-700/50 transition-all duration-300 ease-in-out texture-glass
-                    ${categoryAccent}
-                    ${expandedClient && !isClientExpanded ? 'opacity-60 scale-95' : 'opacity-100 scale-100'}
-                  `}
-                >
-                  {/* Client Preview Image with Skeleton Loader + Title Overlay */}
-                  {(() => {
-                    const activeVersion = client.versions?.[activeClientVersion[client.id] ?? 0];
-                    const displayPreview = isClientExpanded && activeVersion ? activeVersion.preview : client.preview;
-                    return (
-                      <div className={`image-container overflow-hidden bg-slate-800 transition-all duration-300 ${isClientExpanded ? 'aspect-[16/6]' : 'aspect-[16/9]'}`}>
-                        {/* Skeleton shimmer loader */}
-                        <div className="skeleton skeleton-loader absolute inset-0" />
-                        <img
-                          src={displayPreview}
-                          alt={client.altText || `${client.title} - ${client.description} - Louisville local business website`}
-                          className="w-full h-full object-cover object-center transition-all duration-300 group-hover:scale-105 relative z-10"
-                          loading={isAboveFold ? "eager" : "lazy"}
-                          onLoad={(e) => {
-                            e.target.classList.add('loaded');
-                            const skeleton = e.target.previousSibling;
-                            if (skeleton) skeleton.style.opacity = '0';
-                          }}
-                          onError={(e) => {
-                            e.target.style.display = 'none';
-                            const skeleton = e.target.previousSibling;
-                            if (skeleton) skeleton.style.opacity = '0';
-                            e.target.nextSibling.style.display = 'flex';
-                          }}
-                        />
-                        <div className="hidden w-full h-full items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 absolute inset-0">
-                          <span className="text-4xl font-bold text-teal-500/20">{client.title.charAt(0)}</span>
-                        </div>
-                        {/* Title overlay on image gradient */}
-                        <div className="card-title-overlay">
-                          <div className="flex items-center gap-2">
-                            <h3 className="text-base font-semibold text-white drop-shadow-lg">{client.title}</h3>
-                            <span className="text-[10px] text-teal-300 bg-teal-500/20 px-1.5 py-0.5 rounded backdrop-blur-sm whitespace-nowrap">
-                              {client.category}
-                            </span>
-                          </div>
-                        </div>
+                  <div
+                    className={`card-3d-inner og-card rounded-lg overflow-hidden bg-slate-800/50 border border-slate-700/50 transition-all duration-300 ease-in-out texture-glass ${categoryAccent}`}
+                  >
+                    {/* Client Preview Image */}
+                    <div className="image-container relative overflow-hidden bg-slate-900 aspect-[3/2]">
+                      <div className="skeleton skeleton-loader absolute inset-0" />
+                      <img
+                        src={client.preview}
+                        alt={client.altText || `${client.title} - ${client.description} - Louisville local business website`}
+                        className="w-full h-full object-cover object-center transition-all duration-300 group-hover:scale-105 relative z-10"
+                        loading={isAboveFold ? "eager" : "lazy"}
+                        onLoad={(e) => {
+                          e.target.classList.add('loaded');
+                          const skeleton = e.target.previousSibling;
+                          if (skeleton) skeleton.style.opacity = '0';
+                        }}
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          const skeleton = e.target.previousSibling;
+                          if (skeleton) skeleton.style.opacity = '0';
+                        }}
+                      />
+                      {/* Title overlay at bottom */}
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900/90 via-slate-900/60 to-transparent p-2 z-10">
+                        <h3 className="text-xs font-semibold text-white truncate">{client.title}</h3>
                       </div>
-                    );
-                  })()}
-
-                  {/* Client Info */}
-                  <div className="px-4 py-3">
-                    <div className="flex justify-between items-start gap-2">
-                      <div className="flex-1 min-w-0">
-                        <p className={`text-sm text-slate-300 leading-relaxed ${isClientExpanded ? '' : 'line-clamp-2'}`}>{client.description}</p>
-                        <div className="flex items-center gap-2 mt-2">
-                          {client.location && (
-                            <span className="text-[10px] text-slate-500 bg-slate-700/40 px-1.5 py-0.5 rounded">
-                              {client.location}
-                            </span>
-                          )}
-                          {client.specWork ? (
-                            <span className="text-[10px] text-orange-400/70">
-                              Spec Work
-                            </span>
-                          ) : (
-                            <span className="text-[10px] text-green-400/70">
-                              Client
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      <span
-                        className={`text-teal-400/70 transition-transform duration-200 flex-shrink-0 mt-1 ${isClientExpanded ? 'rotate-180' : ''}`}
-                        title={isClientExpanded ? 'Click to collapse' : 'Click to expand'}
-                      >
-                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="inline-block">
-                          <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </span>
-                    </div>
-
-                    {/* Expanded Content */}
-                    {isClientExpanded && (
-                      <div className="mt-4 pt-4 border-t border-slate-700 animate-fade-in">
-                        {/* Version Toggle (if multiple versions exist) */}
-                        {client.versions && client.versions.length > 1 && (
-                          <div className="mb-6">
-                            <p className="text-xs text-slate-500 mb-3 uppercase tracking-wide">Website Evolution</p>
-                            <div className="flex gap-2">
-                              {client.versions.map((version, idx) => (
-                                <button
-                                  key={version.label}
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    setActiveClientVersion(prev => ({ ...prev, [client.id]: idx }));
-                                  }}
-                                  className={`px-4 py-2 text-xs font-semibold rounded-lg transition-all ${
-                                    (activeClientVersion[client.id] ?? 0) === idx
-                                      ? 'bg-teal-500 text-slate-900'
-                                      : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
-                                  }`}
-                                >
-                                  {version.label}
-                                </button>
-                              ))}
-                            </div>
-                          </div>
+                      {/* Hover overlay with CTA */}
+                      <div className="absolute inset-0 bg-slate-900/85 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center z-20 backdrop-blur-sm p-3">
+                        <span className="text-[9px] text-teal-400 uppercase tracking-wider mb-1">{client.category}</span>
+                        <p className="text-slate-300 text-[10px] text-center leading-relaxed mb-2 line-clamp-3">{client.description}</p>
+                        {client.url ? (
+                          <a
+                            href={client.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 bg-teal-500 hover:bg-teal-400 text-slate-900 font-semibold text-[10px] px-3 py-1.5 rounded transition-colors"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            View Site <span>→</span>
+                          </a>
+                        ) : (
+                          <span className="text-slate-500 text-[10px]">Coming Soon</span>
                         )}
-
-                        {/* Version-specific content */}
-                        {(() => {
-                          const activeVersion = client.versions?.[activeClientVersion[client.id] ?? 0];
-                          const currentPreview = activeVersion?.preview || client.preview;
-                          const currentOgImage = activeVersion?.ogImage || client.ogImage;
-                          const currentQrCode = activeVersion?.qrCode || client.qrCode;
-                          const currentUrl = activeVersion?.url || client.url;
-                          const versionDescription = activeVersion?.description;
-                          const versionFeatures = activeVersion?.features;
-
-                          return (
-                            <>
-                              {/* Version Journey Copy (when versions exist) */}
-                              {versionDescription && (
-                                <div className="mb-4 p-4 bg-slate-800/50 rounded-lg border border-slate-700/50">
-                                  <p className="text-sm text-slate-300 leading-relaxed mb-2">
-                                    {versionDescription}
-                                  </p>
-                                  {versionFeatures && (
-                                    <p className="text-xs text-teal-400/80">
-                                      {versionFeatures}
-                                    </p>
-                                  )}
-                                </div>
-                              )}
-
-                              {/* OG Image & QR Code Row */}
-                              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                                {/* Social Preview (OG Image) */}
-                                <div className="md:col-span-2">
-                                  <p className="text-xs text-slate-500 mb-2 uppercase tracking-wide">Social Preview</p>
-                                  <div className="rounded-lg overflow-hidden border border-slate-700">
-                                    <img
-                                      src={currentOgImage}
-                                      alt={`${client.title} social preview`}
-                                      className="w-full h-auto"
-                                      onError={(e) => {
-                                        e.target.src = currentPreview;
-                                      }}
-                                    />
-                                  </div>
-                                </div>
-
-                                {/* QR Code */}
-                                <div>
-                                  <p className="text-xs text-slate-500 mb-2 uppercase tracking-wide">Scan to Visit</p>
-                                  <div className="rounded-lg overflow-hidden border border-slate-700 bg-white p-4 flex items-center justify-center min-h-[150px]">
-                                    {currentQrCode ? (
-                                      <img
-                                        src={currentQrCode}
-                                        alt={`QR code for ${client.title}`}
-                                        className="w-full h-auto max-w-[150px]"
-                                        onError={(e) => {
-                                          e.target.style.display = 'none';
-                                          e.target.nextSibling.style.display = 'block';
-                                        }}
-                                      />
-                                    ) : null}
-                                    <div className={`text-slate-400 text-xs text-center ${currentQrCode ? 'hidden' : 'block'}`}>
-                                      Coming Soon
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-
-                              {/* Details (business overview - always shown) */}
-                              <p className="text-sm text-slate-300 leading-relaxed mb-4">
-                                {client.details}
-                              </p>
-
-                              {/* Action Buttons */}
-                              <div className="flex gap-3 mt-4">
-                                {currentUrl ? (
-                                  <button
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      window.open(currentUrl, '_blank');
-                                    }}
-                                    className="px-4 py-2 bg-teal-500 hover:bg-teal-400 text-slate-900 text-xs font-semibold rounded transition-colors"
-                                  >
-                                    Visit Site →
-                                  </button>
-                                ) : (
-                                  <span className="px-4 py-2 bg-slate-700 text-slate-400 text-xs font-semibold rounded">
-                                    Coming Soon
-                                  </span>
-                                )}
-                                <button
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    setExpandedClient(null);
-                                  }}
-                                  className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white text-xs font-semibold rounded transition-colors"
-                                >
-                                  Close
-                                </button>
-                              </div>
-                            </>
-                          );
-                        })()}
                       </div>
-                    )}
+                    </div>
                   </div>
-                </div>
                 </div>
               );
             })}
@@ -1408,37 +1248,35 @@ function App() {
         id="work"
         className={`px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800 transition-all duration-700 spotlight-warm section-glow-full ${visibleSections.work ? 'opacity-100 translate-y-0 in-view' : 'opacity-0 translate-y-8'}`}
       >
-        <div className="max-w-6xl">
-          <h2 className="heading-serif text-2xl md:text-3xl font-semibold text-white mb-4 neon-text-orange">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="heading-display text-2xl md:text-3xl text-white mb-4 neon-text-orange tracking-[-0.02em] section-heading-animate">
             The Work
           </h2>
-          <p className="text-slate-400 mb-8">
-            Tools that solve problems. Click to see for yourself.
+          <p className="text-slate-400 mb-8 section-stagger-1">
+            Tools that solve <span className="accent-italic">real</span> problems. Click to see for yourself.
           </p>
 
           {/* Practical Apps */}
-          <h3 className="text-lg font-medium text-teal-400 mb-4 flex items-center gap-2">
+          <h3 className="heading-display text-xl md:text-2xl text-teal-400 mb-4 flex items-center gap-3 tracking-[-0.01em]">
             <span className="w-2 h-2 bg-teal-400 rounded-full"></span>
             Practical Apps
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 transition-all duration-300 mb-12">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 transition-all duration-300 mb-12">
             {practicalProjects.map((project, index) => {
-              const isExpanded = expandedProject === project.id;
               const isAboveFold = true;
 
               return (
                 <div
                   key={project.id}
-                  className={`card-subtle-3d card-expandable card-click-hint ${isExpanded ? 'sm:col-span-2 lg:col-span-4 row-span-2 expanded' : ''}`}
+                  className="card-subtle-3d group relative"
                   onMouseMove={(e) => {
-                    if (isExpanded) return;
                     const rect = e.currentTarget.getBoundingClientRect();
                     const x = (e.clientX - rect.left) / rect.width - 0.5;
                     const y = (e.clientY - rect.top) / rect.height - 0.5;
                     const inner = e.currentTarget.querySelector('.card-3d-inner');
                     if (inner) {
-                      inner.style.setProperty('--rotateX', `${-y * 8}deg`);
-                      inner.style.setProperty('--rotateY', `${x * 8}deg`);
+                      inner.style.setProperty('--rotateX', `${-y * 6}deg`);
+                      inner.style.setProperty('--rotateY', `${x * 6}deg`);
                     }
                   }}
                   onMouseLeave={(e) => {
@@ -1450,18 +1288,15 @@ function App() {
                   }}
                 >
                 <div
-                  onClick={(e) => handleCardClick(e, project.id)}
-                  className={`
-                    card-3d-inner card-press og-card group cursor-pointer rounded-lg overflow-hidden bg-slate-800/50 border border-slate-700/50 hover:border-teal-500/30 transition-all duration-300 ease-in-out texture-glass
-                    ${expandedProject && !isExpanded ? 'opacity-60 scale-95' : 'opacity-100 scale-100'}
-                  `}
+                  className="card-3d-inner og-card rounded-lg overflow-hidden bg-slate-800/50 border border-slate-700/50 border-t-2 border-t-teal-500/50 transition-all duration-300 ease-in-out texture-glass"
                 >
-                  <div className={`image-container overflow-hidden bg-slate-800 transition-all duration-300 ${isExpanded ? 'aspect-[16/6]' : 'aspect-video sm:aspect-[1200/630]'}`}>
+                  {/* Image with title overlay */}
+                  <div className="image-container relative overflow-hidden bg-slate-900 aspect-[3/2]">
                     <div className="skeleton skeleton-loader absolute inset-0" />
                     <img
                       src={project.preview}
                       alt={project.altText || `${project.title} - ${project.description}`}
-                      className="w-full h-full object-cover object-top transition-all duration-300 group-hover:scale-105 relative z-10"
+                      className="w-full h-full object-cover object-center transition-all duration-300 group-hover:scale-105 relative z-10"
                       loading={isAboveFold ? "eager" : "lazy"}
                       onLoad={(e) => {
                         e.target.classList.add('loaded');
@@ -1474,41 +1309,24 @@ function App() {
                         if (skeleton) skeleton.style.opacity = '0';
                       }}
                     />
-                  </div>
-                  <div className="p-4">
-                    <div className="flex justify-between items-start mb-2">
-                      <div className="flex-1">
-                        <h3 className="text-sm font-semibold text-white mb-1">{project.title}</h3>
-                        <p className={`text-xs text-slate-400 ${isExpanded ? '' : 'line-clamp-2'}`}>{project.description}</p>
-                      </div>
-                      <span
-                        className={`text-teal-400 transition-transform duration-200 flex-shrink-0 ${isExpanded ? 'rotate-180' : ''}`}
-                        title={isExpanded ? 'Click to collapse' : 'Click to expand'}
-                      >
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="inline-block">
-                          <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </span>
+                    {/* Title overlay at bottom */}
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900/90 via-slate-900/60 to-transparent p-2 z-10">
+                      <h3 className="text-xs font-semibold text-white truncate">{project.title}</h3>
                     </div>
-                    {/* Tech Stack Badges */}
-                    {project.tech && (
-                      <div className="flex flex-wrap gap-1 mt-2">
-                        {project.tech.slice(0, 3).map((t) => (
-                          <span key={t} className="text-[10px] text-slate-500 bg-slate-700/50 px-1.5 py-0.5 rounded">{t}</span>
-                        ))}
-                      </div>
-                    )}
-                    {isExpanded && (
-                      <div className="mt-4 pt-4 border-t border-slate-700 animate-fade-in">
-                        <p className="text-sm text-slate-300 mb-4">{project.details}</p>
-                        <button
-                          onClick={(e) => handleVisitSite(e, project.url)}
-                          className="inline-flex items-center gap-2 text-sm text-teal-400 hover:text-teal-300 transition-colors"
-                        >
-                          Visit Site <span className="text-xs">→</span>
-                        </button>
-                      </div>
-                    )}
+                    {/* Hover overlay with CTA */}
+                    <div className="absolute inset-0 bg-slate-900/85 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center z-20 backdrop-blur-sm p-3">
+                      <span className="text-[9px] text-teal-400 uppercase tracking-wider mb-1">{project.tech?.[0] || 'React'}</span>
+                      <p className="text-slate-300 text-[10px] text-center leading-relaxed mb-2 line-clamp-3">{project.description}</p>
+                      <a
+                        href={project.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 bg-teal-500 hover:bg-teal-400 text-slate-900 font-semibold text-[10px] px-3 py-1.5 rounded transition-colors"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        View Site <span>→</span>
+                      </a>
+                    </div>
                   </div>
                 </div>
                 </div>
@@ -1519,30 +1337,27 @@ function App() {
           <div className="border-t border-slate-700/30 mb-12"></div>
 
           {/* Conceptual/Experimental */}
-          <h3 className="text-lg font-medium text-orange-400 mb-4 flex items-center gap-2">
+          <h3 className="heading-display text-xl md:text-2xl text-orange-400 mb-2 flex items-center gap-3 tracking-[-0.01em]">
             <span className="w-2 h-2 bg-orange-400 rounded-full"></span>
             Conceptual Explorations
-            <span className="text-xs text-slate-500 font-normal ml-2">Jungian depth psychology</span>
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 transition-all duration-300">
+          <p className="text-sm text-slate-500 mb-4">Ideas given form. The inner work made visible.</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 transition-all duration-300">
             {experimentalProjects.map((project, index) => {
-              const isExpanded = expandedProject === project.id;
-              const isAboveFold = index < 6; // First 6 Work cards load eagerly
+              const isAboveFold = index < 6;
 
               return (
                 <div
                   key={project.id}
-                  className={`card-subtle-3d card-expandable card-click-hint ${isExpanded ? 'sm:col-span-2 lg:col-span-3 row-span-2 expanded' : ''}`}
+                  className="card-subtle-3d group relative"
                   onMouseMove={(e) => {
-                    if (isExpanded) return; // Don't tilt when expanded
                     const rect = e.currentTarget.getBoundingClientRect();
                     const x = (e.clientX - rect.left) / rect.width - 0.5;
                     const y = (e.clientY - rect.top) / rect.height - 0.5;
                     const inner = e.currentTarget.querySelector('.card-3d-inner');
                     if (inner) {
-                      // Subtle 8-degree rotation
-                      inner.style.setProperty('--rotateX', `${-y * 8}deg`);
-                      inner.style.setProperty('--rotateY', `${x * 8}deg`);
+                      inner.style.setProperty('--rotateX', `${-y * 6}deg`);
+                      inner.style.setProperty('--rotateY', `${x * 6}deg`);
                     }
                   }}
                   onMouseLeave={(e) => {
@@ -1554,20 +1369,15 @@ function App() {
                   }}
                 >
                 <div
-                  onClick={(e) => handleCardClick(e, project.id)}
-                  className={`
-                    card-3d-inner card-press og-card group cursor-pointer rounded-lg overflow-hidden bg-slate-800/50 border border-slate-700/50 hover:border-teal-500/30 transition-all duration-300 ease-in-out texture-glass
-                    ${expandedProject && !isExpanded ? 'opacity-60 scale-95' : 'opacity-100 scale-100'}
-                  `}
+                  className="card-3d-inner og-card rounded-lg overflow-hidden bg-slate-800/50 border border-slate-700/50 border-t-2 border-t-orange-500/50 transition-all duration-300 ease-in-out texture-glass"
                 >
-                  {/* Preview Image with Skeleton Loader */}
-                  <div className={`image-container overflow-hidden bg-slate-800 transition-all duration-300 ${isExpanded ? 'aspect-[16/6]' : 'aspect-[1200/630]'}`}>
-                    {/* Skeleton shimmer loader */}
+                  {/* Preview Image with title overlay */}
+                  <div className="image-container relative overflow-hidden bg-slate-900 aspect-[3/2]">
                     <div className="skeleton skeleton-loader absolute inset-0" />
                     <img
                       src={project.preview}
                       alt={project.altText || `${project.title} - ${project.description}`}
-                      className="w-full h-full object-cover object-top transition-all duration-300 group-hover:scale-105 relative z-10"
+                      className="w-full h-full object-cover object-center transition-all duration-300 group-hover:scale-105 relative z-10"
                       loading={isAboveFold ? "eager" : "lazy"}
                       onLoad={(e) => {
                         e.target.classList.add('loaded');
@@ -1578,81 +1388,26 @@ function App() {
                         e.target.style.display = 'none';
                         const skeleton = e.target.previousSibling;
                         if (skeleton) skeleton.style.opacity = '0';
-                        e.target.nextSibling.style.display = 'flex';
                       }}
                     />
-                    <div className="hidden w-full h-full items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 absolute inset-0">
-                      <span className="text-4xl font-bold text-teal-500/20">{project.title.charAt(0)}</span>
+                    {/* Title overlay at bottom */}
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900/90 via-slate-900/60 to-transparent p-2 z-10">
+                      <h3 className="text-xs font-semibold text-white truncate">{project.title}</h3>
                     </div>
-                  </div>
-
-                  {/* Card Info */}
-                  <div className="p-4">
-                    <div className="flex justify-between items-start mb-2">
-                      <div className="flex-1">
-                        <h3 className="text-sm font-semibold text-white mb-1">{project.title}</h3>
-                        <p className={`text-xs text-slate-400 ${isExpanded ? '' : 'line-clamp-2'}`}>{project.description}</p>
-                      </div>
-                      <span
-                        className={`text-orange-400 transition-transform duration-200 flex-shrink-0 ${isExpanded ? 'rotate-180' : ''}`}
-                        title={isExpanded ? 'Click to collapse' : 'Click to expand'}
+                    {/* Hover overlay with CTA */}
+                    <div className="absolute inset-0 bg-slate-900/85 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center z-20 backdrop-blur-sm p-3">
+                      <span className="text-[9px] text-orange-400 uppercase tracking-wider mb-1">{project.tech?.[0] || 'React'}</span>
+                      <p className="text-slate-300 text-[10px] text-center leading-relaxed mb-2 line-clamp-3">{project.description}</p>
+                      <a
+                        href={project.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 bg-orange-500 hover:bg-orange-400 text-slate-900 font-semibold text-[10px] px-3 py-1.5 rounded transition-colors"
+                        onClick={(e) => e.stopPropagation()}
                       >
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="inline-block">
-                          <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </span>
+                        View Site <span>→</span>
+                      </a>
                     </div>
-                    {/* Tech Stack Badges */}
-                    {project.tech && (
-                      <div className="flex flex-wrap gap-1 mt-2">
-                        {project.tech.map((t) => (
-                          <span key={t} className="text-[10px] text-slate-500 bg-slate-700/50 px-1.5 py-0.5 rounded">{t}</span>
-                        ))}
-                      </div>
-                    )}
-
-                    {/* Expanded Content */}
-                    {isExpanded && (
-                      <div className="mt-4 pt-4 border-t border-slate-700 animate-fade-in">
-                        {/* OG Image Preview */}
-                        {project.ogImage && (
-                          <div className="mb-4">
-                            <p className="text-xs text-slate-500 mb-2 uppercase tracking-wide">Social Preview</p>
-                            <div className="rounded-lg overflow-hidden border border-slate-700">
-                              <img
-                                src={project.ogImage}
-                                alt={`${project.title} social preview`}
-                                className="w-full h-auto"
-                                onError={(e) => {
-                                  e.target.src = project.preview;
-                                }}
-                              />
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Details */}
-                        <p className="text-sm text-slate-300 leading-relaxed mb-4">
-                          {project.details}
-                        </p>
-
-                        {/* Action Buttons */}
-                        <div className="flex gap-3 mt-4">
-                          <button
-                            onClick={(e) => handleVisitSite(e, project.url)}
-                            className="px-4 py-2 bg-teal-500 hover:bg-teal-400 text-slate-900 text-xs font-semibold rounded transition-colors"
-                          >
-                            Visit Site →
-                          </button>
-                          <button
-                            onClick={(e) => { e.stopPropagation(); setExpandedProject(null); }}
-                            className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white text-xs font-semibold rounded transition-colors"
-                          >
-                            Close
-                          </button>
-                        </div>
-                      </div>
-                    )}
                   </div>
                 </div>
                 </div>
@@ -1662,96 +1417,157 @@ function App() {
         </div>
       </section>
 
-      {/* The Method Section */}
+      {/* The Method Section - INCREASED TYPOGRAPHY */}
       <section
         id="method"
-        className={`px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800 transition-all duration-700 spotlight-warm section-glow-full texture-wood ${visibleSections.method ? 'opacity-100 translate-y-0 in-view' : 'opacity-0 translate-y-8'}`}
+        className={`relative px-6 md:px-12 lg:px-24 py-24 md:py-32 border-t border-slate-800 transition-all duration-700 spotlight-warm section-glow-full ${visibleSections.method ? 'opacity-100 translate-y-0 in-view' : 'opacity-0 translate-y-8'}`}
       >
-        <div className="max-w-4xl">
-          <h2 className="heading-serif text-2xl md:text-3xl font-semibold text-white mb-3 neon-text">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="heading-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-6 neon-text tracking-[-0.02em] section-heading-animate">
             The Method
           </h2>
-          <p className="text-slate-400 mb-8 max-w-2xl">
-            Nine years translating federal healthcare regulations into working systems. Now I apply that rigor to your problems.
+          <p className="text-base sm:text-lg md:text-xl text-slate-400 mb-16 section-stagger-1 max-w-3xl mx-auto leading-relaxed">
+            How the work gets done matters as much as <span className="accent-italic">what</span> gets built.
           </p>
 
-          <div className="space-y-6 mb-8">
-            <div className="border-l-2 border-teal-400 pl-6">
-              <h3 className="font-bold text-white">Truth over theater</h3>
-              <p className="text-slate-400">No aspirational claims. Only what can be shown and proven.</p>
+          {/* Principles - Stacked layout for better readability at larger sizes */}
+          <div className="space-y-10 md:space-y-12 mb-16">
+            <div className="group">
+              <div className="flex items-center justify-center gap-4 mb-2">
+                <span className="w-12 h-px bg-gradient-to-r from-transparent to-teal-400 group-hover:w-16 transition-all duration-300" />
+                <p className="heading-display text-xl sm:text-2xl md:text-3xl text-white tracking-[-0.01em]">
+                  Substance <span className="accent-italic">first</span>
+                </p>
+                <span className="w-12 h-px bg-gradient-to-l from-transparent to-teal-400 group-hover:w-16 transition-all duration-300" />
+              </div>
+              <p className="text-sm sm:text-base md:text-lg text-slate-400">Working software over impressive pitches.</p>
             </div>
-            <div className="border-l-2 border-teal-400 pl-6">
-              <h3 className="font-bold text-white">Guardrails over vibes</h3>
-              <p className="text-slate-400">AI where it's strong. Deterministic logic where it fails.</p>
+
+            <div className="group">
+              <div className="flex items-center justify-center gap-4 mb-2">
+                <span className="w-12 h-px bg-gradient-to-r from-transparent to-teal-400 group-hover:w-16 transition-all duration-300" />
+                <p className="heading-display text-xl sm:text-2xl md:text-3xl text-white tracking-[-0.01em]">
+                  Built <span className="accent-italic">to</span> last
+                </p>
+                <span className="w-12 h-px bg-gradient-to-l from-transparent to-teal-400 group-hover:w-16 transition-all duration-300" />
+              </div>
+              <p className="text-sm sm:text-base md:text-lg text-slate-400">Good systems outlast good intentions.</p>
             </div>
-            <div className="border-l-2 border-teal-400 pl-6">
-              <h3 className="font-bold text-white">Zero-trust by default</h3>
-              <p className="text-slate-400">Verification matters more than confidence.</p>
+
+            <div className="group">
+              <div className="flex items-center justify-center gap-4 mb-2">
+                <span className="w-12 h-px bg-gradient-to-r from-transparent to-amber-500 group-hover:w-16 transition-all duration-300" />
+                <p className="heading-display text-xl sm:text-2xl md:text-3xl text-white tracking-[-0.01em]">
+                  Measure <span className="accent-italic">twice</span>
+                </p>
+                <span className="w-12 h-px bg-gradient-to-l from-transparent to-amber-500 group-hover:w-16 transition-all duration-300" />
+              </div>
+              <p className="text-sm sm:text-base md:text-lg text-slate-400">Test the work, then ship it.</p>
             </div>
-            <div className="border-l-2 border-teal-400 pl-6">
-              <h3 className="font-bold text-white">Human impact first</h3>
-              <p className="text-slate-400">Quality isn't abstract. It affects real people.</p>
+
+            <div className="group">
+              <div className="flex items-center justify-center gap-4 mb-2">
+                <span className="w-12 h-px bg-gradient-to-r from-transparent to-amber-500 group-hover:w-16 transition-all duration-300" />
+                <p className="heading-display text-xl sm:text-2xl md:text-3xl text-white tracking-[-0.01em]">
+                  People <span className="accent-italic">over</span> tech
+                </p>
+                <span className="w-12 h-px bg-gradient-to-l from-transparent to-amber-500 group-hover:w-16 transition-all duration-300" />
+              </div>
+              <p className="text-sm sm:text-base md:text-lg text-slate-400">Technology works for humans, not the reverse.</p>
             </div>
           </div>
 
-          <p className="text-slate-500 text-sm mb-6">
-            I work at the seams where disciplines don't connect—translating between technical and business realms, extracting methods so they become repeatable.
+          <p className="text-slate-500 text-sm sm:text-base md:text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
+            The right process reveals itself through the work—not before it.
           </p>
 
           <a
             href="mailto:matthewdscott7@gmail.com"
-            className="inline-flex items-center gap-2 text-teal-400 hover:text-teal-300 transition-colors text-sm group"
+            className="inline-flex items-center gap-3 text-teal-400 hover:text-teal-300 transition-all duration-300 text-base sm:text-lg group"
           >
-            <span className="border-b border-teal-400/30 group-hover:border-teal-300/50 transition-colors">
+            <span className="border-b border-teal-400/40 group-hover:border-teal-300/60 pb-0.5 transition-colors">
               Let's talk
             </span>
-            <span className="group-hover:translate-x-1 transition-transform">→</span>
+            <span className="text-xl group-hover:translate-x-1.5 transition-transform duration-300">→</span>
           </a>
-
         </div>
       </section>
       </main>
 
       {/* Footer */}
-      <footer id="contact" className="px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800 texture-brass">
-        <div className="max-w-4xl">
-          <h2 className="heading-serif text-2xl md:text-3xl font-semibold text-white mb-4 neon-text">
-            Let's Build
+      <footer id="contact" className="px-6 md:px-12 lg:px-24 py-20 border-t border-slate-800 texture-brass">
+        <div className="max-w-5xl mx-auto text-center">
+          <h2 className="heading-display text-2xl md:text-3xl text-white mb-4 neon-text tracking-[-0.02em] section-heading-animate">
+            Let's <span className="accent-italic">Build</span>
           </h2>
-          <p className="text-slate-400 mb-2">
+          <p className="text-slate-400 mb-2 section-stagger-1">
             If you recognize the work, reach out.
           </p>
-          <p className="text-slate-500 mb-8">
+          <p className="text-slate-500 mb-10 section-stagger-2">
             If you need convincing, I'm not for you.
           </p>
-          <div className="flex flex-col sm:flex-row flex-wrap gap-4 sm:gap-6">
+          <div className="flex items-center justify-center gap-4 heading-display text-lg md:text-xl tracking-[-0.01em] mb-8">
             <a
               href="mailto:matthewdscott7@gmail.com"
-              className="footer-link text-teal-400 hover:text-teal-300 transition-colors text-sm sm:text-base"
+              className="text-white hover:text-teal-400 transition-colors"
             >
               matthewdscott7@gmail.com
             </a>
+            <span className="text-slate-600">·</span>
             <a
-              href="https://github.com/guitargnarr"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="footer-link text-teal-400 hover:text-teal-300 transition-colors text-sm sm:text-base"
+              href="/manifesto"
+              className="text-white hover:text-amber-500 transition-colors"
             >
-              GitHub
+              The <span className="accent-italic">Manifesto</span>
             </a>
+          </div>
+
+          {/* Social Media Icons */}
+          <div className="flex items-center justify-center gap-6">
             <a
               href="https://linkedin.com/in/mscott77"
               target="_blank"
               rel="noopener noreferrer"
-              className="footer-link text-teal-400 hover:text-teal-300 transition-colors text-sm sm:text-base"
+              className="group"
+              aria-label="LinkedIn"
             >
-              LinkedIn
+              <svg
+                className="w-6 h-6 text-slate-400 group-hover:text-[#0A66C2] group-hover:scale-110 transition-all duration-300"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
             </a>
             <a
-              href="/manifesto"
-              className="footer-link text-orange-400 hover:text-orange-300 transition-colors text-sm sm:text-base"
+              href="https://instagram.com/guitargnar"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group"
+              aria-label="Instagram"
             >
-              The Manifesto
+              <svg
+                className="w-6 h-6 text-slate-400 group-hover:text-[#E4405F] group-hover:scale-110 transition-all duration-300"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+              </svg>
+            </a>
+            <a
+              href="https://www.facebook.com/guitargnar/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group"
+              aria-label="Facebook"
+            >
+              <svg
+                className="w-6 h-6 text-slate-400 group-hover:text-[#1877F2] group-hover:scale-110 transition-all duration-300"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
             </a>
           </div>
           {/* Footer bottom with centered watermark */}
