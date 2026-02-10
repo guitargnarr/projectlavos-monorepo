@@ -53,7 +53,137 @@ function App() {
 
   // Local Louisville client projects
   const localClients = [
-    // Priority 1-13: Best showcase sites
+    {
+      id: "uofldemo",
+      title: "UofL Demo",
+      url: "https://uofl-demo.vercel.app",
+      preview: "/og-images/uofl-demo-og.png",
+      ogImage: "/og-images/uofldemo-og.png",
+      qrCode: "/qr-codes/uofl-demo-qr.png",
+      description: "University website template demo",
+      altText: "University of Louisville website demo higher education admissions campus student portal",
+      category: "Education",
+      specWork: true,
+      details: "Modern university website template showcasing higher education web design. Features admissions portal, campus life, academics, and student resources. Go Cards!"
+    },
+    {
+      id: "springhurstendo",
+      title: "Springhurst Endodontics",
+      url: "https://springhurst-endo.vercel.app",
+      preview: "/og-images/springhurst-endo-og.png",
+      ogImage: "/og-images/springhurstendo-og.png",
+      qrCode: "/qr-codes/springhurst-endo-qr.png",
+      description: "Expert root canal care",
+      altText: "Springhurst Endodontics Louisville root canal specialists Dr. Jolanta Sauer comfortable environment",
+      category: "Medical",
+      specWork: true,
+      details: "5-star rated root canal specialists in Louisville. Led by Dr. Jolanta Sauer, providing the highest standard of endodontic care in a comfortable environment. Book online appointments available."
+    },
+    {
+      id: "dgvservices",
+      title: "dGv Services",
+      url: "https://dgv-services.vercel.app",
+      preview: "/og-images/dgv-services-og.png",
+      ogImage: "/og-images/dgvservices-og.png",
+      qrCode: "/qr-codes/dgv-services-qr.png",
+      description: "Expert medical billing & revenue management",
+      altText: "dGv Services Crestwood Kentucky medical billing healthcare revenue management insurance claims workers compensation",
+      category: "Medical",
+      specWork: true,
+      location: "Crestwood, KY",
+      details: "Medical billing and healthcare revenue management specialists since 2002. 25+ years experience in workers' compensation, auto, and liability insurance claims. HIPAA compliant, certified coders. Serving Kentucky healthcare providers."
+    },
+    {
+      id: "halseyflats",
+      title: "Halsey Flats",
+      url: "https://halsey-flats.vercel.app",
+      preview: "/og-images/halsey-flats-og.png",
+      ogImage: "/og-images/halsey-flats-og.png",
+      qrCode: "/qr-codes/halsey-flats-qr.png",
+      description: "Elevated living in St. Matthews",
+      altText: "Halsey Flats luxury apartments St Matthews Louisville Kentucky 2-4 bedroom floor plans pool fitness center amenities",
+      category: "Real Estate",
+      specWork: true,
+      details: "Tier 3 demo for St. Matthews luxury apartments. 5 floor plans ($1,195-$1,795/mo), 3D card hover effects, tour scheduling, amenities showcase, neighborhood guide. Modern React + Framer Motion with parallax hero."
+    },
+    {
+      id: "tomdrexler",
+      title: "Tom Drexler",
+      url: "https://tom-drexler.vercel.app",
+      preview: "/og-images/tom-drexler-og.png",
+      ogImage: "/og-images/tomdrexler-og.png",
+      qrCode: "/qr-codes/tom-drexler-qr.png",
+      description: "Louisville's Red Carpet Treatment Since 1982",
+      altText: "Tom Drexler Plumbing Air Electric Louisville Kentucky HVAC plumbing electrical drain sewer bathroom remodeling 200+ service trucks 4th generation master plumber",
+      category: "Services",
+      specWork: true,
+      details: "Tier 2 demo for Louisville's premier home services company. 4th generation Master Plumber. HVAC, Plumbing, Electrical, Drain & Sewer, Bathroom Remodeling. 200+ service trucks serving Louisville Metro & Southern Indiana. 24/7 Emergency Service. Red/white/blue patriotic branding."
+    },
+    {
+      id: "fulltiltgym",
+      title: "Full Tilt Gym",
+      url: "https://full-tilt-gym.vercel.app",
+      preview: "/og-images/full-tilt-gym-og.png",
+      ogImage: "/og-images/full-tilt-gym-og.png",
+      qrCode: "/qr-codes/full-tilt-gym-qr.png",
+      description: "Louisville's premier high-intensity fitness studio",
+      altText: "Full Tilt Gym Louisville Kentucky fitness studio group classes personal training HIIT boxing cycling strength",
+      category: "Fitness",
+      specWork: true,
+      details: "Tier 4 demo for Louisville fitness studio featuring 3D crystalline hero animation, class scheduling, trainer profiles, and membership pricing. High-intensity group classes, personal training, and open gym."
+    },
+    {
+      id: "morganpottingermcgarvey",
+      title: "Morgan Pottinger McGarvey",
+      url: "https://morgan-pottinger-mcgarvey.vercel.app",
+      preview: "/og-images/morgan-pottinger-mcgarvey-og.png",
+      ogImage: "/og-images/morgan-pottinger-mcgarvey-og.png",
+      qrCode: "/qr-codes/morgan-pottinger-mcgarvey-qr.png",
+      description: "Trusted legal counsel since 1974",
+      altText: "Morgan Pottinger McGarvey Louisville Kentucky law firm attorneys banking business litigation personal injury real estate",
+      category: "Legal",
+      specWork: true,
+      details: "Tier 2 demo for established Louisville law firm. Banking & finance, business litigation, personal injury, and real estate law. Representing Kentucky banks, businesses, and individuals with over 50 years of combined legal excellence."
+    },
+    {
+      id: "caviarcreativeco",
+      title: "Caviar Creative Co.",
+      url: "https://caviar-creative-co.vercel.app",
+      preview: "/og-images/caviar-creative-co-og.png",
+      ogImage: "/og-images/caviar-creative-co-og.png",
+      qrCode: "/qr-codes/caviar-creative-co-qr.png",
+      description: "Strategy, design, story and brand protection",
+      altText: "Caviar Creative Co Louisville Kentucky creative agency branding strategy design digital experience automation",
+      category: "Services",
+      specWork: true,
+      details: "Architectural Noir concept demo for creative agency. Strategy, design, story and brand protection served up without compromise. Features particle animation hero, automation showcase, and metrics dashboard."
+    },
+    {
+      id: "scoutaesthetics",
+      title: "Scout Aesthetics",
+      url: "https://scout-aesthetics.vercel.app",
+      preview: "/og-images/scout-aesthetics-og.png",
+      ogImage: "/og-images/scout-aesthetics-og.png",
+      qrCode: "/qr-codes/scout-aesthetics-qr.png",
+      description: "Premier med spa and aesthetic wellness center",
+      altText: "Scout Aesthetics Louisville Kentucky med spa Botox fillers laser facials body contouring skin rejuvenation",
+      category: "Med Spa",
+      specWork: true,
+      details: "Tier 2 demo for Louisville med spa featuring Torus Knot 3D hero, DNA Helix section background, zigzag feature layout, and glass-morphism contact card. Botox, fillers, laser treatments, facials, and body contouring."
+    },
+    {
+      id: "pillarfinancialadvisors",
+      title: "Pillar Financial Advisors",
+      url: "https://pillar-financial-advisors.vercel.app",
+      preview: "/og-images/pillar-financial-advisors-og.png",
+      ogImage: "/og-images/pillar-financial-advisors-og.png",
+      qrCode: "/qr-codes/pillar-financial-advisors-qr.png",
+      description: "Wealth management and financial planning",
+      altText: "Pillar Financial Advisors Louisville Kentucky wealth management financial planning retirement investment estate tax",
+      category: "Financial",
+      specWork: true,
+      details: "Tier 2 demo for Louisville financial advisory firm featuring L-System Tree 3D hero, Orbital System section background, icon-strip feature layout, 2x2 stats grid, and split-screen contact. Retirement planning, investment management, estate and tax planning."
+    },
     {
       id: "fritzsalon",
       title: "Fritz Salon",
@@ -236,7 +366,6 @@ function App() {
       specWork: true,
       details: "Louisville's premier blow dry and beauty bar. Expert blowouts, styling, and makeup for any occasion. Walk in gorgeous, walk out blown away."
     },
-    // Remaining sites
     {
       id: "fableflow",
       title: "Fable & Flow",
@@ -550,46 +679,6 @@ function App() {
       details: "Modern website template for credit unions and financial institutions. Features online banking integration, member services, and loan applications. Built for trust and accessibility."
     },
     {
-      id: "uofldemo",
-      title: "UofL Demo",
-      url: "https://uofl-demo.vercel.app",
-      preview: "/og-images/uofl-demo-og.png",
-      ogImage: "/og-images/uofldemo-og.png",
-      qrCode: "/qr-codes/uofl-demo-qr.png",
-      description: "University website template demo",
-      altText: "University of Louisville website demo higher education admissions campus student portal",
-      category: "Education",
-      specWork: true,
-      details: "Modern university website template showcasing higher education web design. Features admissions portal, campus life, academics, and student resources. Go Cards!"
-    },
-    {
-      id: "springhurstendo",
-      title: "Springhurst Endodontics",
-      url: "https://springhurst-endo.vercel.app",
-      preview: "/og-images/springhurst-endo-og.png",
-      ogImage: "/og-images/springhurstendo-og.png",
-      qrCode: "/qr-codes/springhurst-endo-qr.png",
-      description: "Expert root canal care",
-      altText: "Springhurst Endodontics Louisville root canal specialists Dr. Jolanta Sauer comfortable environment",
-      category: "Medical",
-      specWork: true,
-      details: "5-star rated root canal specialists in Louisville. Led by Dr. Jolanta Sauer, providing the highest standard of endodontic care in a comfortable environment. Book online appointments available."
-    },
-    {
-      id: "dgvservices",
-      title: "dGv Services",
-      url: "https://dgv-services.vercel.app",
-      preview: "/og-images/dgv-services-og.png",
-      ogImage: "/og-images/dgvservices-og.png",
-      qrCode: "/qr-codes/dgv-services-qr.png",
-      description: "Expert medical billing & revenue management",
-      altText: "dGv Services Crestwood Kentucky medical billing healthcare revenue management insurance claims workers compensation",
-      category: "Medical",
-      specWork: true,
-      location: "Crestwood, KY",
-      details: "Medical billing and healthcare revenue management specialists since 2002. 25+ years experience in workers' compensation, auto, and liability insurance claims. HIPAA compliant, certified coders. Serving Kentucky healthcare providers."
-    },
-    {
       id: "vancestovall",
       title: "Vance & Stovall Optometry",
       url: "https://vance-stovall-optometry.vercel.app",
@@ -681,19 +770,6 @@ function App() {
       details: "Playful design for Louisville's beloved family toy store. 2 locations (St. Matthews & Westport Village), colorful animations, brand showcase. Fredoka + Nunito fonts capture the fun, family-friendly spirit."
     },
     {
-      id: "halseyflats",
-      title: "Halsey Flats",
-      url: "https://halsey-flats.vercel.app",
-      preview: "/og-images/halsey-flats-og.png",
-      ogImage: "/og-images/halsey-flats-og.png",
-      qrCode: "/qr-codes/halsey-flats-qr.png",
-      description: "Elevated living in St. Matthews",
-      altText: "Halsey Flats luxury apartments St Matthews Louisville Kentucky 2-4 bedroom floor plans pool fitness center amenities",
-      category: "Real Estate",
-      specWork: true,
-      details: "Tier 3 demo for St. Matthews luxury apartments. 5 floor plans ($1,195-$1,795/mo), 3D card hover effects, tour scheduling, amenities showcase, neighborhood guide. Modern React + Framer Motion with parallax hero."
-    },
-    {
       id: "sophiasrugs",
       title: "Sophia's Rugs",
       url: "https://sophias-rugs.vercel.app",
@@ -770,84 +846,6 @@ function App() {
       category: "Medical",
       specWork: true,
       details: "Tier 4 demo for trusted Louisville family dentist. Dr. James B. Howell, DMD with 27+ years of experience since 1998. Patient portal, admin dashboard, 3-step booking wizard, toast notifications. Sage green brand palette. Located on Dutchmans Lane in St. Matthews area."
-    },
-    {
-      id: "tomdrexler",
-      title: "Tom Drexler",
-      url: "https://tom-drexler.vercel.app",
-      preview: "/og-images/tom-drexler-og.png",
-      ogImage: "/og-images/tomdrexler-og.png",
-      qrCode: "/qr-codes/tom-drexler-qr.png",
-      description: "Louisville's Red Carpet Treatment Since 1982",
-      altText: "Tom Drexler Plumbing Air Electric Louisville Kentucky HVAC plumbing electrical drain sewer bathroom remodeling 200+ service trucks 4th generation master plumber",
-      category: "Services",
-      specWork: true,
-      details: "Tier 2 demo for Louisville's premier home services company. 4th generation Master Plumber. HVAC, Plumbing, Electrical, Drain & Sewer, Bathroom Remodeling. 200+ service trucks serving Louisville Metro & Southern Indiana. 24/7 Emergency Service. Red/white/blue patriotic branding."
-    },
-    {
-      id: "fulltiltgym",
-      title: "Full Tilt Gym",
-      url: "https://full-tilt-gym.vercel.app",
-      preview: "/og-images/full-tilt-gym-og.png",
-      ogImage: "/og-images/full-tilt-gym-og.png",
-      qrCode: "/qr-codes/full-tilt-gym-qr.png",
-      description: "Louisville's premier high-intensity fitness studio",
-      altText: "Full Tilt Gym Louisville Kentucky fitness studio group classes personal training HIIT boxing cycling strength",
-      category: "Fitness",
-      specWork: true,
-      details: "Tier 4 demo for Louisville fitness studio featuring 3D crystalline hero animation, class scheduling, trainer profiles, and membership pricing. High-intensity group classes, personal training, and open gym."
-    },
-    {
-      id: "morganpottingermcgarvey",
-      title: "Morgan Pottinger McGarvey",
-      url: "https://morgan-pottinger-mcgarvey.vercel.app",
-      preview: "/og-images/morgan-pottinger-mcgarvey-og.png",
-      ogImage: "/og-images/morgan-pottinger-mcgarvey-og.png",
-      qrCode: "/qr-codes/morgan-pottinger-mcgarvey-qr.png",
-      description: "Trusted legal counsel since 1974",
-      altText: "Morgan Pottinger McGarvey Louisville Kentucky law firm attorneys banking business litigation personal injury real estate",
-      category: "Legal",
-      specWork: true,
-      details: "Tier 2 demo for established Louisville law firm. Banking & finance, business litigation, personal injury, and real estate law. Representing Kentucky banks, businesses, and individuals with over 50 years of combined legal excellence."
-    },
-    {
-      id: "caviarcreativeco",
-      title: "Caviar Creative Co.",
-      url: "https://caviar-creative-co.vercel.app",
-      preview: "/og-images/caviar-creative-co-og.png",
-      ogImage: "/og-images/caviar-creative-co-og.png",
-      qrCode: "/qr-codes/caviar-creative-co-qr.png",
-      description: "Strategy, design, story and brand protection",
-      altText: "Caviar Creative Co Louisville Kentucky creative agency branding strategy design digital experience automation",
-      category: "Services",
-      specWork: true,
-      details: "Architectural Noir concept demo for creative agency. Strategy, design, story and brand protection served up without compromise. Features particle animation hero, automation showcase, and metrics dashboard."
-    },
-    {
-      id: "scoutaesthetics",
-      title: "Scout Aesthetics",
-      url: "https://scout-aesthetics.vercel.app",
-      preview: "/og-images/scout-aesthetics-og.png",
-      ogImage: "/og-images/scout-aesthetics-og.png",
-      qrCode: "/qr-codes/scout-aesthetics-qr.png",
-      description: "Premier med spa and aesthetic wellness center",
-      altText: "Scout Aesthetics Louisville Kentucky med spa Botox fillers laser facials body contouring skin rejuvenation",
-      category: "Med Spa",
-      specWork: true,
-      details: "Tier 2 demo for Louisville med spa featuring Torus Knot 3D hero, DNA Helix section background, zigzag feature layout, and glass-morphism contact card. Botox, fillers, laser treatments, facials, and body contouring."
-    },
-    {
-      id: "pillarfinancialadvisors",
-      title: "Pillar Financial Advisors",
-      url: "https://pillar-financial-advisors.vercel.app",
-      preview: "/og-images/pillar-financial-advisors-og.png",
-      ogImage: "/og-images/pillar-financial-advisors-og.png",
-      qrCode: "/qr-codes/pillar-financial-advisors-qr.png",
-      description: "Wealth management and financial planning",
-      altText: "Pillar Financial Advisors Louisville Kentucky wealth management financial planning retirement investment estate tax",
-      category: "Financial",
-      specWork: true,
-      details: "Tier 2 demo for Louisville financial advisory firm featuring L-System Tree 3D hero, Orbital System section background, icon-strip feature layout, 2x2 stats grid, and split-screen contact. Retirement planning, investment management, estate and tax planning."
     }
   ];
 
