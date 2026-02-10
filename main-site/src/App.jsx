@@ -1117,7 +1117,7 @@ function App() {
         </div>
 
         {/* Chariot Logo - Moved to bottom of hero as visual footer element */}
-        <div className="absolute bottom-20 sm:bottom-24 left-0 right-0 flex justify-center hero-animate-6">
+        <div className="absolute bottom-14 sm:bottom-18 left-0 right-0 flex justify-center hero-animate-6">
           <AnimatedCharioteer className="w-64 h-32 sm:w-72 sm:h-36 md:w-80 md:h-40 opacity-85" />
         </div>
 
