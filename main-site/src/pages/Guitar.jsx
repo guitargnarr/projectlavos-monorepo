@@ -454,7 +454,22 @@ export default function Guitar() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = 'Guitar Reference Library | Project Lavos';
+    document.title = 'Guitar Scale Reference Library | 24 PDF Books | Project Lavos';
+    const meta = {
+      description: '24 downloadable guitar scale reference books with verified tablature. Covers pentatonic, blues, diatonic modes, harmonic minor, melodic minor, symmetric, bebop, and exotic scales. 480 exercises per book across 12 keys and 5 CAGED positions.',
+      'og:title': 'Guitar Scale Reference Library | 24 PDF Books',
+      'og:description': '24 downloadable guitar scale reference books. 480 exercises per book, 12 keys, 5 positions, mathematically verified tablature.',
+      'og:url': 'https://projectlavos.com/guitar',
+    };
+    Object.entries(meta).forEach(([key, value]) => {
+      const isOg = key.startsWith('og:');
+      const selector = isOg ? `meta[property="${key}"]` : `meta[name="${key}"]`;
+      const el = document.querySelector(selector);
+      if (el) el.setAttribute('content', value);
+    });
+    return () => {
+      document.title = 'Louisville Web Developer | Matthew Scott | React & Full-Stack Development';
+    };
   }, []);
 
   useEffect(() => {

@@ -203,7 +203,22 @@ export default function Blog() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = 'Articles | Project Lavos';
+    document.title = 'Articles | Observations on AI Development | Project Lavos';
+    const meta = {
+      description: 'Articles on AI-assisted development, verification methodology, and what "working" actually means. By Matthew Scott, Louisville web developer.',
+      'og:title': 'Articles | Observations on AI Development',
+      'og:description': 'Articles on AI-assisted development, verification methodology, and software development philosophy.',
+      'og:url': 'https://projectlavos.com/blog',
+    };
+    Object.entries(meta).forEach(([key, value]) => {
+      const isOg = key.startsWith('og:');
+      const selector = isOg ? `meta[property="${key}"]` : `meta[name="${key}"]`;
+      const el = document.querySelector(selector);
+      if (el) el.setAttribute('content', value);
+    });
+    return () => {
+      document.title = 'Louisville Web Developer | Matthew Scott | React & Full-Stack Development';
+    };
   }, []);
 
   // Scroll animation observer

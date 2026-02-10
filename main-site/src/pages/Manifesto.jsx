@@ -9,6 +9,22 @@ export default function Manifesto() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    document.title = 'The Manifesto | Development Philosophy | Project Lavos';
+    const meta = {
+      description: 'Development philosophy: substance over flash, built to last, measure twice, people over tech. How Matthew Scott approaches web development and AI collaboration.',
+      'og:title': 'The Manifesto | Development Philosophy',
+      'og:description': 'Substance over flash, built to last, measure twice, people over tech. A development philosophy for the AI era.',
+      'og:url': 'https://projectlavos.com/manifesto',
+    };
+    Object.entries(meta).forEach(([key, value]) => {
+      const isOg = key.startsWith('og:');
+      const selector = isOg ? `meta[property="${key}"]` : `meta[name="${key}"]`;
+      const el = document.querySelector(selector);
+      if (el) el.setAttribute('content', value);
+    });
+    return () => {
+      document.title = 'Louisville Web Developer | Matthew Scott | React & Full-Stack Development';
+    };
   }, []);
 
   // Scroll animation observer
