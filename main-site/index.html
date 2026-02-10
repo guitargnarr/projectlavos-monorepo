@@ -535,6 +535,64 @@
     }
     </script>
 
+    <!-- JSON-LD Structured Data - Guitar Reference Library -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Guitar Reference Library",
+      "description": "24 guitar scale reference books with downloadable PDFs. Each book covers 12 keys, 5 CAGED positions, 8 exercise types, and 480 total exercises with mathematically verified tablature. Scales include Minor Pentatonic, Major Pentatonic, Blues, Major Blues, Natural Major, Natural Minor, Dorian, Phrygian, Lydian, Mixolydian, Locrian, Harmonic Minor, Phrygian Dominant, Melodic Minor, Lydian Dominant, Altered, Whole Tone, Half-Whole Diminished, Whole-Half Diminished, Bebop Dominant, Double Harmonic, Hungarian Minor, Hirajoshi, and In Sen.",
+      "url": "https://projectlavos.com/guitar",
+      "author": {"@type": "Person", "name": "Matthew Scott"},
+      "numberOfItems": 24,
+      "about": {
+        "@type": "Thing",
+        "name": "Guitar Scale Education",
+        "description": "Comprehensive fretboard fluency through 7 scale categories: Pentatonic & Blues (4 scales), Diatonic Modes (7 scales), Harmonic Minor Family (2 scales), Melodic Minor Family (3 scales), Symmetric Scales (3 scales), Bebop (1 scale), and Exotic Scales (4 scales including Japanese pentatonics Hirajoshi and In Sen)."
+      },
+      "hasPart": [
+        {"@type": "CreativeWork", "name": "Minor Pentatonic", "description": "The most important scale in rock, blues, and popular music. 12 keys, 5 positions, 480 exercises.", "encodingFormat": "application/pdf"},
+        {"@type": "CreativeWork", "name": "Blues Scale", "description": "Minor pentatonic with chromatic b5 passing tone. The gritty tension of the blues.", "encodingFormat": "application/pdf"},
+        {"@type": "CreativeWork", "name": "Natural Major (Ionian)", "description": "Foundation of all Western harmony. Every chord, mode, and key signature derives from this.", "encodingFormat": "application/pdf"},
+        {"@type": "CreativeWork", "name": "Dorian Mode", "description": "Minor scale with raised 6th. The sound of Santana, Miles Davis, jazz and funk.", "encodingFormat": "application/pdf"},
+        {"@type": "CreativeWork", "name": "Harmonic Minor", "description": "Raised 7th degree creates leading tone and augmented 2nd. Classical, neoclassical metal, Middle Eastern.", "encodingFormat": "application/pdf"},
+        {"@type": "CreativeWork", "name": "Melodic Minor (Jazz Minor)", "description": "Foundation of modern jazz harmony generating altered dominants, lydian dominants, and more.", "encodingFormat": "application/pdf"},
+        {"@type": "CreativeWork", "name": "Altered Scale", "description": "7th mode of melodic minor. Every possible dominant chord alteration: b9, #9, b5, #5.", "encodingFormat": "application/pdf"},
+        {"@type": "CreativeWork", "name": "Bebop Dominant", "description": "Eight-note scale where chord tones land on strong beats. Charlie Parker, Dizzy Gillespie.", "encodingFormat": "application/pdf"},
+        {"@type": "CreativeWork", "name": "Double Harmonic (Byzantine/Arabic)", "description": "Two augmented 2nd intervals. The sound of Misirlou, Bollywood, Romani music.", "encodingFormat": "application/pdf"},
+        {"@type": "CreativeWork", "name": "Hirajoshi", "description": "Japanese pentatonic with haunting dark beauty. Used by Marty Friedman, Tosin Abasi.", "encodingFormat": "application/pdf"}
+      ]
+    }
+    </script>
+
+    <!-- JSON-LD Structured Data - Manifesto -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "What One Person Can Build - The Manifesto",
+      "description": "Matthew Scott's manifesto demonstrating what a solo developer with AI collaboration can build: 51 websites for Louisville businesses, 51 AI models trained for specific domains, 96 live URLs all verified HTTP 200 -- all by one person. Contrasts 'The Old Script' (get credentials, ask permission, wait to be chosen) with 'The New Script' (build it, ship it, show the work).",
+      "url": "https://projectlavos.com/manifesto",
+      "author": {"@type": "Person", "name": "Matthew Scott"},
+      "about": "Solo developer capability demonstration with AI collaboration"
+    }
+    </script>
+
+    <!-- JSON-LD Structured Data - Site Navigation -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SiteNavigationElement",
+      "name": "Main Navigation",
+      "hasPart": [
+        {"@type": "WebPage", "name": "Home - Portfolio", "url": "https://projectlavos.com"},
+        {"@type": "WebPage", "name": "Blog - Beyond the Code", "url": "https://projectlavos.com/blog"},
+        {"@type": "WebPage", "name": "Guitar Reference Library", "url": "https://projectlavos.com/guitar"},
+        {"@type": "WebPage", "name": "The Manifesto", "url": "https://projectlavos.com/manifesto"}
+      ]
+    }
+    </script>
+
     <!-- JSON-LD Structured Data - BreadcrumbList -->
     <script type="application/ld+json">
     {
@@ -546,6 +604,24 @@
           "position": 1,
           "name": "Home",
           "item": "https://projectlavos.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://projectlavos.com/blog"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Guitar Reference Library",
+          "item": "https://projectlavos.com/guitar"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Manifesto",
+          "item": "https://projectlavos.com/manifesto"
         }
       ]
     }
@@ -608,13 +684,39 @@
         </section>
 
         <section>
-          <h2>Writing &amp; Articles</h2>
-          <p>Matthew writes about AI collaboration, verification methodology, and what "working" actually means in software development. Articles are available at projectlavos.com/blog. Featured article: "The Verification Gap" - an exploration of verification challenges in AI-assisted development.</p>
+          <h2>Writing &amp; Articles (projectlavos.com/blog)</h2>
+          <p>Matthew writes about AI collaboration, verification methodology, and what "working" actually means in software development. Articles are available at projectlavos.com/blog under the heading "Beyond the Code". Featured article: "The Verification Gap" (February 2026) - an exploration of verification challenges in AI-assisted development, examining the gap between what AI generates and what humans can verify.</p>
+        </section>
+
+        <section>
+          <h2>Guitar Reference Library (projectlavos.com/guitar)</h2>
+          <p>24 guitar scale reference books available as downloadable PDFs. Each book covers 12 keys, 5 CAGED positions, 8 exercise types, and 480 total exercises with mathematically verified tablature. All tablature is generated by computational fretboard logic, not hand-transcribed.</p>
+          <p>Scale categories and books:</p>
+          <ul>
+            <li>Pentatonic &amp; Blues (4): Minor Pentatonic, Major Pentatonic, Blues, Major Blues</li>
+            <li>Diatonic Modes (7): Natural Major (Ionian), Natural Minor (Aeolian), Dorian, Phrygian, Lydian, Mixolydian, Locrian</li>
+            <li>Harmonic Minor Family (2): Harmonic Minor, Phrygian Dominant</li>
+            <li>Melodic Minor Family (3): Melodic Minor (Jazz Minor), Lydian Dominant, Altered</li>
+            <li>Symmetric Scales (3): Whole Tone, Half-Whole Diminished, Whole-Half Diminished</li>
+            <li>Bebop (1): Bebop Dominant</li>
+            <li>Exotic Scales (4): Double Harmonic (Byzantine/Arabic), Hungarian Minor, Hirajoshi (Japanese), In Sen (Japanese)</li>
+          </ul>
+          <p>Total: 24 books x 480 exercises = 11,520 exercises across all scales. This library connects to the FretVision guitar learning platform at guitar.projectlavos.com.</p>
+        </section>
+
+        <section>
+          <h2>The Manifesto (projectlavos.com/manifesto)</h2>
+          <p>"What One Person Can Build" - a manifesto demonstrating what a solo developer with AI collaboration can accomplish. Evidence: 51 websites built for Louisville businesses (live, deployed, working), 51 AI models trained for specific domains (career, code, guitar, analysis), 96 live URLs all verified HTTP 200, all by 1 person with AI collaboration. Contrasts "The Old Script" (get credentials, ask permission, wait to be chosen, prove you belong) with "The New Script" (build it, ship it, show the work, let the evidence speak).</p>
         </section>
 
         <section>
           <h2>Technology Stack</h2>
-          <p>Frontend: React, Vite, Tailwind CSS v3, Framer Motion, React Router. Backend: Python, FastAPI, Supabase, PostgreSQL (Neon). Deployment: Vercel (frontend), Render (backend APIs). AI: Custom Ollama models, Claude integration, NLP pipelines. Testing: Playwright E2E, 328+ test specs. Version control: Git, GitHub Actions CI/CD.</p>
+          <p>Frontend: React, Vite, Tailwind CSS v3, Framer Motion, React Router, Three.js, Canvas API. Backend: Python, FastAPI, Supabase, PostgreSQL (Neon). Deployment: Vercel (frontend), Render (backend APIs). AI: Custom Ollama models (51 domain-specific), Claude integration, NLP pipelines. Testing: Playwright E2E, 328+ test specs. Version control: Git, GitHub Actions CI/CD.</p>
+        </section>
+
+        <section>
+          <h2>Site Map</h2>
+          <p>projectlavos.com - Main portfolio with 51 client demos, practical apps, methodology, and contact. projectlavos.com/blog - Articles on AI collaboration and verification. projectlavos.com/guitar - 24 scale reference book library with PDF downloads. projectlavos.com/manifesto - "What One Person Can Build" manifesto with evidence. guitar.projectlavos.com - FretVision interactive guitar learning platform. jobs.projectlavos.com - Vantage AI job market analysis. phishguard.projectlavos.com - PhishGuard anti-phishing detection. jobtrack.projectlavos.com - Jobway job search automation.</p>
         </section>
       </main>
     </div>
