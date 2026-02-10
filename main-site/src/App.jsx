@@ -783,6 +783,71 @@ function App() {
       category: "Services",
       specWork: true,
       details: "Tier 2 demo for Louisville's premier home services company. 4th generation Master Plumber. HVAC, Plumbing, Electrical, Drain & Sewer, Bathroom Remodeling. 200+ service trucks serving Louisville Metro & Southern Indiana. 24/7 Emergency Service. Red/white/blue patriotic branding."
+    },
+    {
+      id: "fulltiltgym",
+      title: "Full Tilt Gym",
+      url: "https://full-tilt-gym.vercel.app",
+      preview: "/previews/full-tilt-gym-preview.png",
+      ogImage: "/og-images/full-tilt-gym-og.png",
+      qrCode: "/qr-codes/full-tilt-gym-qr.png",
+      description: "Louisville's premier high-intensity fitness studio",
+      altText: "Full Tilt Gym Louisville Kentucky fitness studio group classes personal training HIIT boxing cycling strength",
+      category: "Fitness",
+      specWork: true,
+      details: "Tier 4 demo for Louisville fitness studio featuring 3D crystalline hero animation, class scheduling, trainer profiles, and membership pricing. High-intensity group classes, personal training, and open gym."
+    },
+    {
+      id: "morganpottingermcgarvey",
+      title: "Morgan Pottinger McGarvey",
+      url: "https://morgan-pottinger-mcgarvey.vercel.app",
+      preview: "/previews/morgan-pottinger-mcgarvey-preview.png",
+      ogImage: "/og-images/morgan-pottinger-mcgarvey-og.png",
+      qrCode: "/qr-codes/morgan-pottinger-mcgarvey-qr.png",
+      description: "Trusted legal counsel since 1974",
+      altText: "Morgan Pottinger McGarvey Louisville Kentucky law firm attorneys banking business litigation personal injury real estate",
+      category: "Legal",
+      specWork: true,
+      details: "Tier 2 demo for established Louisville law firm. Banking & finance, business litigation, personal injury, and real estate law. Representing Kentucky banks, businesses, and individuals with over 50 years of combined legal excellence."
+    },
+    {
+      id: "caviarcreativeco",
+      title: "Caviar Creative Co.",
+      url: "https://caviar-creative-co.vercel.app",
+      preview: "/previews/caviar-creative-co-preview.png",
+      ogImage: "/og-images/caviar-creative-co-og.png",
+      qrCode: "/qr-codes/caviar-creative-co-qr.png",
+      description: "Strategy, design, story and brand protection",
+      altText: "Caviar Creative Co Louisville Kentucky creative agency branding strategy design digital experience automation",
+      category: "Services",
+      specWork: true,
+      details: "Architectural Noir concept demo for creative agency. Strategy, design, story and brand protection served up without compromise. Features particle animation hero, automation showcase, and metrics dashboard."
+    },
+    {
+      id: "scoutaesthetics",
+      title: "Scout Aesthetics",
+      url: "https://scout-aesthetics.vercel.app",
+      preview: "/previews/scout-aesthetics-preview.png",
+      ogImage: "/og-images/scout-aesthetics-og.png",
+      qrCode: "/qr-codes/scout-aesthetics-qr.png",
+      description: "Premier med spa and aesthetic wellness center",
+      altText: "Scout Aesthetics Louisville Kentucky med spa Botox fillers laser facials body contouring skin rejuvenation",
+      category: "Med Spa",
+      specWork: true,
+      details: "Tier 2 demo for Louisville med spa featuring Torus Knot 3D hero, DNA Helix section background, zigzag feature layout, and glass-morphism contact card. Botox, fillers, laser treatments, facials, and body contouring."
+    },
+    {
+      id: "pillarfinancialadvisors",
+      title: "Pillar Financial Advisors",
+      url: "https://pillar-financial-advisors.vercel.app",
+      preview: "/previews/pillar-financial-advisors-preview.png",
+      ogImage: "/og-images/pillar-financial-advisors-og.png",
+      qrCode: "/qr-codes/pillar-financial-advisors-qr.png",
+      description: "Wealth management and financial planning",
+      altText: "Pillar Financial Advisors Louisville Kentucky wealth management financial planning retirement investment estate tax",
+      category: "Financial",
+      specWork: true,
+      details: "Tier 2 demo for Louisville financial advisory firm featuring L-System Tree 3D hero, Orbital System section background, icon-strip feature layout, 2x2 stats grid, and split-screen contact. Retirement planning, investment management, estate and tax planning."
     }
   ];
 
