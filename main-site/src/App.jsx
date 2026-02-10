@@ -1615,6 +1615,33 @@ function App() {
           </a>
         </div>
       </section>
+
+      {/* Guitar Reference Library CTA */}
+      <section
+        id="guitar"
+        aria-label="Guitar scale reference library - 24 downloadable PDF books with verified tablature"
+        className={`relative px-6 md:px-12 lg:px-24 py-20 md:py-28 border-t border-slate-800 section-glow-full transition-all duration-700 ${visibleSections.guitar ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+      >
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="text-slate-500 text-xs tracking-[0.2em] uppercase mb-4">Guitar</p>
+          <h2 className="heading-display text-2xl md:text-3xl lg:text-4xl text-white mb-4 tracking-[-0.02em]">
+            Fretboard <span className="accent-italic">Mastery</span>
+          </h2>
+          <p className="text-slate-400 mb-8 max-w-xl mx-auto">
+            24 scale reference books. 480 exercises each. Every key, every position, mathematically verified tablature.
+          </p>
+          <a
+            href="/guitar"
+            aria-label="Browse 24 guitar scale reference books with verified tablature"
+            className="group relative inline-flex items-center gap-3 px-8 py-3.5 text-sm tracking-[0.15em] uppercase transition-all duration-500 ease-out bg-gradient-to-r from-teal-500/10 to-teal-600/5 border border-teal-500/40 hover:border-teal-400/80 text-teal-300 hover:text-teal-200 hover:shadow-[0_0_30px_-5px_rgba(20,184,166,0.3)] hover:scale-[1.02] active:scale-[0.98]"
+          >
+            <span className="relative z-10">Browse Library</span>
+            <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
+        </div>
+      </section>
       </main>
 
       {/* Footer */}
@@ -1652,6 +1679,14 @@ function App() {
               className="text-white hover:text-teal-400 transition-colors"
             >
               Articles
+            </a>
+            <span className="text-slate-600" aria-hidden="true">&middot;</span>
+            <a
+              href="/guitar"
+              aria-label="Browse guitar scale reference books"
+              className="text-white hover:text-teal-400 transition-colors"
+            >
+              Guitar
             </a>
           </nav>
 
