@@ -56,12 +56,16 @@
       "@type": "Person",
       "name": "Matthew Scott",
       "jobTitle": "Web Developer & Consultant",
+      "description": "Full-stack web developer and consultant based in Louisville, Kentucky. Builds production-grade websites for small and medium-sized businesses using React, JavaScript, Python, and AI integrations. Portfolio includes 51 deployed demo websites for Louisville businesses and multiple practical web applications. Development philosophy: substance over flash, built to last, measure twice, people over tech.",
       "url": "https://projectlavos.com",
       "image": "https://projectlavos.com/headshot.png",
       "email": "matthewdscott7@gmail.com",
+      "telephone": "+1-502-345-0525",
       "sameAs": [
         "https://github.com/guitargnarr",
-        "https://linkedin.com/in/mscott77"
+        "https://linkedin.com/in/mscott77",
+        "https://instagram.com/guitargnar",
+        "https://www.facebook.com/guitargnar/"
       ],
       "address": {
         "@type": "PostalAddress",
@@ -69,7 +73,7 @@
         "addressRegion": "KY",
         "addressCountry": "US"
       },
-      "knowsAbout": ["Web Development", "React", "JavaScript", "Python", "Small Business Websites", "Web Consulting", "AI Integration"]
+      "knowsAbout": ["React", "JavaScript", "Python", "Vite", "Tailwind CSS", "FastAPI", "Supabase", "PostgreSQL", "Playwright Testing", "AI Integration", "Web Development", "Web Consulting", "Small Business Websites", "Framer Motion", "Three.js", "Canvas API", "MIDI", "NLP", "CI/CD", "Vercel", "Render"]
     }
     </script>
 
@@ -79,7 +83,7 @@
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
       "name": "Matthew Scott Web Development",
-      "description": "Web development and consulting services for Louisville small and medium-sized businesses. Building practical web solutions that work.",
+      "description": "Web development and consulting for Louisville small and medium-sized businesses. 51 deployed spec-work demo websites across healthcare, legal, food, retail, beauty, entertainment, real estate, and services industries. All sites are live on Vercel - built from public business information as proof of capability. Also builds practical web applications: guitar learning platform (FretVision), job market analysis (Vantage), anti-phishing AI (PhishGuard), and job search automation (Jobway). Tech stack: React, Vite, Tailwind CSS, Python, FastAPI, Supabase, Playwright E2E testing, GitHub Actions CI/CD.",
       "url": "https://projectlavos.com",
       "image": "https://projectlavos.com/og-image.png",
       "telephone": "+1-502-345-0525",
@@ -100,8 +104,62 @@
         "name": "Louisville",
         "sameAs": "https://en.wikipedia.org/wiki/Louisville,_Kentucky"
       },
-      "serviceType": ["Web Development", "Web Consulting", "Small Business Websites", "React Development"],
-      "priceRange": "$$"
+      "serviceType": ["Web Development", "Web Consulting", "Small Business Websites", "React Development", "AI Integration", "Full-Stack Development"],
+      "slogan": "Complexity, untangled. Turning ambiguity into systems that actually ship.",
+      "priceRange": "$$",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Portfolio Categories",
+        "itemListElement": [
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Healthcare & Medical Websites", "description": "14 deployed demo sites for medical practices, dental offices, med spas, and healthcare providers"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Food & Beverage Websites", "description": "7 deployed demo sites for restaurants, cafes, specialty food shops, and bars"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Beauty & Personal Services Websites", "description": "10 deployed demo sites for salons, spas, nail studios, and wellness centers"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Retail Websites", "description": "8 deployed demo sites for jewelry stores, toy shops, uniform suppliers, and specialty retail"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Legal & Professional Websites", "description": "4 deployed demo sites for law firms, financial advisors, and professional services"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Custom Web Applications", "description": "Interactive guitar learning platform, AI-powered job market analysis, anti-phishing detection, job search automation"}}
+        ]
+      }
+    }
+    </script>
+
+    <!-- JSON-LD Structured Data - Development Methodology -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "Matthew Scott's Development Methodology",
+      "description": "Four principles that guide all web development work: substance first (working software over impressive pitches), built to last (good systems outlast good intentions), measure twice (test the work then ship it), and people over tech (technology works for humans not the reverse). Additional guiding values: show don't tell, simple scales, test the seams, tools serve people.",
+      "step": [
+        {"@type": "HowToStep", "name": "Substance First", "text": "Working software over impressive pitches. All 51 portfolio sites are deployed and working, not mockups or screenshots."},
+        {"@type": "HowToStep", "name": "Built to Last", "text": "Good systems outlast good intentions. Clean architecture, modular components, proper testing."},
+        {"@type": "HowToStep", "name": "Measure Twice", "text": "Test the work, then ship it. Playwright E2E testing, CI/CD pipelines, build verification before every deployment."},
+        {"@type": "HowToStep", "name": "People Over Tech", "text": "Technology works for humans, not the reverse. Accessible, performant, user-focused design."}
+      ]
+    }
+    </script>
+
+    <!-- JSON-LD Structured Data - Blog -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "name": "Beyond the Code",
+      "description": "Articles by Matthew Scott on AI collaboration, verification methodology, and what working actually means in software development.",
+      "url": "https://projectlavos.com/blog",
+      "author": {
+        "@type": "Person",
+        "name": "Matthew Scott"
+      },
+      "blogPost": [
+        {
+          "@type": "BlogPosting",
+          "headline": "The Verification Gap",
+          "description": "An exploration of verification challenges in AI-assisted development - the gap between what AI generates and what humans can verify.",
+          "url": "https://projectlavos.com/blog",
+          "author": {"@type": "Person", "name": "Matthew Scott"},
+          "datePublished": "2026-02"
+        }
+      ]
     }
     </script>
 
@@ -438,15 +496,23 @@
           "name": "What services does Matthew Scott offer?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Matthew Scott offers web development and consulting services for small and medium-sized businesses in Louisville, KY. Services include custom website development, React applications, web consulting, and helping businesses build their online presence."
+            "text": "Matthew Scott offers web development and consulting services for small and medium-sized businesses in Louisville, KY. Services include custom website development using React and Vite, full-stack web applications with Python/FastAPI backends, AI integrations, and web consulting. His portfolio demonstrates capability across healthcare, legal, food service, retail, beauty, entertainment, and professional services industries."
           }
         },
         {
           "@type": "Question",
-          "name": "Does Matthew Scott work with Louisville businesses?",
+          "name": "How many websites has Matthew Scott built?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes, Matthew Scott specializes in helping Louisville businesses build their online presence. Local clients include Fable & Flow, JW Cafe, Nachbar, Rejuvenation Med Spa, and Louisville Aesthetics."
+            "text": "Matthew Scott has 51 deployed demo websites for Louisville businesses, plus 6 practical web applications (FretVision guitar learning platform, Vantage AI job market analysis, PhishGuard anti-phishing detection, Jobway job search automation, BA Pathfinder career guide, and an interactive resume). All sites are live and working on Vercel - built as spec work from publicly available business information to demonstrate capability."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is Matthew Scott's development methodology?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Four principles guide the work: (1) Substance first - working software over impressive pitches, (2) Built to last - good systems outlast good intentions, (3) Measure twice - test the work then ship it, (4) People over tech - technology works for humans, not the reverse. Additional values: show don't tell (results over claims), simple scales (clarity over complexity), test the seams (systems fail where they connect), tools serve people."
           }
         },
         {
@@ -454,7 +520,15 @@
           "name": "What technologies does Matthew Scott use?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Matthew Scott works with modern web technologies including React, JavaScript, Python, and various AI integrations. Projects are deployed and running in production, not just demos."
+            "text": "Frontend: React, Vite, Tailwind CSS v3, Framer Motion, React Router, Three.js, Canvas API. Backend: Python, FastAPI, Supabase, PostgreSQL (Neon). Deployment: Vercel (frontend), Render (backend APIs). Testing: Playwright E2E with 328+ test specs, GitHub Actions CI/CD. AI: Custom Ollama models, Claude integration, NLP pipelines for phishing detection and job market analysis."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Matthew Scott write about software development?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Matthew writes articles at projectlavos.com/blog under the heading 'Beyond the Code'. Topics include AI collaboration methodology, the verification gap in AI-assisted development, and observations on what 'working' actually means in software. Featured article: 'The Verification Gap' exploring challenges when humans verify AI-generated code."
           }
         }
       ]
@@ -479,6 +553,72 @@
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- Structured content for LLMs, crawlers, and screen readers that cannot execute JavaScript.
+         This content is always present in the HTML source for any tool that reads raw HTML.
+         React mounts into #root above; this content remains accessible in the DOM as a sibling. -->
+    <div id="page-content" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">
+      <main>
+        <h1>Matthew Scott - Web Developer &amp; Consultant, Louisville, Kentucky</h1>
+
+        <section>
+          <h2>About</h2>
+          <p>Matthew Scott is a full-stack web developer and consultant based in Louisville, Kentucky. He specializes in React, JavaScript, Python, and AI integrations, building production-grade websites for small and medium-sized businesses. His tagline: "Complexity, untangled. Turning ambiguity into systems that actually ship."</p>
+          <p>Contact: matthewdscott7@gmail.com | 502-345-0525 | LinkedIn: mscott77 | GitHub: guitargnarr</p>
+        </section>
+
+        <section>
+          <h2>Louisville Client Portfolio (51 Deployed Demo Sites)</h2>
+          <p>All sites are spec work - built from publicly available business information as proof of capability, not pitches. Each is live, deployed, and working on Vercel. Categories include:</p>
+          <ul>
+            <li>Healthcare &amp; Medical (14 sites): Affinity Dental, Kuhn Allergy, Kentuckiana Gastroenterology, Rejuvenation Med Spa, Primary Express Care, Springhurst Endodontics, and more</li>
+            <li>Food &amp; Drink (7 sites): JW Cafe, Nachbar, Cottage Cafe, Shawarma Shack, Tasteful Travels, North Lime Coffee, PassTime Fish House</li>
+            <li>Legal &amp; Professional (4 sites): A. Holland Houston Family Law, Schwartz Bankruptcy, Morgan Pottinger McGarvey</li>
+            <li>Beauty &amp; Personal Services (10 sites): Fritz Salon, Louisville Aesthetics, Louisville Nails &amp; Spa, Blown Away Bar, Pilates Plus</li>
+            <li>Retail (8 sites): Genesis Diamonds, Playthings Toy Shoppe, Highland Cleaners, Cardinal Uniforms</li>
+            <li>Entertainment (4 sites): Headliners Louisville, Hideaway Saloon</li>
+            <li>Real Estate (3 sites): Halsey Flats, Mallard Crossing, Springs at Stony Brook</li>
+            <li>Services: Lawnco Louisville landscaping, Cleaning By Regina, Tonini Church Supply, Chabad of Kentucky</li>
+            <li>Conceptual demos: Auriga, Forma, Psyche Hub, Threshold, Credit Union Template, UofL Demo</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Practical Applications (Deployed &amp; Working)</h2>
+          <ul>
+            <li>FretVision (guitar.projectlavos.com) - Interactive guitar fretboard with lessons catalog, MIDI playback, favorites, progress tracking. React + Supabase + Canvas.</li>
+            <li>Vantage (jobs.projectlavos.com) - AI-powered local job market analysis and automated resume tailoring for Louisville.</li>
+            <li>PhishGuard (phishguard.projectlavos.com) - Sentiment analysis NLP for anti-phishing email detection.</li>
+            <li>Jobway (jobtrack.projectlavos.com) - Job search automation with application tracking and ATS optimization.</li>
+            <li>BA Pathfinder (ba-pathfinder.projectlavos.com) - Business analyst career guidance tool.</li>
+            <li>Interactive Resume (resume.projectlavos.com) - Dynamic interactive resume experience.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Development Methodology</h2>
+          <p>Four core principles guide all work:</p>
+          <ol>
+            <li>Substance first - Working software over impressive pitches.</li>
+            <li>Built to last - Good systems outlast good intentions.</li>
+            <li>Measure twice - Test the work, then ship it.</li>
+            <li>People over tech - Technology works for humans, not the reverse.</li>
+          </ol>
+          <p>Additional principles: "Show, don't tell" (working software over impressive pitches), "Simple scales" (complexity is easy, clarity takes work), "Test the seams" (systems fail where they connect), "Tools serve people" (technology works for humans, not the reverse).</p>
+        </section>
+
+        <section>
+          <h2>Writing &amp; Articles</h2>
+          <p>Matthew writes about AI collaboration, verification methodology, and what "working" actually means in software development. Articles are available at projectlavos.com/blog. Featured article: "The Verification Gap" - an exploration of verification challenges in AI-assisted development.</p>
+        </section>
+
+        <section>
+          <h2>Technology Stack</h2>
+          <p>Frontend: React, Vite, Tailwind CSS v3, Framer Motion, React Router. Backend: Python, FastAPI, Supabase, PostgreSQL (Neon). Deployment: Vercel (frontend), Render (backend APIs). AI: Custom Ollama models, Claude integration, NLP pipelines. Testing: Playwright E2E, 328+ test specs. Version control: Git, GitHub Actions CI/CD.</p>
+        </section>
+      </main>
+    </div>
+
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
