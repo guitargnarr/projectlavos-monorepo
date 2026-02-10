@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Article viewer modal controls */
+.z-60 { z-index: 60; }
+
 /* ===== ELITE FRONTEND DESIGN SYSTEM (Feb 2026) ===== */
 /* Ported from portfolio-website - Architectural Noir palette option */
 

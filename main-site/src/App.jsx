@@ -1555,6 +1555,31 @@ function App() {
           </a>
         </div>
       </section>
+
+      {/* Writing / Articles CTA */}
+      <section
+        id="writing"
+        className={`relative px-6 md:px-12 lg:px-24 py-20 md:py-28 border-t border-slate-800 section-glow-full transition-all duration-700 ${visibleSections.writing ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+      >
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="text-slate-500 text-xs tracking-[0.2em] uppercase mb-4">Writing</p>
+          <h2 className="heading-display text-2xl md:text-3xl lg:text-4xl text-white mb-4 tracking-[-0.02em]">
+            Beyond the <span className="accent-italic">Code</span>
+          </h2>
+          <p className="text-slate-400 mb-8 max-w-xl mx-auto">
+            Observations on AI collaboration, verification, and what "working" actually means.
+          </p>
+          <a
+            href="/blog"
+            className="group relative inline-flex items-center gap-3 px-8 py-3.5 text-sm tracking-[0.15em] uppercase transition-all duration-500 ease-out bg-gradient-to-r from-teal-500/10 to-teal-600/5 border border-teal-500/40 hover:border-teal-400/80 text-teal-300 hover:text-teal-200 hover:shadow-[0_0_30px_-5px_rgba(20,184,166,0.3)] hover:scale-[1.02] active:scale-[0.98]"
+          >
+            <span className="relative z-10">Read Articles</span>
+            <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
+        </div>
+      </section>
       </main>
 
       {/* Footer */}
@@ -1582,6 +1607,13 @@ function App() {
               className="text-white hover:text-amber-500 transition-colors"
             >
               The <span className="accent-italic">Manifesto</span>
+            </a>
+            <span className="text-slate-600">&middot;</span>
+            <a
+              href="/blog"
+              className="text-white hover:text-teal-400 transition-colors"
+            >
+              Articles
             </a>
           </div>
 
