@@ -1022,10 +1022,10 @@ function App() {
   return (
     <div className="min-h-screen bg-slate-900">
       {/* Ambient background effects */}
-      <div className="ambient-bg">
+      <div className="ambient-bg" aria-hidden="true">
         <div className="orb-3" />
       </div>
-      <div className="particles">
+      <div className="particles" aria-hidden="true">
         <div className="particle" />
         <div className="particle" />
         <div className="particle" />
@@ -1038,10 +1038,30 @@ function App() {
         <div className="particle" />
       </div>
 
-      <main>
+      <main role="main" aria-label="Matthew Scott - Louisville Web Developer Portfolio">
+      {/* Structured page description for search engines and LLM comprehension */}
+      <div className="sr-only" aria-hidden="false">
+        <h1>Matthew Scott - Web Developer and Consultant, Louisville, Kentucky</h1>
+        <p>
+          This is the portfolio website of Matthew Scott, a full-stack web developer and consultant based in Louisville, Kentucky.
+          The site showcases 51 deployed demo websites built as spec work for real Louisville businesses, plus practical web applications
+          and conceptual explorations. Technologies used include React, JavaScript, Python, Vite, Tailwind CSS, FastAPI, Supabase, and AI integrations.
+        </p>
+        <p>
+          The portfolio is organized into sections: Louisville client demos (filterable by category including Healthcare, Food &amp; Drink,
+          Legal, Services, Beauty, Retail, Entertainment, Real Estate, and more), practical deployed applications (FretVision guitar learning platform,
+          Vantage job market analysis, PhishGuard anti-phishing AI, Jobway job search automation), and conceptual explorations (Auriga, Forma, Psyche Hub, Threshold).
+        </p>
+        <p>
+          Development methodology emphasizes substance over flash, building to last, measuring twice before shipping, and prioritizing
+          people over technology. Matthew Scott works with AI collaboration tools and specializes in helping small and medium-sized businesses
+          establish their online presence. Contact: matthewdscott7@gmail.com, phone: 502-345-0525.
+        </p>
+      </div>
       {/* Hero Section - No header, chariot below content */}
       <section
         id="hero"
+        aria-label="Introduction - Matthew Scott, Web Developer and Consultant in Louisville, Kentucky"
         className="relative min-h-[100svh] flex flex-col items-center justify-center px-6 md:px-12 lg:px-24 py-12 texture-velvet overflow-hidden"
       >
         {/* Ambient Background */}
@@ -1068,7 +1088,7 @@ function App() {
 
           {/* Name - Dramatic entrance - INCREASED SIZE */}
           <div className="relative mb-6 hero-animate-2">
-            <div className="w-8 h-px bg-gradient-to-r from-transparent via-teal-500 to-transparent mx-auto mb-4 hero-line-expand" />
+            <div className="w-8 h-px bg-gradient-to-r from-transparent via-teal-500 to-transparent mx-auto mb-4 hero-line-expand" aria-hidden="true" />
             <h1 className="heading-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white tracking-[-0.02em]">
               Matthew Scott
             </h1>
@@ -1086,6 +1106,7 @@ function App() {
           <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8 hero-animate-5">
             <button
               onClick={scrollToWork}
+              aria-label="Scroll to portfolio section showing deployed projects and client work"
               className="group relative flex items-center justify-center gap-3 px-8 py-3.5 text-sm tracking-[0.15em] uppercase transition-all duration-500 ease-out
                 bg-gradient-to-r from-teal-500/10 to-teal-600/5
                 border border-teal-500/40 hover:border-teal-400/80
@@ -1094,13 +1115,14 @@ function App() {
                 hover:scale-[1.02] active:scale-[0.98]"
             >
               <span className="relative z-10">See My Work</span>
-              <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
               </svg>
               <div className="absolute inset-0 bg-gradient-to-r from-teal-500/0 via-teal-500/5 to-teal-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </button>
             <button
               onClick={() => scrollToSection('method')}
+              aria-label="Scroll to methodology section describing development principles and approach"
               className="group relative flex items-center justify-center gap-3 px-8 py-3.5 text-sm tracking-[0.15em] uppercase transition-all duration-500 ease-out
                 bg-transparent
                 border border-slate-600/60 hover:border-slate-500/80
@@ -1109,7 +1131,7 @@ function App() {
                 hover:scale-[1.02] active:scale-[0.98]"
             >
               <span className="relative z-10">How I Work</span>
-              <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
             </button>
@@ -1117,17 +1139,19 @@ function App() {
         </div>
 
         {/* Chariot Logo - Moved to bottom of hero as visual footer element */}
-        <div className="absolute bottom-14 sm:bottom-18 left-0 right-0 flex justify-center hero-animate-6">
+        <div className="absolute bottom-14 sm:bottom-18 left-0 right-0 flex justify-center hero-animate-6" aria-hidden="true">
           <AnimatedCharioteer className="w-64 h-32 sm:w-72 sm:h-36 md:w-80 md:h-40 opacity-85" />
         </div>
 
         {/* Principles - Footer of hero, below chariot */}
-        <div className="absolute bottom-6 left-0 right-0 flex justify-center flex-wrap gap-x-4 gap-y-1 sm:gap-x-8 px-4 sm:px-6 text-[9px] sm:text-[11px] tracking-widest uppercase hero-principles-fade">
+        <div role="list" aria-label="Core development principles" className="absolute bottom-6 left-0 right-0 flex justify-center flex-wrap gap-x-4 gap-y-1 sm:gap-x-8 px-4 sm:px-6 text-[9px] sm:text-[11px] tracking-widest uppercase hero-principles-fade">
           {principles.map((principle, idx) => (
             <span
               key={idx}
+              role="listitem"
               className="principle-tag text-slate-500 hover:text-teal-400 cursor-help transition-colors duration-300"
               title={principle.tooltip}
+              aria-label={`${principle.text} - ${principle.tooltip}`}
             >
               {principle.text}
             </span>
@@ -1138,6 +1162,7 @@ function App() {
       {/* Louisville Section */}
       <section
         id="louisville"
+        aria-label="Louisville client portfolio - 51 deployed spec-work demo websites built for local Kentucky businesses across healthcare, food, retail, legal, and services industries"
         className={`px-4 md:px-8 lg:px-16 py-16 border-t border-slate-800 transition-all duration-700 spotlight-warm section-glow-full ${visibleSections.louisville ? 'opacity-100 translate-y-0 in-view' : 'opacity-0 translate-y-8'}`}
       >
         <div className="max-w-7xl mx-auto">
@@ -1152,7 +1177,7 @@ function App() {
           </p>
 
           {/* Category Filter Tabs */}
-          <div className="flex gap-2 overflow-x-auto pb-4 mb-6 scrollbar-hide -mx-2 px-2" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}>
+          <nav aria-label="Filter portfolio sites by business category" className="flex gap-2 overflow-x-auto pb-4 mb-6 scrollbar-hide -mx-2 px-2" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}>
             {Object.keys(categoryGroups).map((group) => {
               const count = group === 'All' ? localClients.length : localClients.filter(c => categoryGroups[group]?.includes(c.category)).length;
               if (count === 0 && group !== 'All') return null;
@@ -1160,6 +1185,8 @@ function App() {
                 <button
                   key={group}
                   onClick={() => { setClientFilter(group); setExpandedClient(null); }}
+                  aria-label={`Filter by ${group} category (${count} sites)`}
+                  aria-pressed={clientFilter === group}
                   className={`flex-shrink-0 px-3 py-1.5 text-xs font-medium rounded-full transition-all duration-200 whitespace-nowrap ${
                     clientFilter === group
                       ? 'bg-teal-500 text-slate-900'
@@ -1170,9 +1197,9 @@ function App() {
                 </button>
               );
             })}
-          </div>
+          </nav>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 transition-all duration-300">
+          <div role="list" aria-label="Portfolio of deployed client demo websites" className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 transition-all duration-300">
             {filteredClients.map((client, index) => {
               const isAboveFold = index < 10; // First 10 cards load eagerly
               const categoryAccent = {
@@ -1215,8 +1242,10 @@ function App() {
               }[client.category] || 'border-t-2 border-t-teal-500/30';
 
               return (
-                <div
+                <article
                   key={client.id}
+                  role="listitem"
+                  aria-label={`${client.title} - ${client.description} - ${client.category} category`}
                   className="card-subtle-3d group relative"
                   onMouseMove={(e) => {
                     const rect = e.currentTarget.getBoundingClientRect();
@@ -1282,7 +1311,7 @@ function App() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </article>
               );
             })}
           </div>
@@ -1291,6 +1320,7 @@ function App() {
             <div className="flex justify-center mt-6">
               <button
                 onClick={() => setShowAllClients(true)}
+                aria-label={`Show all ${allFilteredClients.length} portfolio sites in this category`}
                 className="px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-medium rounded-lg transition-colors border border-slate-700"
               >
                 Show all {allFilteredClients.length} sites
@@ -1300,7 +1330,7 @@ function App() {
 
           <p className="text-slate-400 text-sm mt-8 text-center">
             Are you a Louisville business looking to establish or improve your online presence?{' '}
-            <a href="sms:+15023450525?body=Hey%20Matthew%2C%20I%20saw%20your%20portfolio%20and%20I%27m%20interested%20in%20discussing%20a%20website%20for%20my%20business." className="text-teal-400 hover:text-teal-300 transition-colors underline underline-offset-2">Let's talk.</a>
+            <a href="sms:+15023450525?body=Hey%20Matthew%2C%20I%20saw%20your%20portfolio%20and%20I%27m%20interested%20in%20discussing%20a%20website%20for%20my%20business." aria-label="Text Matthew Scott at 502-345-0525 to discuss a website for your business" className="text-teal-400 hover:text-teal-300 transition-colors underline underline-offset-2">Let's talk.</a>
           </p>
         </div>
       </section>
@@ -1309,6 +1339,7 @@ function App() {
       <section
         ref={workSectionRef}
         id="work"
+        aria-label="The Work - Deployed practical applications and conceptual explorations including AI tools, guitar learning platform, job market analysis, and phishing detection"
         className={`px-6 md:px-12 lg:px-24 py-16 border-t border-slate-800 transition-all duration-700 spotlight-warm section-glow-full ${visibleSections.work ? 'opacity-100 translate-y-0 in-view' : 'opacity-0 translate-y-8'}`}
       >
         <div className="max-w-6xl mx-auto">
@@ -1321,7 +1352,7 @@ function App() {
 
           {/* Practical Apps */}
           <h3 className="heading-display text-xl md:text-2xl text-teal-400 mb-4 flex items-center gap-3 tracking-[-0.01em]">
-            <span className="w-2 h-2 bg-teal-400 rounded-full"></span>
+            <span className="w-2 h-2 bg-teal-400 rounded-full" aria-hidden="true"></span>
             Practical Apps
           </h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 transition-all duration-300 mb-12">
@@ -1401,7 +1432,7 @@ function App() {
 
           {/* Conceptual/Experimental */}
           <h3 className="heading-display text-xl md:text-2xl text-orange-400 mb-2 flex items-center gap-3 tracking-[-0.01em]">
-            <span className="w-2 h-2 bg-orange-400 rounded-full"></span>
+            <span className="w-2 h-2 bg-orange-400 rounded-full" aria-hidden="true"></span>
             Conceptual Explorations
           </h3>
           <p className="text-sm text-slate-500 mb-4">Ideas given form. The inner work made visible.</p>
@@ -1483,6 +1514,7 @@ function App() {
       {/* The Method Section - INCREASED TYPOGRAPHY */}
       <section
         id="method"
+        aria-label="The Method - Development philosophy and principles: substance first, built to last, measure twice, people over tech"
         className={`relative px-6 md:px-12 lg:px-24 py-24 md:py-32 border-t border-slate-800 transition-all duration-700 spotlight-warm section-glow-full ${visibleSections.method ? 'opacity-100 translate-y-0 in-view' : 'opacity-0 translate-y-8'}`}
       >
         <div className="max-w-6xl mx-auto text-center">
@@ -1497,44 +1529,44 @@ function App() {
           <div className="space-y-10 md:space-y-12 mb-16">
             <div className="group">
               <div className="flex items-center justify-center gap-4 mb-2">
-                <span className="w-12 h-px bg-gradient-to-r from-transparent to-teal-400 group-hover:w-16 transition-all duration-300" />
+                <span className="w-12 h-px bg-gradient-to-r from-transparent to-teal-400 group-hover:w-16 transition-all duration-300" aria-hidden="true" />
                 <p className="heading-display text-xl sm:text-2xl md:text-3xl text-white tracking-[-0.01em]">
                   Substance <span className="accent-italic">first</span>
                 </p>
-                <span className="w-12 h-px bg-gradient-to-l from-transparent to-teal-400 group-hover:w-16 transition-all duration-300" />
+                <span className="w-12 h-px bg-gradient-to-l from-transparent to-teal-400 group-hover:w-16 transition-all duration-300" aria-hidden="true" />
               </div>
               <p className="text-sm sm:text-base md:text-lg text-slate-400">Working software over impressive pitches.</p>
             </div>
 
             <div className="group">
               <div className="flex items-center justify-center gap-4 mb-2">
-                <span className="w-12 h-px bg-gradient-to-r from-transparent to-teal-400 group-hover:w-16 transition-all duration-300" />
+                <span className="w-12 h-px bg-gradient-to-r from-transparent to-teal-400 group-hover:w-16 transition-all duration-300" aria-hidden="true" />
                 <p className="heading-display text-xl sm:text-2xl md:text-3xl text-white tracking-[-0.01em]">
                   Built <span className="accent-italic">to</span> last
                 </p>
-                <span className="w-12 h-px bg-gradient-to-l from-transparent to-teal-400 group-hover:w-16 transition-all duration-300" />
+                <span className="w-12 h-px bg-gradient-to-l from-transparent to-teal-400 group-hover:w-16 transition-all duration-300" aria-hidden="true" />
               </div>
               <p className="text-sm sm:text-base md:text-lg text-slate-400">Good systems outlast good intentions.</p>
             </div>
 
             <div className="group">
               <div className="flex items-center justify-center gap-4 mb-2">
-                <span className="w-12 h-px bg-gradient-to-r from-transparent to-amber-500 group-hover:w-16 transition-all duration-300" />
+                <span className="w-12 h-px bg-gradient-to-r from-transparent to-amber-500 group-hover:w-16 transition-all duration-300" aria-hidden="true" />
                 <p className="heading-display text-xl sm:text-2xl md:text-3xl text-white tracking-[-0.01em]">
                   Measure <span className="accent-italic">twice</span>
                 </p>
-                <span className="w-12 h-px bg-gradient-to-l from-transparent to-amber-500 group-hover:w-16 transition-all duration-300" />
+                <span className="w-12 h-px bg-gradient-to-l from-transparent to-amber-500 group-hover:w-16 transition-all duration-300" aria-hidden="true" />
               </div>
               <p className="text-sm sm:text-base md:text-lg text-slate-400">Test the work, then ship it.</p>
             </div>
 
             <div className="group">
               <div className="flex items-center justify-center gap-4 mb-2">
-                <span className="w-12 h-px bg-gradient-to-r from-transparent to-amber-500 group-hover:w-16 transition-all duration-300" />
+                <span className="w-12 h-px bg-gradient-to-r from-transparent to-amber-500 group-hover:w-16 transition-all duration-300" aria-hidden="true" />
                 <p className="heading-display text-xl sm:text-2xl md:text-3xl text-white tracking-[-0.01em]">
                   People <span className="accent-italic">over</span> tech
                 </p>
-                <span className="w-12 h-px bg-gradient-to-l from-transparent to-amber-500 group-hover:w-16 transition-all duration-300" />
+                <span className="w-12 h-px bg-gradient-to-l from-transparent to-amber-500 group-hover:w-16 transition-all duration-300" aria-hidden="true" />
               </div>
               <p className="text-sm sm:text-base md:text-lg text-slate-400">Technology works for humans, not the reverse.</p>
             </div>
@@ -1546,12 +1578,13 @@ function App() {
 
           <a
             href="mailto:matthewdscott7@gmail.com"
+            aria-label="Email Matthew Scott to discuss a web development project"
             className="inline-flex items-center gap-3 text-teal-400 hover:text-teal-300 transition-all duration-300 text-base sm:text-lg group"
           >
             <span className="border-b border-teal-400/40 group-hover:border-teal-300/60 pb-0.5 transition-colors">
               Let's talk
             </span>
-            <span className="text-xl group-hover:translate-x-1.5 transition-transform duration-300">→</span>
+            <span className="text-xl group-hover:translate-x-1.5 transition-transform duration-300" aria-hidden="true">→</span>
           </a>
         </div>
       </section>
@@ -1559,6 +1592,7 @@ function App() {
       {/* Writing / Articles CTA */}
       <section
         id="writing"
+        aria-label="Writing and Articles - Observations on AI collaboration, verification methodology, and software development philosophy"
         className={`relative px-6 md:px-12 lg:px-24 py-20 md:py-28 border-t border-slate-800 section-glow-full transition-all duration-700 ${visibleSections.writing ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
       >
         <div className="max-w-3xl mx-auto text-center">
@@ -1571,10 +1605,11 @@ function App() {
           </p>
           <a
             href="/blog"
+            aria-label="Read articles about AI collaboration, the verification gap, and software development philosophy"
             className="group relative inline-flex items-center gap-3 px-8 py-3.5 text-sm tracking-[0.15em] uppercase transition-all duration-500 ease-out bg-gradient-to-r from-teal-500/10 to-teal-600/5 border border-teal-500/40 hover:border-teal-400/80 text-teal-300 hover:text-teal-200 hover:shadow-[0_0_30px_-5px_rgba(20,184,166,0.3)] hover:scale-[1.02] active:scale-[0.98]"
           >
             <span className="relative z-10">Read Articles</span>
-            <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </a>
@@ -1583,7 +1618,7 @@ function App() {
       </main>
 
       {/* Footer */}
-      <footer id="contact" className="px-6 md:px-12 lg:px-24 py-20 border-t border-slate-800 texture-brass">
+      <footer id="contact" aria-label="Contact Matthew Scott - Email, social media links, and site navigation" className="px-6 md:px-12 lg:px-24 py-20 border-t border-slate-800 texture-brass">
         <div className="max-w-5xl mx-auto text-center">
           <h2 className="heading-display text-2xl md:text-3xl text-white mb-4 neon-text tracking-[-0.02em] section-heading-animate">
             Let's <span className="accent-italic">Build</span>
@@ -1594,31 +1629,34 @@ function App() {
           <p className="text-slate-500 mb-10 section-stagger-2">
             If you need convincing, I'm not for you.
           </p>
-          <div className="flex items-center justify-center gap-4 heading-display text-lg md:text-xl tracking-[-0.01em] mb-8">
+          <nav aria-label="Footer navigation - contact email, manifesto, and articles" className="flex items-center justify-center gap-4 heading-display text-lg md:text-xl tracking-[-0.01em] mb-8">
             <a
               href="mailto:matthewdscott7@gmail.com"
+              aria-label="Send email to Matthew Scott at matthewdscott7@gmail.com"
               className="text-white hover:text-teal-400 transition-colors"
             >
               matthewdscott7@gmail.com
             </a>
-            <span className="text-slate-600">·</span>
+            <span className="text-slate-600" aria-hidden="true">·</span>
             <a
               href="/manifesto"
+              aria-label="Read Matthew Scott's development manifesto and philosophy"
               className="text-white hover:text-amber-500 transition-colors"
             >
               The <span className="accent-italic">Manifesto</span>
             </a>
-            <span className="text-slate-600">&middot;</span>
+            <span className="text-slate-600" aria-hidden="true">&middot;</span>
             <a
               href="/blog"
+              aria-label="Read articles about AI collaboration, verification, and software development"
               className="text-white hover:text-teal-400 transition-colors"
             >
               Articles
             </a>
-          </div>
+          </nav>
 
           {/* Social Media Icons */}
-          <div className="flex items-center justify-center gap-6">
+          <div className="flex items-center justify-center gap-6" role="list" aria-label="Social media profiles">
             <a
               href="https://linkedin.com/in/mscott77"
               target="_blank"
@@ -1682,6 +1720,7 @@ function App() {
               </p>
               <a
                 href="/privacy"
+                aria-label="View privacy policy for projectlavos.com"
                 className="text-slate-600 hover:text-teal-400 text-xs transition-colors"
               >
                 Privacy Policy
