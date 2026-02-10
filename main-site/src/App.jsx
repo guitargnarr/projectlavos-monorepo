@@ -54,6 +54,149 @@ function App() {
   // Local Louisville client projects
   const localClients = [
     {
+      id: "kyfamilylawyer",
+      title: "A. Holland Houston",
+      url: "https://ky-family-lawyer.vercel.app",
+      preview: "/og-images/ky-family-lawyer-og.png",
+      ogImage: "/og-images/ky-family-lawyer-og.png",
+      qrCode: "/qr-codes/ky-family-lawyer-qr.png",
+      description: "Louisville family law attorney & mediator",
+      altText: "A. Holland Houston Louisville Kentucky family law attorney divorce mediation child custody domestic violence",
+      category: "Legal",
+      specWork: true,
+      details: "Compassionate family law services in Louisville. Divorce, mediation, child custody, and domestic violence cases handled with care. A trust-forward design for sensitive legal matters."
+    },
+    {
+      id: "highlandcleaners",
+      title: "Highland Cleaners",
+      url: "https://highland-cleaners.vercel.app",
+      preview: "/og-images/highland-cleaners-og.png",
+      ogImage: "/og-images/highland-cleaners-og.png",
+      qrCode: "/qr-codes/highland-cleaners-qr.png",
+      description: "Louisville's trusted dry cleaner since 1944",
+      altText: "Highland Cleaners Louisville Kentucky dry cleaning 12 locations free pickup delivery eco-friendly green cleaning",
+      category: "Services",
+      specWork: true,
+      details: "Family-owned dry cleaning serving Louisville for 80 years. 12 convenient locations, free pickup & delivery, eco-friendly green cleaning.",
+      versions: [
+        {
+          label: "Essential",
+          url: "https://highland-cleaners-tier1.vercel.app",
+          preview: "/previews/highland-cleaners-tier1.png",
+          ogImage: "/og-images/highland-cleaners-tier1-og.png",
+          qrCode: "/qr-codes/highland-cleaners-tier1-qr.png",
+          description: "Where most businesses start. Single page, essential info, quick to scan. Gets you found, gets you calls.",
+          features: "Single page • Contact info • Service list • Mobile-ready"
+        },
+        {
+          label: "Growth",
+          url: "https://highland-cleaners.vercel.app",
+          preview: "/previews/highland-cleaners.png",
+          ogImage: "/og-images/highland-cleaners-og.png",
+          qrCode: "/qr-codes/highland-cleaners-qr.png",
+          description: "Ready to compete. Multiple pages, service details, location finder. Builds trust and drives action.",
+          features: "Multi-page • Location finder • Service breakdown • SEO optimized"
+        },
+        {
+          label: "Professional",
+          url: "https://highland-cleaners-v2.vercel.app",
+          preview: "/previews/highland-cleaners-v2.png",
+          ogImage: "/og-images/highland-cleaners-v2-og.png",
+          qrCode: "/qr-codes/highland-cleaners-v2-qr.png",
+          description: "Standing out from the crowd. Bold rebrand, premium feel, refined interactions. Commands attention.",
+          features: "Custom branding • Premium design • Photo gallery • Animations"
+        },
+        {
+          label: "Enterprise",
+          url: "https://highland-cleaners-tier4.vercel.app",
+          preview: "/previews/highland-cleaners-tier4.png",
+          ogImage: "/og-images/highland-cleaners-tier4-og.png",
+          qrCode: "/qr-codes/highland-cleaners-tier4-qr.png",
+          description: "Full business system. Customer accounts, order tracking, admin dashboard. Your website works for you.",
+          features: "User auth • Order tracking • Admin dashboard • Analytics"
+        }
+      ]
+    },
+    {
+      id: "lawnco",
+      title: "Lawnco Louisville",
+      url: "https://lawnco-louisville.vercel.app",
+      preview: "/og-images/lawnco-louisville-og.png",
+      ogImage: "/og-images/lawnco-louisville-og.png",
+      qrCode: "/qr-codes/lawnco-louisville-qr.png",
+      description: "Premier landscaping & lawn care since 1978",
+      altText: "Lawnco Louisville Kentucky landscaping lawn care maintenance residential commercial family owned",
+      category: "Services",
+      specWork: true,
+      details: "Louisville's trusted landscaping and lawn maintenance specialists since 1978. Family-owned, serving residential and commercial properties with expert care."
+    },
+    {
+      id: "cleaningbyregina",
+      title: "Cleaning By Regina",
+      url: "https://cleaning-by-regina.vercel.app",
+      preview: "/og-images/cleaningbyregina-cinematic-og.png",
+      ogImage: "/og-images/cleaningbyregina-cinematic-og.png",
+      qrCode: "/qr-codes/cleaning-by-regina-qr.png",
+      description: "Louisville's trusted cleaning service",
+      altText: "Cleaning By Regina Louisville Kentucky residential commercial cleaning service 25 years experience licensed insured",
+      category: "Services",
+      specWork: true,
+      details: "Professional residential and commercial cleaning services in Louisville. 25+ years of experience. Licensed, insured, and trusted by thousands of families."
+    },
+    {
+      id: "toninichurchsupply",
+      title: "Tonini Church Supply",
+      url: "https://tonini-church-supply.vercel.app",
+      preview: "/og-images/toninichurchsupply-cinematic-og.png",
+      ogImage: "/og-images/toninichurchsupply-cinematic-og.png",
+      qrCode: "/qr-codes/tonini-church-supply-qr.png",
+      description: "Serving the faithful since 1883",
+      altText: "Tonini Church Supply Co Cincinnati Ohio church goods vestments sacred art candles clergy apparel 142 years",
+      category: "Retail",
+      specWork: true,
+      location: "Cincinnati, OH",
+      details: "Five generations of the Tonini family providing quality church goods, vestments, and sacred art to parishes throughout the Midwest. 142 years of service, 18,000+ products."
+    },
+    {
+      id: "tastefultravels",
+      title: "Tasteful Travels",
+      url: "https://tasteful-travels.vercel.app",
+      preview: "/og-images/tastefultravels-cinematic-og.png",
+      ogImage: "/og-images/tastefultravels-cinematic-og.png",
+      qrCode: "/qr-codes/tasteful-travels-qr.png",
+      description: "Global flavors, Kentucky soul",
+      altText: "Tasteful Travels World Market Logan Street Market Louisville Kentucky Proud globally sourced specialty foods",
+      category: "Retail",
+      specWork: true,
+      details: "An inspirational pantry shop at Logan Street Market. Kentucky Proud products alongside globally sourced specialty foods from Mediterranean, Asian, European, and American traditions."
+    },
+    {
+      id: "kentuckianagastro",
+      title: "Kentuckiana Gastroenterology",
+      url: "https://kentuckiana-gastro.vercel.app",
+      preview: "/og-images/kentuckianagastro-cinematic-og.png",
+      ogImage: "/og-images/kentuckianagastro-cinematic-og.png",
+      qrCode: "/qr-codes/kentuckiana-gastro-qr.png",
+      description: "Expert gastroenterology care you can trust",
+      altText: "Kentuckiana Gastroenterology Louisville colonoscopy endoscopy digestive health specialists",
+      category: "Medical",
+      specWork: true,
+      details: "Board-certified gastroenterology specialists serving Louisville since 1984. Colonoscopy, endoscopy, ERCP, and comprehensive digestive health care at their state-of-the-art surgery center."
+    },
+    {
+      id: "kuhnallergy",
+      title: "Dr. Forrest S. Kuhn, MD",
+      url: "https://kuhn-allergy.vercel.app",
+      preview: "/og-images/kuhnallergy-cinematic-og.png",
+      ogImage: "/og-images/kuhnallergy-cinematic-og.png",
+      qrCode: "/qr-codes/kuhn-allergy-qr.png",
+      description: "Louisville's trusted allergy & asthma specialist",
+      altText: "Dr. Forrest S. Kuhn MD Louisville allergist asthma specialist board certified 30 years experience Dupont Square",
+      category: "Medical",
+      specWork: true,
+      details: "Board-certified allergist with 30+ years experience at Dupont Square. Specializes in seasonal allergies, food allergies, asthma management, insect allergies, drug reactions, and skin allergy testing. Accepting new patients, most insurance accepted."
+    },
+    {
       id: "uofldemo",
       title: "UofL Demo",
       url: "https://uofl-demo.vercel.app",
@@ -445,96 +588,6 @@ function App() {
       details: "Multi-location urgent care serving Louisville (Dutchmans Lane & Dixie Highway). Walk-ins welcome, open 7 days. Service search, 3-step booking wizard, real-time wait times."
     },
     {
-      id: "kyfamilylawyer",
-      title: "A. Holland Houston",
-      url: "https://ky-family-lawyer.vercel.app",
-      preview: "/og-images/ky-family-lawyer-og.png",
-      ogImage: "/og-images/ky-family-lawyer-og.png",
-      qrCode: "/qr-codes/ky-family-lawyer-qr.png",
-      description: "Louisville family law attorney & mediator",
-      altText: "A. Holland Houston Louisville Kentucky family law attorney divorce mediation child custody domestic violence",
-      category: "Legal",
-      specWork: true,
-      details: "Compassionate family law services in Louisville. Divorce, mediation, child custody, and domestic violence cases handled with care. A trust-forward design for sensitive legal matters."
-    },
-    {
-      id: "highlandcleaners",
-      title: "Highland Cleaners",
-      url: "https://highland-cleaners.vercel.app",
-      preview: "/og-images/highland-cleaners-og.png",
-      ogImage: "/og-images/highland-cleaners-og.png",
-      qrCode: "/qr-codes/highland-cleaners-qr.png",
-      description: "Louisville's trusted dry cleaner since 1944",
-      altText: "Highland Cleaners Louisville Kentucky dry cleaning 12 locations free pickup delivery eco-friendly green cleaning",
-      category: "Services",
-      specWork: true,
-      details: "Family-owned dry cleaning serving Louisville for 80 years. 12 convenient locations, free pickup & delivery, eco-friendly green cleaning.",
-      versions: [
-        {
-          label: "Essential",
-          url: "https://highland-cleaners-tier1.vercel.app",
-          preview: "/previews/highland-cleaners-tier1.png",
-          ogImage: "/og-images/highland-cleaners-tier1-og.png",
-          qrCode: "/qr-codes/highland-cleaners-tier1-qr.png",
-          description: "Where most businesses start. Single page, essential info, quick to scan. Gets you found, gets you calls.",
-          features: "Single page • Contact info • Service list • Mobile-ready"
-        },
-        {
-          label: "Growth",
-          url: "https://highland-cleaners.vercel.app",
-          preview: "/previews/highland-cleaners.png",
-          ogImage: "/og-images/highland-cleaners-og.png",
-          qrCode: "/qr-codes/highland-cleaners-qr.png",
-          description: "Ready to compete. Multiple pages, service details, location finder. Builds trust and drives action.",
-          features: "Multi-page • Location finder • Service breakdown • SEO optimized"
-        },
-        {
-          label: "Professional",
-          url: "https://highland-cleaners-v2.vercel.app",
-          preview: "/previews/highland-cleaners-v2.png",
-          ogImage: "/og-images/highland-cleaners-v2-og.png",
-          qrCode: "/qr-codes/highland-cleaners-v2-qr.png",
-          description: "Standing out from the crowd. Bold rebrand, premium feel, refined interactions. Commands attention.",
-          features: "Custom branding • Premium design • Photo gallery • Animations"
-        },
-        {
-          label: "Enterprise",
-          url: "https://highland-cleaners-tier4.vercel.app",
-          preview: "/previews/highland-cleaners-tier4.png",
-          ogImage: "/og-images/highland-cleaners-tier4-og.png",
-          qrCode: "/qr-codes/highland-cleaners-tier4-qr.png",
-          description: "Full business system. Customer accounts, order tracking, admin dashboard. Your website works for you.",
-          features: "User auth • Order tracking • Admin dashboard • Analytics"
-        }
-      ]
-    },
-    {
-      id: "lawnco",
-      title: "Lawnco Louisville",
-      url: "https://lawnco-louisville.vercel.app",
-      preview: "/og-images/lawnco-louisville-og.png",
-      ogImage: "/og-images/lawnco-louisville-og.png",
-      qrCode: "/qr-codes/lawnco-louisville-qr.png",
-      description: "Premier landscaping & lawn care since 1978",
-      altText: "Lawnco Louisville Kentucky landscaping lawn care maintenance residential commercial family owned",
-      category: "Services",
-      specWork: true,
-      details: "Louisville's trusted landscaping and lawn maintenance specialists since 1978. Family-owned, serving residential and commercial properties with expert care."
-    },
-    {
-      id: "cleaningbyregina",
-      title: "Cleaning By Regina",
-      url: "https://cleaning-by-regina.vercel.app",
-      preview: "/og-images/cleaningbyregina-cinematic-og.png",
-      ogImage: "/og-images/cleaningbyregina-cinematic-og.png",
-      qrCode: "/qr-codes/cleaning-by-regina-qr.png",
-      description: "Louisville's trusted cleaning service",
-      altText: "Cleaning By Regina Louisville Kentucky residential commercial cleaning service 25 years experience licensed insured",
-      category: "Services",
-      specWork: true,
-      details: "Professional residential and commercial cleaning services in Louisville. 25+ years of experience. Licensed, insured, and trusted by thousands of families."
-    },
-    {
       id: "passtimefishhouse",
       title: "PassTime Fish House",
       url: "https://passtime-fish-house.vercel.app",
@@ -546,59 +599,6 @@ function App() {
       category: "Restaurant",
       specWork: true,
       details: "Home of the 'Almost Famous' Cod Sandwich. Fresh fried fish, cold beer, and dive bar charm in Jeffersontown. Cash only, ATM inside. Louisville's best kept secret since 2001."
-    },
-    {
-      id: "toninichurchsupply",
-      title: "Tonini Church Supply",
-      url: "https://tonini-church-supply.vercel.app",
-      preview: "/og-images/toninichurchsupply-cinematic-og.png",
-      ogImage: "/og-images/toninichurchsupply-cinematic-og.png",
-      qrCode: "/qr-codes/tonini-church-supply-qr.png",
-      description: "Serving the faithful since 1883",
-      altText: "Tonini Church Supply Co Cincinnati Ohio church goods vestments sacred art candles clergy apparel 142 years",
-      category: "Retail",
-      specWork: true,
-      location: "Cincinnati, OH",
-      details: "Five generations of the Tonini family providing quality church goods, vestments, and sacred art to parishes throughout the Midwest. 142 years of service, 18,000+ products."
-    },
-    {
-      id: "tastefultravels",
-      title: "Tasteful Travels",
-      url: "https://tasteful-travels.vercel.app",
-      preview: "/og-images/tastefultravels-cinematic-og.png",
-      ogImage: "/og-images/tastefultravels-cinematic-og.png",
-      qrCode: "/qr-codes/tasteful-travels-qr.png",
-      description: "Global flavors, Kentucky soul",
-      altText: "Tasteful Travels World Market Logan Street Market Louisville Kentucky Proud globally sourced specialty foods",
-      category: "Retail",
-      specWork: true,
-      details: "An inspirational pantry shop at Logan Street Market. Kentucky Proud products alongside globally sourced specialty foods from Mediterranean, Asian, European, and American traditions."
-    },
-    {
-      id: "kentuckianagastro",
-      title: "Kentuckiana Gastroenterology",
-      url: "https://kentuckiana-gastro.vercel.app",
-      preview: "/og-images/kentuckianagastro-cinematic-og.png",
-      ogImage: "/og-images/kentuckianagastro-cinematic-og.png",
-      qrCode: "/qr-codes/kentuckiana-gastro-qr.png",
-      description: "Expert gastroenterology care you can trust",
-      altText: "Kentuckiana Gastroenterology Louisville colonoscopy endoscopy digestive health specialists",
-      category: "Medical",
-      specWork: true,
-      details: "Board-certified gastroenterology specialists serving Louisville since 1984. Colonoscopy, endoscopy, ERCP, and comprehensive digestive health care at their state-of-the-art surgery center."
-    },
-    {
-      id: "kuhnallergy",
-      title: "Dr. Forrest S. Kuhn, MD",
-      url: "https://kuhn-allergy.vercel.app",
-      preview: "/og-images/kuhnallergy-cinematic-og.png",
-      ogImage: "/og-images/kuhnallergy-cinematic-og.png",
-      qrCode: "/qr-codes/kuhn-allergy-qr.png",
-      description: "Louisville's trusted allergy & asthma specialist",
-      altText: "Dr. Forrest S. Kuhn MD Louisville allergist asthma specialist board certified 30 years experience Dupont Square",
-      category: "Medical",
-      specWork: true,
-      details: "Board-certified allergist with 30+ years experience at Dupont Square. Specializes in seasonal allergies, food allergies, asthma management, insect allergies, drug reactions, and skin allergy testing. Accepting new patients, most insurance accepted."
     },
     {
       id: "louisvillenailsspa",
