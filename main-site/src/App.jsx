@@ -1122,7 +1122,7 @@ function App() {
         </div>
 
         {/* Principles - Footer of hero, below chariot */}
-        <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-x-6 sm:gap-x-8 text-[10px] sm:text-[11px] tracking-widest uppercase hero-principles-fade">
+        <div className="absolute bottom-6 left-0 right-0 flex justify-center flex-wrap gap-x-4 gap-y-1 sm:gap-x-8 px-4 sm:px-6 text-[9px] sm:text-[11px] tracking-widest uppercase hero-principles-fade">
           {principles.map((principle, idx) => (
             <span
               key={idx}
