@@ -1,0 +1,28 @@
+/* TEAM */
+Developer: Matthew Scott
+Role: Full-Stack Web Developer & AI Consultant
+Site: https://projectlavos.com
+Location: Louisville, Kentucky
+GitHub: guitargnarr
+LinkedIn: mscott77
+Contact: matthewdscott7@gmail.com
+
+/* SITE */
+Last update: 2026-02-11
+Language: English
+Doctype: HTML5
+Standards: WCAG AA, JSON-LD, OpenGraph, Schema.org
+
+/* TECHNOLOGY */
+Framework: React, Vite
+Styling: Tailwind CSS v3
+Animation: Framer Motion, Three.js
+Backend: Python, FastAPI, PostgreSQL
+Deployment: Vercel (frontend), Render (backend)
+AI: Claude API, Ollama (51 domain-specific models)
+Testing: Playwright (328+ E2E tests)
+
+/* PORTFOLIO */
+Client demo sites: 67 deployed for Louisville businesses
+Applications: FretVision, PhishGuard, Vantage, Jobway
+Guitar books: 24 scale reference PDFs (11,520 exercises)
