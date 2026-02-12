@@ -1,0 +1,8 @@
+Contact: mailto:matthewdscott7@gmail.com
+Preferred-Languages: en
+Canonical: https://projectlavos.com/.well-known/security.txt
+Expires: 2027-12-31T23:59:59.000Z
+
+# Security Contact
+# If you discover a security vulnerability, please email matthewdscott7@gmail.com
+# Response time: within 48 hours
