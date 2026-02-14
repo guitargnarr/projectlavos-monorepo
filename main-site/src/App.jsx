@@ -835,6 +835,19 @@ function App() {
       details: "Tier 4 demo for Louisville's top-rated dental practice. Dr. Shannon Vickery with 23+ years experience. Patient portal, admin dashboard, 3-step booking wizard, toast notifications. $99 new patient special. Orange brand palette matching their existing identity."
     },
     {
+      id: "clementinecater",
+      title: "Clementine Catering",
+      url: "https://clementine-cater.vercel.app",
+      preview: "/previews/clementine-cater.png",
+      ogImage: "/og-images/clementine-cater-og.png",
+      qrCode: "/qr-codes/clementine-cater-qr.png",
+      description: "Bespoke catering at Louisville's most storied venue",
+      altText: "Clementine Catering Louisville Kentucky Steve Clements bespoke catering Peterson-Dumesnil House 1869 Italian villa weddings corporate events seasonal organic local ingredients",
+      category: "Restaurant",
+      specWork: true,
+      details: "Premium demo for Louisville's exclusive caterer at the Peterson-Dumesnil House. Custom Chandelier 3D formation hero with gold crystal drops and bloom lighting. Mobius strip section background. Services: weddings, corporate events, intimate dinners, rehearsal dinners, holiday celebrations. Venue showcase with capacity and rates. Gold/green palette with Cormorant Garamond typography."
+    },
+    {
       id: "jbhdental",
       title: "JBH Dental",
       url: "https://jbh-dental.vercel.app",
