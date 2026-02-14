@@ -328,6 +328,19 @@ function App() {
       details: "Tier 2 demo for Louisville financial advisory firm featuring L-System Tree 3D hero, Orbital System section background, icon-strip feature layout, 2x2 stats grid, and split-screen contact. Retirement planning, investment management, estate and tax planning."
     },
     {
+      id: "crestborneprivateoffice",
+      title: "Crestborne Private Office",
+      url: "https://crestborne-private-office.vercel.app",
+      preview: "/og-images/crestborne-private-office-og.png",
+      ogImage: "/og-images/crestborne-private-office-og.png",
+      qrCode: null,
+      description: "UHNW wealth advisory for Asia-Pacific families",
+      altText: "Crestborne Private Office independent wealth advisory UHNW ultra high net worth Singapore Hong Kong Dubai EAM external asset manager",
+      category: "Financial",
+      specWork: true,
+      details: "Tier 4 spec site for UHNW wealth management niche. Features Gravitational Lens 3D hero (600-particle gravity simulation), Silk Threads section background, Midnight/Silver-Sage/Pearl palette, Cormorant Garamond typography. Anchor+2x2 services grid, split-screen contact, 5-office global presence. Targets External Asset Manager (EAM) firms serving Chinese families across Asia-Pacific."
+    },
+    {
       id: "fritzsalon",
       title: "Fritz Salon",
       url: "https://fritz-salon.vercel.app",
