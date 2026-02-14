@@ -338,7 +338,7 @@ function App() {
       altText: "Crestborne Private Office independent wealth advisory UHNW ultra high net worth Singapore Hong Kong Dubai EAM external asset manager",
       category: "Financial",
       specWork: true,
-      details: "Tier 4 spec site for UHNW wealth management niche. Features Gravitational Lens 3D hero (600-particle gravity simulation), Silk Threads section background, Midnight/Silver-Sage/Pearl palette, Cormorant Garamond typography. Anchor+2x2 services grid, split-screen contact, 5-office global presence. Targets External Asset Manager (EAM) firms serving Chinese families across Asia-Pacific."
+      details: "Tier 4 spec site for UHNW wealth management niche. Features Gravitational Lens 3D hero (luminous accretion disk with orbital rings, particle streams, and dark void), Silk Threads section background, Midnight/Silver-Sage/Pearl palette, Cormorant Garamond typography. Anchor+2x2 services grid, split-screen contact, 5-office global presence. Targets External Asset Manager (EAM) firms serving Chinese families across Asia-Pacific."
     },
     {
       id: "fritzsalon",
