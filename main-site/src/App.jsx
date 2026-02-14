@@ -51,20 +51,111 @@ function App() {
     { text: "Tools serve people", tooltip: "Technology works for humans, not the reverse" }
   ];
 
-  // Local Louisville client projects
+  // Local Louisville client projects - ordered by quality (premium 3D/Tier 4 sites first)
   const localClients = [
     {
-      id: "kyfamilylawyer",
-      title: "A. Holland Houston",
-      url: "https://ky-family-lawyer.vercel.app",
-      preview: "/previews/ky-family-lawyer.png",
-      ogImage: "/og-images/ky-family-lawyer-og.png",
-      qrCode: "/qr-codes/ky-family-lawyer-qr.png",
-      description: "Louisville family law attorney & mediator",
-      altText: "A. Holland Houston Louisville Kentucky family law attorney divorce mediation child custody domestic violence",
+      id: "crestborneprivateoffice",
+      title: "Crestborne Private Office",
+      url: "https://crestborne-private-office.vercel.app",
+      preview: "/previews/crestborne-private-office.png",
+      ogImage: "/og-images/crestborne-private-office-og.png",
+      qrCode: null,
+      description: "UHNW wealth advisory for Asia-Pacific families",
+      altText: "Crestborne Private Office independent wealth advisory UHNW ultra high net worth Singapore Hong Kong Dubai EAM external asset manager",
+      category: "Financial",
+      specWork: true,
+      details: "Tier 4 spec site for UHNW wealth management niche. Features Gravitational Lens 3D hero (luminous accretion disk with orbital rings, particle streams, and dark void), Silk Threads section background, Midnight/Silver-Sage/Pearl palette, Cormorant Garamond typography. Anchor+2x2 services grid, split-screen contact, 5-office global presence. Targets External Asset Manager (EAM) firms serving Chinese families across Asia-Pacific."
+    },
+    {
+      id: "morganpottingermcgarvey",
+      title: "Morgan Pottinger McGarvey",
+      url: "https://morgan-pottinger-mcgarvey.vercel.app",
+      preview: "/previews/morgan-pottinger-mcgarvey.png",
+      ogImage: "/og-images/morgan-pottinger-mcgarvey-og.png",
+      qrCode: "/qr-codes/morgan-pottinger-mcgarvey-qr.png",
+      description: "Trusted legal counsel since 1974",
+      altText: "Morgan Pottinger McGarvey Louisville Kentucky law firm attorneys banking business litigation personal injury real estate",
       category: "Legal",
       specWork: true,
-      details: "Compassionate family law services in Louisville. Divorce, mediation, child custody, and domestic violence cases handled with care. A trust-forward design for sensitive legal matters."
+      details: "Tier 2 demo for established Louisville law firm. Banking & finance, business litigation, personal injury, and real estate law. Representing Kentucky banks, businesses, and individuals with over 50 years of combined legal excellence."
+    },
+    {
+      id: "scoutaesthetics",
+      title: "Scout Aesthetics",
+      url: "https://scout-aesthetics.vercel.app",
+      preview: "/previews/scout-aesthetics.png",
+      ogImage: "/og-images/scout-aesthetics-og.png",
+      qrCode: "/qr-codes/scout-aesthetics-qr.png",
+      description: "Premier med spa and aesthetic wellness center",
+      altText: "Scout Aesthetics Louisville Kentucky med spa Botox fillers laser facials body contouring skin rejuvenation",
+      category: "Med Spa",
+      specWork: true,
+      details: "Tier 2 demo for Louisville med spa featuring Torus Knot 3D hero, DNA Helix section background, zigzag feature layout, and glass-morphism contact card. Botox, fillers, laser treatments, facials, and body contouring."
+    },
+    {
+      id: "pillarfinancialadvisors",
+      title: "Pillar Financial Advisors",
+      url: "https://pillar-financial-advisors.vercel.app",
+      preview: "/previews/pillar-financial-advisors.png",
+      ogImage: "/og-images/pillar-financial-advisors-og.png",
+      qrCode: "/qr-codes/pillar-financial-advisors-qr.png",
+      description: "Wealth management and financial planning",
+      altText: "Pillar Financial Advisors Louisville Kentucky wealth management financial planning retirement investment estate tax",
+      category: "Financial",
+      specWork: true,
+      details: "Tier 2 demo for Louisville financial advisory firm featuring L-System Tree 3D hero, Orbital System section background, icon-strip feature layout, 2x2 stats grid, and split-screen contact. Retirement planning, investment management, estate and tax planning."
+    },
+    {
+      id: "clementinecater",
+      title: "Clementine Catering",
+      url: "https://clementine-cater.vercel.app",
+      preview: "/previews/clementine-cater.png",
+      ogImage: "/og-images/clementine-cater-og.png",
+      qrCode: "/qr-codes/clementine-cater-qr.png",
+      description: "Bespoke catering at Louisville's most storied venue",
+      altText: "Clementine Catering Louisville Kentucky Steve Clements bespoke catering Peterson-Dumesnil House 1869 Italian villa weddings corporate events seasonal organic local ingredients",
+      category: "Restaurant",
+      specWork: true,
+      details: "Premium demo for Louisville's exclusive caterer at the Peterson-Dumesnil House. Custom Chandelier 3D formation hero with gold crystal drops and bloom lighting. Mobius strip section background. Services: weddings, corporate events, intimate dinners, rehearsal dinners, holiday celebrations. Venue showcase with capacity and rates. Gold/green palette with Cormorant Garamond typography."
+    },
+    {
+      id: "headlinersmusichall",
+      title: "Headliners Music Hall",
+      url: "https://headliners-louisville.vercel.app",
+      preview: "/previews/headliners-music-hall.png",
+      ogImage: "/og-images/headliners-music-hall-og.png",
+      qrCode: "/qr-codes/headliners-music-hall-qr.png",
+      description: "Louisville's legendary music venue since 1939",
+      altText: "Headliners Music Hall Louisville Kentucky live music venue concerts speakeasy prohibition era murals 1939",
+      category: "Entertainment",
+      specWork: true,
+      details: "Art Deco aesthetic for Louisville's legendary live music venue, built during Prohibition in 1939. Original murals by National Distillers, film grain overlays, ambient sound toggle, period typography. 85+ years of unforgettable nights on Baxter Ave."
+    },
+    {
+      id: "genesisdiamonds",
+      title: "Genesis Diamonds",
+      url: "https://genesis-diamonds.vercel.app",
+      preview: "/previews/genesis-diamonds.png",
+      ogImage: "/og-images/genesis-diamonds-og.png",
+      qrCode: "/qr-codes/genesis-diamonds-qr.png",
+      description: "Louisville's premier jeweler since 2005",
+      altText: "Genesis Diamonds Louisville Kentucky GIA certified diamonds engagement rings luxury watches Tacori Verragio",
+      category: "Jewelry",
+      specWork: true,
+      details: "Tier 4 ultra-luxury demo for Louisville's premier diamond destination. AI Oracle concierge, user authentication, GIA-certified diamonds, luxury watches (Rolex, Patek Philippe). Best Price Guarantee, 120% Lifetime Upgrade. Obsidian/gold theme for UHNW clientele."
+    },
+    {
+      id: "hideawaysaloon",
+      title: "Hideaway Saloon",
+      url: "https://hideaway-saloon.vercel.app",
+      preview: "/previews/hideaway-saloon.png",
+      ogImage: "/og-images/hideaway-saloon-og.png",
+      qrCode: "/qr-codes/hideaway-saloon-qr.png",
+      description: "Louisville's premier video game dive bar",
+      altText: "Hideaway Saloon Louisville Kentucky video game bar arcade games fighting game tournaments dive bar Bardstown Road",
+      category: "Bar",
+      specWork: true,
+      details: "Louisville's original video game dive bar on Bardstown Road. Family-owned since the 1970s, rebranded to a gaming destination in 2015. 1000+ games, weekly fighting game tournaments, cold drinks. Open Mon-Sat 7PM-4AM."
     },
     {
       id: "highlandcleaners",
@@ -276,19 +367,6 @@ function App() {
       details: "Tier 4 demo for Louisville fitness studio featuring 3D crystalline hero animation, class scheduling, trainer profiles, and membership pricing. High-intensity group classes, personal training, and open gym."
     },
     {
-      id: "morganpottingermcgarvey",
-      title: "Morgan Pottinger McGarvey",
-      url: "https://morgan-pottinger-mcgarvey.vercel.app",
-      preview: "/previews/morgan-pottinger-mcgarvey.png",
-      ogImage: "/og-images/morgan-pottinger-mcgarvey-og.png",
-      qrCode: "/qr-codes/morgan-pottinger-mcgarvey-qr.png",
-      description: "Trusted legal counsel since 1974",
-      altText: "Morgan Pottinger McGarvey Louisville Kentucky law firm attorneys banking business litigation personal injury real estate",
-      category: "Legal",
-      specWork: true,
-      details: "Tier 2 demo for established Louisville law firm. Banking & finance, business litigation, personal injury, and real estate law. Representing Kentucky banks, businesses, and individuals with over 50 years of combined legal excellence."
-    },
-    {
       id: "caviarcreativeco",
       title: "Caviar Creative Co.",
       url: "https://caviar-creative-co.vercel.app",
@@ -302,45 +380,6 @@ function App() {
       details: "Architectural Noir concept demo for creative agency. Strategy, design, story and brand protection served up without compromise. Features particle animation hero, automation showcase, and metrics dashboard."
     },
     {
-      id: "scoutaesthetics",
-      title: "Scout Aesthetics",
-      url: "https://scout-aesthetics.vercel.app",
-      preview: "/previews/scout-aesthetics.png",
-      ogImage: "/og-images/scout-aesthetics-og.png",
-      qrCode: "/qr-codes/scout-aesthetics-qr.png",
-      description: "Premier med spa and aesthetic wellness center",
-      altText: "Scout Aesthetics Louisville Kentucky med spa Botox fillers laser facials body contouring skin rejuvenation",
-      category: "Med Spa",
-      specWork: true,
-      details: "Tier 2 demo for Louisville med spa featuring Torus Knot 3D hero, DNA Helix section background, zigzag feature layout, and glass-morphism contact card. Botox, fillers, laser treatments, facials, and body contouring."
-    },
-    {
-      id: "pillarfinancialadvisors",
-      title: "Pillar Financial Advisors",
-      url: "https://pillar-financial-advisors.vercel.app",
-      preview: "/previews/pillar-financial-advisors.png",
-      ogImage: "/og-images/pillar-financial-advisors-og.png",
-      qrCode: "/qr-codes/pillar-financial-advisors-qr.png",
-      description: "Wealth management and financial planning",
-      altText: "Pillar Financial Advisors Louisville Kentucky wealth management financial planning retirement investment estate tax",
-      category: "Financial",
-      specWork: true,
-      details: "Tier 2 demo for Louisville financial advisory firm featuring L-System Tree 3D hero, Orbital System section background, icon-strip feature layout, 2x2 stats grid, and split-screen contact. Retirement planning, investment management, estate and tax planning."
-    },
-    {
-      id: "crestborneprivateoffice",
-      title: "Crestborne Private Office",
-      url: "https://crestborne-private-office.vercel.app",
-      preview: "/previews/crestborne-private-office.png",
-      ogImage: "/og-images/crestborne-private-office-og.png",
-      qrCode: null,
-      description: "UHNW wealth advisory for Asia-Pacific families",
-      altText: "Crestborne Private Office independent wealth advisory UHNW ultra high net worth Singapore Hong Kong Dubai EAM external asset manager",
-      category: "Financial",
-      specWork: true,
-      details: "Tier 4 spec site for UHNW wealth management niche. Features Gravitational Lens 3D hero (luminous accretion disk with orbital rings, particle streams, and dark void), Silk Threads section background, Midnight/Silver-Sage/Pearl palette, Cormorant Garamond typography. Anchor+2x2 services grid, split-screen contact, 5-office global presence. Targets External Asset Manager (EAM) firms serving Chinese families across Asia-Pacific."
-    },
-    {
       id: "fritzsalon",
       title: "Fritz Salon",
       url: "https://fritz-salon.vercel.app",
@@ -352,32 +391,6 @@ function App() {
       category: "Beauty",
       specWork: true,
       details: "Premier hair salon in Louisville offering expert styling, coloring, and treatments. Professional stylists dedicated to helping you look and feel your best."
-    },
-    {
-      id: "hideawaysaloon",
-      title: "Hideaway Saloon",
-      url: "https://hideaway-saloon.vercel.app",
-      preview: "/previews/hideaway-saloon.png",
-      ogImage: "/og-images/hideaway-saloon-og.png",
-      qrCode: "/qr-codes/hideaway-saloon-qr.png",
-      description: "Louisville's premier video game dive bar",
-      altText: "Hideaway Saloon Louisville Kentucky video game bar arcade games fighting game tournaments dive bar Bardstown Road",
-      category: "Bar",
-      specWork: true,
-      details: "Louisville's original video game dive bar on Bardstown Road. Family-owned since the 1970s, rebranded to a gaming destination in 2015. 1000+ games, weekly fighting game tournaments, cold drinks. Open Mon-Sat 7PM-4AM."
-    },
-    {
-      id: "headlinersmusichall",
-      title: "Headliners Music Hall",
-      url: "https://headliners-louisville.vercel.app",
-      preview: "/previews/headliners-music-hall.png",
-      ogImage: "/og-images/headliners-music-hall-og.png",
-      qrCode: "/qr-codes/headliners-music-hall-qr.png",
-      description: "Louisville's legendary music venue since 1939",
-      altText: "Headliners Music Hall Louisville Kentucky live music venue concerts speakeasy prohibition era murals 1939",
-      category: "Entertainment",
-      specWork: true,
-      details: "Art Deco aesthetic for Louisville's legendary live music venue, built during Prohibition in 1939. Original murals by National Distillers, film grain overlays, ambient sound toggle, period typography. 85+ years of unforgettable nights on Baxter Ave."
     },
     {
       id: "louisvilleaesthetics",
@@ -404,19 +417,6 @@ function App() {
       category: "Medical",
       specWork: true,
       details: "Tier 4 demo for Louisville's trusted pediatric dental practice. Dr. Jenna & Dr. Schulten, board-certified pediatric dentists. Parent portal, admin dashboard, 3-step booking wizard, toast notifications. Purple/violet kid-friendly branding. Serving Louisville families since the practice's founding."
-    },
-    {
-      id: "genesisdiamonds",
-      title: "Genesis Diamonds",
-      url: "https://genesis-diamonds.vercel.app",
-      preview: "/previews/genesis-diamonds.png",
-      ogImage: "/og-images/genesis-diamonds-og.png",
-      qrCode: "/qr-codes/genesis-diamonds-qr.png",
-      description: "Louisville's premier jeweler since 2005",
-      altText: "Genesis Diamonds Louisville Kentucky GIA certified diamonds engagement rings luxury watches Tacori Verragio",
-      category: "Jewelry",
-      specWork: true,
-      details: "Tier 4 ultra-luxury demo for Louisville's premier diamond destination. AI Oracle concierge, user authentication, GIA-certified diamonds, luxury watches (Rolex, Patek Philippe). Best Price Guarantee, 120% Lifetime Upgrade. Obsidian/gold theme for UHNW clientele."
     },
     {
       id: "jwcafe",
@@ -848,19 +848,6 @@ function App() {
       details: "Tier 4 demo for Louisville's top-rated dental practice. Dr. Shannon Vickery with 23+ years experience. Patient portal, admin dashboard, 3-step booking wizard, toast notifications. $99 new patient special. Orange brand palette matching their existing identity."
     },
     {
-      id: "clementinecater",
-      title: "Clementine Catering",
-      url: "https://clementine-cater.vercel.app",
-      preview: "/previews/clementine-cater.png",
-      ogImage: "/og-images/clementine-cater-og.png",
-      qrCode: "/qr-codes/clementine-cater-qr.png",
-      description: "Bespoke catering at Louisville's most storied venue",
-      altText: "Clementine Catering Louisville Kentucky Steve Clements bespoke catering Peterson-Dumesnil House 1869 Italian villa weddings corporate events seasonal organic local ingredients",
-      category: "Restaurant",
-      specWork: true,
-      details: "Premium demo for Louisville's exclusive caterer at the Peterson-Dumesnil House. Custom Chandelier 3D formation hero with gold crystal drops and bloom lighting. Mobius strip section background. Services: weddings, corporate events, intimate dinners, rehearsal dinners, holiday celebrations. Venue showcase with capacity and rates. Gold/green palette with Cormorant Garamond typography."
-    },
-    {
       id: "jbhdental",
       title: "JBH Dental",
       url: "https://jbh-dental.vercel.app",
@@ -897,7 +884,7 @@ function App() {
   const allFilteredClients = clientFilter === 'All'
     ? localClients
     : localClients.filter(c => categoryGroups[clientFilter]?.includes(c.category));
-  const INITIAL_CLIENT_COUNT = 9;
+  const INITIAL_CLIENT_COUNT = 12;
   const filteredClients = showAllClients || clientFilter !== 'All'
     ? allFilteredClients
     : allFilteredClients.slice(0, INITIAL_CLIENT_COUNT);
@@ -1308,9 +1295,13 @@ function App() {
                           if (skeleton) skeleton.style.opacity = '0';
                         }}
                         onError={(e) => {
-                          e.target.style.display = 'none';
+                          e.target.style.opacity = '0';
                           const skeleton = e.target.previousSibling;
-                          if (skeleton) skeleton.style.opacity = '0';
+                          if (skeleton) {
+                            skeleton.style.opacity = '1';
+                            skeleton.style.background = 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)';
+                            skeleton.style.animation = 'none';
+                          }
                         }}
                       />
                       {/* Title overlay at bottom */}
