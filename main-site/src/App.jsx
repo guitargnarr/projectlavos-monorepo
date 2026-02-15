@@ -158,6 +158,19 @@ function App() {
       details: "Louisville's original video game dive bar on Bardstown Road. Family-owned since the 1970s, rebranded to a gaming destination in 2015. 1000+ games, weekly fighting game tournaments, cold drinks. Open Mon-Sat 7PM-4AM."
     },
     {
+      id: "kyfamilylawyer",
+      title: "A. Holland Houston",
+      url: "https://ky-family-lawyer.vercel.app",
+      preview: "/previews/ky-family-lawyer.png",
+      ogImage: "/og-images/ky-family-lawyer-og.png",
+      qrCode: "/qr-codes/ky-family-lawyer-qr.png",
+      description: "Louisville family law attorney & mediator",
+      altText: "A. Holland Houston Louisville Kentucky family law attorney divorce mediation child custody domestic violence",
+      category: "Legal",
+      specWork: true,
+      details: "Compassionate family law services in Louisville. Divorce, mediation, child custody, and domestic violence cases handled with care. A trust-forward design for sensitive legal matters."
+    },
+    {
       id: "highlandcleaners",
       title: "Highland Cleaners",
       url: "https://highland-cleaners.vercel.app",
