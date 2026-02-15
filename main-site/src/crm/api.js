@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_OUTREACH_API_URL || 'http://localhost:8000';
+const API_BASE = import.meta.env.DEV ? 'http://localhost:8000' : '/api/outreach';
 
 export const endpoints = {
   login: `${API_BASE}/auth/login`,

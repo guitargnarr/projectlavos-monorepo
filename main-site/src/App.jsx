@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import AnimatedCharioteer from './components/AnimatedCharioteer';
 
 function App() {
-  const [expandedProject, setExpandedProject] = useState(null);
   // Initialize sections as visible by default (Safari mobile fallback)
   const [visibleSections, setVisibleSections] = useState({
     louisville: true,
@@ -889,8 +889,6 @@ function App() {
     }
   ];
 
-  const [expandedClient, setExpandedClient] = useState(null);
-  const [activeClientVersion, setActiveClientVersion] = useState({});
   const [clientFilter, setClientFilter] = useState('All');
   const [showAllClients, setShowAllClients] = useState(false);
 
@@ -1045,19 +1043,6 @@ function App() {
       details: "An exploration of resilience, dissolution, and the architecture of the self. Meditation meets Stoicism through a scroll-reactive constellation of 4200 particles that erode, drift, form connections, and dissolve as the reader journeys through the philosophy."
     }
   ];
-
-  // Combined for backward compatibility
-  const projects = [...practicalProjects, ...experimentalProjects];
-
-  const handleCardClick = (e, projectId) => {
-    e.preventDefault();
-    setExpandedProject(expandedProject === projectId ? null : projectId);
-  };
-
-  const handleVisitSite = (e, url) => {
-    e.stopPropagation();
-    window.open(url, '_blank');
-  };
 
   return (
     <div className="min-h-screen bg-slate-900">
@@ -1224,7 +1209,7 @@ function App() {
               return (
                 <button
                   key={group}
-                  onClick={() => { setClientFilter(group); setExpandedClient(null); }}
+                  onClick={() => { setClientFilter(group); }}
                   aria-label={`Filter by ${group} category (${count} sites)`}
                   aria-pressed={clientFilter === group}
                   className={`flex-shrink-0 px-3 py-1.5 text-xs font-medium rounded-full transition-all duration-200 whitespace-nowrap ${
@@ -1400,7 +1385,7 @@ function App() {
             Practical Apps
           </h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 transition-all duration-300 mb-12">
-            {practicalProjects.map((project, index) => {
+            {practicalProjects.map((project) => {
               const isAboveFold = true;
 
               return (
@@ -1809,6 +1794,7 @@ function App() {
         </div>
       </footer>
       <Analytics />
+      <SpeedInsights />
     </div>
   );
 }

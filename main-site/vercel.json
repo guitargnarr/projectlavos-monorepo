@@ -1,6 +1,17 @@
 {
   "rewrites": [
+    { "source": "/api/outreach/:path*", "destination": "https://outreach-api-miha.onrender.com/:path*" },
+    { "source": "/api/backend/:path*", "destination": "https://projectlavos-backend.onrender.com/:path*" },
+    { "source": "/api/cms/:path*", "destination": "https://client-cms-api.onrender.com/:path*" },
     { "source": "/privacy", "destination": "/privacy.html" },
     { "source": "/:path((?!.*\\.).*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "s-maxage=60, stale-while-revalidate=300" }
+      ]
+    }
   ]
 }

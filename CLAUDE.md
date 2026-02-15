@@ -69,7 +69,7 @@ Changes requiring human verification before claiming done:
 - **Frontend:** main-site/src/crm/ (lazy-loaded at /dashboard)
 - **Data:** 43 Louisville businesses (16 hot, 6 warm, 21 cold)
 - **Post-deploy sync:** After deploying a new client demo site AND adding it to projectlavos.com, POST to `/sync` endpoint with new business data
-- **Deploy with env var:** `VITE_OUTREACH_API_URL=https://outreach-api-miha.onrender.com vercel build --prod && vercel deploy --prebuilt --prod --yes`
+- **Deploy:** `vercel --prod --yes` (CRM uses edge proxy `/api/outreach/` in production -- no env var needed since Feb 2026)
 
 ## Documentation References
 - Anthropic workflows: @~/.claude/archive/WORKFLOWS.md
