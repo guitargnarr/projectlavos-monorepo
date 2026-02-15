@@ -1041,6 +1041,18 @@ function App() {
       category: "Conceptual",
       tech: ["React", "Three.js", "WebGL", "Framer Motion"],
       details: "An exploration of resilience, dissolution, and the architecture of the self. Meditation meets Stoicism through a scroll-reactive constellation of 4200 particles that erode, drift, form connections, and dissolve as the reader journeys through the philosophy."
+    },
+    {
+      id: "quiet-trade",
+      title: "The Quiet Trade",
+      url: "https://quiet-trade-experience.vercel.app",
+      preview: "/og-images/quiet-trade-og.png",
+      ogImage: "/og-images/quiet-trade-og.png",
+      description: "A scroll-driven exploration of AI adoption and the strategic silence of expertise",
+      altText: "The Quiet Trade interactive 3D experience exploring cognitive asymmetry through five philosophical scenes with procedural audio",
+      category: "Conceptual",
+      tech: ["React", "Three.js", "WebGL", "Web Audio"],
+      details: "Five philosophical scenes — Plato's Cave, The Map, The Atrophied Muscle, The Ratchet, The Faustian Bargain — driven by scroll progress through a single 3D canvas with procedural ambient audio."
     }
   ];
 
