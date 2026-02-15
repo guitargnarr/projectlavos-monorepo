@@ -932,16 +932,16 @@ function App() {
       details: "Guitar learning apps exist, but none combine fretboard visualization, tab playback, and riff generation in one place. The riff generator uses deterministic Python for music theory—LLMs can't count frets accurately."
     },
     {
-      id: "phishguard",
-      title: "PhishGuard",
-      url: "https://phishguard.projectlavos.com",
-      preview: "/previews/phishguard.png",
-      ogImage: "/og-images/phishguard-og.png",
-      description: "Detect phishing emails before they fool your team",
-      altText: "PhishGuard email security tool analyzing suspicious email content for phishing indicators using sentiment analysis",
-      category: "Security",
-      tech: ["React", "NLP", "Python", "FastAPI"],
-      details: "Phishing attacks exploit human psychology, not just technical vulnerabilities. PhishGuard analyzes email sentiment patterns to flag manipulation tactics before they reach the inbox."
+      id: "meridian",
+      title: "Meridian",
+      url: "https://phishguard-ui.vercel.app",
+      preview: "/previews/meridian.png",
+      ogImage: "/og-images/meridian-og.png",
+      description: "US economic data explorer with interactive state-level maps",
+      altText: "Meridian US Economic Data Explorer interactive map showing state-level unemployment income population poverty metrics pharmacy market intelligence",
+      category: "Data",
+      tech: ["Next.js", "TypeScript", "D3", "Tailwind"],
+      details: "Market intelligence platform mapping 41,755 independent pharmacies across the US. Interactive state-level economic data including unemployment, income, population, and poverty metrics. Built for RetailMyMeds to identify high-opportunity markets for GLP-1 and MAP prescription routing."
     },
     {
       id: "jobway",
@@ -1077,7 +1077,7 @@ function App() {
         <p>
           The portfolio is organized into sections: Louisville client demos (filterable by category including Healthcare, Food &amp; Drink,
           Legal, Services, Beauty, Retail, Entertainment, Real Estate, and more), practical deployed applications (FretVision guitar learning platform,
-          Vantage job market analysis, PhishGuard anti-phishing AI, Jobway job search automation), and conceptual explorations (Auriga, Forma, Psyche Hub, Threshold).
+          Vantage job market analysis, Meridian US economic data explorer, Jobway job search automation), and conceptual explorations (Auriga, Forma, Psyche Hub, Threshold).
         </p>
         <p>
           Development methodology emphasizes substance over flash, building to last, measuring twice before shipping, and prioritizing
