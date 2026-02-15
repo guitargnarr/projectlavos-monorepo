@@ -1030,6 +1030,19 @@ function App() {
       category: "Conceptual",
       tech: ["React", "Framer Motion"],
       details: "The synthesis of human and AI collaboration. The charioteer holds the reins. The horses provide the power. Neither is complete alone. A philosophical exploration of orchestrated partnership."
+    },
+    {
+      id: "medittoica",
+      title: "Medittoica",
+      url: "https://medittoica.vercel.app",
+      preview: "/previews/medittoica.png",
+      ogImage: "/og-images/medittoica-og.png",
+      qrCode: "/qr-codes/medittoica-qr.png",
+      description: "What remains after everything falls away",
+      altText: "Medittoica stoic philosophy exploration with WebGL constellation particle system and scroll-reactive erosion effects",
+      category: "Conceptual",
+      tech: ["React", "Three.js", "WebGL", "Framer Motion"],
+      details: "An exploration of resilience, dissolution, and the architecture of the self. Meditation meets Stoicism through a scroll-reactive constellation of 4200 particles that erode, drift, form connections, and dissolve as the reader journeys through the philosophy."
     }
   ];
 
