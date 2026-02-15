@@ -954,11 +954,7 @@ function App() {
       category: "Career",
       tech: ["React", "FastAPI", "spaCy", "Gmail API"],
       details: "Full-stack job search automation. Gmail OAuth scans your inbox for responses, NLP-powered ATS optimizer scores resumes against job descriptions, smart follow-up scheduling, and analytics dashboard. Not a template—actual automation."
-    }
-  ];
-
-  // Experimental/Conceptual - Jungian depth psychology explorations
-  const experimentalProjects = [
+    },
     {
       id: "ourjourney",
       title: "OurJourney",
@@ -970,7 +966,11 @@ function App() {
       category: "Personal",
       tech: ["React", "Supabase", "Vercel"],
       details: "Social media makes sharing performative. OurJourney is the opposite—a private space for two people to document what matters to them, without an audience."
-    },
+    }
+  ];
+
+  // Experimental/Conceptual - Jungian depth psychology explorations
+  const experimentalProjects = [
     {
       id: "psyche",
       title: "Psyche",
