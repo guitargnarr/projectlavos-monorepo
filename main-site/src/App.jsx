@@ -898,7 +898,7 @@ function App() {
       altText: "Greater Guitars Louisville Kentucky custom handmade electric guitars luthier Alex MacLeod workshop repairs",
       category: "Retail",
       specWork: false,
-      details: "Real client site for Greater Guitars, a custom guitar builder in Louisville, KY. Features cinematic paint-drip hero animation (Canvas 2D), antique gold palette on void black, product showcase with real workshop photos, configurator/inquiry form, photo gallery, YouTube embed slots, testimonial placeholders, and film grain overlay. React 19 + Vite 7 + Tailwind v4."
+      details: "Real client site for Greater Guitars, a custom guitar builder in Louisville, KY. Zine Shop aesthetic — late 70s punk/new wave meets modern sustainable design. Newsprint-on-ink color palette, Clash Display + Instrument Serif + DM Mono typography, Canvas 2D ink-drip hero animation, halftone dot textures, product showcase with real workshop photos, configurator/inquiry form, photo gallery, YouTube embed slots, and film grain overlay. React 19 + Vite 7 + Tailwind v4."
     }
   ];
 
