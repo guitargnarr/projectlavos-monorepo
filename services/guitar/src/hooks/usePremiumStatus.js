@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 /**
  * Hook to check premium status
@@ -10,18 +10,16 @@ import { useState, useEffect } from 'react';
  * - pro: Tab + MIDI + GP5 export
  */
 export function usePremiumStatus() {
-  const [tier, setTier] = useState('free');
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
+  const [tier] = useState(() => {
     // Check localStorage for premium status
     // In production, this would call Stripe/Supabase
     const storedTier = localStorage.getItem('guitar-premium-tier');
     if (storedTier && ['free', 'premium', 'pro'].includes(storedTier)) {
-      setTier(storedTier);
+      return storedTier;
     }
-    setIsLoading(false);
-  }, []);
+    return 'free';
+  });
+  const isLoading = false;
 
   const isPremium = tier === 'premium' || tier === 'pro';
   const isPro = tier === 'pro';

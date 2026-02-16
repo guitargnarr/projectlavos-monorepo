@@ -6,7 +6,7 @@ const TOKEN_KEY = 'outreach_jwt';
 export function useAuth() {
   const [token, setToken] = useState(() => localStorage.getItem(TOKEN_KEY));
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => !!localStorage.getItem(TOKEN_KEY));
 
   const logout = useCallback(() => {
     localStorage.removeItem(TOKEN_KEY);
@@ -15,11 +15,7 @@ export function useAuth() {
   }, []);
 
   useEffect(() => {
-    if (!token) {
-      setLoading(false);
-      setIsAuthenticated(false);
-      return;
-    }
+    if (!token) return;
     fetch(endpoints.verify, {
       headers: { Authorization: `Bearer ${token}` },
     })

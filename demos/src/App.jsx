@@ -412,7 +412,7 @@ function SentimentDemo() {
 
       const data = await response.json()
       setResult(data)
-    } catch (err) {
+    } catch {
       setError({
         message: 'Demo server is waking up (first use takes ~30 seconds). Please try again in a moment.',
         canRetry: true
@@ -520,7 +520,7 @@ function LeadScoringDemo() {
 
       const data = await response.json()
       setResult(data)
-    } catch (err) {
+    } catch {
       setError({
         message: 'Demo server is waking up. Please try again in a moment.',
         canRetry: true
@@ -658,7 +658,7 @@ function PhishingDemo() {
 
       const data = await response.json()
       setResult(data)
-    } catch (err) {
+    } catch {
       setError({
         message: 'Demo server is waking up. Please try again in a moment.',
         canRetry: true
@@ -785,7 +785,7 @@ function RestaurantAnalyzer() {
       const data = await response.json()
       setAnalysis(data)
     } catch (err) {
-      let errorMessage = 'Something went wrong. Please try again.'
+      let errorMessage;
       let canRetry = true
 
       if (err.message.includes('Failed to fetch') || err.name === 'NetworkError') {
@@ -1075,7 +1075,7 @@ John Smith`,
       const data = await response.json()
       setAnalysis(data)
     } catch (err) {
-      let errorMessage = 'Something went wrong. Please try again.'
+      let errorMessage;
 
       if (err.message.includes('Failed to fetch') || err.name === 'NetworkError') {
         errorMessage = 'Cannot connect to the scoring server. Please check your connection.'
@@ -1471,11 +1471,11 @@ function ContactForm() {
         throw new Error(`Failed to submit: ${response.status}`)
       }
 
-      const data = await response.json()
+      await response.json()
       setSubmitted(true)
       setFormData({ name: '', email: '', businessType: '', challenge: '' })
       setTimeout(() => setSubmitted(false), 8000)
-    } catch (err) {
+    } catch {
       setError('Failed to send message. Please email matthewdscott7@gmail.com directly.')
     } finally {
       setLoading(false)

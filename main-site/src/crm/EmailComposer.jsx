@@ -108,7 +108,7 @@ function buildEmail(biz) {
   else if (existingIsReal) templateType = 'enhancement';
 
   // Build personalized subject line
-  let subject = '';
+  let subject;
   if (templateType === 'no_website') {
     subject = `I built ${bizName} a website - take a look`;
   } else if (templateType === 'outdated_website') {

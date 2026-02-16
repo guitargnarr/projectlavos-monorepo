@@ -2,7 +2,7 @@ import { useAuth } from '../../contexts/AuthContext'
 import { TIER_FEATURES } from '../../lib/supabase'
 
 export default function ProtectedContent({ requiredTier, children, fallback }) {
-  const { user, profile, loading, hasTierAccess } = useAuth()
+  const { user, loading, hasTierAccess } = useAuth()
 
   if (loading) {
     return (

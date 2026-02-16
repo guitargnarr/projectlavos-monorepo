@@ -886,6 +886,19 @@ function App() {
       tech: ["React", "TypeScript", "Tailwind", "FastAPI"],
       specWork: true,
       details: "Full-stack relocation toolkit for Ibanista (UK-France relocation specialists). Features interactive budget calculator with real cost data, region finder quiz matching lifestyle preferences to French departments, email capture with SQLite persistence, and admin dashboard. React/TypeScript frontend on Vercel, FastAPI backend on Render."
+    },
+    {
+      id: "greater-guitars",
+      title: "Greater Guitars",
+      url: "https://greater-guitars.vercel.app",
+      preview: "/previews/greater-guitars.png",
+      ogImage: "/og-images/greater-guitars-og.png",
+      qrCode: "/qr-codes/greater-guitars-qr.png",
+      description: "Custom handmade guitars by Alex MacLeod",
+      altText: "Greater Guitars Louisville Kentucky custom handmade electric guitars luthier Alex MacLeod workshop repairs",
+      category: "Retail",
+      specWork: false,
+      details: "Real client site for Greater Guitars, a custom guitar builder in Louisville, KY. Features cinematic paint-drip hero animation (Canvas 2D), antique gold palette on void black, product showcase with real workshop photos, configurator/inquiry form, photo gallery, YouTube embed slots, testimonial placeholders, and film grain overlay. React 19 + Vite 7 + Tailwind v4."
     }
   ];
 

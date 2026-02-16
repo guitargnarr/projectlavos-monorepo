@@ -9,7 +9,7 @@ import './App.css'
 function AppContent() {
   const [showAuthModal, setShowAuthModal] = useState(false)
   const [currentView, setCurrentView] = useState('home') // 'home', 'profile'
-  const { user, profile, loading } = useAuth()
+  const { user, profile } = useAuth()
 
   if (currentView === 'profile' && user) {
     return (

@@ -5,7 +5,7 @@ const API_URL = 'https://mirador-xva2.onrender.com'
 function App() {
   const [copied, setCopied] = useState(null)
   const [apiStatus, setApiStatus] = useState(null)
-  const [apiStats, setApiStats] = useState(null)
+  const [, setApiStats] = useState(null)
   const [apiLoading, setApiLoading] = useState(true)
   const [selectedChain, setSelectedChain] = useState('security_audit')
   const [demoInput, setDemoInput] = useState('Review my API for vulnerabilities')
@@ -45,7 +45,7 @@ function App() {
       })
       const data = await res.json()
       setDemoResult(data)
-    } catch (err) {
+    } catch {
       setDemoResult({ error: 'API request failed' })
     } finally {
       setDemoLoading(false)

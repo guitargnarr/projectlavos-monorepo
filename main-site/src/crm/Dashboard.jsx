@@ -101,7 +101,6 @@ export default function Dashboard() {
   }
 
   const hot = metrics?.by_priority?.hot || 0;
-  const warm = metrics?.by_priority?.warm || 0;
   const contacted = (metrics?.by_status?.contacted || 0) + (metrics?.by_status?.responded || 0) + (metrics?.by_status?.meeting || 0);
   const closed = metrics?.by_status?.closed || 0;
   const total = metrics?.total || 0;

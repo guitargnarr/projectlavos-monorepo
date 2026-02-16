@@ -1,19 +1,15 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Login from './Login'
 import Signup from './Signup'
 import ForgotPassword from './ForgotPassword'
 import ResetPassword from './ResetPassword'
 
 export default function AuthModal({ onClose, initialMode }) {
-  const [mode, setMode] = useState(initialMode || 'login') // 'login', 'signup', 'forgot', 'reset'
-
-  // Check for password reset token in URL on mount
-  useEffect(() => {
+  const [mode, setMode] = useState(() => {
     const hash = window.location.hash
-    if (hash.includes('type=recovery')) {
-      setMode('reset')
-    }
-  }, [])
+    if (hash.includes('type=recovery')) return 'reset'
+    return initialMode || 'login'
+  })
 
   const handleSuccess = () => {
     if (onClose) {

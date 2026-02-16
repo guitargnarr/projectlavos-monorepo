@@ -186,7 +186,7 @@ export default function BackingTracks() {
   }, [volume]);
 
   // Schedule drums for a bar
-  const scheduleDrums = useCallback((barStartTime, barNumber) => {
+  const scheduleDrums = useCallback((barStartTime) => {
     if (!drumsEnabled || !drumSynthRef.current) return;
 
     const drumPattern = getDrumPattern(style);
@@ -430,7 +430,7 @@ export default function BackingTracks() {
           <div className="mb-6">
             <label className="backing-tracks-label">Style</label>
             <div className="backing-tracks-style-grid">
-              {Object.entries(PROGRESSIONS).map(([key, value]) => (
+              {Object.entries(PROGRESSIONS).map(([key]) => (
                 <button
                   key={key}
                   onClick={() => setStyle(key)}

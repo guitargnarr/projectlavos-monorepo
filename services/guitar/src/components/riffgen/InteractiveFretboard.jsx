@@ -9,7 +9,6 @@ function InteractiveFretboard({
   activeNotes,
   scaleNotes,
   root,
-  position,
   onNoteClick,
   isPlaying,
   tuning = 'standard'

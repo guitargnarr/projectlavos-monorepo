@@ -194,6 +194,16 @@ export default function ScaleTrainer() {
     synthRef.current.playNote(synthStringIdx, fret, 1.0);
   };
 
+  // Play a single reference note so user can hear the target pitch
+  const playReferenceNote = async (noteIndex) => {
+    const ready = await ensureSynthReady();
+    if (!ready) return;
+    // Play the note on the high E string at the corresponding fret
+    const fret = (noteIndex - 4 + 12) % 12; // 4 = E note index
+    const synthStringIdx = 0; // high E in synth order
+    synthRef.current.playNote(synthStringIdx, fret, 1.0);
+  };
+
   // Play entire scale with animation - proper fingering pattern (ascending only)
   const playScale = async () => {
     if (isPlayingScale || synthLoading) return;
@@ -299,7 +309,9 @@ export default function ScaleTrainer() {
     return Math.round(noteNum) % 12;
   };
 
-  // Pitch detection loop
+  // Pitch detection loop - use ref to allow self-referencing in requestAnimationFrame
+  const detectPitchRef = useRef(null);
+
   const detectPitch = useCallback(() => {
     const analyser = analyserRef.current;
     const audioContext = audioContextRef.current;
@@ -338,8 +350,13 @@ export default function ScaleTrainer() {
       }
     }
 
-    animationFrameRef.current = requestAnimationFrame(detectPitch);
+    animationFrameRef.current = requestAnimationFrame(detectPitchRef.current);
   }, [isPracticing, sequence, currentNoteIndex]);
+
+  // Keep ref in sync with latest callback
+  useEffect(() => {
+    detectPitchRef.current = detectPitch;
+  }, [detectPitch]);
 
   // Start listening
   const startListening = async () => {
@@ -383,7 +400,7 @@ export default function ScaleTrainer() {
 
       if (microphoneRef.current) {
         microphoneRef.current.getTracks().forEach(track => {
-          try { track.stop(); } catch (e) { /* ignore */ }
+          try { track.stop(); } catch { /* ignore */ }
         });
         microphoneRef.current = null;
       }

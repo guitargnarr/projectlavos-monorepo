@@ -31,7 +31,7 @@ export default function Signup({ onToggleMode, onSuccess }) {
     }
 
     try {
-      const { data, error: signUpError } = await signUp(email, password)
+      const { error: signUpError } = await signUp(email, password)
 
       if (signUpError) throw signUpError
 

@@ -125,6 +125,8 @@ export default function Metronome() {
   }, [getBeatsPerMeasure, getSubdivisionMultiplier, subdivision, volume]);
 
   // Scheduler that runs frequently to schedule notes in advance
+  const schedulerRef = useRef(null);
+
   const scheduler = useCallback(() => {
     const audioContext = audioContextRef.current;
     if (!audioContext) return;
@@ -141,8 +143,13 @@ export default function Metronome() {
       currentBeatRef.current++;
     }
 
-    timerIDRef.current = setTimeout(scheduler, 25);
+    timerIDRef.current = setTimeout(schedulerRef.current, 25);
   }, [scheduleNote, getInterval]);
+
+  // Keep ref in sync with latest callback
+  useEffect(() => {
+    schedulerRef.current = scheduler;
+  }, [scheduler]);
 
   // Start metronome
   const start = useCallback(() => {

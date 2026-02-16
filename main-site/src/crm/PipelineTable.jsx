@@ -119,7 +119,7 @@ export default function PipelineTable({
     cold: businesses.filter((b) => b.priority === 'cold').length,
   };
 
-  const SortHeader = ({ label, field, className = '' }) => (
+  const renderSortHeader = (label, field, className = '') => (
     <th
       className={`px-3 py-2 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider cursor-pointer hover:text-white select-none ${className}`}
       onClick={() => toggleSort(field)}
@@ -202,10 +202,10 @@ export default function PipelineTable({
         <table className="w-full">
           <thead>
             <tr className="border-b border-slate-700">
-              <SortHeader label="Business" field="name" />
-              <SortHeader label="Priority" field="priority" />
-              <SortHeader label="Status" field="status" />
-              <SortHeader label="Activity" field="last_contact" className="hidden lg:table-cell" />
+              {renderSortHeader("Business", "name")}
+              {renderSortHeader("Priority", "priority")}
+              {renderSortHeader("Status", "status")}
+              {renderSortHeader("Activity", "last_contact", "hidden lg:table-cell")}
               <th className="px-3 py-2 text-right text-xs font-semibold text-slate-400 uppercase tracking-wider">
                 Actions
               </th>

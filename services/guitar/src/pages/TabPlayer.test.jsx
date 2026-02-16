@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 
 // Test parsing logic and MIDI calculations without rendering
 describe('TabPlayer Tab Parsing Logic', () => {

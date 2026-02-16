@@ -4,7 +4,7 @@ const API_URL = 'https://mirador-xva2.onrender.com'
 
 function App() {
   const [formData, setFormData] = useState({ name: '', email: '', company: '', message: '' })
-  const [formStatus, setFormStatus] = useState(null)
+  const [formStatus] = useState(null)
 
   const handleSubmit = (e) => {
     e.preventDefault()

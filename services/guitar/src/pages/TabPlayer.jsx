@@ -55,8 +55,8 @@ export default function TabPlayer() {
   };
 
   const initialTab = parseInlineTab(inlineTab) || DEFAULT_TAB;
-  const [tab, setTab] = useState(initialTab);
-  const [useInlineMode, setUseInlineMode] = useState(!!inlineTab);
+  const [tab] = useState(initialTab);
+  const [useInlineMode] = useState(!!inlineTab);
   const [tempo, setTempo] = useState(120);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLooping, setIsLooping] = useState(false);
@@ -331,13 +331,6 @@ export default function TabPlayer() {
     if (alphaTabApiRef.current) {
       alphaTabApiRef.current.isLooping = newLoopState;
     }
-  };
-
-  const loadExercise = (type) => {
-    const newTab = EXERCISES[type];
-    setTab(newTab);
-    parseTab(newTab);
-    stop();
   };
 
   // Old MIDI player useEffect removed - alphaTab handles all playback now

@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { generateTab, getScaleInfo, SCALES, NOTE_NAMES, GuitarTheory, TUNINGS, MIDI_BASE, CHORD_PROGRESSIONS } from '../lib/guitarTheory';
 import GuitarSynthesizer from '../lib/GuitarSynthesizer';
-import { createMidiFile, downloadMidiFile } from '../lib/midiGenerator';
+import { createMidiFile } from '../lib/midiGenerator';
 import { InteractiveFretboard } from '../components/riffgen';
 import { usePremiumStatus } from '../hooks/usePremiumStatus';
 import UpgradeModal from '../components/UpgradeModal';
@@ -243,7 +243,7 @@ export default function RiffGenerator() {
   }, [isPlaying, tempo, metronomeEnabled]);
 
   // Handle clicking a note on the interactive fretboard
-  const handleNoteClick = useCallback((stringIdx, fret, note) => {
+  const handleNoteClick = useCallback((stringIdx, fret) => {
     if (!synthRef.current?.isReady()) return;
     synthRef.current.playNote(stringIdx, fret, 0.8);
     // Briefly highlight the clicked note
