@@ -1066,6 +1066,18 @@ function App() {
       category: "Conceptual",
       tech: ["React", "Three.js", "WebGL", "Web Audio"],
       details: "Five philosophical scenes — Plato's Cave, The Map, The Atrophied Muscle, The Ratchet, The Faustian Bargain — driven by scroll progress through a single 3D canvas with procedural ambient audio."
+    },
+    {
+      id: "pattern-break",
+      title: "The Pattern Break",
+      url: "https://pattern-break-experience.vercel.app",
+      preview: "/og-images/pattern-break-og.png",
+      ogImage: "/og-images/pattern-break-og.png",
+      description: "119 days from broken binary to business entity",
+      altText: "The Pattern Break cinematic scroll-driven 3D experience with five scenes, procedural wind audio, and wind chimes",
+      category: "Conceptual",
+      tech: ["React", "Three.js", "WebGL", "Web Audio"],
+      details: "Five scenes — The Gravity Well, The Shatter, The Lattice, The Forge, The Constellation — driven by scroll through a single R3F canvas with procedural wind and wind chime audio."
     }
   ];
 
