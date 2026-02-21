@@ -899,6 +899,58 @@ function App() {
       category: "Retail",
       specWork: false,
       details: "Real client site for Greater Guitars, a custom guitar builder in Louisville, KY. Zine Shop aesthetic — late 70s punk/new wave meets modern sustainable design. Newsprint-on-ink color palette, Clash Display + Instrument Serif + DM Mono typography, Canvas 2D ink-drip hero animation, halftone dot textures, product showcase with real workshop photos, configurator/inquiry form, photo gallery, YouTube embed slots, and film grain overlay. React 19 + Vite 7 + Tailwind v4."
+    },
+    {
+      id: "xoaestheticrefinery",
+      title: "XO Aesthetic Refinery",
+      url: "https://xo-aesthetic-refinery.vercel.app",
+      preview: "/og-images/xo-aesthetic-refinery-og.png",
+      ogImage: "/og-images/xo-aesthetic-refinery-og.png",
+      qrCode: "/qr-codes/xo-aesthetic-refinery-qr.png",
+      description: "Louisville's favorite boutique med spa",
+      altText: "XO Aesthetic Refinery Louisville Kentucky boutique med spa Botox fillers facials permanent makeup body contouring",
+      category: "Med Spa",
+      specWork: true,
+      details: "Tier 2 demo for XO Aesthetic Refinery, a 5.0-star boutique med spa in Louisville's Crescent Hill neighborhood. Dark intimate luxury aesthetic matching their actual brand identity -- void black base, Montserrat typography, warm nude accent (#c9968a), glass-morphism cards. Lorenz Attractor 3D hero formation, Mobius Strip section background, 5-page site with booking wizard. Founded by CRNA Jana Brewer."
+    },
+    {
+      id: "rodesforhimforher",
+      title: "Rodes For Him For Her",
+      url: "https://rodes-for-him-for-her.vercel.app",
+      preview: "/og-images/rodes-for-him-for-her-og.png",
+      ogImage: "/og-images/rodes-for-him-for-her-og.png",
+      qrCode: null,
+      description: "Louisville's iconic clothier since 1914",
+      altText: "Rodes For Him For Her Louisville Kentucky luxury clothing personal styling tailoring gift registry Brownsboro Road family owned since 1914",
+      category: "Retail",
+      specWork: true,
+      details: "Tier 3 demo for Louisville's iconic luxury clothier, family-owned since 1914. Mobius Strip 3D hero formation, Torus Knot section background. Champagne gold (#c9964a) palette, Cormorant Garamond typography, heritage timeline (1914-present), brand showcase with category filter, full-width stacked service panels, split-screen contact."
+    },
+    {
+      id: "commonwealthcapital",
+      title: "Commonwealth Capital Management",
+      url: "https://commonwealth-capital-management.vercel.app",
+      preview: "/og-images/commonwealth-capital-management-og.png",
+      ogImage: "/og-images/commonwealth-capital-management-og.png",
+      qrCode: null,
+      description: "Wealth management across 38 states since 1994",
+      altText: "Commonwealth Capital Management Louisville Kentucky wealth management retirement planning tax strategy estate planning $1B assets under advisement",
+      category: "Financial",
+      specWork: true,
+      details: "Tier 2 demo for Louisville financial advisory firm. Orbital System 3D hero formation, Voronoi section background. Navy (#4a6899) palette, Libre Baskerville typography. $1B+ AUA, 38 states, 8x Louisville Business First top firm (2018-2025). Accordion services, 3-step consultation wizard, recognition badges."
+    },
+    {
+      id: "vincenzos",
+      title: "Vincenzo's Italian Restaurant",
+      url: "https://vincenzos-italian-restaurant.vercel.app",
+      preview: "/og-images/vincenzos-italian-restaurant-og.png",
+      ogImage: "/og-images/vincenzos-italian-restaurant-og.png",
+      qrCode: null,
+      description: "Authentic Northern Italian fine dining since 1986",
+      altText: "Vincenzo's Italian Restaurant Louisville Kentucky fine dining Northern Italian cuisine DiRoNA Hall of Fame James Beard House downtown 5th Street",
+      category: "Restaurant",
+      specWork: true,
+      details: "Tier 2 demo for Louisville's premier Italian fine dining. DNA Helix 3D hero formation, Lorenz Attractor section background. Wine (#b8405c) palette, Bodoni Moda typography. DiRoNA Hall of Fame since 1993, James Beard House, AAA Four-Star. 3-column editorial menu, party-size-first reservation wizard, V monogram branding."
     }
   ];
 
@@ -1078,6 +1130,18 @@ function App() {
       category: "Conceptual",
       tech: ["React", "Three.js", "WebGL", "Web Audio"],
       details: "Five scenes — The Gravity Well, The Shatter, The Lattice, The Forge, The Constellation — driven by scroll through a single R3F canvas with procedural wind and wind chime audio."
+    },
+    {
+      id: "skeleton-crew",
+      title: "The Skeleton Crew",
+      url: "https://skeleton-crew-experience.vercel.app",
+      preview: "/og-images/skeleton-crew-og.png",
+      ogImage: "/og-images/skeleton-crew-og.png",
+      description: "The operational backbone behind every delivery",
+      altText: "The Skeleton Crew hybrid WebGL and p5.js scroll-driven experience with five scenes, granular synthesis audio, and data visualizations",
+      category: "Conceptual",
+      tech: ["React", "Three.js", "p5.js", "WebGL", "Web Audio"],
+      details: "Five scenes — The Inventory, The Decision, The Assembly Line, The Verification, The Accumulation — driven by scroll through hybrid R3F + p5.js canvases with procedural granular synthesis audio."
     }
   ];
 
