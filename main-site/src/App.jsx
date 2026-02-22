@@ -1142,6 +1142,18 @@ function App() {
       category: "Conceptual",
       tech: ["React", "Three.js", "p5.js", "WebGL", "Web Audio"],
       details: "Five scenes — The Inventory, The Decision, The Assembly Line, The Verification, The Accumulation — driven by scroll through hybrid R3F + p5.js canvases with procedural granular synthesis audio."
+    },
+    {
+      id: "regenera",
+      title: "Regenera",
+      url: "https://regenerate-experience.vercel.app",
+      preview: "/og-images/regenera-og.png",
+      ogImage: "/og-images/regenera-og.png",
+      description: "Five acts of transformation -- a scroll-driven cinematic experience",
+      altText: "Regenera scroll-driven 3D cinematic experience with five scenes tracing the arc from silence to spark",
+      category: "Conceptual",
+      tech: ["React", "Three.js", "WebGL", "Web Audio"],
+      details: "Five scenes — The Silence, The Proliferation, The Search, The Convergence, The Spark — driven by scroll through a single R3F canvas with photographic textures, cinematic hero dissolve, and procedural ambient audio."
     }
   ];
 
