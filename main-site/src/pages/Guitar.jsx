@@ -486,8 +486,12 @@ export default function Guitar() {
         <meta property="og:description" content="24 downloadable guitar scale reference books. 480 exercises per book, 12 keys, 5 positions, mathematically verified tablature." />
         <meta property="og:url" content="https://projectlavos.com/guitar" />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://projectlavos.com/og-guitar.png" />
+        <meta property="og:image:alt" content="Scale Reference Library — 24 Guitar Scale Books by Project Lavos" />
         <meta name="twitter:title" content="Guitar Scale Reference Library | 24 PDF Books" />
         <meta name="twitter:description" content="24 downloadable guitar scale reference books. 480 exercises per book, 12 keys, 5 positions, mathematically verified tablature." />
+        <meta name="twitter:image" content="https://projectlavos.com/og-guitar.png" />
+        <meta name="twitter:image:alt" content="Scale Reference Library — 24 Guitar Scale Books by Project Lavos" />
       </Helmet>
       {/* Ambient Background */}
       <div className="ambient-bg">

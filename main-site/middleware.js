@@ -41,8 +41,8 @@ const META = {
     title: 'Guitar Scale Reference Library | 24 PDF Books | Project Lavos',
     description: '24 downloadable guitar scale reference books with verified tablature. Covers pentatonic, blues, diatonic modes, harmonic minor, melodic minor, symmetric, bebop, and exotic scales. 480 exercises per book across 12 keys and 5 CAGED positions.',
     url: 'https://projectlavos.com/guitar',
-    image: 'https://projectlavos.com/og-image.png',
-    imageAlt: 'Project Lavos — Matthew Scott, Louisville web developer and AI consultant',
+    image: 'https://projectlavos.com/og-guitar.png',
+    imageAlt: 'Scale Reference Library — 24 Guitar Scale Books by Project Lavos',
     type: 'website',
     breadcrumbs: [
       { name: 'Home', url: 'https://projectlavos.com' },
