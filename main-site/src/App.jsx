@@ -985,7 +985,7 @@ function App() {
     {
       id: "fretvision",
       title: "FretVision",
-      url: "https://guitar.projectlavos.com",
+      url: "https://projectlavos.com/guitar",
       preview: "/previews/fretvision.png",
       ogImage: "/og-images/fretvision-og.png",
       description: "Learn guitar scales visually with interactive lessons",
@@ -1009,7 +1009,7 @@ function App() {
     {
       id: "jobway",
       title: "Jobway",
-      url: "https://jobtrack.projectlavos.com",
+      url: "https://jobway-eosin.vercel.app",
       preview: "/previews/jobway.png",
       ogImage: "/og-images/jobway-og.png",
       description: "AI-powered job search command center with Gmail integration",
@@ -1021,7 +1021,7 @@ function App() {
     {
       id: "ourjourney",
       title: "OurJourney",
-      url: "https://ourjourney.projectlavos.com",
+      url: "https://ourjourney-app.vercel.app",
       preview: "/previews/ourjourney.png",
       ogImage: "/og-images/ourjourney-og.png",
       description: "A private space for two people to document what matters",
