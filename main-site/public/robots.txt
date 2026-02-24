@@ -7,6 +7,40 @@ Allow: /
 Sitemap: https://projectlavos.com/sitemap.xml
 
 # AI/LLM crawler guidance
-# See llms.txt for AI-readable portfolio information
-# https://projectlavos.com/llms.txt
-# https://projectlavos.com/llms-full.txt (extended version)
+# This site intentionally provides machine-readable content for AI systems.
+# See llms.txt and llms-full.txt for structured portfolio information.
+
+User-agent: GPTBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /portfolio-urls.json
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /portfolio-urls.json
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
