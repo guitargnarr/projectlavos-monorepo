@@ -1182,13 +1182,13 @@ function App() {
         <h1>Matthew Scott - Web Developer and Consultant, Louisville, Kentucky</h1>
         <p>
           This is the portfolio website of Matthew Scott, a full-stack web developer and consultant based in Louisville, Kentucky.
-          The site showcases 51 deployed demo websites built as spec work for real Louisville businesses, plus practical web applications
-          and conceptual explorations. Technologies used include React, JavaScript, Python, Vite, Tailwind CSS, FastAPI, Supabase, and AI integrations.
+          The site showcases 69 deployed demo websites built as spec work for real Louisville businesses, plus practical web applications
+          and conceptual explorations. Technologies used include React, JavaScript, Python, Vite, Tailwind CSS, FastAPI, Supabase, Three.js, and AI integrations.
         </p>
         <p>
           The portfolio is organized into sections: Louisville client demos (filterable by category including Healthcare, Food &amp; Drink,
           Legal, Services, Beauty, Retail, Entertainment, Real Estate, and more), practical deployed applications (FretVision guitar learning platform,
-          Vantage job market analysis, Meridian US economic data explorer, Jobway job search automation), and conceptual explorations (Auriga, Forma, Psyche Hub, Threshold).
+          Meridian US economic data explorer, Jobway job search automation, OurJourney private co-parenting app), and conceptual explorations (Psyche, Threshold, Umbra, Forma, Auriga, Medittoica, The Quiet Trade, The Pattern Break, The Skeleton Crew, Regenera).
         </p>
         <p>
           Development methodology emphasizes substance over flash, building to last, measuring twice before shipping, and prioritizing
@@ -1300,7 +1300,7 @@ function App() {
       {/* Louisville Section */}
       <section
         id="louisville"
-        aria-label="Louisville client portfolio - 51 deployed spec-work demo websites built for local Kentucky businesses across healthcare, food, retail, legal, and services industries"
+        aria-label="Louisville client portfolio - 69 deployed spec-work demo websites built for local Kentucky businesses across healthcare, food, retail, legal, and services industries"
         className={`px-4 md:px-8 lg:px-16 py-16 border-t border-slate-800 transition-all duration-700 spotlight-warm section-glow-full ${visibleSections.louisville ? 'opacity-100 translate-y-0 in-view' : 'opacity-0 translate-y-8'}`}
       >
         <div className="max-w-7xl mx-auto">
@@ -1308,7 +1308,7 @@ function App() {
             Louisville
           </h2>
           <p className="text-slate-400 mb-4 section-stagger-1">
-            51 sites you can visit. <span className="accent-italic">Live.</span> Deployed. Working.
+            69 sites you can visit. <span className="accent-italic">Live.</span> Deployed. Working.
           </p>
           <p className="text-xs text-slate-500 mb-6 section-stagger-2">
             Spec work built from public info. Not pitches. Proof.

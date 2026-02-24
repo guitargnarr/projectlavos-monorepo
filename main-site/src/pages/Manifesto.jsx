@@ -98,21 +98,21 @@ export default function Manifesto() {
           </h2>
           <div className="space-y-10">
             <div className="flex items-baseline gap-6 group">
-              <span className="heading-display text-5xl sm:text-6xl md:text-7xl text-teal-400 tracking-[-0.02em] min-w-[100px] md:min-w-[140px]">51</span>
+              <span className="heading-display text-5xl sm:text-6xl md:text-7xl text-teal-400 tracking-[-0.02em] min-w-[100px] md:min-w-[140px]">69</span>
               <div className="border-l border-slate-700 pl-6 group-hover:border-teal-400/50 transition-colors">
                 <p className="heading-display text-xl sm:text-2xl md:text-3xl text-white tracking-[-0.01em]">websites built for Louisville businesses</p>
                 <p className="text-slate-500 text-sm sm:text-base md:text-lg mt-2">Live. Deployed. <span className="accent-italic">Working</span>.</p>
               </div>
             </div>
             <div className="flex items-baseline gap-6 group">
-              <span className="heading-display text-5xl sm:text-6xl md:text-7xl text-teal-400 tracking-[-0.02em] min-w-[100px] md:min-w-[140px]">51</span>
+              <span className="heading-display text-5xl sm:text-6xl md:text-7xl text-teal-400 tracking-[-0.02em] min-w-[100px] md:min-w-[140px]">85</span>
               <div className="border-l border-slate-700 pl-6 group-hover:border-teal-400/50 transition-colors">
                 <p className="heading-display text-xl sm:text-2xl md:text-3xl text-white tracking-[-0.01em]">AI models trained for specific domains</p>
                 <p className="text-slate-500 text-sm sm:text-base md:text-lg mt-2">Career. Code. Guitar. <span className="accent-italic">Analysis</span>.</p>
               </div>
             </div>
             <div className="flex items-baseline gap-6 group">
-              <span className="heading-display text-5xl sm:text-6xl md:text-7xl text-teal-400 tracking-[-0.02em] min-w-[100px] md:min-w-[140px]">96</span>
+              <span className="heading-display text-5xl sm:text-6xl md:text-7xl text-teal-400 tracking-[-0.02em] min-w-[100px] md:min-w-[140px]">110+</span>
               <div className="border-l border-slate-700 pl-6 group-hover:border-teal-400/50 transition-colors">
                 <p className="heading-display text-xl sm:text-2xl md:text-3xl text-white tracking-[-0.01em]">live URLs verified</p>
                 <p className="text-slate-500 text-sm sm:text-base md:text-lg mt-2">All HTTP 200. <span className="accent-italic">Every one</span>.</p>
@@ -246,7 +246,7 @@ export default function Manifesto() {
               <ul className="space-y-5 text-white">
                 <li className="heading-display text-lg sm:text-xl md:text-2xl flex items-center gap-4 tracking-[-0.01em]">
                   <span className="w-2 h-2 rounded-full bg-teal-400" />
-                  51 sites you can <span className="accent-italic">visit</span>
+                  69 sites you can <span className="accent-italic">visit</span>
                 </li>
                 <li className="heading-display text-lg sm:text-xl md:text-2xl flex items-center gap-4 tracking-[-0.01em]">
                   <span className="w-2 h-2 rounded-full bg-teal-400" />
