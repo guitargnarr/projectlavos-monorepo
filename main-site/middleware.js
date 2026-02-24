@@ -53,8 +53,8 @@ const META = {
     title: 'The Manifesto | Development Philosophy | Project Lavos',
     description: 'Development philosophy: substance over flash, built to last, measure twice, people over tech. How Matthew Scott approaches web development and AI collaboration.',
     url: 'https://projectlavos.com/manifesto',
-    image: 'https://projectlavos.com/og-image.png',
-    imageAlt: 'Project Lavos — Matthew Scott, Louisville web developer and AI consultant',
+    image: 'https://projectlavos.com/og-manifesto.png',
+    imageAlt: 'The Manifesto — What One Person Can Build by Matthew Scott',
     type: 'website',
     breadcrumbs: [
       { name: 'Home', url: 'https://projectlavos.com' },

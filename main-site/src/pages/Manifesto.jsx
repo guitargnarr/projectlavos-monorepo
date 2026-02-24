@@ -42,8 +42,12 @@ export default function Manifesto() {
         <meta property="og:description" content="Substance over flash, built to last, measure twice, people over tech. A development philosophy for the AI era." />
         <meta property="og:url" content="https://projectlavos.com/manifesto" />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://projectlavos.com/og-manifesto.png" />
+        <meta property="og:image:alt" content="The Manifesto — What One Person Can Build by Matthew Scott" />
         <meta name="twitter:title" content="The Manifesto | Development Philosophy" />
         <meta name="twitter:description" content="Substance over flash, built to last, measure twice, people over tech. A development philosophy for the AI era." />
+        <meta name="twitter:image" content="https://projectlavos.com/og-manifesto.png" />
+        <meta name="twitter:image:alt" content="The Manifesto — What One Person Can Build by Matthew Scott" />
       </Helmet>
       {/* Ambient Background - Same as Homepage */}
       <div className="ambient-bg">
