@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const articles = [
@@ -203,22 +204,6 @@ export default function Blog() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = 'Articles | Observations on AI Development | Project Lavos';
-    const meta = {
-      description: 'Articles on AI-assisted development, verification methodology, and what "working" actually means. By Matthew Scott, Louisville web developer.',
-      'og:title': 'Articles | Observations on AI Development',
-      'og:description': 'Articles on AI-assisted development, verification methodology, and software development philosophy.',
-      'og:url': 'https://projectlavos.com/blog',
-    };
-    Object.entries(meta).forEach(([key, value]) => {
-      const isOg = key.startsWith('og:');
-      const selector = isOg ? `meta[property="${key}"]` : `meta[name="${key}"]`;
-      const el = document.querySelector(selector);
-      if (el) el.setAttribute('content', value);
-    });
-    return () => {
-      document.title = 'Louisville Web Developer | Matthew Scott | React & Full-Stack Development';
-    };
   }, []);
 
   // Scroll animation observer
@@ -243,6 +228,17 @@ export default function Blog() {
 
   return (
     <div className="min-h-screen bg-slate-900 text-white relative overflow-hidden">
+      <Helmet>
+        <title>Articles | Observations on AI Development | Project Lavos</title>
+        <meta name="description" content="Articles on AI-assisted development, verification methodology, and what 'working' actually means. By Matthew Scott, Louisville web developer." />
+        <link rel="canonical" href="https://projectlavos.com/blog" />
+        <meta property="og:title" content="Articles | Observations on AI Development" />
+        <meta property="og:description" content="Articles on AI-assisted development, verification methodology, and software development philosophy." />
+        <meta property="og:url" content="https://projectlavos.com/blog" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:title" content="Articles | Observations on AI Development" />
+        <meta name="twitter:description" content="Articles on AI-assisted development, verification methodology, and software development philosophy." />
+      </Helmet>
       {/* Ambient Background */}
       <div className="ambient-bg">
         <div className="orb-3" />

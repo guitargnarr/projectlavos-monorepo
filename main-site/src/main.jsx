@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
 import App from './App.jsx'
 import Manifesto from './pages/Manifesto.jsx'
 import Blog from './pages/Blog.jsx'
@@ -13,6 +14,7 @@ const Dashboard = lazy(() => import('./crm/Dashboard.jsx'))
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ErrorBoundary>
+      <HelmetProvider>
       <BrowserRouter>
         <Routes>
         <Route path="/" element={<App />} />
@@ -26,6 +28,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         } />
         </Routes>
       </BrowserRouter>
+      </HelmetProvider>
     </ErrorBoundary>
   </React.StrictMode>,
 )

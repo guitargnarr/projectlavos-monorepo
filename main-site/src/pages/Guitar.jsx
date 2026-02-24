@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const scaleBooks = [
@@ -454,22 +455,6 @@ export default function Guitar() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = 'Guitar Scale Reference Library | 24 PDF Books | Project Lavos';
-    const meta = {
-      description: '24 downloadable guitar scale reference books with verified tablature. Covers pentatonic, blues, diatonic modes, harmonic minor, melodic minor, symmetric, bebop, and exotic scales. 480 exercises per book across 12 keys and 5 CAGED positions.',
-      'og:title': 'Guitar Scale Reference Library | 24 PDF Books',
-      'og:description': '24 downloadable guitar scale reference books. 480 exercises per book, 12 keys, 5 positions, mathematically verified tablature.',
-      'og:url': 'https://projectlavos.com/guitar',
-    };
-    Object.entries(meta).forEach(([key, value]) => {
-      const isOg = key.startsWith('og:');
-      const selector = isOg ? `meta[property="${key}"]` : `meta[name="${key}"]`;
-      const el = document.querySelector(selector);
-      if (el) el.setAttribute('content', value);
-    });
-    return () => {
-      document.title = 'Louisville Web Developer | Matthew Scott | React & Full-Stack Development';
-    };
   }, []);
 
   useEffect(() => {
@@ -493,6 +478,17 @@ export default function Guitar() {
 
   return (
     <div className="min-h-screen bg-slate-900 text-white relative overflow-hidden">
+      <Helmet>
+        <title>Guitar Scale Reference Library | 24 PDF Books | Project Lavos</title>
+        <meta name="description" content="24 downloadable guitar scale reference books with verified tablature. Covers pentatonic, blues, diatonic modes, harmonic minor, melodic minor, symmetric, bebop, and exotic scales. 480 exercises per book across 12 keys and 5 CAGED positions." />
+        <link rel="canonical" href="https://projectlavos.com/guitar" />
+        <meta property="og:title" content="Guitar Scale Reference Library | 24 PDF Books" />
+        <meta property="og:description" content="24 downloadable guitar scale reference books. 480 exercises per book, 12 keys, 5 positions, mathematically verified tablature." />
+        <meta property="og:url" content="https://projectlavos.com/guitar" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:title" content="Guitar Scale Reference Library | 24 PDF Books" />
+        <meta name="twitter:description" content="24 downloadable guitar scale reference books. 480 exercises per book, 12 keys, 5 positions, mathematically verified tablature." />
+      </Helmet>
       {/* Ambient Background */}
       <div className="ambient-bg">
         <div className="orb-3" />

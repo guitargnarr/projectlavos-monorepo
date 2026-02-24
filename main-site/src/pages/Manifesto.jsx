@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 export default function Manifesto() {
   const [visibleSections, setVisibleSections] = useState({});
@@ -9,22 +10,6 @@ export default function Manifesto() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = 'The Manifesto | Development Philosophy | Project Lavos';
-    const meta = {
-      description: 'Development philosophy: substance over flash, built to last, measure twice, people over tech. How Matthew Scott approaches web development and AI collaboration.',
-      'og:title': 'The Manifesto | Development Philosophy',
-      'og:description': 'Substance over flash, built to last, measure twice, people over tech. A development philosophy for the AI era.',
-      'og:url': 'https://projectlavos.com/manifesto',
-    };
-    Object.entries(meta).forEach(([key, value]) => {
-      const isOg = key.startsWith('og:');
-      const selector = isOg ? `meta[property="${key}"]` : `meta[name="${key}"]`;
-      const el = document.querySelector(selector);
-      if (el) el.setAttribute('content', value);
-    });
-    return () => {
-      document.title = 'Louisville Web Developer | Matthew Scott | React & Full-Stack Development';
-    };
   }, []);
 
   // Scroll animation observer
@@ -49,6 +34,17 @@ export default function Manifesto() {
 
   return (
     <div className="min-h-screen bg-slate-900 text-white relative overflow-hidden">
+      <Helmet>
+        <title>The Manifesto | Development Philosophy | Project Lavos</title>
+        <meta name="description" content="Development philosophy: substance over flash, built to last, measure twice, people over tech. How Matthew Scott approaches web development and AI collaboration." />
+        <link rel="canonical" href="https://projectlavos.com/manifesto" />
+        <meta property="og:title" content="The Manifesto | Development Philosophy" />
+        <meta property="og:description" content="Substance over flash, built to last, measure twice, people over tech. A development philosophy for the AI era." />
+        <meta property="og:url" content="https://projectlavos.com/manifesto" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:title" content="The Manifesto | Development Philosophy" />
+        <meta name="twitter:description" content="Substance over flash, built to last, measure twice, people over tech. A development philosophy for the AI era." />
+      </Helmet>
       {/* Ambient Background - Same as Homepage */}
       <div className="ambient-bg">
         <div className="orb-3" />
