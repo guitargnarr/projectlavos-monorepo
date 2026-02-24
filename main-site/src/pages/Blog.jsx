@@ -1,28 +1,15 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { articles } from '../data/articles.js';
 
-const articles = [
-  {
-    id: 'verification-gap',
-    title: 'The Verification Gap',
-    subtitle: 'Why "Looks Right" Isn\'t "Works Right" When Using AI',
-    author: 'Matthew Scott',
-    date: 'February 2026',
-    pageCount: 7,
-    coverImage: '/articles/verification-gap/page-1.png',
-    pdfUrl: '/articles/verification-gap/the-verification-gap.pdf',
-    pages: Array.from({ length: 7 }, (_, i) => `/articles/verification-gap/page-${i + 1}.png`),
-  },
-];
-
-function ArticleCard({ article, onClick }) {
+function ArticleCard({ article }) {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <button
-      onClick={onClick}
-      className="card-glass-elite rounded-xl overflow-hidden text-left group cursor-pointer w-full transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_40px_-10px_rgba(20,184,166,0.2)]"
+    <Link
+      to={`/blog/${article.id}`}
+      className="card-glass-elite rounded-xl overflow-hidden text-left group cursor-pointer w-full block transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_40px_-10px_rgba(20,184,166,0.2)]"
     >
       <div className="relative overflow-hidden aspect-[3/4] bg-slate-900">
         {!loaded && (
@@ -49,158 +36,12 @@ function ArticleCard({ article, onClick }) {
           <span>PDF Article</span>
         </div>
       </div>
-    </button>
-  );
-}
-
-function ArticleViewer({ article, onClose }) {
-  const [currentPage, setCurrentPage] = useState(0);
-  const [imageLoaded, setImageLoaded] = useState({});
-  const [touchStart, setTouchStart] = useState(null);
-  const totalPages = article.pages.length;
-
-  const goToPage = useCallback((page) => {
-    if (page >= 0 && page < totalPages) setCurrentPage(page);
-  }, [totalPages]);
-
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goToPage(currentPage + 1);
-      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') goToPage(currentPage - 1);
-      if (e.key === 'Escape') onClose();
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentPage, goToPage, onClose]);
-
-  // Lock body scroll
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    return () => { document.body.style.overflow = ''; };
-  }, []);
-
-  // Preload adjacent pages
-  useEffect(() => {
-    [currentPage - 1, currentPage + 1].forEach(i => {
-      if (i >= 0 && i < totalPages) {
-        const img = new Image();
-        img.src = article.pages[i];
-      }
-    });
-  }, [currentPage, totalPages, article.pages]);
-
-  // Touch swipe handlers
-  const handleTouchStart = (e) => {
-    setTouchStart(e.touches[0].clientX);
-  };
-
-  const handleTouchEnd = (e) => {
-    if (touchStart === null) return;
-    const diff = touchStart - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) {
-      if (diff > 0) goToPage(currentPage + 1);
-      else goToPage(currentPage - 1);
-    }
-    setTouchStart(null);
-  };
-
-  return (
-    <AnimatePresence>
-      <motion.div
-        className="fixed inset-0 z-50 flex items-center justify-center"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.3 }}
-      >
-        {/* Backdrop */}
-        <div className="absolute inset-0 bg-black/90 backdrop-blur-md" onClick={onClose} />
-
-        {/* Close button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 md:top-6 md:right-6 z-60 w-11 h-11 md:w-12 md:h-12 flex items-center justify-center rounded-full border border-slate-600/50 bg-slate-900/80 backdrop-blur-sm text-slate-400 hover:text-white hover:border-teal-400/50 transition-all duration-300 group"
-          aria-label="Close article viewer"
-        >
-          <svg className="w-5 h-5 transition-transform duration-300 group-hover:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-
-        {/* Page counter */}
-        <div className="absolute top-4 left-1/2 -translate-x-1/2 md:top-6 z-60 px-4 py-2 rounded-full bg-slate-900/80 backdrop-blur-sm border border-slate-700/50 text-slate-400 text-sm font-mono">
-          {currentPage + 1} / {totalPages}
-        </div>
-
-        {/* Left arrow */}
-        <button
-          onClick={() => goToPage(currentPage - 1)}
-          disabled={currentPage === 0}
-          className={`absolute left-2 md:left-6 z-60 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full border border-slate-600/50 bg-slate-900/80 backdrop-blur-sm transition-all duration-300 ${currentPage === 0 ? 'opacity-20 cursor-not-allowed' : 'text-slate-400 hover:text-white hover:border-teal-400/50'}`}
-          aria-label="Previous page"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-
-        {/* Right arrow */}
-        <button
-          onClick={() => goToPage(currentPage + 1)}
-          disabled={currentPage === totalPages - 1}
-          className={`absolute right-2 md:right-6 z-60 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full border border-slate-600/50 bg-slate-900/80 backdrop-blur-sm transition-all duration-300 ${currentPage === totalPages - 1 ? 'opacity-20 cursor-not-allowed' : 'text-slate-400 hover:text-white hover:border-teal-400/50'}`}
-          aria-label="Next page"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
-
-        {/* Page image */}
-        <div
-          className="relative z-50 w-full max-w-4xl mx-auto px-14 md:px-24"
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-        >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentPage}
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -30 }}
-              transition={{ duration: 0.2 }}
-            >
-              {!imageLoaded[currentPage] && (
-                <div className="w-full aspect-[17/22] rounded-lg bg-slate-800/50 animate-pulse" />
-              )}
-              <img
-                src={article.pages[currentPage]}
-                alt={`${article.title} - Page ${currentPage + 1}`}
-                className={`w-full h-auto max-h-[85vh] object-contain rounded-lg shadow-2xl shadow-black/50 ${imageLoaded[currentPage] ? 'block' : 'hidden'}`}
-                draggable={false}
-                onLoad={() => setImageLoaded(prev => ({ ...prev, [currentPage]: true }))}
-              />
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* Download link */}
-        <a
-          href={article.pdfUrl}
-          download
-          className="absolute bottom-4 left-1/2 -translate-x-1/2 md:bottom-6 z-60 px-4 py-2 rounded-full bg-slate-900/80 backdrop-blur-sm border border-slate-700/50 text-slate-500 hover:text-teal-400 hover:border-teal-400/50 text-xs transition-all duration-300"
-        >
-          Download PDF
-        </a>
-      </motion.div>
-    </AnimatePresence>
+    </Link>
   );
 }
 
 export default function Blog() {
   const [visibleSections, setVisibleSections] = useState({});
-  const [activeArticle, setActiveArticle] = useState(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -278,7 +119,6 @@ export default function Blog() {
               <ArticleCard
                 key={article.id}
                 article={article}
-                onClick={() => setActiveArticle(article)}
               />
             ))}
           </div>
@@ -294,15 +134,6 @@ export default function Blog() {
         </div>
       </footer>
 
-      {/* PDF Viewer Modal */}
-      <AnimatePresence>
-        {activeArticle && (
-          <ArticleViewer
-            article={activeArticle}
-            onClose={() => setActiveArticle(null)}
-          />
-        )}
-      </AnimatePresence>
     </div>
   );
 }
