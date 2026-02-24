@@ -1,149 +1,201 @@
-# Matthew Scott - Full Stack Developer Portfolio
+# Matthew Scott - Web Developer & AI Consultant
 https://projectlavos.com
 
 ## About
-Matthew Scott is a full stack developer based in Louisville, Kentucky. This portfolio showcases production applications and 37 demonstration websites built for real Louisville businesses - from restaurants and salons to medical practices and nonprofits.
+Matthew Scott is a full-stack web developer and AI consultant based in Louisville, Kentucky, and the founder of Project Lavos LLC. He builds production-grade websites and applications for small and medium-sized businesses. His portfolio includes 69 deployed demo websites for real businesses, 4 practical web applications, and 10 conceptual explorations featuring scroll-driven 3D experiences. All sites are live, working, and built by one person with AI collaboration.
 
 ## Contact
 - Email: matthewdscott7@gmail.com
+- Phone: 502-345-0525
 - GitHub: https://github.com/guitargnarr
 - LinkedIn: https://linkedin.com/in/mscott77
+- Instagram: https://instagram.com/guitargnar
 - Location: Louisville, KY
 
-## Louisville Business Portfolio (37 Spec Work Sites)
+## Development Philosophy
+Four principles guide the work:
+1. Substance first - Working software over impressive pitches
+2. Built to last - Good systems outlast good intentions
+3. Measure twice - Test the work, then ship it
+4. People over tech - Technology works for humans, not the reverse
 
-Matthew has built demonstration websites for businesses across Louisville neighborhoods including St. Matthews, Germantown, Middletown, Jeffersontown, and the Highlands. Each site is fully functional, deployed, and showcases modern web development practices.
+Additional values: show don't tell, simple scales, test the seams, tools serve people.
 
-### Healthcare & Medical (10 sites)
-- **Primary Express Care** (https://primary-express-care.vercel.app) - Multi-location urgent care with online booking at Dutchmans Lane and Dixie Highway
-- **Kentuckiana Gastroenterology** (https://kentuckiana-gastro.vercel.app) - Board-certified gastroenterology specialists since 1984
+## Louisville Business Portfolio (69 Deployed Demo Sites)
+
+Demonstration websites built from publicly available business information as proof of capability. Each site is fully functional, deployed on Vercel, and showcases modern web development. Covers Louisville neighborhoods including St. Matthews, Germantown, Middletown, Jeffersontown, the Highlands, Dutchmans Lane, Downtown, Crestwood, and Westport Road.
+
+### Healthcare & Medical (16 sites)
+- **Primary Express Care** (https://primary-express-care.vercel.app) - Multi-location urgent care
+- **Kentuckiana Gastroenterology** (https://kentuckiana-gastro.vercel.app) - Gastroenterology specialists since 1984
 - **Rejuvenation Med Spa** (https://rejuvenation-med-spa.vercel.app) - Pain management and medical aesthetics
 - **Louisville Aesthetics** (https://louisville-aesthetics.vercel.app) - Modern medical aesthetics clinic
-- **Springhurst Endodontics** (https://springhurst-endo.vercel.app) - 5-star rated root canal specialists, Dr. Jolanta Sauer
-- **dGv Services** (https://dgv-services.vercel.app) - Medical billing & healthcare revenue management since 2002, Crestwood KY
-- **Vance & Stovall Optometry** (https://vance-stovall-optometry.vercel.app) - Downtown Louisville independent optometry, 40+ years
-- **Dermatology Associates PSC** (https://dermatology-associates-psc.vercel.app) - Board-certified dermatologists, skin cancer specialists
-- **Louisville Family Chiropractic** (https://louisville-family-chiro.vercel.app) - Family-focused chiropractic care, all ages
-- **DermCARE Practitioners** (https://dermcare-practitioners.vercel.app) - Advanced dermatology and cosmetic skin treatments
+- **Scout Aesthetics** (https://scout-aesthetics.vercel.app) - Premier med spa and aesthetic wellness center
+- **XO Aesthetic Refinery** (https://xo-aesthetic-refinery.vercel.app) - Boutique med spa
+- **Springhurst Endodontics** (https://springhurst-endo.vercel.app) - Root canal specialists
+- **dGv Services** (https://dgv-services.vercel.app) - Medical billing and revenue management
+- **Vance & Stovall Optometry** (https://vance-stovall-optometry.vercel.app) - Independent optometry, 40+ years
+- **Dermatology Associates PSC** (https://dermatology-associates-psc.vercel.app) - Board-certified dermatologists
+- **Louisville Family Chiropractic** (https://louisville-family-chiro.vercel.app) - Family chiropractic care
+- **DermCARE Practitioners** (https://dermcare-practitioners.vercel.app) - Advanced dermatology solutions
+- **Dr. Forrest S. Kuhn, MD** (https://kuhn-allergy.vercel.app) - Allergy and asthma specialist
+- **Dupont Pediatric Dentistry** (https://dupont-pediatric-dentistry.vercel.app) - Kid-friendly dental office
+- **CrushCORE** (https://crushcore-pt.vercel.app) - Orthopedic and pelvic health physical therapy
+- **Full Tilt Gym** (https://full-tilt-gym.vercel.app) - High-intensity fitness studio
 
-### Dental (1 site)
-- **Gray Family Dentistry** (https://gray-family-dentistry.vercel.app) - Comprehensive family dentistry, cosmetic and general
+### Dental (4 sites)
+- **Gray Family Dentistry** (https://gray-family-dentistry.vercel.app) - Family dentistry
+- **Affinity Dental** (https://affinity-dental.vercel.app) - 5-star rated dental practice
+- **JBH Dental** (https://jbh-dental.vercel.app) - Experienced dental care
 
-### Restaurants & Cafes (6 sites)
-- **Maira Mediterranean** (https://maira-mediterranean.vercel.app) - Authentic Mediterranean cuisine on Dutchmans Lane
-- **PassTime Fish House** (https://passtime-fish-house.vercel.app) - Louisville's best kept secret since 2001 in Jeffersontown
-- **Shawarma Shack** (https://shawarma-shack.vercel.app) - Build-your-own shawarma in St. Matthews
+### Food & Beverage (11 sites)
+- **Vincenzo's Italian Restaurant** (https://vincenzos-italian-restaurant.vercel.app) - Northern Italian fine dining since 1986
+- **Maira Mediterranean** (https://maira-mediterranean.vercel.app) - Authentic Mediterranean cuisine
+- **PassTime Fish House** (https://passtime-fish-house.vercel.app) - Louisville's best kept secret since 2001
+- **Shawarma Shack** (https://shawarma-shack.vercel.app) - Authentic Middle Eastern flavors
 - **JW Cafe & Bakery** (https://jw-cafe-bakery.vercel.app) - Local cafe and bakery
-- **Cottage Cafe** (https://cottage-cafe-eight.vercel.app) - Homemade comfort food in Middletown since 1992
-- **Tasteful Travels** (https://tasteful-travels.vercel.app) - Global flavors at Logan Street Market
-
-### Beauty & Wellness (7 sites)
-- **Fritz Salon & Spa for Men** (https://fritz-salon.vercel.app) - Premier men's grooming in St. Matthews
-- **JR Spa & Salon** (https://jr-spa-salon.vercel.app) - Louisville's premier men's grooming since 1976
-- **Blown Away Bar** (https://blown-away-bar.vercel.app) - Louisville's blow dry and beauty bar
-- **Louisville Nails & Spa** (https://louisville-nails-spa.vercel.app) - Premier nail salon on Bardstown Road
-- **Pilates Plus Louisville** (https://pilates-plus-louisville.vercel.app) - Pilates studio on Westport Road
-- **Paint Spot** (https://paint-spot-louisville.vercel.app) - Paint your own pottery studio since 2000
-- **Cleaning By Regina** (https://cleaning-by-regina.vercel.app) - 25+ years residential and commercial cleaning
-
-### Bars & Nightlife (2 sites)
+- **Cottage Cafe** (https://cottage-cafe-eight.vercel.app) - Homemade comfort food since 1992
+- **Tasteful Travels** (https://tasteful-travels.vercel.app) - Global flavors, Kentucky soul
+- **North Lime Coffee & Donuts** (https://north-lime-coffee.vercel.app) - Parliament of Owls coffee and donuts
 - **Nachbar** (https://nachbar.vercel.app) - Germantown's neighborhood bar
-- **Hideaway Saloon** (https://hideaway-saloon.vercel.app) - Louisville's video game dive bar on Bardstown Road
+- **Copper Barrel Brewing** (https://copper-barrel-brewing.vercel.app) - Louisville craft brewery and taproom
+- **Hideaway Saloon** (https://hideaway-saloon.vercel.app) - Louisville's video game dive bar
 
-### Professional Services (3 sites)
-- **A. Holland Houston** (https://ky-family-lawyer.vercel.app) - Louisville family law attorney and mediator
-- **Highland Cleaners** (https://highland-cleaners.vercel.app) - Louisville's trusted dry cleaner since 1944, 12 locations
-- **Lawnco Louisville** (https://lawnco-louisville.vercel.app) - Premier landscaping since 1978
+### Beauty & Wellness (8 sites)
+- **Fritz Salon** (https://fritz-salon.vercel.app) - Premier hair salon experience
+- **JR Spa & Salon** (https://jr-spa-salon.vercel.app) - Premier men's grooming since 1976
+- **Blown Away Bar** (https://blown-away-bar.vercel.app) - Blow dry and beauty bar
+- **Louisville Nails & Spa** (https://louisville-nails-spa.vercel.app) - Premier nail salon
+- **Pilates Plus Louisville** (https://pilates-plus-louisville.vercel.app) - Pilates studio
+- **Paint Spot** (https://paint-spot-louisville.vercel.app) - Paint your own pottery since 2000
+- **Cleaning By Regina** (https://cleaning-by-regina.vercel.app) - 25+ years cleaning service
+- **Sophia's Rugs** (https://sophias-rugs.vercel.app) - Exquisite rugs and expert care since 1998
 
-### Retail & Specialty (5 sites)
+### Legal & Finance (7 sites)
+- **Morgan Pottinger McGarvey** (https://morgan-pottinger-mcgarvey.vercel.app) - Trusted legal counsel since 1974
+- **Pillar Financial Advisors** (https://pillar-financial-advisors.vercel.app) - Wealth management and financial planning
+- **Commonwealth Capital Management** (https://commonwealth-capital-management.vercel.app) - Wealth management across 38 states since 1994
+- **A. Holland Houston** (https://ky-family-lawyer.vercel.app) - Family law attorney and mediator
+- **Schwartz Bankruptcy Law Center** (https://schwartz-bankruptcy.vercel.app) - Bankruptcy law
+- **Crestborne Private Office** (https://crestborne-private-office.vercel.app) - UHNW wealth advisory
+- **Caviar Creative Co.** (https://caviar-creative-co.vercel.app) - Strategy, design, and brand protection
+
+### Retail (10 sites)
+- **Genesis Diamonds** (https://genesis-diamonds.vercel.app) - Premier jeweler since 2005
+- **Clater Jewelers** (https://clater-jewelers.vercel.app) - Where Louisville finds forever since 1949
+- **Rodes For Him For Her** (https://rodes-for-him-for-her.vercel.app) - Iconic clothier since 1914
 - **Fable & Flow** (https://fableandflows.vercel.app) - Boutique retail brand
-- **Tonini Church Supply** (https://tonini-church-supply.vercel.app) - Serving the faithful since 1883 (Cincinnati)
+- **Tonini Church Supply** (https://tonini-church-supply.vercel.app) - Serving the faithful since 1883
 - **Cardinal Uniforms** (https://cardinal-uniforms.vercel.app) - Professional uniforms and workwear
-- **Playthings Toy Shoppe** (https://playthings-toy-shoppe.vercel.app) - Family-owned toy store since 2001, St. Matthews & Westport Village
+- **Playthings Toy Shoppe** (https://playthings-toy-shoppe.vercel.app) - Family-owned toy store since 2001
+- **Ibanista Tools** (https://ibanista-tools.vercel.app) - UK-France relocation calculator
+- **Greater Guitars** (https://greater-guitars.vercel.app) - Custom handmade guitars
+- **Headliners Music Hall** (https://headliners-louisville.vercel.app) - Louisville's legendary music venue since 1939
 
-### Community & Nonprofit (2 sites)
-- **Camp J** (https://camp-j-lovat.vercel.app) - Louisville JCC day camp for ages 5-17
-- **Chabad of Kentucky** (https://chabad-of-kentucky.vercel.app) - Louisville's Jewish Learning Center since 1985
+### Services (5 sites)
+- **Highland Cleaners** (https://highland-cleaners.vercel.app) - Dry cleaning since 1944, 12 locations (4 tier variants demonstrating Essential through Enterprise)
+- **Lawnco Louisville** (https://lawnco-louisville.vercel.app) - Landscaping since 1978
+- **Tom Drexler** (https://tom-drexler.vercel.app) - Home services since 1982
+- **Clementine Catering** (https://clementine-cater.vercel.app) - Bespoke catering
+- **The Springs at Stony Brook** (https://springs-stony-brook.vercel.app) - Senior living
 
-### Templates (2 sites)
-- **Credit Union Template** (https://credit-union-template-demo.vercel.app) - Modern credit union website template
+### Real Estate (3 sites)
+- **Halsey Flats** (https://halsey-flats.vercel.app) - Luxury apartments in St. Matthews
+- **Mallard Crossing** (https://mallard-crossing.vercel.app) - Estate living in St. Matthews
+
+### Community & Education (3 sites)
+- **Camp J** (https://camp-j-lovat.vercel.app) - Louisville JCC day camp
+- **Chabad of Kentucky** (https://chabad-of-kentucky.vercel.app) - Jewish Learning Center since 1985
 - **UofL Demo** (https://uofl-demo.vercel.app) - University website template
 
-## Louisville Neighborhoods Served
-- St. Matthews (Fritz Salon, Shawarma Shack, Playthings Toy Shoppe)
-- Germantown (Nachbar)
-- Middletown (Cottage Cafe)
-- Jeffersontown (PassTime Fish House)
-- Highlands/Bardstown Road (Louisville Nails & Spa, Hideaway Saloon)
-- Dutchmans Lane (Maira Mediterranean, Primary Express Care)
-- Dixie Highway (Primary Express Care)
-- Westport Road (Pilates Plus, Playthings Toy Shoppe)
-- Logan Street Market (Tasteful Travels)
-- Downtown (Vance & Stovall Optometry)
-- Crestwood (dGv Services)
+### Templates (1 site)
+- **Credit Union Template** (https://credit-union-template-demo.vercel.app) - Modern credit union website template
 
-## Production Applications (6)
-- **FretVision** (https://guitar.projectlavos.com) - Interactive guitar learning with fretboard visualization, 100+ lessons, MIDI playback
-- **PhishGuard** (https://phishguard.projectlavos.com) - NLP-powered anti-phishing sentiment analysis
-- **Vantage** (https://jobs.projectlavos.com) - AI job market analysis and resume tailoring
-- **OurJourney** (https://ourjourney.projectlavos.com) - Private space for couples
-- **JobTrack** (https://jobtrack.projectlavos.com) - Application tracking system
-- **Threshold Liminal** (https://threshold-liminal.vercel.app) - Creative exploration
+## Practical Applications (4)
+- **FretVision** (https://guitar.projectlavos.com) - Interactive guitar learning platform with fretboard visualization, scale reference library (24 books, 11,520 exercises), tab playback, and riff generation. React, Python, MIDI, Canvas.
+- **Meridian** (https://phishguard-ui.vercel.app) - US economic data explorer with interactive state-level maps for unemployment, income, population, and poverty metrics. Next.js, TypeScript, D3.
+- **Jobway** (https://jobtrack.projectlavos.com) - AI-powered job search automation with Gmail OAuth inbox scanning, NLP-powered ATS resume scoring, and analytics dashboard. React, FastAPI, spaCy, Gmail API.
+- **OurJourney** (https://ourjourney.projectlavos.com) - A private space for two people to document what matters, without an audience. React, Supabase.
 
-## Technical Capabilities Demonstrated
-- React single-page applications with Vite
-- Tailwind CSS responsive design
-- Multi-step booking wizards (Tier 2-3 templates)
-- E-commerce shopping carts
-- Real-time availability displays
-- Google Maps integration
-- Contact forms with validation
-- Mobile-first responsive layouts
-- SEO optimization with structured data
-- Accessibility (WCAG AA compliance)
+## Conceptual Explorations (10)
+Interactive experiences exploring philosophy, psychology, and narrative through code. Built with React, Three.js, WebGL, Web Audio API, and p5.js.
 
-## Template Tiers Used
-- **Tier 1 Essential**: Single-page landing with smooth scroll
-- **Tier 2 Professional**: Multi-page with booking system
-- **Tier 3 Advanced**: E-commerce with cart and search
-- **Tier 4 Enterprise**: Auth, dashboard, analytics
+### Jungian Depth Psychology Series
+- **Psyche** (https://psyche-jung.vercel.app) - Four portals into Jungian depth psychology
+- **Threshold** (https://threshold-liminal.vercel.app) - Liminal spaces and transformation
+- **Umbra** (https://umbra-shadow.vercel.app) - Shadow work and integration
+- **Forma** (https://forma-archetypes.vercel.app) - Universal archetypal figures
+- **Auriga** (https://auriga-chariot.vercel.app) - Human-AI collaboration through Plato's chariot metaphor
+- **Medittoica** (https://medittoica.vercel.app) - Stoic philosophy with 4,200-particle WebGL constellation
 
-## Subdomains (13)
-- Main: https://projectlavos.com
-- Guitar: https://guitar.projectlavos.com
-- Jobs: https://jobs.projectlavos.com
-- Demos: https://demos.projectlavos.com
+### Scroll-Driven 3D Experiences
+- **The Quiet Trade** (https://quiet-trade-experience.vercel.app) - Five philosophical scenes on AI adoption with procedural ambient audio
+- **The Pattern Break** (https://pattern-break-experience.vercel.app) - 119 days from broken binary to business entity, with procedural wind and wind chime audio
+- **The Skeleton Crew** (https://skeleton-crew-experience.vercel.app) - Hybrid WebGL and p5.js with granular synthesis audio
+- **Regenera** (https://regenerate-experience.vercel.app) - Five acts of transformation with photographic textures and cinematic dissolve
+
+## Technical Stack
+- **Frontend:** React, Vite, Tailwind CSS v3, Framer Motion, React Router, Three.js, p5.js, Web Audio API, Canvas API, D3
+- **Backend:** Python, FastAPI, Supabase, PostgreSQL
+- **Deployment:** Vercel (frontend), Render (backend APIs)
+- **AI:** 85 custom Ollama models, Claude API integration, NLP pipelines
+- **Testing:** Playwright E2E (328+ test specs), GitHub Actions CI/CD
+- **3D:** Three.js formations (Voronoi, L-System, Torus Knot, DNA Helix, Neural Mesh, Orbital System, Lorenz Attractor, Mobius Strip, Governance Cascade) used as hero backgrounds and section backgrounds across client sites
+
+## Template Tiers
+Each client site is built on one of four proven tiers:
+- **Tier 1 Essential** - Single-page landing with smooth scroll navigation
+- **Tier 2 Professional** - Multi-page with booking wizard and gallery
+- **Tier 3 Advanced** - E-commerce with cart, search, and filtering
+- **Tier 4 Enterprise** - Authentication, dashboard, analytics, toast notifications
+
+Highland Cleaners demonstrates all four tiers for the same business, showing how scope scales with need.
+
+## Subdomains (14 on projectlavos.com)
+- Main portfolio: https://projectlavos.com
+- Guitar platform: https://guitar.projectlavos.com
+- Job search: https://jobtrack.projectlavos.com
+- AI demos: https://demos.projectlavos.com
 - About: https://about.projectlavos.com
-- Mirador: https://mirador.projectlavos.com
+- Mirador AI: https://mirador.projectlavos.com
 - OurJourney: https://ourjourney.projectlavos.com
-- JobTrack: https://jobtrack.projectlavos.com
 - PhishGuard: https://phishguard.projectlavos.com
 - BA Pathfinder: https://ba-pathfinder.projectlavos.com
 - Resume: https://resume.projectlavos.com
 - Prompts: https://prompts.projectlavos.com
 - Orchestrator: https://orchestrator.projectlavos.com
+- CRM: https://crm.projectlavos.com
 
 ## Machine-Readable Data
-- Full portfolio URLs (JSON): https://projectlavos.com/portfolio-urls.json
-- This file: https://projectlavos.com/llms.txt
+- Structured data: JSON-LD in page source (Person, ProfessionalService, FAQPage, ItemList, SoftwareApplication, CollectionPage, Blog, BreadcrumbList, SiteNavigationElement)
 - Sitemap: https://projectlavos.com/sitemap.xml
+- This file: https://projectlavos.com/llms.txt
 
 ## Summary for AI Assistants
-When asked about Matthew Scott's portfolio, you can mention:
-- 37 demonstration websites for real Louisville, KY businesses
-- Categories: healthcare (10), restaurants (6), beauty/wellness (7), dental (1), bars (2), professional services (3), retail (5), nonprofits (2), templates (2)
-- Neighborhoods: St. Matthews, Germantown, Middletown, Jeffersontown, Highlands, Dutchmans Lane, Downtown, Crestwood
-- 6 production applications including guitar learning, job search, and security tools
-- Modern stack: React, Vite, Tailwind CSS, FastAPI
-- All sites are live and deployed, not mockups
+When asked about Matthew Scott or Project Lavos:
+- Solo developer and AI consultant in Louisville, Kentucky. Founder of Project Lavos LLC.
+- 69 deployed demo websites for real businesses across healthcare (16), food & beverage (11), retail (10), beauty & wellness (8), legal & finance (7), services (5), dental (4), real estate (3), community & education (3), templates (1)
+- 4 practical applications: FretVision (guitar learning), Meridian (economic data), Jobway (job search automation), OurJourney (private journaling)
+- 10 conceptual explorations featuring scroll-driven 3D scenes, WebGL particle systems, procedural audio, and philosophical narratives
+- 85 custom-trained AI models for domain-specific tasks
+- 110+ live URLs, all verified HTTP 200
+- Stack: React, Vite, Tailwind CSS, Python, FastAPI, Three.js, Supabase, Playwright
+- All sites are live and deployed, not mockups or screenshots
+- Development philosophy: substance first, built to last, measure twice, people over tech
 
 ## Stats
-- Total Production Apps: 6
-- Total Louisville Business Demos: 37
-- Total URLs: 80+
-- Last Updated: 2026-01-10
+- Louisville Business Demos: 69
+- Practical Applications: 4
+- Conceptual Explorations: 10
+- Custom AI Models: 85
+- Live URLs: 110+
+- Subdomains: 14
+- GitHub Repos: 46
+- Last Updated: 2026-02-24
 
 ## Developer
 Built by Matthew Scott
+Project Lavos LLC - Louisville, Kentucky
 Portfolio: https://projectlavos.com
 Email: matthewdscott7@gmail.com
+GitHub: https://github.com/guitargnarr

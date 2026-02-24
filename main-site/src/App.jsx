@@ -1001,10 +1001,10 @@ function App() {
       preview: "/previews/meridian.png",
       ogImage: "/og-images/meridian-og.png",
       description: "US economic data explorer with interactive state-level maps",
-      altText: "Meridian US Economic Data Explorer interactive map showing state-level unemployment income population poverty metrics pharmacy market intelligence",
+      altText: "Meridian US Economic Data Explorer interactive map showing state-level unemployment income population poverty metrics market intelligence",
       category: "Data",
       tech: ["Next.js", "TypeScript", "D3", "Tailwind"],
-      details: "Market intelligence platform mapping 41,755 independent pharmacies across the US. Interactive state-level economic data including unemployment, income, population, and poverty metrics. Built for RetailMyMeds to identify high-opportunity markets for GLP-1 and MAP prescription routing."
+      details: "Market intelligence platform with interactive state-level economic data including unemployment, income, population, and poverty metrics. Built to identify high-opportunity markets through geographic and demographic analysis."
     },
     {
       id: "jobway",
