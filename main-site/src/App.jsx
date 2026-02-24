@@ -1719,14 +1719,15 @@ function App() {
           </p>
 
           <a
-            href="mailto:matthewdscott7@gmail.com"
-            aria-label="Email Matthew Scott to discuss a web development project"
+            href="#contact"
+            onClick={(e) => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}
+            aria-label="Scroll to contact section"
             className="inline-flex items-center gap-3 text-teal-400 hover:text-teal-300 transition-all duration-300 text-base sm:text-lg group"
           >
             <span className="border-b border-teal-400/40 group-hover:border-teal-300/60 pb-0.5 transition-colors">
               Let's talk
             </span>
-            <span className="text-xl group-hover:translate-x-1.5 transition-transform duration-300" aria-hidden="true">→</span>
+            <span className="text-xl group-hover:translate-x-1.5 transition-transform duration-300" aria-hidden="true">↓</span>
           </a>
         </div>
       </section>
