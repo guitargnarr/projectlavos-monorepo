@@ -77,8 +77,12 @@ export default function Blog() {
         <meta property="og:description" content="Articles on AI-assisted development, verification methodology, and software development philosophy." />
         <meta property="og:url" content="https://projectlavos.com/blog" />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://projectlavos.com/og-blog.png" />
+        <meta property="og:image:alt" content="Beyond the Code — Articles on AI Development by Matthew Scott" />
         <meta name="twitter:title" content="Articles | Observations on AI Development" />
         <meta name="twitter:description" content="Articles on AI-assisted development, verification methodology, and software development philosophy." />
+        <meta name="twitter:image" content="https://projectlavos.com/og-blog.png" />
+        <meta name="twitter:image:alt" content="Beyond the Code — Articles on AI Development by Matthew Scott" />
       </Helmet>
       {/* Ambient Background */}
       <div className="ambient-bg">

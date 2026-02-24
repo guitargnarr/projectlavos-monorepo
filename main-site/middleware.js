@@ -7,8 +7,8 @@ const META = {
     title: 'Articles | Observations on AI Development | Project Lavos',
     description: "Articles on AI-assisted development, verification methodology, and what 'working' actually means. By Matthew Scott, Louisville web developer.",
     url: 'https://projectlavos.com/blog',
-    image: 'https://projectlavos.com/og-image.png',
-    imageAlt: 'Project Lavos — Matthew Scott, Louisville web developer and AI consultant',
+    image: 'https://projectlavos.com/og-blog.png',
+    imageAlt: 'Beyond the Code — Articles on AI Development by Matthew Scott',
     type: 'website',
     breadcrumbs: [
       { name: 'Home', url: 'https://projectlavos.com' },
