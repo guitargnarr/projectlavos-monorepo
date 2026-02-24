@@ -84,15 +84,23 @@
       "worksFor": {
         "@type": "Organization",
         "@id": "https://projectlavos.com/#organization",
-        "name": "Project Lavos",
+        "name": "Project Lavos LLC",
         "url": "https://projectlavos.com",
         "description": "Web development and AI consulting studio in Louisville, Kentucky. 69 deployed client demo sites, custom AI applications, and guitar education platform.",
         "founder": {"@id": "https://projectlavos.com/#matthew-scott"},
-        "areaServed": {
-          "@type": "City",
-          "name": "Louisville",
-          "sameAs": "https://en.wikipedia.org/wiki/Louisville,_Kentucky"
-        }
+        "foundingDate": "2026-02-20",
+        "areaServed": [
+          {
+            "@type": "City",
+            "name": "Louisville",
+            "sameAs": "https://en.wikipedia.org/wiki/Louisville,_Kentucky"
+          },
+          {
+            "@type": "State",
+            "name": "Kentucky",
+            "sameAs": "https://en.wikipedia.org/wiki/Kentucky"
+          }
+        ]
       },
       "hasOccupation": [
         {
@@ -135,25 +143,43 @@
     }
     </script>
 
-    <!-- JSON-LD Structured Data - Professional Service -->
+    <!-- JSON-LD Structured Data - Local Business / Professional Service -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "ProfessionalService",
+      "@type": ["ProfessionalService", "LocalBusiness"],
       "@id": "https://projectlavos.com/#organization",
       "name": "Project Lavos — Matthew Scott Web Development",
-      "alternateName": "Project Lavos",
+      "legalName": "Project Lavos LLC",
+      "alternateName": ["Project Lavos", "Project Lavos LLC"],
       "founder": {"@id": "https://projectlavos.com/#matthew-scott"},
       "employee": [{"@id": "https://projectlavos.com/#matthew-scott"}],
-      "description": "Web development and AI consulting studio in Louisville, Kentucky, founded by Matthew Scott. 69 deployed spec-work demo websites across healthcare, legal, food, retail, beauty, entertainment, real estate, and services industries. All sites are live on Vercel — built from public business information as proof of capability. Also builds practical web applications: guitar learning platform (FretVision), US economic data explorer (Meridian), job search automation (Jobway), and private co-parenting app (OurJourney). Tech stack: React, Vite, Tailwind CSS, Python, FastAPI, Supabase, Three.js, Playwright E2E testing, GitHub Actions CI/CD.",
+      "numberOfEmployees": {
+        "@type": "QuantitativeValue",
+        "value": 1
+      },
+      "foundingDate": "2026-02-20",
+      "foundingLocation": {
+        "@type": "Place",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Louisville",
+          "addressRegion": "KY",
+          "addressCountry": "US"
+        }
+      },
+      "description": "Web development and AI consulting studio in Louisville, Kentucky, founded by Matthew Scott. Builds production-grade websites for small and medium-sized businesses. Portfolio includes 69 deployed demo websites for real Louisville businesses across healthcare, legal, food, retail, beauty, and services industries, plus 4 practical web applications and 10 conceptual explorations. All sites are live on Vercel — built from public business information as proof of capability.",
       "url": "https://projectlavos.com",
       "image": "https://projectlavos.com/og-image.png",
+      "logo": "https://projectlavos.com/favicon.svg",
       "telephone": "+1-502-345-0525",
       "email": "matthewdscott7@gmail.com",
       "address": {
         "@type": "PostalAddress",
+        "streetAddress": "",
         "addressLocality": "Louisville",
         "addressRegion": "KY",
+        "postalCode": "40216",
         "addressCountry": "US"
       },
       "geo": {
@@ -161,26 +187,125 @@
         "latitude": "38.2527",
         "longitude": "-85.7585"
       },
-      "areaServed": {
-        "@type": "City",
-        "name": "Louisville",
-        "sameAs": "https://en.wikipedia.org/wiki/Louisville,_Kentucky"
-      },
-      "serviceType": ["Web Development", "Web Consulting", "Small Business Websites", "React Development", "AI Integration", "Full-Stack Development"],
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Louisville",
+          "sameAs": "https://en.wikipedia.org/wiki/Louisville,_Kentucky"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Louisville/Jefferson County Metro",
+          "sameAs": "https://en.wikipedia.org/wiki/Louisville_metropolitan_area"
+        },
+        {
+          "@type": "State",
+          "name": "Kentucky",
+          "sameAs": "https://en.wikipedia.org/wiki/Kentucky"
+        },
+        {
+          "@type": "Place",
+          "name": "St. Matthews, Louisville",
+          "containedInPlace": {"@type": "City", "name": "Louisville, KY"}
+        },
+        {
+          "@type": "Place",
+          "name": "Germantown, Louisville",
+          "containedInPlace": {"@type": "City", "name": "Louisville, KY"}
+        },
+        {
+          "@type": "Place",
+          "name": "The Highlands, Louisville",
+          "containedInPlace": {"@type": "City", "name": "Louisville, KY"}
+        },
+        {
+          "@type": "Place",
+          "name": "Middletown, Louisville",
+          "containedInPlace": {"@type": "City", "name": "Louisville, KY"}
+        },
+        {
+          "@type": "Place",
+          "name": "Jeffersontown, Louisville",
+          "containedInPlace": {"@type": "City", "name": "Louisville, KY"}
+        },
+        {
+          "@type": "Place",
+          "name": "Downtown Louisville",
+          "containedInPlace": {"@type": "City", "name": "Louisville, KY"}
+        },
+        {
+          "@type": "Place",
+          "name": "Dutchmans Lane, Louisville",
+          "containedInPlace": {"@type": "City", "name": "Louisville, KY"}
+        },
+        {
+          "@type": "Place",
+          "name": "Crestwood, Kentucky",
+          "containedInPlace": {"@type": "State", "name": "Kentucky"}
+        },
+        {
+          "@type": "Place",
+          "name": "Westport Road, Louisville",
+          "containedInPlace": {"@type": "City", "name": "Louisville, KY"}
+        }
+      ],
+      "serviceType": ["Web Development", "Web Consulting", "Small Business Websites", "React Development", "AI Integration", "Full-Stack Development", "Website Design", "Web Application Development"],
+      "knowsAbout": ["React", "JavaScript", "Python", "FastAPI", "Vite", "Tailwind CSS", "Three.js", "Supabase", "PostgreSQL", "Playwright Testing", "AI Integration", "Prompt Engineering", "Claude API", "Ollama", "Small Business Websites", "Louisville Business"],
       "slogan": "Complexity, untangled. Turning ambiguity into systems that actually ship.",
       "priceRange": "$$",
+      "currenciesAccepted": "USD",
+      "paymentAccepted": "Invoice",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "09:00",
+          "closes": "18:00"
+        }
+      ],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
-        "name": "Portfolio Categories",
+        "name": "Web Development Services",
         "itemListElement": [
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Healthcare & Medical Websites", "description": "16 deployed demo sites for medical practices, dental offices, med spas, and healthcare providers"}},
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Food & Beverage Websites", "description": "11 deployed demo sites for restaurants, cafes, specialty food shops, bars, and breweries"}},
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Beauty & Personal Services Websites", "description": "8 deployed demo sites for salons, spas, nail studios, and wellness centers"}},
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Retail Websites", "description": "10 deployed demo sites for jewelry stores, toy shops, uniform suppliers, and specialty retail"}},
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Legal & Professional Websites", "description": "7 deployed demo sites for law firms, financial advisors, and professional services"}},
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Custom Web Applications", "description": "Interactive guitar learning platform, US economic data explorer, job search automation, scroll-driven 3D conceptual experiences"}}
+          {
+            "@type": "OfferCatalog",
+            "name": "Industry-Specific Website Development",
+            "itemListElement": [
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Healthcare & Medical Websites", "description": "16 deployed demo sites for medical practices, dental offices, med spas, urgent care, physical therapy, and healthcare providers in Louisville, KY"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Restaurant & Food Service Websites", "description": "11 deployed demo sites for restaurants, cafes, bars, breweries, and catering services in Louisville, KY"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Salon, Spa & Wellness Websites", "description": "8 deployed demo sites for hair salons, med spas, nail studios, pilates studios, and wellness centers in Louisville, KY"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Retail & E-Commerce Websites", "description": "10 deployed demo sites for jewelry stores, toy shops, clothing retailers, and specialty retail in Louisville, KY"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Law Firm & Financial Advisor Websites", "description": "7 deployed demo sites for law firms, wealth management, financial advisors, and professional services in Louisville, KY"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Home Services & Contractor Websites", "description": "5 deployed demo sites for dry cleaners, landscaping, home repair, catering, and senior living in Louisville, KY"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Real Estate & Property Websites", "description": "3 deployed demo sites for luxury apartments and estate communities in St. Matthews, Louisville, KY"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Dental Practice Websites", "description": "4 deployed demo sites for family dentistry, pediatric dentistry, and dental practices in Louisville, KY"}}
+            ]
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Website Tiers",
+            "itemListElement": [
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Essential Website (Tier 1)", "description": "Single-page landing with smooth scroll navigation, contact form, Google Maps integration, mobile responsive design. Lighthouse: 97 Performance, 100 Accessibility."}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Professional Website (Tier 2)", "description": "Multi-page navigation with React Router, online booking system with 3-step wizard, photo gallery with lightbox, form validation. Lighthouse: 95 Performance, 100 Accessibility."}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Advanced Website (Tier 3)", "description": "E-commerce with shopping cart, product search and real-time filtering, category navigation, analytics dashboard. Lighthouse: 96 Performance, 100 Accessibility."}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Enterprise Website (Tier 4)", "description": "Full authentication system, admin dashboard with data visualization, toast notifications, API integration. Lighthouse: 95 Performance, 100 Accessibility."}}
+            ]
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Custom Web Applications",
+            "itemListElement": [
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Custom Web Application Development", "description": "Full-stack web applications with React frontends, Python/FastAPI backends, database integration, authentication, and API development. Deployed on Vercel and Render."}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "AI Integration & Consulting", "description": "Custom AI model training with Ollama, Claude API integration, NLP pipelines, prompt engineering, and AI-assisted development workflows."}}
+            ]
+          }
         ]
-      }
+      },
+      "sameAs": [
+        "https://github.com/guitargnarr",
+        "https://linkedin.com/in/mscott77",
+        "https://instagram.com/guitargnar"
+      ]
     }
     </script>
 
