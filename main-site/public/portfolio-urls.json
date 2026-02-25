@@ -1,288 +1,184 @@
 {
   "portfolio": {
-    "name": "Matthew Scott Portfolio",
+    "name": "Matthew Scott — Project Lavos LLC",
     "url": "https://projectlavos.com",
     "github": "https://github.com/guitargnarr",
-    "location": "Louisville, KY",
-    "generated": "2026-01-10",
-    "summary": "Full stack developer portfolio featuring 37 demonstration websites for real Louisville businesses and 6 production applications"
+    "location": "Louisville, KY 40216",
+    "generated": "2026-02-25",
+    "summary": "Full-stack developer portfolio featuring 66 demonstration websites for real Louisville businesses, 4 production applications, and 10 conceptual explorations. All sites deployed and verifiable."
   },
   "production": [
     {
       "name": "FretVision",
-      "url": "https://guitar.projectlavos.com",
+      "url": "https://projectlavos.com/guitar",
       "category": "Education",
-      "description": "Interactive guitar fretboard with 100+ lessons and MIDI playback"
+      "description": "Interactive guitar learning platform with fretboard visualization, 24 PDF scale books (11,520 exercises), tab playback, and riff generation. Tablature mathematically verified using Python.",
+      "stack": ["React", "Python", "MIDI", "Canvas API", "Supabase"]
     },
     {
-      "name": "PhishGuard",
-      "url": "https://phishguard.projectlavos.com",
-      "category": "Security",
-      "description": "NLP-powered sentiment analysis for anti-phishing detection"
+      "name": "Meridian",
+      "url": "https://phishguard-ui.vercel.app",
+      "category": "Data Visualization",
+      "description": "US economic data explorer with interactive state-level maps. Unemployment rates, median household income, population, and poverty metrics.",
+      "stack": ["Next.js", "TypeScript", "D3"]
     },
     {
-      "name": "Vantage",
-      "url": "https://jobs.projectlavos.com",
-      "category": "Career",
-      "description": "AI job market analysis and automated resume tailoring"
+      "name": "Jobway",
+      "url": "https://jobway-eosin.vercel.app",
+      "category": "Automation",
+      "description": "Full-stack job search automation. Gmail OAuth, NLP-powered ATS optimizer, follow-up scheduling, analytics dashboard.",
+      "stack": ["React", "FastAPI", "spaCy", "Gmail API"]
     },
     {
       "name": "OurJourney",
-      "url": "https://ourjourney.projectlavos.com",
+      "url": "https://ourjourney-app.vercel.app",
       "category": "Personal",
-      "description": "Private space for couples to catalog experiences"
-    },
-    {
-      "name": "JobTrack",
-      "url": "https://jobtrack.projectlavos.com",
-      "category": "Career",
-      "description": "Application tracking system"
-    },
-    {
-      "name": "Threshold Liminal",
-      "url": "https://threshold-liminal.vercel.app",
-      "category": "Creative",
-      "description": "Exploring the spaces between"
+      "description": "Private space for two people to document shared memories, journal entries, and experiences. No followers, no likes, no public feed.",
+      "stack": ["React", "Supabase", "Vercel"]
     }
   ],
-  "louisvilleBusinesses": {
-    "healthcare": [
+  "conceptualExplorations": {
+    "jungian": [
       {
-        "name": "Primary Express Care",
-        "url": "https://primary-express-care.vercel.app",
-        "neighborhood": "Dutchmans Lane & Dixie Highway",
-        "description": "Multi-location urgent care with online booking, walk-ins welcome"
+        "name": "Psyche",
+        "url": "https://psyche-jung.vercel.app",
+        "description": "Four portals into Jungian depth psychology: Shadow, Anima/Animus, Self, and Collective Unconscious"
       },
       {
-        "name": "Kentuckiana Gastroenterology",
-        "url": "https://kentuckiana-gastro.vercel.app",
-        "neighborhood": "Louisville",
-        "description": "Board-certified gastroenterology specialists since 1984"
+        "name": "Threshold",
+        "url": "https://threshold-liminal.vercel.app",
+        "description": "An exploration of liminal spaces and psychological transformation"
       },
       {
-        "name": "Rejuvenation Med Spa",
-        "url": "https://rejuvenation-med-spa.vercel.app",
-        "neighborhood": "Louisville",
-        "description": "Pain management and medical aesthetics"
+        "name": "Umbra",
+        "url": "https://umbra-shadow.vercel.app",
+        "description": "Shadow work and integration"
       },
       {
-        "name": "Louisville Aesthetics",
-        "url": "https://louisville-aesthetics.vercel.app",
-        "neighborhood": "Louisville",
-        "description": "Modern medical aesthetics clinic"
+        "name": "Forma",
+        "url": "https://forma-archetypes.vercel.app",
+        "description": "Universal archetypal figures across cultures and mythology"
       },
       {
-        "name": "Springhurst Endodontics",
-        "url": "https://springhurst-endo.vercel.app",
-        "neighborhood": "Springhurst",
-        "description": "5-star rated root canal specialists, Dr. Jolanta Sauer"
+        "name": "Auriga",
+        "url": "https://auriga-chariot.vercel.app",
+        "description": "Human-AI collaboration through Plato's chariot allegory"
       },
       {
-        "name": "dGv Services",
-        "url": "https://dgv-services.vercel.app",
-        "neighborhood": "Crestwood",
-        "description": "Medical billing & healthcare revenue management since 2002"
-      },
-      {
-        "name": "Vance & Stovall Optometry",
-        "url": "https://vance-stovall-optometry.vercel.app",
-        "neighborhood": "Downtown Louisville",
-        "description": "Independent optometry practice, 40+ years"
-      },
-      {
-        "name": "Dermatology Associates PSC",
-        "url": "https://dermatology-associates-psc.vercel.app",
-        "neighborhood": "Louisville",
-        "description": "Board-certified dermatologists, skin cancer specialists"
-      },
-      {
-        "name": "Louisville Family Chiropractic",
-        "url": "https://louisville-family-chiro.vercel.app",
-        "neighborhood": "Louisville",
-        "description": "Family-focused chiropractic care for all ages"
-      },
-      {
-        "name": "DermCARE Practitioners",
-        "url": "https://dermcare-practitioners.vercel.app",
-        "neighborhood": "Louisville",
-        "description": "Advanced dermatology and cosmetic skin treatments"
+        "name": "Medittoica",
+        "url": "https://medittoica.vercel.app",
+        "description": "Stoic philosophy as a 4,200-particle WebGL constellation"
       }
+    ],
+    "scrollDriven": [
+      {
+        "name": "The Quiet Trade",
+        "url": "https://quiet-trade-experience.vercel.app",
+        "description": "Five philosophical scenes examining AI adoption in professional work. Procedural ambient audio responds to scroll position."
+      },
+      {
+        "name": "The Pattern Break",
+        "url": "https://pattern-break-experience.vercel.app",
+        "description": "Personal narrative: 119 days from broken binary to business entity. Procedural wind and wind chime audio."
+      },
+      {
+        "name": "The Skeleton Crew",
+        "url": "https://skeleton-crew-experience.vercel.app",
+        "description": "Hybrid WebGL and p5.js rendering with granular synthesis audio"
+      },
+      {
+        "name": "Regenera",
+        "url": "https://regenerate-experience.vercel.app",
+        "description": "Five acts of transformation with photographic textures and cinematic dissolve transitions"
+      }
+    ]
+  },
+  "louisvilleBusinesses": {
+    "healthcareMedical": [
+      { "name": "Primary Express Care", "url": "https://primary-express-care.vercel.app", "neighborhood": "Dutchmans Lane", "description": "Multi-location urgent care" },
+      { "name": "Kentuckiana Gastroenterology", "url": "https://kentuckiana-gastro.vercel.app", "neighborhood": "Louisville", "description": "Board-certified gastroenterology specialists since 1984" },
+      { "name": "Scout Aesthetics", "url": "https://scout-aesthetics.vercel.app", "neighborhood": "Louisville", "description": "Premier med spa" },
+      { "name": "Rejuvenation Med Spa", "url": "https://rejuvenation-med-spa.vercel.app", "neighborhood": "Louisville", "description": "Pain management and medical aesthetics" },
+      { "name": "Springhurst Endodontics", "url": "https://springhurst-endo.vercel.app", "neighborhood": "Springhurst", "description": "Root canal specialists" },
+      { "name": "Dr. Forrest S. Kuhn MD", "url": "https://kuhn-allergy.vercel.app", "neighborhood": "Louisville", "description": "Allergy and immunology" },
+      { "name": "CrushCORE Physical Therapy", "url": "https://crushcore-pt.vercel.app", "neighborhood": "Louisville", "description": "Physical therapy" },
+      { "name": "Full Tilt Gym", "url": "https://full-tilt-gym.vercel.app", "neighborhood": "Louisville", "description": "Gym and fitness" },
+      { "name": "Louisville Aesthetics", "url": "https://louisville-aesthetics.vercel.app", "neighborhood": "Louisville", "description": "Medical aesthetics clinic" },
+      { "name": "XO Aesthetic Refinery", "url": "https://xo-aesthetic-refinery.vercel.app", "neighborhood": "Louisville", "description": "Aesthetic treatments" },
+      { "name": "dGv Services", "url": "https://dgv-services.vercel.app", "neighborhood": "Crestwood", "description": "Medical billing and healthcare revenue management since 2002" },
+      { "name": "Vance & Stovall Optometry", "url": "https://vance-stovall-optometry.vercel.app", "neighborhood": "Downtown Louisville", "description": "Independent optometry practice, 40+ years" },
+      { "name": "Dermatology Associates PSC", "url": "https://dermatology-associates-psc.vercel.app", "neighborhood": "Louisville", "description": "Board-certified dermatologists" },
+      { "name": "Louisville Family Chiropractic", "url": "https://louisville-family-chiro.vercel.app", "neighborhood": "Louisville", "description": "Family chiropractic care" },
+      { "name": "DermCARE Practitioners", "url": "https://dermcare-practitioners.vercel.app", "neighborhood": "Louisville", "description": "Dermatology and cosmetic skin treatments" }
     ],
     "dental": [
-      {
-        "name": "Gray Family Dentistry",
-        "url": "https://gray-family-dentistry.vercel.app",
-        "neighborhood": "Louisville",
-        "description": "Comprehensive family dentistry, cosmetic and general"
-      }
+      { "name": "Gray Family Dentistry", "url": "https://gray-family-dentistry.vercel.app", "neighborhood": "Louisville", "description": "Comprehensive family dentistry" },
+      { "name": "Affinity Dental", "url": "https://affinity-dental.vercel.app", "neighborhood": "Louisville", "description": "General dentistry" },
+      { "name": "JBH Dental", "url": "https://jbh-dental.vercel.app", "neighborhood": "Louisville", "description": "Dental practice" },
+      { "name": "Dupont Pediatric Dentistry", "url": "https://dupont-pediatric-dentistry.vercel.app", "neighborhood": "Louisville", "description": "Pediatric dentistry" }
     ],
-    "restaurants": [
-      {
-        "name": "Maira Mediterranean",
-        "url": "https://maira-mediterranean.vercel.app",
-        "neighborhood": "Dutchmans Lane",
-        "description": "Authentic Mediterranean cuisine"
-      },
-      {
-        "name": "PassTime Fish House",
-        "url": "https://passtime-fish-house.vercel.app",
-        "neighborhood": "Jeffersontown",
-        "description": "Louisville's best kept secret since 2001"
-      },
-      {
-        "name": "Shawarma Shack",
-        "url": "https://shawarma-shack.vercel.app",
-        "neighborhood": "St. Matthews",
-        "description": "Build-your-own shawarma"
-      },
-      {
-        "name": "JW Cafe & Bakery",
-        "url": "https://jw-cafe-bakery.vercel.app",
-        "neighborhood": "Louisville",
-        "description": "Local cafe and bakery"
-      },
-      {
-        "name": "Cottage Cafe",
-        "url": "https://cottage-cafe-eight.vercel.app",
-        "neighborhood": "Middletown",
-        "description": "Homemade comfort food since 1992"
-      },
-      {
-        "name": "Tasteful Travels",
-        "url": "https://tasteful-travels.vercel.app",
-        "neighborhood": "Logan Street Market",
-        "description": "Global flavors, Kentucky soul"
-      }
+    "foodBeverage": [
+      { "name": "Vincenzo's Italian Restaurant", "url": "https://vincenzos-italian-restaurant.vercel.app", "neighborhood": "Louisville", "description": "Fine dining since 1986" },
+      { "name": "Maira Mediterranean", "url": "https://maira-mediterranean.vercel.app", "neighborhood": "Dutchmans Lane", "description": "Authentic Mediterranean cuisine" },
+      { "name": "PassTime Fish House", "url": "https://passtime-fish-house.vercel.app", "neighborhood": "Jeffersontown", "description": "Louisville's best kept secret since 2001" },
+      { "name": "Shawarma Shack", "url": "https://shawarma-shack.vercel.app", "neighborhood": "St. Matthews", "description": "Build-your-own shawarma" },
+      { "name": "JW Cafe & Bakery", "url": "https://jw-cafe-bakery.vercel.app", "neighborhood": "Louisville", "description": "Local cafe and bakery" },
+      { "name": "Cottage Cafe", "url": "https://cottage-cafe-eight.vercel.app", "neighborhood": "Middletown", "description": "Homemade comfort food since 1992" },
+      { "name": "Tasteful Travels", "url": "https://tasteful-travels.vercel.app", "neighborhood": "Logan Street Market", "description": "Global flavors, Kentucky soul" },
+      { "name": "North Lime Coffee & Donuts", "url": "https://north-lime-coffee.vercel.app", "neighborhood": "Louisville", "description": "Coffee and donuts" },
+      { "name": "Nachbar", "url": "https://nachbar.vercel.app", "neighborhood": "Germantown", "description": "Neighborhood bar" },
+      { "name": "Copper Barrel Brewing", "url": "https://copper-barrel-brewing.vercel.app", "neighborhood": "Louisville", "description": "Craft brewery" },
+      { "name": "Hideaway Saloon", "url": "https://hideaway-saloon.vercel.app", "neighborhood": "Bardstown Road", "description": "Video game dive bar" }
     ],
     "beautyWellness": [
-      {
-        "name": "Fritz Salon & Spa for Men",
-        "url": "https://fritz-salon.vercel.app",
-        "neighborhood": "St. Matthews",
-        "description": "Premier men's grooming"
-      },
-      {
-        "name": "JR Spa & Salon",
-        "url": "https://jr-spa-salon.vercel.app",
-        "neighborhood": "Louisville",
-        "description": "Premier men's grooming since 1976"
-      },
-      {
-        "name": "Blown Away Bar",
-        "url": "https://blown-away-bar.vercel.app",
-        "neighborhood": "Louisville",
-        "description": "Blow dry and beauty bar"
-      },
-      {
-        "name": "Louisville Nails & Spa",
-        "url": "https://louisville-nails-spa.vercel.app",
-        "neighborhood": "Bardstown Road",
-        "description": "Premier nail salon"
-      },
-      {
-        "name": "Pilates Plus Louisville",
-        "url": "https://pilates-plus-louisville.vercel.app",
-        "neighborhood": "Westport Road",
-        "description": "Pilates studio"
-      },
-      {
-        "name": "Paint Spot",
-        "url": "https://paint-spot-louisville.vercel.app",
-        "neighborhood": "Louisville",
-        "description": "Paint your own pottery since 2000"
-      },
-      {
-        "name": "Cleaning By Regina",
-        "url": "https://cleaning-by-regina.vercel.app",
-        "neighborhood": "Louisville",
-        "description": "25+ years cleaning service"
-      }
+      { "name": "Fritz Salon", "url": "https://fritz-salon.vercel.app", "neighborhood": "St. Matthews", "description": "Hair salon" },
+      { "name": "JR Spa & Salon", "url": "https://jr-spa-salon.vercel.app", "neighborhood": "Louisville", "description": "Men's grooming since 1976" },
+      { "name": "Blown Away Bar", "url": "https://blown-away-bar.vercel.app", "neighborhood": "Louisville", "description": "Blow dry and beauty bar" },
+      { "name": "Louisville Nails & Spa", "url": "https://louisville-nails-spa.vercel.app", "neighborhood": "Bardstown Road", "description": "Nail salon and spa" },
+      { "name": "Pilates Plus Louisville", "url": "https://pilates-plus-louisville.vercel.app", "neighborhood": "Westport Road", "description": "Pilates studio" },
+      { "name": "Paint Spot", "url": "https://paint-spot-louisville.vercel.app", "neighborhood": "Louisville", "description": "Paint your own pottery since 2000" },
+      { "name": "Cleaning By Regina", "url": "https://cleaning-by-regina.vercel.app", "neighborhood": "Louisville", "description": "Cleaning service, 25+ years" },
+      { "name": "Sophia's Rugs", "url": "https://sophias-rugs.vercel.app", "neighborhood": "Louisville", "description": "Rug store since 1998" }
     ],
-    "bars": [
-      {
-        "name": "Nachbar",
-        "url": "https://nachbar.vercel.app",
-        "neighborhood": "Germantown",
-        "description": "Neighborhood bar"
-      },
-      {
-        "name": "Hideaway Saloon",
-        "url": "https://hideaway-saloon.vercel.app",
-        "neighborhood": "Bardstown Road",
-        "description": "Video game dive bar"
-      }
-    ],
-    "professionalServices": [
-      {
-        "name": "A. Holland Houston",
-        "url": "https://ky-family-lawyer.vercel.app",
-        "neighborhood": "Louisville",
-        "description": "Family law attorney and mediator"
-      },
-      {
-        "name": "Highland Cleaners",
-        "url": "https://highland-cleaners.vercel.app",
-        "neighborhood": "12 Louisville locations",
-        "description": "Trusted dry cleaner since 1944"
-      },
-      {
-        "name": "Lawnco Louisville",
-        "url": "https://lawnco-louisville.vercel.app",
-        "neighborhood": "Louisville",
-        "description": "Premier landscaping since 1978"
-      }
+    "legalFinance": [
+      { "name": "Morgan Pottinger McGarvey", "url": "https://morgan-pottinger-mcgarvey.vercel.app", "neighborhood": "Louisville", "description": "Law firm since 1974" },
+      { "name": "Pillar Financial Advisors", "url": "https://pillar-financial-advisors.vercel.app", "neighborhood": "Louisville", "description": "Financial advisory" },
+      { "name": "Commonwealth Capital Management", "url": "https://commonwealth-capital-management.vercel.app", "neighborhood": "Louisville", "description": "Investment management, 38 states since 1994" },
+      { "name": "A. Holland Houston", "url": "https://ky-family-lawyer.vercel.app", "neighborhood": "Louisville", "description": "Family law attorney and mediator" },
+      { "name": "Schwartz Bankruptcy", "url": "https://schwartz-bankruptcy.vercel.app", "neighborhood": "Louisville", "description": "Bankruptcy law" },
+      { "name": "Crestborne Private Office", "url": "https://crestborne-private-office.vercel.app", "neighborhood": "Louisville", "description": "UHNW wealth management" },
+      { "name": "Caviar Creative Co.", "url": "https://caviar-creative-co.vercel.app", "neighborhood": "Louisville", "description": "Creative agency" }
     ],
     "retail": [
-      {
-        "name": "Fable & Flow",
-        "url": "https://fableandflows.vercel.app",
-        "neighborhood": "Louisville",
-        "description": "Boutique retail brand"
-      },
-      {
-        "name": "Tonini Church Supply",
-        "url": "https://tonini-church-supply.vercel.app",
-        "neighborhood": "Cincinnati",
-        "description": "Church goods since 1883"
-      },
-      {
-        "name": "Cardinal Uniforms",
-        "url": "https://cardinal-uniforms.vercel.app",
-        "neighborhood": "Louisville",
-        "description": "Professional uniforms and workwear"
-      },
-      {
-        "name": "Playthings Toy Shoppe",
-        "url": "https://playthings-toy-shoppe.vercel.app",
-        "neighborhood": "St. Matthews & Westport Village",
-        "description": "Family-owned toy store since 2001"
-      }
+      { "name": "Genesis Diamonds", "url": "https://genesis-diamonds.vercel.app", "neighborhood": "Louisville", "description": "Jewelry since 2005" },
+      { "name": "Clater Jewelers", "url": "https://clater-jewelers.vercel.app", "neighborhood": "Louisville", "description": "Jewelers since 1949" },
+      { "name": "Rodes For Him For Her", "url": "https://rodes-for-him-for-her.vercel.app", "neighborhood": "Louisville", "description": "Clothing since 1914" },
+      { "name": "Fable & Flow", "url": "https://fableandflows.vercel.app", "neighborhood": "Louisville", "description": "Boutique retail" },
+      { "name": "Tonini Church Supply", "url": "https://tonini-church-supply.vercel.app", "neighborhood": "Cincinnati", "description": "Church goods since 1883" },
+      { "name": "Cardinal Uniforms", "url": "https://cardinal-uniforms.vercel.app", "neighborhood": "Louisville", "description": "Professional uniforms and workwear" },
+      { "name": "Playthings Toy Shoppe", "url": "https://playthings-toy-shoppe.vercel.app", "neighborhood": "St. Matthews", "description": "Family-owned toy store since 2001" },
+      { "name": "Ibanista Tools", "url": "https://ibanista-tools.vercel.app", "neighborhood": "Louisville", "description": "Professional tools" },
+      { "name": "Greater Guitars", "url": "https://greater-guitars.vercel.app", "neighborhood": "Louisville", "description": "Guitar shop" },
+      { "name": "Headliners Music Hall", "url": "https://headliners-louisville.vercel.app", "neighborhood": "Louisville", "description": "Live music venue since 1939" }
     ],
-    "community": [
-      {
-        "name": "Camp J",
-        "url": "https://camp-j-lovat.vercel.app",
-        "neighborhood": "Louisville JCC",
-        "description": "Day camp for ages 5-17"
-      },
-      {
-        "name": "Chabad of Kentucky",
-        "url": "https://chabad-of-kentucky.vercel.app",
-        "neighborhood": "Louisville",
-        "description": "Jewish Learning Center since 1985"
-      }
+    "services": [
+      { "name": "Highland Cleaners", "url": "https://highland-cleaners.vercel.app", "neighborhood": "Louisville (12 locations)", "description": "Dry cleaners since 1944, demonstrates all 4 template tiers" },
+      { "name": "Lawnco Louisville", "url": "https://lawnco-louisville.vercel.app", "neighborhood": "Louisville", "description": "Landscaping since 1978" },
+      { "name": "Tom Drexler", "url": "https://tom-drexler.vercel.app", "neighborhood": "Louisville", "description": "Home services since 1982" },
+      { "name": "Clementine Catering", "url": "https://clementine-cater.vercel.app", "neighborhood": "Louisville", "description": "Catering" },
+      { "name": "The Springs at Stony Brook", "url": "https://springs-stony-brook.vercel.app", "neighborhood": "Louisville", "description": "Senior living community" }
+    ],
+    "realEstate": [
+      { "name": "Halsey Flats", "url": "https://halsey-flats.vercel.app", "neighborhood": "St. Matthews", "description": "Luxury apartments" },
+      { "name": "Mallard Crossing", "url": "https://mallard-crossing.vercel.app", "neighborhood": "St. Matthews", "description": "Estate living" }
+    ],
+    "communityEducation": [
+      { "name": "Camp J", "url": "https://camp-j-lovat.vercel.app", "neighborhood": "Louisville JCC", "description": "Day camp for ages 5-17" },
+      { "name": "Chabad of Kentucky", "url": "https://chabad-of-kentucky.vercel.app", "neighborhood": "Louisville", "description": "Jewish Learning Center since 1985" },
+      { "name": "UofL Demo", "url": "https://uofl-demo.vercel.app", "neighborhood": "Louisville", "description": "University website demo" }
     ],
     "templates": [
-      {
-        "name": "Credit Union Template",
-        "url": "https://credit-union-template-demo.vercel.app",
-        "description": "Modern credit union website template"
-      },
-      {
-        "name": "UofL Demo",
-        "url": "https://uofl-demo.vercel.app",
-        "description": "University website template"
-      }
+      { "name": "Credit Union Template", "url": "https://credit-union-template-demo.vercel.app", "description": "Credit union website template" }
     ]
   },
   "neighborhoods": [
@@ -290,31 +186,33 @@
     "Germantown",
     "Middletown",
     "Jeffersontown",
-    "Highlands",
+    "The Highlands",
     "Bardstown Road",
     "Dutchmans Lane",
-    "Dixie Highway",
+    "Downtown Louisville",
     "Westport Road",
     "Logan Street Market",
-    "Downtown",
     "Crestwood",
     "Springhurst"
   ],
   "categories": [
-    "Healthcare",
+    "Healthcare & Medical",
     "Dental",
-    "Restaurants",
+    "Food & Beverage",
     "Beauty & Wellness",
-    "Bars",
-    "Professional Services",
+    "Legal & Finance",
     "Retail",
-    "Community & Nonprofit",
+    "Services",
+    "Real Estate",
+    "Community & Education",
     "Templates"
   ],
   "stats": {
-    "totalProduction": 6,
-    "totalLouisvilleBusinesses": 37,
-    "totalUrls": 80,
-    "neighborhoodsCovered": 13
+    "totalLouisvilleBusinesses": 66,
+    "totalProductionApps": 4,
+    "totalConceptualExplorations": 10,
+    "totalDeployedUrls": 80,
+    "neighborhoodsCovered": 12,
+    "categoriesCovered": 10
   }
 }
