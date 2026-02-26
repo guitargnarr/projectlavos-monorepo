@@ -115,8 +115,37 @@ function App() {
       description: "Bespoke catering at Louisville's most storied venue",
       altText: "Clementine Catering Louisville Kentucky Steve Clements bespoke catering Peterson-Dumesnil House 1869 Italian villa weddings corporate events seasonal organic local ingredients",
       category: "Restaurant",
-      specWork: true,
-      details: "Premium demo for Louisville's exclusive caterer at the Peterson-Dumesnil House. Custom Chandelier 3D formation hero with gold crystal drops and bloom lighting. Mobius strip section background. Services: weddings, corporate events, intimate dinners, rehearsal dinners, holiday celebrations. Venue showcase with capacity and rates. Gold/green palette with Cormorant Garamond typography."
+      specWork: false,
+      details: "Three distinct design directions for Louisville's exclusive caterer at the Peterson-Dumesnil House, an 1869 Italian villa on four acres of historic grounds. Services: weddings, corporate events, intimate dinners, rehearsal dinners, holiday celebrations. Each version features full sub-pages (About, Gallery, Venue, Menus, Contact) with unique visual identity.",
+      versions: [
+        {
+          label: "Dramatic Cinematic",
+          url: "https://clementine-cater.vercel.app",
+          preview: "/og-images/clementine-cater-og.png",
+          ogImage: "/og-images/clementine-cater-og.png",
+          qrCode: "/qr-codes/clementine-cater-qr.png",
+          description: "Dark cinematic aesthetic with chandelier 3D formation, gold crystal drops, and bloom lighting. Cormorant Garamond typography on deep black. Full sub-page suite with dramatic hero sections.",
+          features: "Chandelier 3D hero \u2022 Gold/green palette \u2022 6 sub-pages \u2022 Cinematic scroll"
+        },
+        {
+          label: "Golden Hour Heritage",
+          url: "https://clementine-cater.vercel.app/v2",
+          preview: "/og-images/clementine-cater-v2-og.png",
+          ogImage: "/og-images/clementine-cater-v2-og.png",
+          qrCode: "/qr-codes/clementine-cater-v2-qr.png",
+          description: "Warm editorial elegance with terracotta and cream palette. Cormorant Garamond headlines, frosted glass navigation, heritage arches motif. Full sub-page suite with golden hour photography.",
+          features: "Terracotta palette \u2022 Editorial layout \u2022 5 sub-pages \u2022 Frosted glass nav"
+        },
+        {
+          label: "White Canvas",
+          url: "https://clementine-cater.vercel.app/v3",
+          preview: "/og-images/clementine-cater-v3-og.png",
+          ogImage: "/og-images/clementine-cater-v3-og.png",
+          qrCode: "/qr-codes/clementine-cater-v3-qr.png",
+          description: "Minimal black-and-white design with clean typography. Inter body font, Times New Roman logo, generous whitespace. Full sub-page suite with understated elegance.",
+          features: "Black & white \u2022 Minimal typography \u2022 5 sub-pages \u2022 Clean whitespace"
+        }
+      ]
     },
     {
       id: "headlinersmusichall",
@@ -1433,11 +1462,33 @@ function App() {
                       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900/90 via-slate-900/60 to-transparent p-2 z-10">
                         <h3 className="text-xs font-semibold text-white truncate">{client.title}</h3>
                       </div>
+                      {/* Versions badge */}
+                      {client.versions && (
+                        <div className="absolute top-2 left-2 z-10 bg-teal-500/90 text-slate-900 text-[8px] font-bold px-1.5 py-0.5 rounded">
+                          {client.versions.length} versions
+                        </div>
+                      )}
                       {/* Hover overlay with CTA */}
                       <div className="absolute inset-0 bg-slate-900/85 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center z-20 backdrop-blur-sm p-3">
                         <span className="text-[9px] text-teal-400 uppercase tracking-wider mb-1">{client.category}</span>
                         <p className="text-slate-300 text-[10px] text-center leading-relaxed mb-2 line-clamp-3">{client.description}</p>
-                        {client.url ? (
+                        {client.versions ? (
+                          <div className="flex flex-col gap-1 w-full max-w-[180px]">
+                            {client.versions.map((v) => (
+                              <a
+                                key={v.label}
+                                href={v.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center justify-between bg-teal-500/90 hover:bg-teal-400 text-slate-900 font-semibold text-[9px] px-2.5 py-1 rounded transition-colors"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                <span className="truncate">{v.label}</span>
+                                <span className="ml-1 flex-shrink-0">→</span>
+                              </a>
+                            ))}
+                          </div>
+                        ) : client.url ? (
                           <a
                             href={client.url}
                             target="_blank"
