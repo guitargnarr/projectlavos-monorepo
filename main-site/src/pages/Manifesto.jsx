@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
+import SubPageFooter from '../components/SubPageFooter.jsx';
 
 export default function Manifesto() {
   const [visibleSections, setVisibleSections] = useState({});
@@ -42,8 +43,13 @@ export default function Manifesto() {
         <meta property="og:description" content="Substance over flash, built to last, measure twice, people over tech. A development philosophy for the AI era." />
         <meta property="og:url" content="https://projectlavos.com/manifesto" />
         <meta property="og:type" content="website" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:site_name" content="Project Lavos" />
         <meta property="og:image" content="https://projectlavos.com/og-manifesto.png" />
         <meta property="og:image:alt" content="The Manifesto — What One Person Can Build by Matthew Scott" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="The Manifesto | Development Philosophy" />
         <meta name="twitter:description" content="Substance over flash, built to last, measure twice, people over tech. A development philosophy for the AI era." />
         <meta name="twitter:image" content="https://projectlavos.com/og-manifesto.png" />
@@ -489,6 +495,7 @@ export default function Manifesto() {
           </div>
         </div>
       )}
+      <SubPageFooter />
     </div>
   );
 }

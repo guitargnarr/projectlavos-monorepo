@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
+import SubPageFooter from '../components/SubPageFooter.jsx';
 
 const scaleBooks = [
   {
@@ -486,8 +487,13 @@ export default function Guitar() {
         <meta property="og:description" content="24 downloadable guitar scale reference books. 480 exercises per book, 12 keys, 5 positions, mathematically verified tablature." />
         <meta property="og:url" content="https://projectlavos.com/guitar" />
         <meta property="og:type" content="website" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:site_name" content="Project Lavos" />
         <meta property="og:image" content="https://projectlavos.com/og-guitar.png" />
         <meta property="og:image:alt" content="Scale Reference Library — 24 Guitar Scale Books by Project Lavos" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Guitar Scale Reference Library | 24 PDF Books" />
         <meta name="twitter:description" content="24 downloadable guitar scale reference books. 480 exercises per book, 12 keys, 5 positions, mathematically verified tablature." />
         <meta name="twitter:image" content="https://projectlavos.com/og-guitar.png" />
@@ -552,13 +558,7 @@ export default function Guitar() {
       </main>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-slate-800/50 px-6 py-12">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-slate-500 text-sm">
-            &copy; {new Date().getFullYear()} Matthew Scott
-          </p>
-        </div>
-      </footer>
+      <SubPageFooter />
 
       {/* Detail Modal */}
       <AnimatePresence>

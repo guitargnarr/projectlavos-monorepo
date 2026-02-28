@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { articles } from '../data/articles.js';
+import SubPageFooter from '../components/SubPageFooter.jsx';
 
 function ArticleCard({ article }) {
   const [loaded, setLoaded] = useState(false);
@@ -26,9 +27,9 @@ function ArticleCard({ article }) {
       </div>
       <div className="p-5">
         <p className="text-teal-400 text-xs tracking-[0.15em] uppercase mb-2">{article.date}</p>
-        <h3 className="heading-display text-xl text-white mb-2 tracking-[-0.01em] group-hover:text-teal-400 transition-colors duration-300">
+        <h2 className="heading-display text-xl text-white mb-2 tracking-[-0.01em] group-hover:text-teal-400 transition-colors duration-300">
           {article.title}
-        </h3>
+        </h2>
         <p className="text-slate-400 text-sm leading-relaxed mb-3">{article.subtitle}</p>
         <div className="flex items-center gap-2 text-xs text-slate-500">
           <span>{article.pageCount} pages</span>
@@ -77,8 +78,13 @@ export default function Blog() {
         <meta property="og:description" content="Articles on AI-assisted development, verification methodology, and software development philosophy." />
         <meta property="og:url" content="https://projectlavos.com/blog" />
         <meta property="og:type" content="website" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:site_name" content="Project Lavos" />
         <meta property="og:image" content="https://projectlavos.com/og-blog.png" />
         <meta property="og:image:alt" content="Beyond the Code — Articles on AI Development by Matthew Scott" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Articles | Observations on AI Development" />
         <meta name="twitter:description" content="Articles on AI-assisted development, verification methodology, and software development philosophy." />
         <meta name="twitter:image" content="https://projectlavos.com/og-blog.png" />
@@ -129,14 +135,7 @@ export default function Blog() {
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="relative z-10 border-t border-slate-800/50 px-6 py-12">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-slate-500 text-sm">
-            &copy; {new Date().getFullYear()} Matthew Scott
-          </p>
-        </div>
-      </footer>
+      <SubPageFooter />
 
     </div>
   );

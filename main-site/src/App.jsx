@@ -1208,10 +1208,10 @@ function App() {
       <main role="main" aria-label="Matthew Scott - Louisville Web Developer Portfolio">
       {/* Structured page description for search engines and LLM comprehension */}
       <div className="sr-only" aria-hidden="false">
-        <h1>Matthew Scott - Web Developer and Consultant, Louisville, Kentucky</h1>
+        <p role="doc-subtitle">Matthew Scott - Web Developer and Consultant, Louisville, Kentucky</p>
         <p>
           This is the portfolio website of Matthew Scott, a full-stack web developer and consultant based in Louisville, Kentucky.
-          The site showcases 69 deployed demo websites built as spec work for real Louisville businesses, plus practical web applications
+          The site showcases 66 deployed demo websites built as spec work for real Louisville businesses, plus practical web applications
           and conceptual explorations. Technologies used include React, JavaScript, Python, Vite, Tailwind CSS, FastAPI, Supabase, Three.js, and AI integrations.
         </p>
         <p>
@@ -1329,7 +1329,7 @@ function App() {
       {/* Louisville Section */}
       <section
         id="louisville"
-        aria-label="Louisville client portfolio - 69 deployed spec-work demo websites built for local Kentucky businesses across healthcare, food, retail, legal, and services industries"
+        aria-label="Louisville client portfolio - 66 deployed spec-work demo websites built for local Kentucky businesses across healthcare, food, retail, legal, and services industries"
         className={`px-4 md:px-8 lg:px-16 py-16 border-t border-slate-800 transition-all duration-700 spotlight-warm section-glow-full ${visibleSections.louisville ? 'opacity-100 translate-y-0 in-view' : 'opacity-0 translate-y-8'}`}
       >
         <div className="max-w-7xl mx-auto">
@@ -1337,7 +1337,7 @@ function App() {
             Louisville
           </h2>
           <p className="text-slate-400 mb-4 section-stagger-1">
-            69 sites you can visit. <span className="accent-italic">Live.</span> Deployed. Working.
+            66 sites you can visit. <span className="accent-italic">Live.</span> Deployed. Working.
           </p>
           <p className="text-xs text-slate-500 mb-6 section-stagger-2">
             Spec work built from public info. Not pitches. Proof.
@@ -1857,6 +1857,14 @@ function App() {
               className="text-white hover:text-teal-400 transition-colors"
             >
               matthewdscott7@gmail.com
+            </a>
+            <span className="text-slate-600" aria-hidden="true">·</span>
+            <a
+              href="/services"
+              aria-label="View services and pricing from Project Lavos"
+              className="text-white hover:text-teal-400 transition-colors"
+            >
+              Services
             </a>
             <span className="text-slate-600" aria-hidden="true">·</span>
             <a

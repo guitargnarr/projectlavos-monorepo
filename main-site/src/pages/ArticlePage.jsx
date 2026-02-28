@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { articles } from '../data/articles.js';
+import SubPageFooter from '../components/SubPageFooter.jsx';
 
 export default function ArticlePage() {
   const { slug } = useParams();
@@ -81,12 +82,20 @@ export default function ArticlePage() {
         <meta property="og:url" content={`https://projectlavos.com/blog/${article.id}`} />
         <meta property="og:type" content="article" />
         <meta property="og:image" content={`https://projectlavos.com${article.coverImage}`} />
+        <meta property="og:image:alt" content={`${article.title} — ${article.subtitle}`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:site_name" content="Project Lavos" />
         <meta property="article:published_time" content={article.dateISO} />
+        <meta property="article:modified_time" content={article.dateISO} />
         <meta property="article:author" content="Matthew Scott" />
+        <meta property="article:section" content="AI Development" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={`${article.title} | ${article.subtitle}`} />
         <meta name="twitter:description" content={article.description} />
         <meta name="twitter:image" content={`https://projectlavos.com${article.coverImage}`} />
+        <meta name="twitter:image:alt" content={`${article.title} — ${article.subtitle}`} />
       </Helmet>
 
       {/* Ambient Background */}
@@ -199,13 +208,7 @@ export default function ArticlePage() {
       </main>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-slate-800/50 px-6 py-12">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-slate-500 text-sm">
-            &copy; {new Date().getFullYear()} Matthew Scott
-          </p>
-        </div>
-      </footer>
+      <SubPageFooter />
     </div>
   );
 }
