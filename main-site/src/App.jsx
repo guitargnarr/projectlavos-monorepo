@@ -1058,6 +1058,18 @@ function App() {
       category: "Personal",
       tech: ["React", "Supabase", "Vercel"],
       details: "Social media makes sharing performative. OurJourney is the opposite—a private space for two people to document what matters to them, without an audience."
+    },
+    {
+      id: "metalcore-index",
+      title: "Metalcore Index",
+      url: "https://metalcore-index.vercel.app",
+      preview: "/previews/metalcore-index.png",
+      ogImage: "/og-images/metalcore-index-og.png",
+      description: "Knowledge graph + intelligence dashboard for the heavy music industry",
+      altText: "Metalcore Index dashboard showing artist scoring, network graph visualization, and industry intelligence for 75 heavy music artists",
+      category: "Data",
+      tech: ["R", "FastAPI", "React", "Force Graph"],
+      details: "75 artists scored from 7 public data sources (Wikipedia, Deezer, Reddit, Kworb, AudioDB). 726 relationship edges across producers, labels, management, and agencies. Built for a guitar brand to identify unsigned artists with momentum. The scoring model and knowledge graph pipeline are domain-agnostic—same pattern works for any industry."
     }
   ];
 

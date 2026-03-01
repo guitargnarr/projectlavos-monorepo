@@ -46,11 +46,18 @@ export default function Services() {
       category: 'Data & Intelligence',
       tagline: 'Turn your data into a list of who to call first.',
       problem: 'You have data you can\'t use. Customer lists, market information, federal datasets -- sitting in spreadsheets, producing nothing.',
-      solution: 'I take messy data and turn it into a targeting strategy that tells you exactly which customers to pursue, why, ranked and scored, with the evidence to back it up.',
+      solution: 'I take messy data and turn it into a targeting strategy that tells you exactly which customers to pursue, why, ranked and scored, with the evidence to back it up. I mine public data, build knowledge graphs, and produce interactive dashboards that surface the relationships and momentum signals that matter.',
       alternative: 'Data consulting firms charge $150-$300/hour with month-long discovery phases. You need answers, not a statement of work.',
+      caseStudy: {
+        title: 'Metalcore Index',
+        description: '75 artists scored from 7 real data sources (Wikipedia, Deezer, Reddit, Kworb, AudioDB). 726 relationship edges. Knowledge graph with interactive network visualization. Built for a guitar brand to identify unsigned artists with momentum.',
+        url: 'https://metalcore-index.vercel.app',
+        repoUrl: 'https://github.com/guitargnarr/heavy-music-research',
+      },
       rates: [
         { name: 'Intelligence Engagement', price: '$5,000 - $15,000', note: 'Dataset analysis, targeting, scoring, strategic reporting' },
         { name: 'Market Report', price: '$3,000 - $7,500', note: 'Competitive analysis, opportunity identification' },
+        { name: 'Knowledge Graph + Dashboard', price: '$7,500 - $15,000', note: 'Define universe, mine public data, build relationship graph, score entities, interactive dashboard' },
         { name: 'Executive Analytics', price: '$5,000 - $10,000 build + $1,500/mo', note: 'KPI/OKR systems, performance dashboards' },
       ],
     },
@@ -179,6 +186,39 @@ export default function Services() {
             <p className="text-slate-500 text-sm sm:text-base italic mb-8 border-l-2 border-slate-700 pl-6">
               {offering.alternative}
             </p>
+
+            {/* Case Study (if present) */}
+            {offering.caseStudy && (
+              <div className="mb-10 bg-slate-800/60 rounded-xl border border-teal-500/30 p-6 sm:p-8">
+                <h3 className="text-sm uppercase tracking-widest text-teal-500 mb-3">Live Example</h3>
+                <p className="heading-display text-lg sm:text-xl text-white mb-2 tracking-[-0.01em]">
+                  {offering.caseStudy.title}
+                </p>
+                <p className="text-slate-400 text-sm sm:text-base leading-relaxed mb-4">
+                  {offering.caseStudy.description}
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <a
+                    href={offering.caseStudy.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-teal-500/20 text-teal-400 hover:bg-teal-500/30 border border-teal-500/40 px-4 py-2 rounded-lg text-sm font-semibold transition-all"
+                  >
+                    View Dashboard &rarr;
+                  </a>
+                  {offering.caseStudy.repoUrl && (
+                    <a
+                      href={offering.caseStudy.repoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-slate-400 hover:text-white border border-slate-600 hover:border-slate-500 px-4 py-2 rounded-lg text-sm font-semibold transition-all"
+                    >
+                      GitHub
+                    </a>
+                  )}
+                </div>
+              </div>
+            )}
 
             {/* Rate Card */}
             <div className="bg-slate-800/50 rounded-xl border border-slate-700/50 overflow-hidden">
