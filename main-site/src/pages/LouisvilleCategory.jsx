@@ -64,7 +64,17 @@ export default function LouisvilleCategory() {
     `transition-all duration-700 ${visibleSections[id] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`;
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white">
+    <div className="min-h-screen bg-slate-900 text-white relative overflow-hidden">
+      {/* Ambient Background */}
+      <div className="ambient-bg">
+        <div className="orb-3" />
+      </div>
+      <div className="particles">
+        {[...Array(10)].map((_, i) => (
+          <div key={i} className="particle" />
+        ))}
+      </div>
+
       <Helmet>
         <title>{cat.title}</title>
         <meta name="description" content={cat.metaDescription} />
@@ -77,7 +87,7 @@ export default function LouisvilleCategory() {
       </Helmet>
 
       {/* Breadcrumb */}
-      <nav aria-label="Breadcrumb" className="max-w-5xl mx-auto px-6 pt-8">
+      <nav aria-label="Breadcrumb" className="relative z-10 max-w-5xl mx-auto px-6 pt-8">
         <ol className="flex items-center gap-2 text-sm text-slate-500">
           <li><Link to="/" className="hover:text-teal-400 transition-colors">Home</Link></li>
           <li aria-hidden="true">/</li>
@@ -88,21 +98,26 @@ export default function LouisvilleCategory() {
       </nav>
 
       {/* Hero */}
-      <section id="hero" className={`max-w-5xl mx-auto px-6 pt-12 pb-12 ${sectionClass('hero')}`}>
-        <h1 className="heading-display text-3xl sm:text-4xl md:text-5xl text-white tracking-[-0.02em] mb-4">
+      <section id="hero" className={`relative z-10 max-w-5xl mx-auto px-6 pt-12 pb-12 ${sectionClass('hero')}`}>
+        <span className="eyebrow-label text-teal-500 block mb-4">{cat.displayName}</span>
+        <h1 className="heading-display text-3xl sm:text-4xl md:text-5xl text-white tracking-[-0.02em] mb-0">
           {cat.h1}
         </h1>
+        <div className="w-16 h-[2px] bg-gradient-to-r from-teal-500 to-teal-400 mt-4 mb-6" />
         <p className="text-lg text-slate-400 max-w-2xl">
-          {cat.proof.count} deployed demo sites for real Louisville {cat.displayName.toLowerCase()} businesses.
+          <span className="accent-italic">{cat.proof.count} deployed demo sites</span> for real Louisville {cat.displayName.toLowerCase()} businesses.
           Every site is live -- click any one and see it working.
         </p>
       </section>
 
       {/* Proof Grid */}
-      <section id="proof" className={`max-w-5xl mx-auto px-6 pb-16 ${sectionClass('proof')}`}>
-        <h2 className="text-xl sm:text-2xl font-bold text-white mb-6">
-          Louisville {cat.displayName} Sites We&apos;ve Built
-        </h2>
+      <section id="proof" className={`relative z-10 max-w-5xl mx-auto px-6 pb-16 ${sectionClass('proof')}`}>
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-[2px] bg-gradient-to-r from-teal-500 to-transparent" />
+          <h2 className="text-xl sm:text-2xl font-bold text-white">
+            Louisville {cat.displayName} Sites We&apos;ve Built
+          </h2>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {sites.map((site) => (
             <a
@@ -110,7 +125,7 @@ export default function LouisvilleCategory() {
               href={site.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group bg-slate-800/50 border border-slate-700/50 rounded-xl overflow-hidden hover:border-teal-500/50 hover:shadow-lg hover:shadow-teal-500/10 transition-all duration-300"
+              className="group card-glass-elite rounded-xl overflow-hidden hover:shadow-[0_0_30px_-10px_rgba(20,184,166,0.15)] transition-all duration-300"
             >
               <div className="aspect-[4/3] bg-slate-800 overflow-hidden relative">
                 <img
@@ -143,14 +158,17 @@ export default function LouisvilleCategory() {
       </section>
 
       {/* What You Get */}
-      <section id="features" className={`max-w-5xl mx-auto px-6 pb-16 ${sectionClass('features')}`}>
-        <h2 className="text-xl sm:text-2xl font-bold text-white mb-6">
-          What You Get With a Louisville {cat.displayName} Website
-        </h2>
+      <section id="features" className={`relative z-10 max-w-5xl mx-auto px-6 pb-16 ${sectionClass('features')}`}>
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-[2px] bg-gradient-to-r from-teal-500 to-transparent" />
+          <h2 className="text-xl sm:text-2xl font-bold text-white">
+            What You Get With a Louisville {cat.displayName} Website
+          </h2>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {cat.proof.features.map((feature) => (
-            <div key={feature} className="flex items-start gap-3 bg-slate-800/30 border border-slate-700/30 rounded-lg p-4">
-              <span className="text-teal-400 mt-0.5 shrink-0" aria-hidden="true">&#10003;</span>
+            <div key={feature} className="flex items-start gap-3 card-glass-elite rounded-lg p-4">
+              <div className="w-2 h-2 rounded-full bg-gradient-to-r from-teal-400 to-teal-300 mt-1.5 shrink-0" />
               <span className="text-sm text-slate-300">{feature}</span>
             </div>
           ))}
@@ -160,8 +178,8 @@ export default function LouisvilleCategory() {
             'Google Analytics and speed insights',
             'Custom domain setup',
           ].map((feature) => (
-            <div key={feature} className="flex items-start gap-3 bg-slate-800/30 border border-slate-700/30 rounded-lg p-4">
-              <span className="text-teal-400 mt-0.5 shrink-0" aria-hidden="true">&#10003;</span>
+            <div key={feature} className="flex items-start gap-3 card-glass-elite rounded-lg p-4">
+              <div className="w-2 h-2 rounded-full bg-gradient-to-r from-teal-400 to-teal-300 mt-1.5 shrink-0" />
               <span className="text-sm text-slate-300">{feature}</span>
             </div>
           ))}
@@ -169,13 +187,16 @@ export default function LouisvilleCategory() {
       </section>
 
       {/* FAQ */}
-      <section id="faq" className={`max-w-5xl mx-auto px-6 pb-16 ${sectionClass('faq')}`}>
-        <h2 className="text-xl sm:text-2xl font-bold text-white mb-6">
-          {cat.displayName} Web Design Questions for Louisville Businesses
-        </h2>
+      <section id="faq" className={`relative z-10 max-w-5xl mx-auto px-6 pb-16 ${sectionClass('faq')}`}>
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-[2px] bg-gradient-to-r from-teal-500 to-transparent" />
+          <h2 className="text-xl sm:text-2xl font-bold text-white">
+            {cat.displayName} Web Design Questions for Louisville Businesses
+          </h2>
+        </div>
         <div className="space-y-4">
           {cat.faq.map(({ q, a }) => (
-            <details key={q} className="bg-slate-800/50 border border-slate-700/50 rounded-xl group">
+            <details key={q} className="card-glass-elite rounded-xl group">
               <summary className="flex items-center justify-between p-5 cursor-pointer text-white font-medium hover:text-teal-400 transition-colors">
                 <span>{q}</span>
                 <span className="text-slate-500 group-open:rotate-45 transition-transform ml-4 shrink-0" aria-hidden="true">+</span>
@@ -190,14 +211,17 @@ export default function LouisvilleCategory() {
 
       {/* Related Categories */}
       {relatedCategories.length > 0 && (
-        <section id="related" className={`max-w-5xl mx-auto px-6 pb-12 ${sectionClass('related')}`}>
-          <h2 className="text-xl sm:text-2xl font-bold text-white mb-6">Related Louisville Services</h2>
+        <section id="related" className={`relative z-10 max-w-5xl mx-auto px-6 pb-12 ${sectionClass('related')}`}>
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-[2px] bg-gradient-to-r from-teal-500 to-transparent" />
+            <h2 className="text-xl sm:text-2xl font-bold text-white">Related Louisville Services</h2>
+          </div>
           <div className="flex flex-wrap gap-3">
             {relatedCategories.map((rc) => (
               <Link
                 key={rc.slug}
                 to={`/louisville/${rc.slug}`}
-                className="bg-slate-800/50 border border-slate-700/50 rounded-lg px-5 py-3 hover:border-teal-500/50 hover:text-teal-400 transition-all text-sm text-slate-300"
+                className="card-glass-elite rounded-lg px-5 py-3 hover:scale-[1.02] hover:text-teal-400 transition-all text-sm text-slate-300"
               >
                 {rc.displayName} ({rc.proof.count} sites)
               </Link>
@@ -207,14 +231,17 @@ export default function LouisvilleCategory() {
       )}
 
       {/* Other Categories */}
-      <section id="other" className={`max-w-5xl mx-auto px-6 pb-12 ${sectionClass('other')}`}>
-        <h2 className="text-xl sm:text-2xl font-bold text-white mb-6">Other Louisville Industries</h2>
+      <section id="other" className={`relative z-10 max-w-5xl mx-auto px-6 pb-12 ${sectionClass('other')}`}>
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-[2px] bg-gradient-to-r from-teal-500 to-transparent" />
+          <h2 className="text-xl sm:text-2xl font-bold text-white">Other Louisville Industries</h2>
+        </div>
         <div className="flex flex-wrap gap-3">
           {otherCategories.map((oc) => (
             <Link
               key={oc.slug}
               to={`/louisville/${oc.slug}`}
-              className="bg-slate-800/50 border border-slate-700/50 rounded-lg px-4 py-2 hover:border-teal-500/50 hover:text-teal-400 transition-all text-sm text-slate-300"
+              className="card-glass-elite rounded-lg px-4 py-2 hover:scale-[1.02] hover:text-teal-400 transition-all text-sm text-slate-300"
             >
               {oc.displayName}
             </Link>
@@ -223,11 +250,14 @@ export default function LouisvilleCategory() {
       </section>
 
       {/* Neighborhoods */}
-      <section id="neighborhoods" className={`max-w-5xl mx-auto px-6 pb-12 ${sectionClass('neighborhoods')}`}>
-        <h2 className="text-xl sm:text-2xl font-bold text-white mb-6">Louisville Neighborhoods We Cover</h2>
+      <section id="neighborhoods" className={`relative z-10 max-w-5xl mx-auto px-6 pb-12 ${sectionClass('neighborhoods')}`}>
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-[2px] bg-gradient-to-r from-teal-500 to-transparent" />
+          <h2 className="text-xl sm:text-2xl font-bold text-white">Louisville Neighborhoods We Cover</h2>
+        </div>
         <div className="flex flex-wrap gap-2">
           {portfolioData.neighborhoods.map((n) => (
-            <span key={n} className="bg-slate-800/50 border border-slate-700/50 rounded-full px-3 py-1.5 text-xs text-slate-400">
+            <span key={n} className="card-glass-elite rounded-full px-3 py-1.5 text-xs text-slate-400">
               {n}
             </span>
           ))}
@@ -235,9 +265,9 @@ export default function LouisvilleCategory() {
       </section>
 
       {/* CTA */}
-      <section id="cta" className={`max-w-5xl mx-auto px-6 pb-20 ${sectionClass('cta')}`}>
-        <div className="bg-gradient-to-br from-slate-800 to-slate-800/50 border border-slate-700/50 rounded-2xl p-10 text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
+      <section id="cta" className={`relative z-10 max-w-5xl mx-auto px-6 pb-20 ${sectionClass('cta')}`}>
+        <div className="bg-gradient-to-br from-slate-800 to-slate-800/50 border border-slate-700/50 rounded-2xl p-10 text-center shadow-[0_0_40px_-10px_rgba(20,184,166,0.2)]">
+          <h2 className="heading-display text-2xl sm:text-3xl text-white mb-4">
             Get a {cat.displayName} Website for Your Louisville Business
           </h2>
           <p className="text-slate-400 mb-6 max-w-lg mx-auto">
@@ -246,7 +276,7 @@ export default function LouisvilleCategory() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/services"
-              className="inline-flex items-center justify-center px-6 py-3 bg-teal-600 hover:bg-teal-500 text-white font-semibold rounded-lg transition-colors"
+              className="btn-elite inline-flex items-center justify-center px-6 py-3"
             >
               View Pricing
             </Link>
