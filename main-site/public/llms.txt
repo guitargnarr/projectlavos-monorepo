@@ -151,8 +151,21 @@ Each client site is built on one of four proven tiers:
 
 Highland Cleaners demonstrates all four tiers for the same business, showing how scope scales with need.
 
+## Louisville Service Pages
+Geo-targeted service pages with real deployed proof for each industry:
+- Louisville Hub: https://projectlavos.com/louisville (66 demo sites, 12 neighborhoods, 9 industries)
+- Healthcare & Medical: https://projectlavos.com/louisville/healthcare (15 sites)
+- Dental: https://projectlavos.com/louisville/dental (4 sites)
+- Food & Beverage: https://projectlavos.com/louisville/restaurants (11 sites)
+- Beauty & Wellness: https://projectlavos.com/louisville/beauty-wellness (8 sites)
+- Legal & Finance: https://projectlavos.com/louisville/legal-finance (7 sites)
+- Retail: https://projectlavos.com/louisville/retail (10 sites)
+- Services: https://projectlavos.com/louisville/services (5 sites)
+- Real Estate: https://projectlavos.com/louisville/real-estate (2 sites)
+- Community & Education: https://projectlavos.com/louisville/community-education (3 sites)
+
 ## Machine-Readable Data
-- Structured data: JSON-LD in page source (Person, ProfessionalService, FAQPage, ItemList, SoftwareApplication, CollectionPage, Blog, BreadcrumbList, SiteNavigationElement)
+- Structured data: JSON-LD in page source (Person, ProfessionalService, FAQPage, ItemList, SoftwareApplication, CollectionPage, Blog, BreadcrumbList, SiteNavigationElement, Service)
 - Sitemap: https://projectlavos.com/sitemap.xml
 - This file: https://projectlavos.com/llms.txt
 

@@ -1015,7 +1015,7 @@ function App() {
       id: "fretvision",
       title: "FretVision",
       url: "https://projectlavos.com/guitar",
-      preview: "/previews/fretvision.png",
+      preview: "/og-images/fretvision-og.png",
       ogImage: "/og-images/fretvision-og.png",
       description: "Learn guitar scales visually with interactive lessons",
       altText: "FretVision guitar learning app showing interactive fretboard visualization with scale patterns and MIDI playback controls",
@@ -1027,7 +1027,7 @@ function App() {
       id: "meridian",
       title: "Meridian",
       url: "https://phishguard-ui.vercel.app",
-      preview: "/previews/meridian.png",
+      preview: "/og-images/meridian-og.png",
       ogImage: "/og-images/meridian-og.png",
       description: "US economic data explorer with interactive state-level maps",
       altText: "Meridian US Economic Data Explorer interactive map showing state-level unemployment income population poverty metrics market intelligence",
@@ -1039,7 +1039,7 @@ function App() {
       id: "jobway",
       title: "Jobway",
       url: "https://jobway-eosin.vercel.app",
-      preview: "/previews/jobway.png",
+      preview: "/og-images/jobway-og.png",
       ogImage: "/og-images/jobway-og.png",
       description: "AI-powered job search command center with Gmail integration",
       altText: "Jobway dashboard showing job tracking, ATS optimization scores, email scanning, and follow-up scheduling",
@@ -1051,7 +1051,7 @@ function App() {
       id: "ourjourney",
       title: "OurJourney",
       url: "https://ourjourney-app.vercel.app",
-      preview: "/previews/ourjourney.png",
+      preview: "/og-images/ourjourney-og.png",
       ogImage: "/og-images/ourjourney-og.png",
       description: "A private space for two people to document what matters",
       altText: "OurJourney couple experience tracker app showing shared memories and private journal entries",
@@ -1063,7 +1063,7 @@ function App() {
       id: "metalcore-index",
       title: "Metalcore Index",
       url: "https://metalcore-index.vercel.app",
-      preview: "/previews/metalcore-index.png",
+      preview: "/og-images/metalcore-index-og.png",
       ogImage: "/og-images/metalcore-index-og.png",
       description: "Knowledge graph + intelligence dashboard for the heavy music industry",
       altText: "Metalcore Index dashboard showing artist scoring, network graph visualization, and industry intelligence for 75 heavy music artists",
@@ -1270,6 +1270,9 @@ function App() {
             <div className="w-8 h-px bg-gradient-to-r from-transparent via-teal-500 to-transparent mx-auto mb-4 hero-line-expand" aria-hidden="true" />
             <h1 className="heading-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white tracking-[-0.02em]">
               Matthew Scott
+              <span className="block text-lg sm:text-xl md:text-2xl text-slate-400 font-sans font-light tracking-[0.08em] mt-2">
+                Louisville Web Developer &amp; AI Consultant
+              </span>
             </h1>
           </div>
 

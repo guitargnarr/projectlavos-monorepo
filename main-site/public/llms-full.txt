@@ -252,9 +252,30 @@ https://projectlavos.com/blog/verification-gap
 
 An exploration of verification challenges in AI-assisted development. When AI generates code that looks syntactically correct, how do humans verify it actually works? The article examines the gap between generation and validation -- the difference between "looks right" and "works right." Covers source code inspection vs. runtime behavior, the limits of reading as verification, and practical approaches to closing the gap.
 
+## Louisville Service Pages
+
+Geo-targeted service pages showcasing real deployed demo websites for Louisville businesses in each industry. Unlike competitors who use templated city pages with zero proof, every page links to actual deployed demo sites built for real Louisville businesses.
+
+### Louisville Hub
+https://projectlavos.com/louisville
+Overview page with 66 demo sites across 9 industries and 12 Louisville neighborhoods. Stats, category navigation, neighborhood coverage.
+
+### Industry Pages
+- **Healthcare & Medical** (https://projectlavos.com/louisville/healthcare) - 15 deployed sites including Kentuckiana Gastroenterology, Scout Aesthetics, Springhurst Endodontics, Vance & Stovall Optometry
+- **Dental** (https://projectlavos.com/louisville/dental) - 4 deployed sites including Dupont Pediatric Dentistry, Gray Family Dentistry, Affinity Dental, JBH Dental
+- **Food & Beverage** (https://projectlavos.com/louisville/restaurants) - 11 deployed sites including Vincenzo's (since 1986), Nachbar (Germantown), Hideaway Saloon, PassTime Fish House
+- **Beauty & Wellness** (https://projectlavos.com/louisville/beauty-wellness) - 8 deployed sites including Fritz Salon, Louisville Nails & Spa, Pilates Plus, JR Spa & Salon (since 1976)
+- **Legal & Finance** (https://projectlavos.com/louisville/legal-finance) - 7 deployed sites including Morgan Pottinger McGarvey (since 1974), Pillar Financial Advisors, Commonwealth Capital
+- **Retail** (https://projectlavos.com/louisville/retail) - 10 deployed sites including Genesis Diamonds, Rodes (since 1914), Clater Jewelers (since 1949), Headliners Music Hall (since 1939)
+- **Services** (https://projectlavos.com/louisville/services) - 5 deployed sites including Highland Cleaners (since 1944), Tom Drexler (since 1982), Clementine Catering (real client)
+- **Real Estate** (https://projectlavos.com/louisville/real-estate) - 2 deployed sites: Halsey Flats and Mallard Crossing in St. Matthews
+- **Community & Education** (https://projectlavos.com/louisville/community-education) - 3 deployed sites: Camp J, Chabad of Kentucky (since 1985), UofL Demo
+
+Each industry page includes: live demo site grid, category-specific features, FAQ, related categories, Louisville neighborhoods covered, and call to action.
+
 ## Structured Data & Machine-Readable Formats
 
-- **JSON-LD schemas in page source:** Person, ProfessionalService, FAQPage, ItemList (69 sites + 4 apps), SoftwareApplication (6 apps), CollectionPage, Blog with BlogPosting, BreadcrumbList, SiteNavigationElement
+- **JSON-LD schemas in page source:** Person, ProfessionalService, FAQPage, ItemList (69 sites + 4 apps), SoftwareApplication (6 apps), CollectionPage, Blog with BlogPosting, BreadcrumbList, SiteNavigationElement, Service
 - **Sitemap:** https://projectlavos.com/sitemap.xml
 - **Concise llms.txt:** https://projectlavos.com/llms.txt
 - **This file (extended):** https://projectlavos.com/llms-full.txt

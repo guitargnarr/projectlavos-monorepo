@@ -1,4 +1,7 @@
 {
+  "crons": [
+    { "path": "/api/keep-warm", "schedule": "*/14 * * * *" }
+  ],
   "rewrites": [
     { "source": "/api/outreach/:path*", "destination": "https://outreach-api-miha.onrender.com/:path*" },
     { "source": "/api/backend/:path*", "destination": "https://projectlavos-backend.onrender.com/:path*" },

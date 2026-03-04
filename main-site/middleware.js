@@ -61,7 +61,92 @@ const META = {
       { name: 'Manifesto', url: 'https://projectlavos.com/manifesto' },
     ],
   },
+  '/louisville': {
+    title: 'Louisville Web Development | 66 Demo Sites | Matthew Scott',
+    description: 'Louisville web developer with 66 deployed demo websites for real local businesses across healthcare, restaurants, legal, retail, beauty, and services. 12 neighborhoods covered. React, mobile-first, SEO-ready.',
+    url: 'https://projectlavos.com/louisville',
+    image: 'https://projectlavos.com/og-image.png',
+    imageAlt: 'Louisville Web Development — 66 Demo Sites by Matthew Scott',
+    type: 'website',
+    breadcrumbs: [
+      { name: 'Home', url: 'https://projectlavos.com' },
+      { name: 'Louisville', url: 'https://projectlavos.com/louisville' },
+    ],
+    service: {
+      name: 'Louisville Web Development',
+      description: '66 deployed demo websites for real Louisville businesses across 9 industries and 12 neighborhoods.',
+      areaServed: 'Louisville, Kentucky',
+    },
+  },
 };
+
+const LOUISVILLE_CATEGORY_META = {
+  healthcare: {
+    title: 'Louisville Healthcare Web Design | Matthew Scott',
+    description: 'Custom healthcare websites for Louisville medical practices. 15 deployed examples including gastroenterology, dermatology, med spa, urgent care, and optometry. React, mobile-first, HIPAA-aware design.',
+    displayName: 'Healthcare & Medical',
+  },
+  dental: {
+    title: 'Louisville Dental Web Design | Matthew Scott',
+    description: 'Custom dental websites for Louisville practices. 4 deployed examples including pediatric dentistry, family dentistry, and general dental. React, mobile-first design.',
+    displayName: 'Dental',
+  },
+  restaurants: {
+    title: 'Louisville Restaurant Web Design | Matthew Scott',
+    description: 'Custom restaurant and bar websites for Louisville businesses. 11 deployed examples from fine dining to craft breweries. Online ordering, menus, booking. React, mobile-first.',
+    displayName: 'Food & Beverage',
+  },
+  'beauty-wellness': {
+    title: 'Louisville Beauty & Wellness Web Design | Matthew Scott',
+    description: 'Custom beauty and wellness websites for Louisville businesses. 8 deployed examples including salons, spas, nail bars, pilates studios. React, mobile-first.',
+    displayName: 'Beauty & Wellness',
+  },
+  'legal-finance': {
+    title: 'Louisville Legal & Finance Web Design | Matthew Scott',
+    description: 'Custom legal and financial websites for Louisville firms. 7 deployed examples including law firms, financial advisors, and wealth management. React, mobile-first.',
+    displayName: 'Legal & Finance',
+  },
+  retail: {
+    title: 'Louisville Retail Web Design | Matthew Scott',
+    description: 'Custom retail websites for Louisville businesses. 10 deployed examples including jewelers, clothiers, toy shops, and music venues. E-commerce, product catalogs.',
+    displayName: 'Retail',
+  },
+  services: {
+    title: 'Louisville Home Services Web Design | Matthew Scott',
+    description: 'Custom home service websites for Louisville businesses. 5 deployed examples including cleaners, landscaping, plumbing, and catering. React, mobile-first.',
+    displayName: 'Services',
+  },
+  'real-estate': {
+    title: 'Louisville Real Estate Web Design | Matthew Scott',
+    description: 'Custom real estate websites for Louisville properties. Deployed examples including luxury apartments and estate living in St. Matthews. React, mobile-first.',
+    displayName: 'Real Estate',
+  },
+  'community-education': {
+    title: 'Louisville Community & Education Web Design | Matthew Scott',
+    description: 'Custom community and education websites for Louisville organizations. Deployed examples including day camps, learning centers, and university demos. React, mobile-first.',
+    displayName: 'Community & Education',
+  },
+};
+
+function buildServiceJsonLd(meta) {
+  return JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: meta.service.name,
+    description: meta.service.description,
+    provider: {
+      '@type': 'Person',
+      '@id': 'https://projectlavos.com/#matthew-scott',
+      name: 'Matthew Scott',
+      url: 'https://projectlavos.com',
+    },
+    areaServed: {
+      '@type': 'City',
+      name: meta.service.areaServed,
+    },
+    url: meta.url,
+  });
+}
 
 function buildBreadcrumbJsonLd(breadcrumbs) {
   return JSON.stringify({
@@ -114,7 +199,35 @@ function buildArticleJsonLd(meta) {
 
 export default async function middleware(request) {
   const url = new URL(request.url);
-  const meta = META[url.pathname];
+  let meta = META[url.pathname];
+
+  // Dynamic Louisville category pages
+  if (!meta) {
+    const match = url.pathname.match(/^\/louisville\/([a-z-]+)$/);
+    if (match) {
+      const catMeta = LOUISVILLE_CATEGORY_META[match[1]];
+      if (catMeta) {
+        meta = {
+          title: catMeta.title,
+          description: catMeta.description,
+          url: `https://projectlavos.com/louisville/${match[1]}`,
+          image: 'https://projectlavos.com/og-image.png',
+          imageAlt: `${catMeta.displayName} Web Design in Louisville by Matthew Scott`,
+          type: 'website',
+          breadcrumbs: [
+            { name: 'Home', url: 'https://projectlavos.com' },
+            { name: 'Louisville', url: 'https://projectlavos.com/louisville' },
+            { name: catMeta.displayName, url: `https://projectlavos.com/louisville/${match[1]}` },
+          ],
+          service: {
+            name: `Louisville ${catMeta.displayName} Web Design`,
+            description: catMeta.description,
+            areaServed: 'Louisville, Kentucky',
+          },
+        };
+      }
+    }
+  }
 
   // Only transform routes with custom meta
   if (!meta) return;
@@ -204,6 +317,12 @@ export default async function middleware(request) {
     html = html.replace('</head>', `${articleTag}</head>`);
   }
 
+  // Inject Service JSON-LD for Louisville pages before </head>
+  if (meta.service) {
+    const serviceTag = `<script type="application/ld+json" id="service-jsonld">\n    ${buildServiceJsonLd(meta)}\n    </script>\n  `;
+    html = html.replace('</head>', `${serviceTag}</head>`);
+  }
+
   return new Response(html, {
     status: response.status,
     headers: {
@@ -214,5 +333,5 @@ export default async function middleware(request) {
 }
 
 export const config = {
-  matcher: ['/blog', '/blog/:slug', '/guitar', '/manifesto'],
+  matcher: ['/blog', '/blog/:slug', '/guitar', '/manifesto', '/louisville', '/louisville/:slug'],
 };
